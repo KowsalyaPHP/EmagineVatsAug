@@ -1,0 +1,32 @@
+
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer  #snav class="sideNav" style="position: relative;"  opened [mode]="'side'">
+			<mat-nav-list>
+         <ul>
+             <li *ngIf="showMenu"><a [routerLink]="['/position',id]">Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',id]">Req Status Logs</a></li>
+          </ul>				
+			</mat-nav-list>
+		</mat-drawer>
+
+        <mat-drawer-content style="margin-left:20%">
+            <div class="content whiteframe" >
+                <p> <b>Req Status Logs:</b> #<a style="color: #0670c4;" [routerLink]="['/requisitionadd',id]"> {{id}} - {{reqTitle}}</a></p>
+                 <div style="height:141px;" *ngFor="let item of reqCvLogs">    
+                     <div style="float:left"> 
+                         <div class="circleGray"><i class="fa fa-check fa-2x checkmark" aria-hidden="true"></i></div>
+                         <div class="line"></div>
+                     </div>
+                         <div class="rect">        
+                         <label>
+                         Status: {{item.ReqStatusString}},  Date: {{item.ReqStatusDate| date: 'dd-MMM-yyyy'}},  Remarks: {{item.ReqStatusRemarks}}
+                         </label>
+                     </div>             
+                 </div>     
+             </div>
+		</mat-drawer-content>
+	</mat-drawer-container>
+</div>

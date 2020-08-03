@@ -1,0 +1,19 @@
+.mat-toolbar-row, .mat-toolbar-single-row{
+    height:50px !important; 
+    font-size:13px;   
+}
+.mat-toolbar.mat-primary {
+    background: #0670c4;
+    color: #fff;
+}
+ul{
+    list-style: none;
+}
+li{
+    padding: 7px;
+    margin-left: -30px;
+}
+.mat-drawer-container {
+    position: inherit;
+    
+}

@@ -1,0 +1,282 @@
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+  </div>
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer *ngIf="showsideNav" #snav class="sideNav" style="position: relative;" opened [mode]="'side'">
+			<mat-nav-list>
+         <ul>
+             <li *ngIf="showMenu"><a [routerLink]="['/position',id]">Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',id]">Req Status Logs</a></li>
+          </ul>				
+			</mat-nav-list>
+		</mat-drawer>
+
+        <mat-drawer-content style="margin-left:20%">
+            <form class="form" role="form" focusInvalidInput autocomplete="off" id="formrequisitions" novalidate=""
+        [formGroup]="addRequisitionForm" (submit)='addRequisition(addRequisitionForm.getRawValue())'>
+    <div class="whiteframe" style="width: 93%;">
+        <h3 >Requisition  <span *ngIf="id > 0"> - #{{id}}</span> <span style="font-size: 10px;color: #c1c1bf;font-weight: normal;float: right;margin-top: -16px;"><table style="padding:0px !important;"><tr style="padding:0px !important;"><td style="padding:0px !important;">Created On:</td><td style="padding:0px !important;">{{createdOn}}</td></tr><tr style="padding:0px !important;"><td style="padding:0px !important;">Opened On:</td><td style="padding:0px !important;">{{openedOn}}</td></tr><tr style="padding:0px !important;"><td style="padding:0px !important;">Modified On:</td><td style="padding:0px !important;">{{modifyOn}}</td></tr></table></span></h3>       
+        <table style="width:100%">            
+            <tr> 
+                <td>
+                    <mat-form-field>
+                        <input size="35" maxlength="80" matInput placeholder="Requisition Title" formControlName="Reqtitle" required>
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Reqtitle">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Reqtitle').hasError(validation.type) && (addRequisitionForm.get('Reqtitle').dirty || addRequisitionForm.get('Reqtitle').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>        
+                </td>
+                <td>
+                    <mat-form-field>                 
+                    <select matNativeControl maxlength="8" required placeholder="Employment Type" formControlName="EmploymentType">
+                        <option *ngFor="let item of LkupEmploymentType" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select>
+                    <mat-error *ngFor="let validation of requisition_validation_messages.EmploymentType">
+                        <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('EmploymentType').hasError(validation.type) && (addRequisitionForm.get('EmploymentType').dirty || addRequisitionForm.get('EmploymentType').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                    </mat-form-field>            
+                </td>
+                <td>     
+                    <mat-form-field class="example-full-width">  
+                        <select matNativeControl required placeholder="Client" formControlName="ClientId"> 
+                            <option *ngFor="let item of LkupClient" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>                 
+                        <!--<input type="text" clear-autocomplete placeholder="Client" aria-label="Number" matInput formControlName="ClientId" [matAutocomplete]="auto" [(ngModel)]="searchText" required>
+                        <mat-autocomplete  #auto="matAutocomplete" id="show">                         
+                            <mat-option *ngFor="let item of LkupClient | filter: searchText" value="{{item.Description}}">{{item.Description}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <button type="button" mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value = '';">
+                            <mat-icon>close</mat-icon>
+                        </button>    -->
+                        <mat-error *ngFor="let validation of requisition_validation_messages.ClientId">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('ClientId').hasError(validation.type) && (addRequisitionForm.get('ClientId').dirty || addRequisitionForm.get('ClientId').touched)">{{validation.message}}</mat-error>
+                        </mat-error>                
+                     </mat-form-field>                    
+                </td>
+                <td>            
+                    <mat-form-field>
+                   <!--<input matInput placeholder="Account Manager" formControlName="EACManager" required>-->
+                    <select matNativeControl required placeholder="Account Manager" formControlName="EACManager"> 
+                        <option *ngFor="let item of LkupAccountManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select>  
+                    <mat-error *ngFor="let validation of requisition_validation_messages.EACManager">
+                        <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('EACManager').hasError(validation.type) && (addRequisitionForm.get('EACManager').dirty || addRequisitionForm.get('EACManager').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                    </mat-form-field>
+                </td>                
+            </tr>
+        </table>
+    </div>
+    <div class="whiteframe" style="margin-top: -15px;width: 93%;">
+        <h3>Role Description</h3>
+        <table style="width:100%">
+            <tr>
+                <td style="width:25%;">            
+                    <mat-form-field>
+                       <!-- <input matInput placeholder="Location" formControlName="Emplocation" required>  -->
+                        <select matNativeControl required maxlength="12" placeholder="Location" formControlName="Emplocation"> 
+                            <option *ngFor="let item of LkupLocation" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>    
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Emplocation">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Emplocation').hasError(validation.type) && (addRequisitionForm.get('Emplocation').dirty || addRequisitionForm.get('Emplocation').touched)">{{validation.message}}</mat-error>
+                        </mat-error>          
+                    </mat-form-field>        
+                    </td>
+                <td>        
+                    <mat-form-field>
+                    <input matInput maxlength="4" placeholder="Positions" formControlName="Noofposition" required>
+                    <mat-error *ngFor="let validation of requisition_validation_messages.Noofposition">
+                        <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Noofposition').hasError(validation.type) && (addRequisitionForm.get('Noofposition').dirty || addRequisitionForm.get('Noofposition').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                    </mat-form-field>            
+                </td>
+                <td colspan="2">                                  
+                    <mat-form-field style="width:97% !important;">                       
+                        <mat-chip-list maxlength="240" placeholder="Skill Set" aria-label="Skill selection"> 
+                            <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">S</label>  
+                          <mat-chip *ngFor="let item of descriptionSkill">
+                            {{item}}                           
+                          </mat-chip>
+                          <!--<input matInput type="text" formControlName="Skillset" placeholder="Skill Set"> -->                      
+                        </mat-chip-list>
+                        <mat-hint (click)="openDialogSkill()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Skill</mat-hint> 
+                    </mat-form-field>                              
+                </td>                            
+            </tr>
+            <tr>                
+                <td>
+                    <mat-form-field>
+                        <input matInput maxlength="80" placeholder="Designation" formControlName="Designation">
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput id="minExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Minexperience">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Minexperience').hasError(validation.type) && (addRequisitionForm.get('Minexperience').dirty || addRequisitionForm.get('Minexperience').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput id="maxExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Maxexperience">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Maxexperience').hasError(validation.type) && (addRequisitionForm.get('Maxexperience').dirty || addRequisitionForm.get('Maxexperience').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <!--<input matInput placeholder="Budget Type" formControlName="BudgetType">-->
+                        <select matNativeControl required placeholder="Budget Type" formControlName="BudgetType">
+                            <option *ngFor="let item of LkupBudgetType" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select> 
+                        <mat-error *ngFor="let validation of requisition_validation_messages.BudgetType">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('BudgetType').hasError(validation.type) && (addRequisitionForm.get('BudgetType').dirty || addRequisitionForm.get('BudgetType').touched)">{{validation.message}}</mat-error>
+                        </mat-error>  
+                    </mat-form-field> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <!--<input matInput placeholder="Budget Currency" formControlName="Budgetccy">-->
+                        <select matNativeControl required placeholder="Budget Currency" formControlName="Budgetccy"> 
+                            <option *ngFor="let item of LkupBudgetCurrency" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>   
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Budgetccy">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Budgetccy').hasError(validation.type) && (addRequisitionForm.get('Budgetccy').dirty || addRequisitionForm.get('Budgetccy').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="100000000" placeholder="Min. Budget" formControlName="Budgetminamt">
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Budgetminamt">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Budgetminamt').hasError(validation.type) && (addRequisitionForm.get('Budgetminamt').dirty || addRequisitionForm.get('Budgetminamt').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="100000000" placeholder="Max. Budget" formControlName="Budgetmaxamt">
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Budgetmaxamt">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Budgetmaxamt').hasError(validation.type) && (addRequisitionForm.get('Budgetmaxamt').dirty || addRequisitionForm.get('Budgetmaxamt').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-chip-list maxlength="240"  placeholder="Educational Qualification" aria-label="Educational selection">
+                            <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">E</label>
+                          <mat-chip *ngFor="let item of descriptionEducation">
+                            {{item}}
+                          </mat-chip>
+                         <!--<input matInput placeholder="Educational Qualification" formControlName="Eduqlfn">-->                                
+                        </mat-chip-list>
+                        <mat-hint (click)="openDialogEducation()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Education Qualification</mat-hint>  
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr><td style="color:#757270f0;padding: 10px 0 0 0;" [ngClass]="{ 'is-invalid': submitted && f.Jobdescription.errors }">Job Description*</td></tr>
+            <tr>              
+                <td colspan="4">    
+                  <ejs-richtexteditor maxlength="4800" class="richtextboxwidth" required #toolsRTE id='alltoolRTE' formControlName="Jobdescription" [toolbarSettings]='tools' ></ejs-richtexteditor>
+                    <div *ngIf="submitted && f.Jobdescription.errors" class="error">             
+                        <div *ngIf="f.Jobdescription.errors?.required">Please enter job description</div>
+                    </div>            
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <!--<mat-form-field style="width:88.3% !important;">
+                        <mat-chip-list #chipList aria-label="Competency selection">
+                          <mat-chip *ngFor="let item of selectCompetency" [selectable]="selectable"
+                                   [removable]="removable" (removed)="removeCompetency(item)">
+                            {{item.Description}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <input matInput placeholder="Competency" formControlName="Competency"
+                                 [matChipInputFor]="chipList"
+                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                 [matChipInputAddOnBlur]="addOnBlur"
+                                 (matChipInputTokenEnd)="add($event)">                                  
+                        </mat-chip-list>
+                        <mat-hint (click)="openDialogCompetency()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Competency</mat-hint>  
+                    </mat-form-field>-->
+                    <mat-form-field style="width:97% !important;">
+                        <mat-chip-list placeholder="Competency" aria-label="Competency selection">
+                          <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">C</label>
+                          <mat-chip *ngFor="let item of descriptionCompetency" >
+                            {{item}}                            
+                          </mat-chip>
+                          <!--<input matInput placeholder="Competency" formControlName="Competency">-->                                  
+                        </mat-chip-list>
+                        <mat-hint (click)="openDialogCompetency()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Competency</mat-hint>  
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    JD Doc - 
+                       <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" >
+                       (.doc,.docx,.pdf,.rtf only)              
+                       <p *ngIf="attachmentShow != 0 && id > 0" id="FileChange"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadJD(id)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>     
+                </td>
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl required placeholder="Contact Person" formControlName="Hiringmanager"> 
+                            <option *ngFor="let item of LkupHiringManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>
+                        <mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
+                        </mat-error>                      
+                    </mat-form-field> 
+                </td>
+                <td *ngIf="id > 0">
+                    <mat-form-field>
+                        <select *ngIf="reqcode == 0" (change)="showRemarks($event.target.value)" matNativeControl placeholder="Requisition Status" formControlName="ReqStatus">
+                            <option value="OP" selected>Open</option>
+                            <option value="DR">Draft</option>
+                            <option value="HO">On Hold</option>
+                            <option value="AR">Archived</option>
+                        </select>  
+                        <select *ngIf="reqcode == 1" (change)="showRemarks($event.target.value)" matNativeControl placeholder="Requisition Status" formControlName="ReqStatus">
+                            <option value="OP" selected>Open</option>                            
+                            <option value="HO">On Hold</option>
+                        </select>      
+                        <select *ngIf="reqcode == 2" (change)="showRemarks($event.target.value)" matNativeControl placeholder="Requisition Status" formControlName="ReqStatus">
+                            <option value="OP" selected>Open</option> 
+                            <option value="AR">Archived</option>
+                        </select>                                                                             
+                    </mat-form-field> 
+                </td>
+                <td *ngIf="id > 0">
+                    <mat-form-field *ngIf="show">
+                        <input matInput id="ReqStatusRemarks" placeholder="Status Remarks" formControlName="ReqStatusRemarks">       
+                       <!-- <mat-error *ngFor="let validation of requisition_validation_messages.ReqStatusRemarks">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('ReqStatusRemarks').hasError(validation.type) && (addRequisitionForm.get('ReqStatusRemarks').dirty || addRequisitionForm.get('ReqStatusRemarks').touched)">{{validation.message}}</mat-error>
+                        </mat-error>      -->      
+                    </mat-form-field>                    
+                </td>
+            </tr>
+            <tr>
+                <td > <button *ngIf="id > 0; else add" type="submit" mat-button cdkFocusInitial>Update Requisition</button>&nbsp;&nbsp;
+                    <ng-template #add>
+                        <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Requisition</button>&nbsp;&nbsp;
+                      </ng-template>
+                   
+                      <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a></td>
+            </tr>
+        </table>
+    </div>
+</form>
+		</mat-drawer-content>
+	</mat-drawer-container>
+</div>
+
+

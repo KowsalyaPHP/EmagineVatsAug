@@ -1,0 +1,32 @@
+.example-small-box, .example-large-box {
+    /* display: flex;*/
+     align-items: center;
+     justify-content: center;
+     margin: 16px;
+     padding: 16px;
+     border-radius: 8px;
+     background-color: #ffffff;
+   }
+  
+   
+   .example-small-box {
+     height: 100px;
+     width: 100px;
+   }
+   
+   .example-large-box {
+     height: auto;
+     float: left;
+   }
+   .mat-button, .mat-raised-button{
+    background-color:#0670c4;
+    color:#ffffff;
+  }
+
+  ul{
+    list-style: none;
+  }
+  li{
+      padding: 7px;
+      margin-left: -30px;
+  } 

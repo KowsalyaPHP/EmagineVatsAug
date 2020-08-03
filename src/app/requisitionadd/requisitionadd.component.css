@@ -1,0 +1,49 @@
+  .example-container {
+    display: flex;
+    flex-direction: column;
+  }  
+  .example-container > * {
+    width: 100%;
+  }
+  .mat-form-field{
+    width: 95% !important;
+  }
+  table tr,td{
+    padding:10px 0px;
+  }
+  input + mat-autocomplete:before  {
+    display: block;
+    content: '\25BC';
+    position: absolute;
+    font-size: 13px;
+    right:0;
+    color: #7c7c7f;
+    -webkit-transform: scaleY(.5) scaleX(1);
+    transform: scaleY(.5) scaleX(1);
+    top:6px;
+  }
+  .richtextboxwidth{
+    width: 94% !important;
+  }
+  .mat-button, .mat-raised-button{
+    background-color:#0670c4;
+    color:#ffffff;
+  }
+  mat-chip-list{
+    outline:none;
+  }
+  .error{
+    color: #f44336;
+    font-size: 75%;
+    margin-top:7px;
+  }
+  .is-invalid{
+    color: #f44336 !important;
+  }
+  ul{
+    list-style: none;
+  }
+  li{
+      padding: 7px;
+      margin-left: -30px;
+  }

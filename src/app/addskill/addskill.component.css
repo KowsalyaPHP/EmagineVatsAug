@@ -1,0 +1,26 @@
+.contentskill{
+    border: 1px solid rgb(176, 236, 247);
+    padding: 10px;
+    margin: 20px;
+    line-height: 35px;
+    height: 200px;
+}
+.mat-button, .mat-raised-button{
+    background-color:#0670c4;
+    color:#ffffff;
+}
+.addskillcolor{
+    color:#67971A;
+    margin-top: -22px;
+    margin-left: 27px;
+}
+.searchIcon{
+    vertical-align:top;
+    margin-bottom: -4px;
+    margin-top: -2px;
+}
+.dialogContent{
+    border: 3px solid #bdbaba;
+    height: 400px;
+    padding: 10px;
+}

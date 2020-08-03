@@ -1,0 +1,94 @@
+
+
+<mat-toolbar color="primary" >
+
+    <img class="background" src="assets/img/logoo.png" width="100px" height="30px" alt="logo">
+    <!--<mat-icon *ngIf="show_menu=='true'" (click)="snav.toggle()" style="margin-left: 6.1%;">menu</mat-icon>-->
+    <div style="text-align:right;width:100%">
+      <span *ngIf="isLoggedIn();" class="fill-remaining-space" >
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>card_travel</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a style="color:rgb(65, 64, 63);" [routerLink]="['/req-dashboard/OP']">
+            <button mat-menu-item>
+              <!-- <mat-icon>dialpad</mat-icon>-->
+              <span>Open Requisition dashboard</span>
+            </button>
+          </a>
+        </mat-menu>
+        <button mat-icon-button>
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu>
+          <button mat-menu-item>
+            <mat-icon>account_box</mat-icon>
+            <span>View Profile</span>
+          </button>
+          <!--<button mat-menu-item>
+            <mat-icon>people_outline</mat-icon>
+            <span>Connecting</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>videocam</mat-icon>
+            <span>Let's talk</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>-->
+        </mat-menu>
+      </span>
+      <span class="fill-remaining-space">{{userName}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="fill-remaining-space" *ngIf="isLoggedIn(); else showLogin;"><img src="assets/img/logoutwht.png" style="vertical-align: middle;">&nbsp;&nbsp;<a [routerLink]="['/logout']"><span>Logout</span></a>&nbsp;</span>
+      <ng-template #showLogin>
+        <span class="fill-remaining-space"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>&nbsp;&nbsp;<a [routerLink]="['/']"><span>Login</span></a></span>
+      </ng-template>  
+  
+    </div>
+    </mat-toolbar>
+			<router-outlet></router-outlet>
+    
+<!--<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer *ngIf="show_menu=='true'"  #snav style="width: 16%;height:92.5%;background: #434a54;color: #fff;margin-top:3.6%;"  opened [mode]="'side'">
+			<mat-nav-list>
+         <ul>
+             <li><a [routerLink]="['/position',ReqID]">Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',ReqID]">Req Status Logs</a></li>
+          </ul>				
+			</mat-nav-list>
+		</mat-drawer>
+
+		<mat-drawer-content style="margin-left:20%">
+		</mat-drawer-content>
+	</mat-drawer-container>
+</div>-->
+<!--
+<div fxLayout="column" fxFlex>
+  <md-sidenav-container fxFlex>
+    
+     
+      <md-toolbar color="primary">
+          <button md-icon-button (click)="mainSideNavs.toggle()">
+              <md-icon *ngIf="mainSideNavs.opened">chevron_left</md-icon>
+              <md-icon *ngIf="!mainSideNavs.opened">chevron_right</md-icon>
+          </button>
+          <md-icon *ngIf="navItem.icon">{{navItem.icon}}</md-icon>
+         
+      </md-toolbar>
+      <md-sidenav aria-label="Toggle sidenav" #mainSideNavs mode="side" opened="true" position="end">
+        <app-header></app-header>
+        <md-toolbar>
+            <img src="../assets/logo.png" style="height:80%"> {{appName}}
+        </md-toolbar>
+        <md-nav-list>
+            <ul><li>Home</li><li>About us</li></ul>
+         
+        </md-nav-list>
+      </md-sidenav>
+      <router-outlet></router-outlet>
+  </md-sidenav-container> 
+</div>-->

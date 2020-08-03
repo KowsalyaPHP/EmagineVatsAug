@@ -1,0 +1,72 @@
+
+<form class="form" role="form" focusInvalidInput autocomplete="off" id="formoffer" novalidate=""
+[formGroup]="offerForm" (submit)='addOfferFormDetails(offerForm.value)'>
+<div class="whiteframe" style="margin: 0;">
+<h3>Employment Offer  - id #{{data.applicationId}} - {{data.candidateName}} </h3>  
+ <p style="color:#4bb74d;">Capture the offer details for the selected application</p>
+<table style="width:100%">            
+    <tr> 
+        <td>            
+            <mat-form-field class="example-full-width">
+                <mat-label>Joining Date</mat-label>
+                <input  required matInput [matDatepicker]="picker" readonly formControlName="JoiningDate">
+                <mat-datepicker-toggle matSuffix [for]="picker">                        
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngFor="let validation of validation_messages.JoiningDate">
+                    <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('JoiningDate').hasError(validation.type) && (offerForm.get('JoiningDate').dirty || offerForm.get('JoiningDate').touched)">{{validation.message}}</mat-error>
+                </mat-error>  
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field >
+                <input  matInput required type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" placeholder="Salary Offered(P.A)" formControlName="SalaryOffered">
+                <mat-error *ngFor="let validation of validation_messages.SalaryOffered">
+                    <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('SalaryOffered').hasError(validation.type) && (offerForm.get('SalaryOffered').dirty || offerForm.get('SalaryOffered').touched)">{{validation.message}}</mat-error>
+                </mat-error>  
+            </mat-form-field>        
+        </td>       
+    </tr>
+    <tr>
+        <td>
+            <mat-form-field style="width: 200px;"> 
+                <input  matInput required  placeholder="Billable CTC" type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" formControlName="BillableCTC">       
+                <mat-error *ngFor="let validation of validation_messages.BillableCTC">
+                    <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('BillableCTC').hasError(validation.type) && (offerForm.get('BillableCTC').dirty || offerForm.get('BillableCTC').touched)">{{validation.message}}</mat-error>
+                </mat-error>                  
+            </mat-form-field>        
+        </td>
+        <td>
+            <mat-form-field style="width: 200px;"> 
+                <input  matInput required placeholder="Agency Fee" type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" formControlName="AgencyFees">   
+                <mat-error *ngFor="let validation of validation_messages.AgencyFees">
+                    <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('AgencyFees').hasError(validation.type) && (offerForm.get('AgencyFees').dirty || offerForm.get('AgencyFees').touched)">{{validation.message}}</mat-error>
+                </mat-error>                      
+            </mat-form-field>        
+        </td>
+    </tr>
+    <tr>
+        <td >
+            <mat-form-field style="width: 200px;"> 
+                <select required matNativeControl placeholder="GST Applicable(Y?N)" formControlName="GSTYesNo"> 
+                    <option value="YES" selected>Yes</option>                       
+                    <option value="NO">No</option>                       
+                </select>                      
+                <mat-error *ngFor="let validation of validation_messages.GSTYesNo">
+                    <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('GSTYesNo').hasError(validation.type) && (offerForm.get('GSTYesNo').dirty || offerForm.get('GSTYesNo').touched)">{{validation.message}}</mat-error>
+                </mat-error>  
+            </mat-form-field>        
+        </td>
+        <td >
+            <mat-form-field style="width: 390px;"> 
+                <input  matInput maxlength="2400" placeholder="Comments: Current:0 | Expected:0 | Budget:18000 - 23000" formControlName="Remarks">                       
+            </mat-form-field>        
+        </td>
+    </tr>
+    <tr>
+        <td><button type="submit" mat-button cdkFocusInitial>Offered</button>&nbsp;&nbsp;
+            <button mat-button (click)="onNoClick();">Cancel</button></td>
+    </tr>
+</table>
+</div>
+</form>

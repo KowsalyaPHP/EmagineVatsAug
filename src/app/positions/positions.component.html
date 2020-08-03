@@ -1,0 +1,84 @@
+<div style="margin: 0;">
+  <div id="snackbar">{{message}}</div>
+</div>
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer  #snav class="sideNav" style="position: relative;" opened [mode]="'side'">
+			<mat-nav-list>
+         <ul>
+             <li><a [routerLink]="['/position',id]">Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',id]">Req Status Logs</a></li>
+          </ul>				
+			</mat-nav-list>
+		</mat-drawer>
+
+		<mat-drawer-content style="margin-left:20%">
+			<div class="content whiteframe">
+
+        <div id="positioninfo">
+        <p><b>Positions:</b> #<a style="color: #0670c4;" [routerLink]="['/requisitionadd',id]"> {{id}} - {{reqTitle}}</a> </p>
+            <mat-tab-group dynamicHeight>
+            
+              <mat-tab>
+                  <ng-template mat-tab-label>
+                   View All positions          
+                  </ng-template>
+                  <div id="primary" class="example-large-box mat-elevation-z4" >
+                    <table #dataTable id="positionList" style="width:100%;">
+                      <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Created By</th>
+                            <th>Position Status</th>
+                            <th style="background-image: none;"><mat-icon>hourglass_empty</mat-icon></th>
+                            <th style="background-image: none;"><mat-icon>perm_identity</mat-icon></th>               
+                            <th style="background-image: none;">Associated Offer</th>
+                            </tr>       
+                        </thead>
+                        <tbody>          
+                        <tr *ngFor="let item of positionsList; let i = index" >           
+                          <td>{{item.PositionCode}}</td>
+                          <td>{{item.CreatedBy}}</td>
+                          <td style="width: 200px;">{{item.PositionStatus}}</td>         
+                          <td style="text-align: center;">{{item.PositionAge}}d</td>
+                          <td>{{item.ContactPersonName}}</td>
+                          <td>{{item.CandidateName}},{{item.stageString}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    
+                      <table style="width:100%">            
+                        <tr> 
+                            <td>
+                                <mat-form-field>
+                                    <input type="number" matInput placeholder="Number of positions" [(ngModel)]="inputValue" required>
+                                    <mat-error *ngFor="let validation of validation_messages.NumberofPositions">
+                                        <mat-error class="error-message" *ngIf="addPositionForm.invalid || addPositionForm.get('NumberofPositions').hasError(validation.type) && (addPositionForm.get('NumberofPositions').dirty || addPositionForm.get('NumberofPositions').touched)">{{validation.message}}</mat-error>
+                                    </mat-error>
+                                </mat-form-field>        
+                            </td>
+                            <td><button type="submit" style="width:12%" mat-button (click)="addPosition(inputValue)" cdkFocusInitial>Add</button></td>
+                            <td><button type="submit" mat-button (click)="deletePosition(inputValue)" >Delete</button></td>
+                        </tr>
+                      </table>
+                
+                    </div>
+                    
+                </mat-tab>
+                <!--<mat-tab>
+                  <ng-template mat-tab-label>
+                    Delete Positions                  
+                  </ng-template>
+                  <div class="example-large-box mat-elevation-z4" >
+                    
+                  </div>
+                </mat-tab>-->
+            </mat-tab-group>
+          </div>
+        </div>
+		</mat-drawer-content>
+	</mat-drawer-container>
+</div>
+

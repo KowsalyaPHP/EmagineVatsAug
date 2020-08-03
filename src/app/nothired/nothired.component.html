@@ -1,0 +1,37 @@
+
+<form class="form" role="form" focusInvalidInput autocomplete="off" id="formnothired" novalidate=""
+[formGroup]="notHiredForm" (submit)='addNothiredReason(notHiredForm.value)'>
+<div class="whiteframe" style="margin: 0;">
+<h3>Not Hired</h3> 
+<p style="color:#ef2407">You are moving the following - CV's to Not Hired</p>      
+    <table formArrayName="NotHiredDetails"  style="width:100%">       
+
+        <tr><th>Name</th><th>Not Hired Reason</th><th>Remarks</th></tr>
+        
+        <tr formGroupName={{i}}  *ngFor="let cd of getControls(notHiredForm, 'NotHiredDetails');let i=index;">  
+            <td >  
+                <b>{{cd.get('CandidateName').value}}</b>               
+            </td>  
+            <td>
+                <mat-form-field>
+                    <select matNativeControl placeholder="Not Hired Reason" required formControlName="Reason">
+                        <option *ngFor="let item of LkupNotHiredReason" value="{{item.Code}}" selected>{{item.Description}}</option> 
+                    </select>     
+                    <mat-error *ngFor="let validation of validation_messages.Reason">
+                        <mat-error class="error-message" *ngIf="notHiredForm.invalid || notHiredForm.get('Reason').hasError(validation.type) && (notHiredForm.get('Reason').dirty || notHiredForm.get('Reason').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </td>
+            <td>      
+                <mat-form-field style="width: 390px;"> 
+                    <input  matInput placeholder="Remarks" formControlName="Remarks">
+                </mat-form-field> 
+            </td>
+        </tr> 
+        <tr>
+            <td><button type="submit" mat-button cdkFocusInitial>Submit</button>&nbsp;&nbsp;
+                <button mat-button (click)="onNoClick();">Cancel</button></td>
+        </tr>
+    </table>
+</div>
+</form>

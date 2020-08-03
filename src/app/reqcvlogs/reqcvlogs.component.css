@@ -1,0 +1,38 @@
+
+ .circleGray {
+    height: 3vw;
+    width: 3vw;
+    background-color: #e4e4e4;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 3vw 0 1.5vw !important;   
+  }
+  .checkmark{
+    margin: 7px;
+    color: #adafae;
+  }
+  .icon{
+   font-size: 17px;
+   color:#699dfc;
+   vertical-align: middle;
+  }
+  .line{
+   border-left: 2px solid #adafae;
+   height: 70px;
+   margin-left: 2.8vw;
+  }
+  .rect {    
+    border: 1px solid #d5d2d2;
+    padding: 10px 10px;
+    margin: 0 15px;
+    background: #e4e4e4;
+    color: #6262ea;
+    margin-left: 120px;
+  }
+  ul{
+    list-style: none;
+  }
+  li{
+      padding: 7px;
+      margin-left: -30px;
+  }

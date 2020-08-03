@@ -1,0 +1,30 @@
+
+<div id="snackbar">{{message}}</div>
+    <div class="whiteframe" style="margin: 0;">
+      <h3>Assessment  - id #{{data.applicationId}} - {{data.candidateName}} </h3>  
+      <p id="errormessage" style="color:rgb(243, 8, 8);display:none;">Please select atleast one round to move.</p>   
+      <p id="errormsg" style="color:rgb(243, 8, 8);display:none;">From stage cannot be same as to stage.</p>
+     <!--<span><img src="assets/img/arrow.png"></span>--> 
+     <div id="circleleft">
+        <div class="arrow"></div>
+        <div class="rect" *ngFor="let round of round_details">            
+            <label for="round_answer_{{round.name}}">
+                <input id="round_answer_{{round.name}}" (click)="error();" [value]='round.name' type="radio" name="rounds" [(ngModel)]="radioSelected">
+                {{round.name}}
+            </label>              
+        </div>     
+          
+     </div>
+     
+     <form class="form" role="form" focusInvalidInput autocomplete="off" id="formsubstage" novalidate=""
+[formGroup]="substageForm" (submit)='addSubstageDetails(substageForm.value)'>
+     <div id="circleright">
+         <p>Move From: {{currentstage}}</p>
+         <p>Move To: {{radioSelected}}</p>
+        <textarea id="remarks" placeholder="Enter Remarks" rows="8" cols="45" required formControlName="Remarks"></textarea>
+        <p>
+        <button type="submit" mat-button cdkFocusInitial>Move</button>&nbsp;&nbsp;
+            <button mat-button (click)="onNoClick();">Cancel</button></p>
+     </div>
+    </form>
+</div>

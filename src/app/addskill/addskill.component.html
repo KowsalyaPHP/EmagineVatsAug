@@ -1,0 +1,22 @@
+<div class="dialogContent">
+    <div style="border-bottom: 1px dotted;">
+        <mat-icon style="float: left;margin-top: 7px;">brush</mat-icon>
+        <h1 style="margin-left: 30px;" mat-dialog-title>Skills</h1>
+        <p class="addskillcolor">Add Skills</p>
+        <mat-form-field style="float: right;margin-top: -50px;">
+            <mat-icon matSuffix class="searchIcon">search</mat-icon>
+            <input matInput type="search" placeholder="Search Skill" [(ngModel)]="term" class="search-input">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-content class="contentskill">
+        <p *ngIf="!skillSets">loading skillsets, please wait a second...</p>
+        <div *ngFor = "let item of skillSets | filter:term ; index as i">
+            <input type="checkbox" name="skillSets{{item.Code}}" [(ngModel)]="skillSets[i].checked" value="{{item.Code}}" />    
+            <label for="skillSets{{item.Code}}">{{item.Description}}</label>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="sendCheckedskillset()" cdkFocusInitial>Add</button>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+    </div>
+</div>

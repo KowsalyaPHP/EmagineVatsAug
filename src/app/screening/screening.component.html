@@ -1,0 +1,151 @@
+<form class="form" role="form" focusInvalidInput autocomplete="off" id="formrequisitions" novalidate=""
+        [formGroup]="screeningForm" (submit)='addScreeningDetails(screeningForm.value)'>
+    <div class="whiteframe" style="margin: 0;">
+        <h3>Screening Form  - id #{{data.applicationId}} - {{data.candidateName}} </h3>       
+        <table style="width:100%">            
+            <tr> 
+                <td colspan="3">
+                    <mat-form-field style="width: 588px;">
+                        <input matInput maxlength="2400" placeholder="Recruiter's Comments" formControlName="RecruitersComments">                       
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr> 
+                <td>
+                    <mat-form-field >
+                        <input  matInput placeholder="Experience(YY.MM)" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" min="0" max="50" type=number formControlName="Experience" required>
+                        <mat-error *ngFor="let validation of screen_validation_messages.Experience">
+                            <mat-error class="error-message" *ngIf="screeningForm.invalid || screeningForm.get('Experience').hasError(validation.type) && (screeningForm.get('Experience').dirty || screeningForm.get('Experience').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>        
+                </td>
+                <td colspan="2">
+                    <mat-form-field style="width: 390px;"> 
+                        <input maxlength="2400"  matInput placeholder="Leaving Reason" formControlName="LeavingReason">                       
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr> 
+                <td>
+                    <mat-form-field>
+                        <input onKeyPress="if(this.value.length == 3) return false;" type="number" min="0" max="200"  matInput placeholder="Notice Period(In days)" formControlName="NoticePeriod">  
+                        <mat-error class="error-message" *ngIf="screeningForm.get('NoticePeriod').hasError('max')">The value is greater than the maximum</mat-error>                       
+                    </mat-form-field>        
+                </td>
+                <td colspan="2">
+                    <mat-form-field style="width: 390px;">
+                        <input maxlength="240" matInput placeholder="Buyout Possibility" formControlName="BuyoutPoassibility">                       
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr> 
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl  required placeholder="Pr.Sal. Currency" formControlName="PrSalCurrency">
+                            <option *ngFor="let item of LkupCurrency" value="{{item.Code}}" selected>{{item.Description}}</option>                          
+                        </select>                      
+                        <mat-error *ngFor="let validation of screen_validation_messages.PrSalCurrency">
+                            <mat-error class="error-message" *ngIf="screeningForm.invalid || screeningForm.get('PrSalCurrency').hasError(validation.type) && (screeningForm.get('PrSalCurrency').dirty || screeningForm.get('PrSalCurrency').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>        
+                </td>
+                <td>
+                   <!-- <mat-form-field>
+                        <input  matInput type="number" onKeyPress="if(this.value.indexOf('.') == 2 || this.value.length == 12) return false;" min="0" max="999999999.99" (keyup)="calculateAverage()" class="present presFixed"  placeholder="Pr.Sal. Fixed" formControlName="PrSalFixed">  
+                        <mat-error class="error-message" *ngIf="screeningForm.get('PrSalFixed').hasError('max')">The value is greater than the maximum</mat-error>                     
+                    </mat-form-field> -->
+                    <mat-form-field>
+                        <input  matInput type="number" onKeyPress="if(this.value.length == 9) return false;"  min="0" max="999999999" (keyup)="calculateAverage()" class="present presFixed"  placeholder="Pr.Sal. Fixed" formControlName="PrSalFixed">  
+                        <mat-error class="error-message" *ngIf="screeningForm.get('PrSalFixed').hasError('max')">The value is greater than the maximum</mat-error>                     
+                    </mat-form-field>        
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input  matInput type="number" onKeyPress="if(this.value.length == 9) return false;"  min="0" max="999999999"  (keyup)="calculateAverage()" class="present presVariable" placeholder="Pr.Sal. Variable" formControlName="PrSalVariable">  
+                        <mat-error class="error-message" *ngIf="screeningForm.get('PrSalVariable').hasError('max')">The value is greater than the maximum</mat-error>                     
+                    </mat-form-field>
+                    <!--<mat-form-field>
+                        <input  matInput type="number" onKeyPress="if(this.value.indexOf('.') == 2 || this.value.length == 12) return false;" min="0" max="999999999.99" (keyup)="calculateAverage()" class="present presVariable" placeholder="Pr.Sal. Variable" formControlName="PrSalVariable">                       
+                    </mat-form-field>  -->      
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input  matInput type="number"  class="total" placeholder="Pr.Sal. Total" readonly formControlName="PrSalTotal">                       
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr> 
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl required placeholder="Expected Sal Currency" formControlName="ExpSalCurrency">
+                            <option *ngFor="let item of LkupCurrency" value="{{item.Code}}" selected>{{item.Description}}</option>                        
+                        </select>
+                        <mat-error *ngFor="let validation of screen_validation_messages.ExpSalCurrency">
+                            <mat-error class="error-message" *ngIf="screeningForm.invalid || screeningForm.get('ExpSalCurrency').hasError(validation.type) && (screeningForm.get('ExpSalCurrency').dirty || screeningForm.get('ExpSalCurrency').touched)">{{validation.message}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>        
+                </td>
+                <td>
+                    <!--<mat-form-field>
+                        <input  matInput type="number" onKeyPress="if(this.value.indexOf('.') == 2 || this.value.length == 12) return false;" min="0" max="999999999.99" (keyup)="onKey($event)" class="expsalary" placeholder="Expected Salary" formControlName="ExpSalary">                       
+                    </mat-form-field>        -->
+                    <mat-form-field>
+                        <input  matInput type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" (keyup)="onKey($event)" class="expsalary" placeholder="Expected Salary" formControlName="ExpSalary">   
+                        <mat-error class="error-message" *ngIf="screeningForm.get('ExpSalary').hasError('max')">The value is greater than the maximum</mat-error>                       
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input  matInput type="number" min="0" max="99.9" class="exphike" readonly placeholder="Expected Hike %" formControlName="ExpHike">    
+                        <mat-error class="error-message" *ngIf="screeningForm.get('ExpHike').hasError('max')">The value is greater than the maximum</mat-error>                     
+                    </mat-form-field>        
+                </td>
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Present Location" formControlName="PresentLocation">
+                            <option *ngFor="let item of Lkuplocation" value="{{item.Code}}" selected>{{item.Description}}</option>                        
+                        </select>                                             
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr> 
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Preferred Location" formControlName="PrefLocation">
+                            <option *ngFor="let item of Lkuplocation" value="{{item.Code}}" selected>{{item.Description}}</option>                        
+                        </select>                           
+                    </mat-form-field>        
+                </td>
+                <td colspan="2">
+                    <mat-form-field style="width: 390px;">
+                        <input  matInput maxlength="240"  placeholder="Salary Comment" formControlName="SalaryComment">                       
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr> 
+                <td colspan="2">
+                    <mat-form-field style="width:390px;">
+                        <input  matInput maxlength="240" placeholder="Communication Skills" formControlName="CommunicationSkils">
+                        
+                    </mat-form-field>        
+                </td>
+                <td colspan="2">
+                    <mat-form-field style="width:390px;">
+                        <input maxlength="240" matInput placeholder="Other Remarks" formControlName="OtherRemarks">                       
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr> 
+                <td colspan="3">
+                    <mat-form-field style="width: 600px;">
+                        <input  matInput maxlength="240" placeholder="Confidential Remarks (Optional)" formControlName="ConfidentioalRemarks">                        
+                    </mat-form-field>        
+                </td>
+            </tr>
+            <tr>
+                <td> <button type="submit" mat-button cdkFocusInitial>Save</button>&nbsp;&nbsp;                  
+                     <button mat-button (click)="onNoClick();">Cancel</button></td>
+            </tr>
+        </table>
+    </div>
+</form>

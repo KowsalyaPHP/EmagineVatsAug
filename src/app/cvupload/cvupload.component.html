@@ -1,0 +1,226 @@
+<div style="margin: 0;">
+  <div id="snackbar">{{message}}</div>
+</div>
+<div class="whiteframe">
+  <form class="form" class="example-form" role="form" (submit)="CVUpload(CVUploadForm.value)" focusInvalidInput autocomplete="off" id="CVUploadForm" novalidate=""
+      [formGroup]="CVUploadForm" >
+  
+      <h3 >CV Upload  <span *ngIf="id > 0"> - {{id}}</span> </h3>       
+      <table class="example-full-width" width="40%">
+          <tr>
+              <td>
+                 <span style="font-weight: 500;">Attach CV* (.doc,.docx,.pdf,.rtf only)</span><br><br>
+                 <input required (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="CV" >                 
+                 <div *ngIf="submitted && f.CV.errors" class="error">             
+                  <div *ngIf="f.CV.errors?.required">Please select file</div>
+                 </div>
+               </td>
+          </tr>
+          <tr><td><br><br><span style="font-weight: 500;">PERSONAL DETAILS</span></td><td></td></tr>            
+              <tr>
+                  <td><mat-form-field class="example-full-width" style="padding-right: 65px;">
+                    <input matInput required maxlength="40" placeholder="First name" formControlName="Candidate_FN">
+                    <mat-error *ngFor="let validation of cv_validation_messages.Candidate_FN">
+                      <mat-error class="error-message" *ngIf="submitted && CVUploadForm.invalid || CVUploadForm.get('Candidate_FN').hasError(validation.type) && (CVUploadForm.get('Candidate_FN').dirty || CVUploadForm.get('Candidate_FN').touched)">{{validation.message}}</mat-error>
+                  </mat-error>      
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width">
+                    <input matInput required placeholder="Last Name" maxlength="40" formControlName="Candidate_LN">
+                    <mat-error *ngFor="let validation of cv_validation_messages.Candidate_LN">
+                      <mat-error class="error-message" *ngIf="CVUploadForm.invalid || CVUploadForm.get('Candidate_LN').hasError(validation.type) && (CVUploadForm.get('Candidate_LN').dirty || CVUploadForm.get('Candidate_LN').touched)">{{validation.message}}</mat-error>
+                  </mat-error>      
+                  </mat-form-field></td>
+              </tr>
+              <tr>
+                  <td><mat-form-field class="example-full-width" maxlength="80" style="padding-right: 65px;">
+                    <input matInput required placeholder="Email" formControlName="EMailId">
+                    <mat-error *ngFor="let validation of cv_validation_messages.EMailId">
+                      <mat-error class="error-message" *ngIf="CVUploadForm.invalid || CVUploadForm.get('EMailId').hasError(validation.type) && (CVUploadForm.get('EMailId').dirty || CVUploadForm.get('EMailId').touched)">{{validation.message}}</mat-error>
+                  </mat-error>      
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width">
+                    <input matInput required  placeholder="Mobile Number" maxlength="10" formControlName="MobileNo">
+                    <mat-error *ngFor="let validation of cv_validation_messages.MobileNo">
+                      <mat-error class="error-message" *ngIf="CVUploadForm.invalid || CVUploadForm.get('MobileNo').hasError(validation.type) && (CVUploadForm.get('MobileNo').dirty || CVUploadForm.get('MobileNo').touched)">{{validation.message}}</mat-error>
+                  </mat-error>      
+                  </mat-form-field></td>
+              </tr>
+              <tr>
+                  <td>
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Date of Birth(18 yrs min)</mat-label>
+                      <input matInput required [matDatepicker]="picker" readonly formControlName="DateofBirth">
+                      <mat-datepicker-toggle matSuffix [for]="picker">                        
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngFor="let validation of cv_validation_messages.DateofBirth">
+                        <mat-error class="error-message" *ngIf="CVUploadForm.invalid || CVUploadForm.get('DateofBirth').hasError(validation.type) && (CVUploadForm.get('DateofBirth').dirty || CVUploadForm.get('DateofBirth').touched)">{{validation.message}}</mat-error>
+                    </mat-error> 
+                    </mat-form-field>
+                   
+                  </td>
+                  <td><mat-form-field class="Gender">
+                      <select matNativeControl placeholder="Gender" formControlName="Gender">
+                          <option value="M" selected>Male</option>                       
+                          <option value="F" selected>Female</option>                       
+                          <option value="O" selected>Other</option>                       
+                      </select>
+                  </mat-form-field></td>
+              </tr>
+              <tr>
+                  <td>
+                      <mat-form-field>
+                      <select matNativeControl placeholder="Marital Status" formControlName="MaritalStatus">
+                        <option value="S" selected>Single</option>                       
+                        <option value="M" selected>Married</option>                     
+                      </select>
+                      </mat-form-field>
+                  </td>
+                  <td>
+                      <mat-form-field class="example-full-width" style="padding-right: 65px;" >
+                          <input matInput maxlength="240" placeholder="Work Authorization" formControlName="WorkAuthorization">
+                      </mat-form-field>
+                  </td>                    
+              </tr>
+              <tr>
+                  <td><mat-form-field>
+                      <select matNativeControl placeholder="Nationality" formControlName="Nationality">
+                          <option *ngFor="let item of LkupNationality" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                      </select>
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width" style="padding-right: 65px;">
+                    <input matInput placeholder="Passport Number" maxlength="12" formControlName="PassportNo">
+                  </mat-form-field></td>                   
+              </tr>
+              <tr>
+                <td><span style="font-weight: 500;">Current Address</span></td>
+                <td><span style="font-weight: 500;">Permanent Adress</span><input type="checkbox" id="filladdress" (click)="fillAddress()" name="filladdress" style="margin: 0px 3px 0px 63px;
+                  vertical-align: middle;"/> <span style="font-size:11px">Same as Current</span></td></tr>
+              <tr>
+                <td>
+                  <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                    <input matInput placeholder="Door No" maxlength="40" id="Pr_AddressL1" formControlName="Pr_AddressL1">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                    <input matInput placeholder="Door No" maxlength="40" id="Perm_AddressL1" formControlName="Perm_AddressL1">
+                  </mat-form-field>
+                </td>                   
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                  <input matInput placeholder="Area Name/Street Name" maxlength="40" id="Pr_AddressL2" formControlName="Pr_AddressL2">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                  <input matInput placeholder="Area Name/Street Name" maxlength="40" id="Perm_AddressL2" formControlName="Perm_AddressL2">
+                </mat-form-field>
+              </td>                   
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                <input matInput placeholder="City/Town" id="Pr_AddressL3" maxlength="40" formControlName="Pr_AddressL3">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                <input matInput placeholder="City/Town" id="Perm_AddressL3" maxlength="40" formControlName="Perm_AddressL3">
+              </mat-form-field>
+            </td>                   
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                <input matInput placeholder="State" id="Pr_AddressL4" formControlName="Pr_AddressL4">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width" style="padding-right: 65px;">
+                <input matInput placeholder="State" id="Perm_AddressL4" formControlName="Perm_AddressL4">
+              </mat-form-field>
+            </td>                   
+          </tr>
+        
+          </table>
+          <p style="width:66.6%;"><span style="font-weight: 500;">Education Details</span> <mat-icon style="float:right;cursor: default;" (click)="addRowEdu()">add_box</mat-icon> </p>
+<table style="border: 1px solid #c9c9c7;background: #e4e4e46e;" class="table table-striped table-bordered">    
+<thead>    
+    <tr>               
+        <th>Year Of Passing</th>    
+        <th>Marks</th>    
+        <th>Degree</th>    
+        <th>Institute</th>    
+        <th></th>  
+    </tr>    
+</thead>    
+<tbody>    
+     <tr *ngFor="let dynamic of EduArray; let i = index;"> 
+       <td>    
+          <input [(ngModel)]="EduArray[i].Passing_Year" name="Passing_Year" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text" />    
+        </td>    
+        <td>    
+          <input [(ngModel)]="EduArray[i].Marks_Obtained" name="Marks_Obtained" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text" />    
+        </td>    
+        <td>     
+          <input [(ngModel)]="EduArray[i].Degree_Awarded" name="Degree_Awarded" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text"/>    
+        </td>     
+        <td>    
+          <input [(ngModel)]="EduArray[i].Institution" name="Institution" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text"/>    
+        </td>
+        <td (click)="deleteRowEdu(i)">    
+          <i class="fa fa-trash"></i>    
+        </td> 
+    </tr>
+  
+</tbody>    
+</table> 
+<p style="width:66.6%;margin-top:25px"><span style="font-weight: 500;">Employment Details</span><mat-icon style="float:right;cursor: default;" (click)="addRowEmp()">add_box</mat-icon></p>
+<table style="border: 1px solid #c9c9c7;background: #e4e4e46e;margin-bottom:20px;" class="table table-striped table-bordered">    
+<thead>    
+    <tr>    
+        <th>From Date</th>    
+        <th>To Date</th>    
+        <th>Company</th>    
+        <th>Role</th>
+        <th></th>    
+    </tr>    
+</thead>    
+<tbody>    
+     <tr *ngFor="let dynamic of EmpArray; let i = index;">    
+         
+        <td>    
+          <input [(ngModel)]="EmpArray[i].From_Date" name="From_Date" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text" />    
+        </td>    
+        <td>    
+          <input  [(ngModel)]="EmpArray[i].Until_Date" name="Until_Date" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text" />    
+        </td>    
+        <td>    
+          <input [(ngModel)]="EmpArray[i].Employer" name="Employer" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text"/>    
+        </td>     
+        <td>    
+          <input  [(ngModel)]="EmpArray[i].Role" name="Role" [ngModelOptions]="{standalone: true}" class="form-control dynamicrowinput" type="text"/>    
+        </td>
+        
+        <td (click)="deleteRowEmp(i)">    
+          <i class="fa fa-trash"></i>    
+        </td>
+    </tr>    
+      
+       
+</tbody>    
+
+</table> 
+<table>
+  <tr><button type="submit"  mat-button cdkFocusInitial>Submit</button>&nbsp;&nbsp;
+    <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a></tr>
+</table>
+
+        </form>
+
+
+
+</div>

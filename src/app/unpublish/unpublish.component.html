@@ -1,0 +1,50 @@
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+  </div>
+<div class="content whiteframe">
+    <h3 style="text-align: center;">UnPublish Requisition</h3>
+    
+    <div style="margin-left: 62.5%;">
+        <span style="vertical-align: middle;"><mat-icon>volume_up</mat-icon></span> <span><a style="color: #0670c4;cursor: pointer;" (click)="UnPublish();">Unpublish</a></span> &nbsp;&nbsp;<span style="vertical-align: middle;"><mat-icon>clear</mat-icon></span> <span><a [routerLink]="['/req-dashboard']">Cancel</a></span></div>
+    <table class="publishTableOne">
+        <tr><th>Category</th><th>Select Sources and Publish!</th></tr>
+        <tr><td>Default</td><td><input disabled type="checkbox">Direct Upload</td></tr>
+        <tr><td>Career</td><td><input disabled type="checkbox">Careers Page</td></tr>
+        <tr style="height: 84px;"><td>CV Portals</td><td><input disabled type="checkbox">Indeed<input disabled type="checkbox">Naukri</td></tr>
+    </table>
+    <table class="publishTableOne Tabletwo">
+        <tr><th>published Tiers</th><th>Choose Staffing Partners & Notify!</th></tr>
+        <tr style="height:auto;">
+            <td><input type="checkbox"  (click)="checkallBronzevendor();"  id="Bronzepublished">Bronze</td>
+            <td>
+                <ul *ngFor="let item of publishedvendorBronze; let i = index">
+                    <li style="float:left;"><input type="checkbox" class="Bronze" [(ngModel)]="publishedvendorBronze[i].checked">{{item.VendorName}}</li>
+                </ul>
+            </td>
+        </tr>
+        <tr style="height:auto;">
+            <td><input type="checkbox" (click)="checkallSilvervendor();" id="Silverpublished">Silver</td>
+            <td>
+                <ul *ngFor="let item of publishedvendorSilver; let i = index">
+                    <li style="float:left;"><input type="checkbox" class="Silver" [(ngModel)]="publishedvendorSilver[i].checked">{{item.VendorName}}</li>
+                </ul>
+            </td>
+        </tr>
+        <tr style="height:auto;">
+            <td><input type="checkbox"  (click)="checkallGoldvendor();"  id="Goldpublished">Gold</td>
+            <td>
+                <ul *ngFor="let item of publishedvendorGold; let i = index">
+                    <li style="float:left;"><input type="checkbox" class="Gold" [(ngModel)]="publishedvendorGold[i].checked">{{item.VendorName}}</li>
+                </ul>
+            </td>
+        </tr>
+        <tr style="height:auto;">
+            <td><input type="checkbox" (click)="checkallPlatinumvendor();" id="Platinumpublished">Platinum</td>
+            <td> 
+                <ul *ngFor="let item of publishedvendorPlatinum; let i = index">
+                    <li style="float:left;"><input type="checkbox" class="Platinum" [(ngModel)]="publishedvendorPlatinum[i].checked">{{item.VendorName}}</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>

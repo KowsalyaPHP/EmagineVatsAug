@@ -1,0 +1,333 @@
+<div id="snackbar">{{message}}</div>
+<mat-card>
+  <div style="margin-bottom:30px;">
+
+    <div class="stage" *ngFor="let item of StageValueCount; let i = index">
+      <div class="out">
+        
+      </div>
+      <div class="out">
+        
+      </div>
+      <div *ngIf="item.NotHired >= 0" class="circleRed" (click)="currentstage != 'NH' ? openDialogNotHired('NH') : false">
+        <img style="margin: 0 0.7vw;" width="50%" height="50%" src="assets/img/nothired.png">
+        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.NotHired}}</h4>
+        <span style="margin-left: -9px;white-space: nowrap;">Not Hired</span>
+      </div> 
+      <div *ngIf="item.Sourcing >= 0" class="circleBlue"   (click)="updateStage('SO','Sourcing')">
+        <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/search.png">
+        <h4 class="h3style">{{item.Sourcing}}</h4>
+        <span style="margin-left: -8px;" >Sourcing</span>
+      </div> 
+      <div *ngIf="item.Screening >= 0" class="circleOrange" style="left:33%" (click)="updateStage('SC','Screening')">
+        <img  style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/screening.png">
+        <h4 class="h3style">{{item.Screening}}</h4>
+        <span style="margin-left: -12px;" >Screening</span>
+      </div> 
+      <div *ngIf="item.Assessment >= 0" class="circleOrange" style="left:47%" (click)="updateStage('AS','Assessment')">
+        <img  style="margin:0 0.6vw;" width="58%" height="58%" src="assets/img/assessment.png">
+        <h4 class="h3style">{{item.Assessment}}</h4>
+        <span style="margin-left: -14px;">Assessment</span>
+      </div> 
+      <div *ngIf="item.HRRound >= 0" class="circleGreen" style="left:61%" (click)="updateStage('HR','HR Round')">
+        <img  style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/hrround.png">
+        <h4 class="h3style">{{item.HRRound}}</h4>
+        <span style="margin-left: -8px;white-space: nowrap;" >HR Round</span>
+      </div> 
+      <div *ngIf="item.Offered >= 0" class="circleGreen" style="left:75%" (click)="updateStage('OF','Offered')">
+        <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/hire.png">
+        <h4 class="h3style">{{item.Offered}}</h4>
+        <span style="margin-left: -2px;" >Offered</span>
+      </div> 
+      <div *ngIf="item.Joined >= 0" class="circleGreen" style="left:89%" (click)="updateStage('JO','Joined')">
+        <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/offered.png">
+        <h4 class="h3style">{{item.Joined}}</h4>
+        <span style="margin-left: -1px;" >Joined</span>
+      </div>
+    </div>
+  <!--  <div class="circleRed" (click)="currentstage != 'NH' ? openDialogNotHired('NH') : false"></div>    
+    <div class="circleBlue"  (click)="currentstage != 'SO' ? updateStage('SO') : false"></div>
+    <div class="circleOrange" (click)="currentstage != 'SC' ? updateStage('SC') : false" ></div>
+ <div class="circleOrange" (click)="currentstage != 'SC' ? openDialogScreening('SC') : false" ></div>
+    <div class="circleOrange" (click)="currentstage != 'AS' ? updateStage('AS') : false"></div>
+    <div class="circleGreen" (click)="currentstage != 'HR' ? updateStage('HR') : false"></div>
+    <div class="circleGreen" (click)="currentstage != 'OF' ? updateStage('OF') : false"></div>
+    <div class="circleGreen" (click)="currentstage != 'JO' ? updateStage('JO') : false"></div>
+    <span style="padding: 0 70px;">Not Hired</span>
+    <span style="padding: 0 63px;" >Sourcing</span>
+    <span style="padding: 0 67px;">Screening</span>
+    <span style="padding: 0 59px;">Assessment</span>
+    <span style="padding: 0 65px;">HR Round</span>
+    <span style="padding: 0 71px;">Offered</span>
+    <span style="padding: 0 0 0 76px;">Joined</span>
+    <img style="position: absolute;top: 37px;left: 100px;" src="assets/img/nothired.png">
+    <img style="position: absolute;top: 37px;left: 284px;" src="assets/img/search.png">
+    <img style="position: absolute;top: 37px;left: 474px;" src="assets/img/screening.png">
+    <img style="position: absolute;top: 37px;left: 660px;" src="assets/img/assessment.png">
+    <img style="position: absolute;top: 37px;left: 847px;" src="assets/img/hrround.png">
+    <img style="position: absolute;top: 37px;left: 1039px;" src="assets/img/hire.png">
+    <img style="position: absolute;top: 37px;left: 1225px;" src="assets/img/offered.png">
+    <ul style="list-style:none;" *ngFor="let item of StageValueCount; let i = index">
+      <li style="position: absolute;top: 68px;left: 106px;width: 10px;">{{item.NotHired}}</li>
+      <li style="position: absolute;top: 68px;left: 294px;width: 10px;">{{item.Sourcing}}</li>
+      <li style="position: absolute;top: 68px;left: 480px;width: 10px;">{{item.Screening}}</li>
+      <li style="position: absolute;top: 68px;left: 668px;width: 10px;">{{item.Assessment}}</li>
+      <li style="position: absolute;top: 68px;left: 859px;width: 10px;">{{item.HRRound}}</li>
+      <li style="position: absolute;top: 68px;left: 1048px;width: 10px;">{{item.Offered}}</li>
+      <li style="position: absolute;top: 68px;left: 1236px;width: 10px;">{{item.Joined}}</li>
+    </ul>-->
+  </div>
+<div id="manageapplication" style="margin-top: 110px;">
+  <mat-card-title style="text-align: center;">Manage Candidate -  <select id="stages" (change)="getStageValuesOnChange($event.target.value)">
+      <option value="SO">Sourcing</option>
+      <option value="SC">Screening</option>
+      <option value="AS">Assessment</option>
+      <option value="HR">HR Round</option>
+      <option value="OF">Offered</option>
+      <option value="JO">Joined</option>
+      <option value="NH">Not Hired</option>
+    </select><img id="loader" style="vertical-align: bottom;margin-left: 10px;" src="assets/img/loader.gif"/>
+  </mat-card-title>
+  <p style="margin:0;text-align:center;" *ngFor="let item of requisitionDetails; let i = index">
+    <span style="color:#0670c4;font-weight: 500;">{{item.ClientName}}</span> - <b>#{{item.RequisitionId}}</b> {{item.Designation}} - <span style="color:#0670c4;">{{item.EmpLocation}}</span></p>
+  <mat-card-content style="font-size: 12.5px;">  
+    <a class="newitem" [routerLink]="['/cvupload',id]">+Add Candidate</a>  
+    <table *ngIf="showall == 'true'"  #dataTable class="display" id="applicationDashboard" style="width:100%;">
+      <thead>
+        <tr>
+          <th style="background-image: none;height: 25px;width: 20px;"></th>
+          <th>CV</th>
+          <th>Name</th>
+          <th>Vendor</th>
+          <th>Exp</th>
+          <th>Email Id</th>
+          <th>Mobile No.</th>
+          <th>Expected CTC</th>
+          <th>Current CTC</th>
+          <th>NP</th>
+          <th>C.Loc</th>
+          <th>Owner</th>
+          <th>Date</th>
+          <th>Ageing</th>
+        </tr>
+      </thead>
+      <tbody>          
+        <tr  *ngFor="let item of StageValueList; let i = index">                
+          <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
+          <td class="dropdown">
+            <img src="assets/img/file.png" (click)="FileMethod(i)">
+            <ul class="dropdown-menu" id="filemenu{{i}}">
+              <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View File</a></li>
+              <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download File</a></li>              
+            </ul>
+          </td>
+          <td style="width: 7vw;"  class="dropdown">
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
+            <ul class="dropdown-menu" id="showmenu{{i}}">
+                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>
+                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
+                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
+                <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>
+                <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li> 
+              </ul>
+          </td>        
+          <td>{{item.VendorName}}</td>         
+          <td>{{item.RelevantExperienceYYMM}}</td>
+          <td>{{item.EMailId}}</td>
+          <td>{{item.MobileNo}}</td>
+          <td id="changeExpvalue{{i}}">{{item.ExpectedSalary}}</td>            
+          <td id="changePrevalue{{i}}">{{item.PrSalaryTotal}}</td>
+          <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
+          <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
+          <td style="width: 8vw;">{{item.EACManager}}</td>
+          <td style="width: 8vw;">{{item.Date}}</td>
+          <td>{{item.Ageing}}d</td>         
+        </tr>        
+        </tbody>
+    </table>
+    <table *ngIf="showjoinoffer == 'true'" #dataTable class="display" id="joinofferDashboard" style="width:100%;">
+      <thead>
+        <tr>
+          <th style="background-image: none;height: 25px;width: 20px;"></th>
+          <th>CV</th>
+          <th>Name</th>
+          <th>Joining Date</th>
+          <th>Salary Offered</th>
+          <th>Billable CTC</th>
+          <th>Agency Fee</th>
+          <th>GST Applicable</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>          
+        <tr *ngFor="let item of StageValueList; let i = index">        
+          <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
+          <td class="dropdown">
+            <img src="assets/img/file.png" (click)="FileMethod(i)">
+            <ul class="dropdown-menu" id="filemenu{{i}}">
+              <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View File</a></li>
+              <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download File</a></li>               
+            </ul>
+          </td>
+          <td style="width: 100px;" class="dropdown">
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
+            <ul class="dropdown-menu" id="showmenu{{i}}">
+               <!-- <li> <a [routerLink]="['/requisitionadd',item.RequistionId]">Application Info</a></li>     -->  
+               <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>       
+               <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
+               <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
+                <li (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li> 
+                <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li>                   
+            </ul>
+          </td>
+       
+          <td id="changeJoinvalue{{i}}">{{item.JoiningDate| date: 'dd MMM yyyy'}}</td>         
+          <td id="changeSalvalue{{i}}">{{item.SalaryOffered}}</td>
+          <td id="changeBillvalue{{i}}">{{item.BillableCTC}}</td>
+          <td id="changeFeevalue{{i}}">{{item.AgencyFees}}</td>
+          <td id="changeGstvalue{{i}}">{{item.GSTYesNo}}</td>            
+          <td id="changeRemvalue{{i}}">{{item.Remarks}}</td>          
+        </tr>        
+        </tbody>
+    </table>
+    <table *ngIf="shownothired == 'true'"  #dataTable class="display" id="nothiredDashboard" style="width:100%;">
+      <thead>
+        <tr>
+          <th style="background-image: none;height: 25px;width: 20px;"></th>
+          <th>CV</th>
+          <th>Name</th>
+          <th>Vendor</th>
+          <th>Exp</th>
+          <th>Email Id</th>
+          <th>Mobile No.</th>
+          <th>Expected CTC</th>
+          <th>Current CTC</th>
+          <th>NP</th>
+          <th>C.Loc</th>
+          <th>Owner</th>
+          <th>Date</th>
+          <th>Ageing</th>
+          <th>Reject Reason</th>
+        </tr>
+      </thead>
+      <tbody>          
+        <tr *ngFor="let item of StageValueList; let i = index">                
+          <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
+          <td class="dropdown">
+            <img src="assets/img/file.png" (click)="FileMethod(i)">
+            <ul class="dropdown-menu" id="filemenu{{i}}">
+              <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View File</a></li>
+              <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download File</a></li>                         
+            </ul>
+          </td>
+          <td style="width: 7vw;" class="dropdown">
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
+            <ul class="dropdown-menu" id="showmenu{{i}}">
+              <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>                
+                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
+                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
+                <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>
+                <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li>  
+                <!--<li (click)="updateStage('NH','Not Hired')"><a style="cursor:pointer;">Back to Previous Stage</a></li>-->  
+              </ul>
+          </td>        
+          <td>{{item.VendorName}}</td>         
+          <td >{{item.RelevantExperienceYYMM}}</td>
+          <td >{{item.EMailId}}</td>
+          <td>{{item.MobileNo}}</td>
+          <td id="changeExpvalue{{i}}">{{item.ExpectedSalary}}</td>            
+          <td id="changePrevalue{{i}}">{{item.PrSalaryTotal}}</td>
+          <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
+          <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
+          <td>{{item.EACManager}}</td>
+          <td style="width: 8vw;" >{{item.Date}}</td>
+          <td style="width: 8vw;" >{{item.Ageing}}d</td>         
+          <td>{{item.RejectionReason}}</td>         
+        </tr>        
+        </tbody>
+    </table>
+</mat-card-content></div>
+<div id="applicationinfo" style="display:none;margin-top: 118px;">
+  <a style="cursor: pointer;color: #61605f;" (click)="backManageApplication()"><i class="material-icons" style="float: right;border: 1px solid;border-radius: 50%;margin: 10px 11px;">
+    chevron_left
+  </i></a>
+  <mat-tab-group dynamicHeight>
+  
+    <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="fas fa-id-card fa-2x"></i>          
+        </ng-template>
+        <div id="primary" style="width:550px;" class="example-large-box mat-elevation-z4" *ngFor = "let item of primaryinfoDetails">
+        <div> <p>{{item.CandidateName}}</p>
+        <p> {{item.CurrentDesignation}} , {{item.CurrentCompanyName}}</p></div><hr>
+          <ul  style="float: left;">
+            <li style="padding-left: 32px;">
+              <b>Contact Information</b>
+            </li>
+            <li>
+              <i class="material-icons icon">
+                phone
+                </i>&nbsp;&nbsp;&nbsp;{{item.MobileNo}}
+            </li>
+            <li>
+              <i class="material-icons icon">
+                mail_outline
+                </i>&nbsp;&nbsp;&nbsp;{{item.EMailId}}
+            </li>
+            <li>
+              <img src="assets/img/birthday.png">&nbsp;&nbsp;&nbsp;{{item.DateofBirth| date: 'dd MMM yyyy'}}
+            </li>
+            <li>
+              <i class="material-icons icon">
+                place
+                </i>&nbsp;&nbsp;&nbsp;{{item.AddresslLine1}},{{item.AddresslLine2}},{{item.AddresslLine3}},{{item.AddresslLine4}}
+            </li>
+            <li>
+              <img src="assets/img/id.png">&nbsp;&nbsp;&nbsp;{{item.CandidateId}}
+            </li>
+          </ul> 
+          <ul style="float: left;">
+            <li style="padding-left: 32px;">
+            <b>Source Information</b>
+            </li>
+            <li>
+              <img src="assets/img/id.png">&nbsp;&nbsp;&nbsp;{{item.ApplicationId}}
+            </li>
+            <li>
+              <img src="assets/img/person.png">&nbsp;&nbsp;&nbsp;{{item.VendorName}}
+            </li>
+            <li>
+              <img src="assets/img/stage.png">&nbsp;&nbsp;&nbsp;{{item.Currentstage_CV}}
+            </li>
+            <li>
+              <img src="assets/img/date.png">&nbsp;&nbsp;&nbsp;{{item.Currentstage_CV_Date}}
+            </li>           
+        </ul> <br>
+        <p style="padding-left: 32px;"><b>CV Link</b></p>     
+        <p style="padding-left: 7px;"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>  
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="material-icons" style="font-size: 33px;">rss_feed</i>                  
+        </ng-template>
+        <div class="example-large-box mat-elevation-z4" >
+          
+          <div *ngFor = "let item of primaryinfoDetails"> <p>{{item.CandidateName}}</p>
+            <p> {{item.CurrentDesignation}} , {{item.CurrentCompanyName}}</p></div><hr style="margin-bottom: 30px;">
+          <div style="height:111px;" *ngFor="let item of cvlogDetails">    
+            <div style="float:left"> 
+            <div class="circleGray"><i class="fa fa-check fa-2x checkmark" aria-hidden="true"></i></div>
+            <div class="line"></div>
+          </div>
+              <div class="rect">        
+                <label>
+                  CV Stage: {{item.CV_Stage}},  Moved on: {{item.CV_Stage_Date}},  Moved by: {{item.VendorName}}
+                </label>
+              </div>             
+          </div>            
+        </div>
+      </mat-tab>
+  </mat-tab-group>
+</div>
+</mat-card>
