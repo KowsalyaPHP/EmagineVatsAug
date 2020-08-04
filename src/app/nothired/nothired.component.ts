@@ -39,14 +39,16 @@ export class NothiredComponent implements OnInit {
     }  
         
     this.notHiredForm = this.formBuilderObj.group({ 
+      NotHiredDetails: this.formBuilderObj.array(arr)
+    });  
+
+    /*this.notHiredForm = this.formBuilderObj.group({ 
       NotHiredDetails: this.formBuilderObj.array(arr, Validators.required)
-    });   
+    }); */
 
     this.control = <FormArray>this.notHiredForm.controls['NotHiredDetails'];
-    console.log(this.control);
+    
   }
-
-  
 
   getControls(frmGrp: FormGroup, key: string) {
     return (<FormArray>frmGrp.controls[key]).controls;

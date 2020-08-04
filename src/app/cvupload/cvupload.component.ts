@@ -30,7 +30,8 @@ export class CvuploadComponent implements OnInit {
   fileList:FileList;
   message:any;
   id:any;
-  submitted = false;
+  submitted = false;  
+  maxDate: any;
 
   constructor(private CvuploadServices: CvuploadService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private toastr: ToastrService) {
 
@@ -67,6 +68,9 @@ export class CvuploadComponent implements OnInit {
    }
   
   ngOnInit(): void {  
+    var date = new Date();
+    this.maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
+    
       this.EduValue = {Passing_Year: "", Marks_Obtained: "",Degree_Awarded:"", Institution: ""};  
       this.EduArray.push(this.EduValue);
       

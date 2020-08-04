@@ -22,7 +22,7 @@ export class SubstageComponent implements OnInit {
   assessmentDetails:[]; 
   radioSelected: any;
   round_details = [
-    {name: 'Round 1'},
+    {name: 'CV Submitted'},
     {name: 'Round 2'},
     {name: 'Round 3'},
     {name: 'Round 4'}
