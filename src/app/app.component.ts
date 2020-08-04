@@ -11,7 +11,7 @@ import { RequisitionaddComponent } from './requisitionadd/requisitionadd.compone
 export class AppComponent {
   title = 'vats';
   userName='';
-  public static urlPath = "http://bincrm.com/vatsdemo/";
+  public static urlPath = "http://bincrm.com/vatsdev/";
   
   /*show_menu: any = 'false';
   ReqID:any;

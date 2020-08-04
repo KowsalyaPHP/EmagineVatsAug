@@ -532,7 +532,7 @@ export class ManageapplicationComponent implements OnInit {
   }
 
   
-  updateStage(updatestage,updatestagestring){
+  /*updateStage(updatestage,updatestagestring){
 
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
     this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
@@ -664,9 +664,38 @@ export class ManageapplicationComponent implements OnInit {
       ); 
     }
 
+  }*/
+
+  updateNothiredBackwardMovement(updatestage,candidateId,ApplicationId){
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];  
+      this.currentstage = params['stage'];    
+    });
+
+    this.ManageapplicationServices.updateStagetoStage(this.id,ApplicationId,updatestage,this.currentstage,candidateId).subscribe(
+      response => {
+        if (response != "No data") {  
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+          }
+          else {             
+            if (getMessage['0'] == "200") {  
+              this.message = getMessage['1'];
+              this.openSnackBar();        
+            //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
+             // this.getStageValuesOnChange(updatestage);
+             // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
+            }   
+          }             
+        }
+      }
+    ); 
   }
 
-  /*updateStage(updatestage,updatestagestring){
+  updateStage(updatestage,updatestagestring){
 
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
     this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
@@ -735,7 +764,7 @@ export class ManageapplicationComponent implements OnInit {
         this.openSnackBar();
         return;
       }*/
-      /*else if(this.currentstage == 'AS' && updatestage !='HR')
+      else if(this.currentstage == 'AS' && updatestage !='HR')
       {
         this.message = "In Forward Movement, CV from Assessment can only be moved to HR Round and Not Hired.";
         this.openSnackBar();
@@ -895,7 +924,7 @@ export class ManageapplicationComponent implements OnInit {
     ); 
   }
 
-  }*/
+  }
 
   /*downLoadFile(data: any, type: string) {
     let blob = new Blob([data], { type: type});
