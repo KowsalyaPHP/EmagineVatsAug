@@ -24,7 +24,9 @@ export class OfferComponent implements OnInit {
   date:any;
   assessmentDetails:[]; 
   getUpdateValues:[];
-  
+  minDate = new Date();
+  maxDate:any;
+
   constructor(public dialogRef: MatDialogRef<OfferComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private SharedServices: SharedService,private OfferServices: OfferService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private datePipe : DatePipe) {
 
     this.offerForm = this.formBuilderObj.group({
@@ -36,7 +38,10 @@ export class OfferComponent implements OnInit {
       Remarks:''
     });    
   }
+  
   ngOnInit() {
+    let currentdate = new Date();
+    this.maxDate = new Date(currentdate.setMonth(currentdate.getMonth() + 2));    
     this.viewofferForm(this.data['applicationId'],this.data['candidateId'],this.data['requisitionId']);
   }
 

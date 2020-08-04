@@ -17,9 +17,12 @@
                     <select matNativeControl placeholder="Not Hired Reason" required formControlName="Reason">
                         <option *ngFor="let item of LkupNotHiredReason" value="{{item.Code}}" selected>{{item.Description}}</option> 
                     </select>     
-                    <mat-error *ngFor="let validation of validation_messages.Reason">
+                    <mat-error *ngIf="notHiredForm.invalid">
+                        Please select reason
+                     </mat-error>
+                   <!-- <mat-error *ngFor="let validation of validation_messages.Reason">
                         <mat-error class="error-message" *ngIf="notHiredForm.invalid || notHiredForm.get('Reason').hasError(validation.type) && (notHiredForm.get('Reason').dirty || notHiredForm.get('Reason').touched)">{{validation.message}}</mat-error>
-                    </mat-error>
+                    </mat-error>-->
                 </mat-form-field>
             </td>
             <td>      
