@@ -15,6 +15,8 @@ export class OfferService {
   public addOfferDetails(FormObj,applicationId,reqId,candId,date): Observable<any> {
 
     const url = AppComponent.urlPath + 'OfferFormUpdate';
+    //const url = 'http://21b9ff3dcc82.ngrok.io/OfferForm';
+    
     const params = new URLSearchParams();   
     
     var RefId = sessionStorage.getItem("RefId");
@@ -28,6 +30,8 @@ export class OfferService {
     params.set('SalaryOffered', FormObj.SalaryOffered);
     params.set('BillableCTC', FormObj.BillableCTC);
     params.set('AgencyFees', FormObj.AgencyFees);
+    params.set('AgencyFees_percent', FormObj.AgencyFees_percent);
+    params.set('AgencyFee_Mode', FormObj.AgencyFee_Mode);
     params.set('GSTYesNo', FormObj.GSTYesNo);
     params.set('Remarks', FormObj.Remarks);
     params.set('C_ID', C_ID);
@@ -46,6 +50,7 @@ export class OfferService {
   public viewofferDetails(applicationId,candId,reqId): Observable<any> {
 
     const url = AppComponent.urlPath + 'OfferFormView';
+  //  const url = 'http://21b9ff3dcc82.ngrok.io/OfferFormView';
     const params = new URLSearchParams();   
 
     var RefId = sessionStorage.getItem("RefId");  

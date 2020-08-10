@@ -35,8 +35,13 @@ export class OfferComponent implements OnInit {
       BillableCTC:['', [Validators.max(999999999), Validators.min(0)]],
       AgencyFees:['', [Validators.max(999999999), Validators.min(0)]],
       GSTYesNo:'',
-      Remarks:''
+      Remarks:'',      
+      AgencyFee_Mode:['flatrate'],
+     // variable: ['', [Validators.required,Validators.max(100), Validators.min(0)]]
+      AgencyFees_percent: ''
     });    
+
+    
   }
   
   ngOnInit() {
@@ -55,6 +60,41 @@ export class OfferComponent implements OnInit {
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
   }
 
+  textboxMode(mode){
+    
+    if(mode == 'variable')
+    {
+      if(this.offerForm.get('AgencyFees_percent').value != '.')
+      { 
+        const variable = this.offerForm.get('AgencyFees_percent');    
+        //variable.setValidators(Validators.required);
+        this.offerForm.get('AgencyFees_percent').setValidators([Validators.required]);      
+        variable.updateValueAndValidity();
+      }
+      $("#displayVariable").show();
+      //$("#variable").removeAttr("disabled");
+      $("#variable").prop('readonly', false);
+      $("#agencyfee").prop('readonly', true);
+     // $("#variable").prop('disabled', false);   
+     // $("#agencyfee").prop('disabled', true);       
+    }
+    else{
+      $("#displayVariable").hide();
+      $("#variable").prop('readonly', true);
+      $("#agencyfee").prop('readonly', false);
+    //  $("#variable").prop('disabled', true);  
+    //  $("#agencyfee").prop('disabled', false); 
+    }    
+  }
+
+  onPercentageEnter(event: any){
+    let percentage = 0;
+    if( event.target.value != '' ){
+      percentage += ((Number($("#BillableCTC").val())*Number($("#variable").val()))/100);          
+    }
+    this.offerForm.patchValue({AgencyFees: percentage});
+  }
+  
   addOfferFormDetails(formObj){
 
     if (this.offerForm.invalid) {
@@ -105,6 +145,8 @@ export class OfferComponent implements OnInit {
                   SalaryOffered:this.assessmentDetails['Data'][0]['SalaryOffered'],
                   BillableCTC:this.assessmentDetails['Data'][0]['BillableCTC'],
                   AgencyFees:this.assessmentDetails['Data'][0]['AgencyFees'],
+                  AgencyFee_Mode:this.assessmentDetails['Data'][0]['AgencyFee_Mode'],
+                  AgencyFees_percent:this.assessmentDetails['Data'][0]['AgencyFees_percent'],
                   GSTYesNo:this.assessmentDetails['Data'][0]['GSTYesNo'],
                   Remarks:this.assessmentDetails['Data'][0]['Remarks']                                  
               });            
@@ -131,6 +173,9 @@ export class OfferComponent implements OnInit {
     ],
     'GSTYesNo': [
       { type: 'required', message: 'Please select GST' }
+    ],
+    'AgencyFees_percent': [
+      { type: 'required', message: 'Please enter agency fees percentage' }
     ]
   }
 }

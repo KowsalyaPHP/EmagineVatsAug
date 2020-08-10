@@ -21,11 +21,12 @@ export class SubstageComponent implements OnInit {
   message:any;
   assessmentDetails:[]; 
   radioSelected: any;
+  getUpdateValues:[];
   round_details = [
     {name: 'CV Submitted'},
+    {name: 'Round 1'},
     {name: 'Round 2'},
-    {name: 'Round 3'},
-    {name: 'Round 4'}
+    {name: 'Round 3'}
   ]
   currentstage:any;
 
@@ -92,7 +93,9 @@ export class SubstageComponent implements OnInit {
            // this.openSnackBar();
            
            // this.routerObj.navigate(['manage/',this.data['requisitionId'],this.data['currentStage']]);
-            this.dialogRef.close({action:1});  
+           this.getUpdateValues = response['Data'];            
+           this.dialogRef.close({action:1,values: this.getUpdateValues});  
+             
           }                   
         }
         else {         

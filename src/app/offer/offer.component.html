@@ -30,15 +30,31 @@
     <tr>
         <td>
             <mat-form-field style="width: 200px;"> 
-                <input  matInput required  placeholder="Billable CTC" type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" formControlName="BillableCTC">       
+                <input  matInput required id="BillableCTC" placeholder="Billable CTC" type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" formControlName="BillableCTC">       
                 <mat-error *ngFor="let validation of validation_messages.BillableCTC">
                     <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('BillableCTC').hasError(validation.type) && (offerForm.get('BillableCTC').dirty || offerForm.get('BillableCTC').touched)">{{validation.message}}</mat-error>
                 </mat-error>                  
             </mat-form-field>        
         </td>
+        <td>            
+            <mat-form-field style="width: 200px;"> 
+                <select matNativeControl placeholder="Agency Fee Mode" formControlName="AgencyFee_Mode" (change)="textboxMode($event.target.value)"> 
+                    <option value="flatrate" selected>Flat Rate</option>                       
+                    <option value="variable">Variable</option>                       
+                </select>
+            </mat-form-field>
+        </td>
+        <td style="display: none;" id="displayVariable">
+            <mat-form-field style="width: 200px;">
+                <input matInput  id="variable" onKeyPress="if(this.value.indexOf('.') == 2 || this.value.length == 4) return false;" (keyup)="onPercentageEnter($event)" placeholder="Value %" formControlName="AgencyFees_percent">   
+                <mat-error *ngFor="let validation of validation_messages.AgencyFees_percent">
+                    <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('AgencyFees_percent').hasError(validation.type) && (offerForm.get('AgencyFees_percent').dirty || offerForm.get('AgencyFees_percent').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>  
+        </td>
         <td>
             <mat-form-field style="width: 200px;"> 
-                <input  matInput required placeholder="Agency Fee" type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" formControlName="AgencyFees">   
+                <input id="agencyfee"  matInput required placeholder="Agency Fee" type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" formControlName="AgencyFees">   
                 <mat-error *ngFor="let validation of validation_messages.AgencyFees">
                     <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('AgencyFees').hasError(validation.type) && (offerForm.get('AgencyFees').dirty || offerForm.get('AgencyFees').touched)">{{validation.message}}</mat-error>
                 </mat-error>                      
@@ -57,8 +73,8 @@
                 </mat-error>  
             </mat-form-field>        
         </td>
-        <td >
-            <mat-form-field style="width: 390px;"> 
+        <td colspan="3">
+            <mat-form-field style="width: 408px;"> 
                 <input  matInput maxlength="2400" placeholder="Comments: Current:0 | Expected:0 | Budget:18000 - 23000" formControlName="Remarks">                       
             </mat-form-field>        
         </td>

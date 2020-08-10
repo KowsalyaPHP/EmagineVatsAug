@@ -11,7 +11,7 @@
     <div mat-dialog-content class="contentskill">
         <p *ngIf="!skillSets">loading skillsets, please wait a second...</p>
         <div *ngFor = "let item of skillSets | filter:term ; index as i">
-            <input type="checkbox" name="skillSets{{item.Code}}" [(ngModel)]="skillSets[i].checked" value="{{item.Code}}" />    
+            <input type="checkbox" name="skillSets{{item.Code}}" [(ngModel)]="item.checked" value="{{item.Code}}" />    
             <label for="skillSets{{item.Code}}">{{item.Description}}</label>
         </div>
     </div>

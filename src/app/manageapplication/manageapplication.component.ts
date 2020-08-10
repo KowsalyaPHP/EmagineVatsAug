@@ -40,6 +40,7 @@ export class ManageapplicationComponent implements OnInit {
   message:any;
   public StageValueList: Applicationlist[];
   StageValueCount:[];
+  SubStageValueCount:[];
   requisitionDetails:[];  
   id:any;
   selectedApplication:any;
@@ -347,7 +348,7 @@ export class ManageapplicationComponent implements OnInit {
     });   
   }
 
-  openDialogAssessment(appId,CandId,CandName): void {
+  openDialogAssessment(appId,CandId,CandName,i): void {
 
     this.route.params.subscribe(params => {
       this.id = params['id'];  
@@ -361,9 +362,11 @@ export class ManageapplicationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result && result.action === 1) {
-        //this.updateScreeningStage(result['stage'],appId,CandId);
+        this.SubStageValueCount = result['values']['SubStageCount'];
+       $("#candidateName"+[i]).html(result['values']['SubStageName']['Value']);        
       }
-    });   
+    })
+
   }
   
   actionMethod(i) { 
@@ -385,6 +388,47 @@ export class ManageapplicationComponent implements OnInit {
    });
   }
   
+  getSubStageDetails(substage){
+  
+    $("#loader").show();     
+
+   //var cStage = substage;
+
+    $("#manageapplication").show();
+    $("#applicationinfo").hide(); 
+
+  /*  $(document).ready(function() { 
+       $('select option[value="'+cStage+'"]').prop("selected",true);  
+    });
+       */
+      this.showall='true';
+      this.shownothired='false';
+      this.showjoinoffer ='false';
+
+      this.ManageapplicationServices.getSubStageValues(this.id,substage).subscribe(
+        response => {
+          if (response != "No data") {  
+            this.StageValueList = response['Data']['SSAHNGrid'];     
+            this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
+            this.requisitionDetails = response['Data']['RequisitionDetail'];  
+          }
+        }
+      ); 
+
+      $("#loader").hide();
+
+    /*  setTimeout(function () {
+        $(function () {
+          $('#applicationDashboard').DataTable({
+            scrollY: '310px'
+          });    
+          $("#loader").hide();
+        });      
+      }, 1500);      */
+  }
+
+
   getDetails(id,currentstage){
   
     $("#loader").show();     
@@ -408,6 +452,7 @@ export class ManageapplicationComponent implements OnInit {
           if (response != "No data") {  
             this.StageValueList = response['Data']['SSAHNGrid'];     
             this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
           }
         }
@@ -422,6 +467,7 @@ export class ManageapplicationComponent implements OnInit {
           if (response != "No data") {  
             this.StageValueList = response['Data']['SSAHNGrid'];     
             this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
           }
         }
@@ -437,6 +483,7 @@ export class ManageapplicationComponent implements OnInit {
           if (response != "No data") {  
             this.StageValueList = response['Data']['SSAHNGrid'];     
             this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
           }
         }
@@ -472,6 +519,7 @@ export class ManageapplicationComponent implements OnInit {
           if (response != "No data") {  
             this.StageValueList = response['Data']['SSAHNGrid'];     
             this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
           }
         }
@@ -516,6 +564,7 @@ export class ManageapplicationComponent implements OnInit {
           if (response != "No data") {  
             this.StageValueList = response['Data']['SSAHNGrid'];     
             this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
           }
         }

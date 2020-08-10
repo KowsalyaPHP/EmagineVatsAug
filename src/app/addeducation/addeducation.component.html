@@ -11,7 +11,8 @@
     <div mat-dialog-content class="contentEducation">
         <p *ngIf="!educations">loading education, please wait a second...</p>
         <div *ngFor = "let item of educations | filter:term ; index as i">
-            <input type="checkbox" name="educations{{item.Code}}" [(ngModel)]="educations[i].checked" value="{{item.Code}}" />    
+            <input type="checkbox" name="educations{{item.Code}}" [(ngModel)]="item.checked" value="{{item.Code}}" />    
+            <!--<input type="checkbox" name="educations{{item.Code}}" [(ngModel)]="educations[i].checked" value="{{item.Code}}" />  -->  
             <label for="educations{{item.Code}}">{{item.Description}}</label>
         </div>
     </div>

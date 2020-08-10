@@ -91,7 +91,18 @@
   <p style="margin:0;text-align:center;" *ngFor="let item of requisitionDetails; let i = index">
     <span style="color:#0670c4;font-weight: 500;">{{item.ClientName}}</span> - <b>#{{item.RequisitionId}}</b> {{item.Designation}} - <span style="color:#0670c4;">{{item.EmpLocation}}</span></p>
   <mat-card-content style="font-size: 12.5px;">  
-    <a class="newitem" [routerLink]="['/cvupload',id]">+Add Candidate</a>  
+    <a class="newitem" [routerLink]="['/cvupload',id]">+Add Candidate</a> 
+    <div class="stage" *ngFor="let item of SubStageValueCount; let i = index">   
+      <p style="margin-bottom: -20px;margin-left: 270px;color: #ffff;font-weight: 500;" *ngIf="currentstage == 'AS'">
+        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getStageValuesOnChange('AS')">All - {{item.ALL}}</span>&nbsp;&nbsp;
+        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('AS')">Assessment - {{item.AS}}</span>&nbsp;&nbsp;
+        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('CV')">CV Submit - {{item.CV}}</span>&nbsp;&nbsp;
+        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('R1')">Round 1 - {{item.R1}}</span>&nbsp;&nbsp;
+        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('R2')">Round 2 - {{item.R2}}</span>&nbsp;&nbsp;
+        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('R3')"> Round 3 - {{item.R3}}</span>
+      </p> 
+    </div>
+    <!--Assessment CV Submit Round 2 Round 3 Round 4 -->
     <table *ngIf="showall == 'true'"  #dataTable class="display" id="applicationDashboard" style="width:100%;">
       <thead>
         <tr>
@@ -107,11 +118,13 @@
           <th>NP</th>
           <th>C.Loc</th>
           <th>Owner</th>
+          <th>Step Owner</th>
           <th>Date</th>
           <th>Ageing</th>
         </tr>
       </thead>
-      <tbody>          
+      <tbody>  
+        <tr *ngIf="StageValueList == ''" class="odd"><td valign="top" colspan="14" class="dataTables_empty">No records found</td></tr>            
         <tr  *ngFor="let item of StageValueList; let i = index">                
           <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
           <td class="dropdown">
@@ -122,12 +135,12 @@
             </ul>
           </td>
           <td style="width: 7vw;"  class="dropdown">
-            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" id="candidateName{{i}}" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
                 <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>
                 <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
                 <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
-                <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>
+                <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Movement to Substage</a></li>
                 <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li> 
               </ul>
           </td>        
@@ -140,10 +153,12 @@
           <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
           <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
           <td style="width: 8vw;">{{item.EACManager}}</td>
+          <td style="width: 8vw;">{{item.Step_Owner}}</td>
           <td style="width: 8vw;">{{item.Date}}</td>
           <td>{{item.Ageing}}d</td>         
         </tr>        
-        </tbody>
+      </tbody>      
+      
     </table>
     <table *ngIf="showjoinoffer == 'true'" #dataTable class="display" id="joinofferDashboard" style="width:100%;">
       <thead>
@@ -157,6 +172,7 @@
           <th>Agency Fee</th>
           <th>GST Applicable</th>
           <th>Comments</th>
+          <th>Step Owner</th>
         </tr>
       </thead>
       <tbody>          
@@ -187,8 +203,10 @@
           <td id="changeFeevalue{{i}}">{{item.AgencyFees}}</td>
           <td id="changeGstvalue{{i}}">{{item.GSTYesNo}}</td>            
           <td id="changeRemvalue{{i}}">{{item.Remarks}}</td>          
+          <td id="changeRemvalue{{i}}">{{item.Step_Owner}}</td>          
         </tr>        
         </tbody>
+        
     </table>
     <table *ngIf="shownothired == 'true'"  #dataTable class="display" id="nothiredDashboard" style="width:100%;">
       <thead>
@@ -205,6 +223,7 @@
           <th>NP</th>
           <th>C.Loc</th>
           <th>Owner</th>
+          <th>Step Owner</th>
           <th>Date</th>
           <th>Ageing</th>
           <th>Reject Reason</th>
@@ -239,6 +258,7 @@
           <td id="changePrevalue{{i}}">{{item.PrSalaryTotal}}</td>
           <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
           <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
+          <td>{{item.Step_Owner}}</td>
           <td>{{item.EACManager}}</td>
           <td style="width: 8vw;" >{{item.Date}}</td>
           <td style="width: 8vw;" >{{item.Ageing}}d</td>         

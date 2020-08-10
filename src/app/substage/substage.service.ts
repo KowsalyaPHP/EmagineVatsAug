@@ -15,10 +15,12 @@ export class SubstageService {
   public addAssementDetails(FormObj,applicationId,reqId,candId,radioSelected,currentStage): Observable<any> {
 
     const url = AppComponent.urlPath + 'AssesmentAdd';
+    //const url = 'http://129c3d4333d2.ngrok.io/AssesmentAdd';
+    
     const params = new URLSearchParams();   
     var RefId = sessionStorage.getItem("RefId");
     var C_ID = sessionStorage.getItem("uniqueSessionId");   
-
+    
     params.set('EntityId', RefId);
     params.set('RequisitionId', reqId);
     params.set('CandidateId', candId);
@@ -27,8 +29,6 @@ export class SubstageService {
     params.set('ToStage', radioSelected);
     params.set('Remarks', FormObj.Remarks);
     params.set('C_ID', C_ID);
-
-    console.log(params)
 
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {

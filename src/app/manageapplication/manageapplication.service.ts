@@ -15,6 +15,8 @@ export class ManageapplicationService {
   public getStageValues(reqId,Stage): Observable<any> {
 
     const url = AppComponent.urlPath + 'MngAppSSAHN';
+    //const url = 'http://481ab28aee69.ngrok.io/MngAppSSAHN';
+    
     const params = new URLSearchParams();  
     var RefId = sessionStorage.getItem("RefId");
     
@@ -30,6 +32,28 @@ export class ManageapplicationService {
           return 'No Data';
       });
   }
+
+  public getSubStageValues(reqId,Stage): Observable<any> {
+
+    const url = AppComponent.urlPath + 'MngAppSSAHN';
+   //const url = 'http://481ab28aee69.ngrok.io/MngAppSSAHN';
+    const params = new URLSearchParams();  
+    var RefId = sessionStorage.getItem("RefId");
+    
+    params.set('EntityId', RefId);
+    params.set('RequisitionId', reqId);
+    params.set('Stage', 'AS');     
+    params.set('SubStage', Stage);     
+    console.log(params)
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
+  }
+
   public getOffandJoinValues(reqId,Stage): Observable<any> {
 
     const url = AppComponent.urlPath + 'MngAppOffered';
