@@ -44,7 +44,7 @@
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/manage',item.RequistionId,'SO']">Manage Candidate</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/cvupload',item.RequistionId]">Upload CV</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/clone',item.RequistionId]">Clone Requisition</a></li>
-                  <li (click)="viewJD(item.RequistionId)"><a style="cursor:pointer;">View JD</a></li>
+                  <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequistionId)"><a>View JD</a></li>
                 </ul>
           </td>     
           <td>{{item.EACManager}}</td>

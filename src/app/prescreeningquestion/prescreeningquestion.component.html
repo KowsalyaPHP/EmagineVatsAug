@@ -1,0 +1,54 @@
+
+<div id="snackbar">{{message}}</div>
+<mat-card>
+    <p style="font-weight:500">Screening Questions:</p>
+    <table style="margin-left:1%;" *ngIf="quesArray != ''">
+        <tr style="background: #e5e2e285;text-align: center;">
+            <td style="padding: 10px;width: 50px;font-weight:500">S.No</td>
+            <td style="padding: 10px;width: 150px;font-weight:500">A M I</td>
+            <td style="padding: 10px;width: 110px;font-weight:500">Type</td>
+            <td style="padding: 10px;width: 250px;font-weight:500">Question</td>
+            <td style="padding: 10px;width: 300px;font-weight:500">Answer options</td>
+            <td style="padding: 10px;width: 50px;font-weight:500">#</td>
+        </tr>       
+        <tr *ngFor="let item of quesArray; let i = index;">            
+            <td style="text-align: center;">{{i}}</td>
+            <td style="text-align: center;font-weight:500;color:#0670c4;"><input type="checkbox"> A&nbsp;&nbsp;<input type="checkbox"> M&nbsp;&nbsp;<input type="checkbox"> I</td>
+            <td>{{item.question_type}}</td>
+            <td>{{item.question}}</td>
+            <td>{{item.answer_option}}</td>
+            <td class="up" style="text-align: center;" ><i class="fa fa-arrow-circle-up"></i><i (click)="deleteQuestionbyRow(i)" class="fa fa-trash"></i></td>
+        </tr>
+    </table>
+    <br>
+ 
+    <form class="form" role="form" focusInvalidInput autocomplete="off" id="formquestion" novalidate=""
+[formGroup]="prequestionForm" (submit)='addQuestion(prequestionForm.value)'>
+    <mat-form-field style="width: 35%;margin-left:1%;">
+        <input matInput formControlName="Questions" required  id="Questions" placeholder="Questions">
+        <mat-error *ngFor="let validation of validation_messages.Questions">
+            <mat-error class="error-message" *ngIf="prequestionForm.invalid || prequestionForm.get('Questions').hasError(validation.type) && (prequestionForm.get('Questions').dirty || prequestionForm.get('Questions').touched)">{{validation.message}}</mat-error>
+        </mat-error> 
+    </mat-form-field>
+    <mat-form-field style="width: 20%;margin-left:2%;">
+        <select formControlName="QuestionType" id="questiontype" (change)="questionType($event.target.value)" matNativeControl required placeholder="Question Type">                                  
+            <option value="text">Text</option>                       
+            <option value="radio">Radio</option>                       
+            <option value="checkbox">Checkbox</option>                       
+        </select>         
+        <mat-error *ngFor="let validation of validation_messages.QuestionType">
+            <mat-error class="error-message" *ngIf="prequestionForm.invalid || prequestionForm.get('QuestionType').hasError(validation.type) && (prequestionForm.get('QuestionType').dirty || prequestionForm.get('QuestionType').touched)">{{validation.message}}</mat-error>
+        </mat-error> 
+    </mat-form-field>
+    <mat-form-field style="width: 20%;margin-left:2%;display: none;" id="displayOption">
+        <input formControlName="Options" type="number" (keyup)="onOptionCount($event)" matInput id="options" placeholder="Options">
+        <mat-error *ngFor="let validation of validation_messages.Options">
+            <mat-error class="error-message" *ngIf="prequestionForm.invalid || prequestionForm.get('Options').hasError(validation.type) && (prequestionForm.get('Options').dirty || prequestionForm.get('Options').touched)">{{validation.message}}</mat-error>
+        </mat-error> 
+    </mat-form-field>
+    <table>
+        
+    </table> 
+    <button mat-button style="margin-left:2%;" cdkFocusInitial>Add Question</button>
+  </form>
+</mat-card>

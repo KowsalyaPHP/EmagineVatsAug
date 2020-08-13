@@ -9,6 +9,7 @@ import { TooltipComponent, TooltipAnimationSettings } from '@syncfusion/ej2-angu
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import {DocviewjdComponent} from '../docviewjd/docviewjd.component'
+import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.component';
 
 @Component({
   selector: 'app-req-dashboard',
@@ -109,6 +110,19 @@ export class ReqDashboardComponent implements OnInit {
     
     //this.getReqLists(this.status); 
      
+  }
+
+  openDialogViewJd(reqId): void {
+  
+    const dialogRef = this.dialog.open(ViewrequisitionComponent, {
+      width: '1000px',
+      height:'1000px',
+      data: {ReqId: reqId}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+
+    });    
   }
 
   actionMethod(i) { 

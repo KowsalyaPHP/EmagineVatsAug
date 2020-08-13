@@ -26,6 +26,7 @@ export class OfferComponent implements OnInit {
   getUpdateValues:[];
   minDate = new Date();
   maxDate:any;
+  notEmpty = false;
 
   constructor(public dialogRef: MatDialogRef<OfferComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private SharedServices: SharedService,private OfferServices: OfferService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private datePipe : DatePipe) {
 
@@ -64,7 +65,7 @@ export class OfferComponent implements OnInit {
     
     if(mode == 'variable')
     {
-      if(this.offerForm.get('AgencyFees_percent').value != '.')
+      if(this.offerForm.get('AgencyFees_percent').value != '')
       { 
         const variable = this.offerForm.get('AgencyFees_percent');    
         //variable.setValidators(Validators.required);
@@ -88,6 +89,13 @@ export class OfferComponent implements OnInit {
   }
 
   onPercentageEnter(event: any){
+
+    var billctc = $("#BillableCTC").val();
+
+    if(billctc == ''){
+      this.notEmpty = true;
+    }    
+
     let percentage = 0;
     if( event.target.value != '' ){
       percentage += ((Number($("#BillableCTC").val())*Number($("#variable").val()))/100);          
@@ -149,8 +157,13 @@ export class OfferComponent implements OnInit {
                   AgencyFees_percent:this.assessmentDetails['Data'][0]['AgencyFees_percent'],
                   GSTYesNo:this.assessmentDetails['Data'][0]['GSTYesNo'],
                   Remarks:this.assessmentDetails['Data'][0]['Remarks']                                  
-              });            
+              });         
+
+              if(this.assessmentDetails['Data'][0]['AgencyFee_Mode'] == 'variable'){
+                $("#displayVariable").show();
+              }   
             }
+          
           }
         } else {
             console.log("something is wrong with Service Execution");

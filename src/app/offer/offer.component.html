@@ -32,8 +32,8 @@
             <mat-form-field style="width: 200px;"> 
                 <input  matInput required id="BillableCTC" placeholder="Billable CTC" type="number" onKeyPress="if(this.value.length == 9) return false;" min="0" max="999999999" formControlName="BillableCTC">       
                 <mat-error *ngFor="let validation of validation_messages.BillableCTC">
-                    <mat-error class="error-message" *ngIf="offerForm.invalid || offerForm.get('BillableCTC').hasError(validation.type) && (offerForm.get('BillableCTC').dirty || offerForm.get('BillableCTC').touched)">{{validation.message}}</mat-error>
-                </mat-error>                  
+                    <mat-error class="error-message" *ngIf="notEmpty || offerForm.invalid || offerForm.get('BillableCTC').hasError(validation.type) && (offerForm.get('BillableCTC').dirty || offerForm.get('BillableCTC').touched)">{{validation.message}}</mat-error>
+                </mat-error>               
             </mat-form-field>        
         </td>
         <td>            

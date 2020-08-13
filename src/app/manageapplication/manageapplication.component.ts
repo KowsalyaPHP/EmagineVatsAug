@@ -58,6 +58,7 @@ export class ManageapplicationComponent implements OnInit {
   cvlogDetails:[];
   movement:any;
   attachment:any;
+  clicked = 0;
 
   constructor(private routerObj: Router,private ManageapplicationServices: ManageapplicationService,private route: ActivatedRoute,public dialog: MatDialog,private datePipe : DatePipe) { 
     
@@ -387,13 +388,46 @@ export class ManageapplicationComponent implements OnInit {
       }            
    });
   }
+
+  getAssessmentStageValue(stage){   
+   
+    this.showjoinoffer = 'false';
+    this.shownothired='false';
+    this.showall='true';
+        
+    this.ManageapplicationServices.getStageValues(this.id,stage).subscribe(
+      response => {
+        if (response != "No data") {  
+          this.clicked = 0;          
+          this.StageValueList = response['Data']['SSAHNGrid'];     
+          this.StageValueCount = response['Data']['StageCount'];  
+          this.SubStageValueCount =  response['Data']['SubStageCount'];
+          this.requisitionDetails = response['Data']['RequisitionDetail']; 
+        }
+      }
+    );
+  }
   
   getSubStageDetails(substage){
   
     $("#loader").show();     
 
-   //var cStage = substage;
-
+    if(substage == 'AS'){
+      this.clicked = 1;
+    }
+    else if(substage == 'CV'){
+      this.clicked = 2;
+    }
+    else if(substage == 'R1'){
+      this.clicked = 3;
+    }
+    else if(substage == 'R2'){
+      this.clicked = 4;
+    }
+    else if(substage == 'R3'){
+      this.clicked = 5;
+    }
+    
     $("#manageapplication").show();
     $("#applicationinfo").hide(); 
 
@@ -490,6 +524,8 @@ export class ManageapplicationComponent implements OnInit {
       );
 
   }}
+
+
 
   getStageValuesOnChange(stage){   
     

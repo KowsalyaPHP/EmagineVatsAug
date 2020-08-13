@@ -10,3 +10,8 @@ export class EmpGrid{
     Employer:string;  
     Role:string;  
 }  
+export class PreScreeningQuestionGrid{     
+    question_type:string;  
+    question:string;  
+    answer_option:string; 
+}  

@@ -1,0 +1,181 @@
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+  </div>
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer *ngIf="showsideNav" #snav class="sideNav" style="position: relative;" opened [mode]="'side'">
+			<mat-nav-list>
+         <ul>
+             <li *ngIf="showMenu"><a [routerLink]="['/position',id]">Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',id]">Req Status Logs</a></li>
+          </ul>				
+			</mat-nav-list>
+		</mat-drawer>
+
+        <mat-drawer-content style="margin-left:20%">
+            
+    <div class="whiteframe" style="width: 93%;">
+        <h3 >Requisition  <span *ngIf="id > 0"> - #{{id}}</span> <span style="font-size: 10px;color: #c1c1bf;font-weight: normal;float: right;margin-top: -16px;"><table style="padding:0px !important;"><tr style="padding:0px !important;"><td style="padding:0px !important;">Created On:</td><td style="padding:0px !important;">{{createdOn}}</td></tr><tr style="padding:0px !important;"><td style="padding:0px !important;">Opened On:</td><td style="padding:0px !important;">{{openedOn}}</td></tr><tr style="padding:0px !important;"><td style="padding:0px !important;">Modified On:</td><td style="padding:0px !important;">{{modifyOn}}</td></tr></table></span></h3>       
+        <table style="width:100%">            
+            <tr> 
+                <td>
+                    <mat-form-field>
+                        <input size="35" readonly maxlength="80" matInput placeholder="Requisition Title" formControlName="Reqtitle">
+                       
+                    </mat-form-field>        
+                </td>
+                <td>
+                    <mat-form-field>                 
+                        <input readonly matInput placeholder="Employment Type" formControlName="EmploymentType">                 
+                    </mat-form-field>            
+                </td>
+                <td>     
+                    <mat-form-field class="example-full-width">  
+                        <input readonly  matInput placeholder="Client" formControlName="ClientId"> 
+                     </mat-form-field>                    
+                </td>
+                <td>            
+                    <mat-form-field>
+                        <input readonly matInput placeholder="Account Manager" formControlName="EACManager"> 
+                    </mat-form-field>
+                </td>                
+            </tr>
+        </table>
+    </div>
+    <div class="whiteframe" style="margin-top: -15px;width: 93%;">
+        <h3>Role Description</h3>
+        <table style="width:100%">
+            <tr>
+                <td>            
+                    <mat-form-field>
+                        <input readonly matInput placeholder="Location" formControlName="Emplocation">                                                
+                    </mat-form-field>        
+                </td>
+                <td>        
+                    <mat-form-field>
+                        <input matInput maxlength="4" readonly placeholder="Positions" formControlName="Noofposition">                   
+                    </mat-form-field>            
+                </td>
+                <td colspan="2">                                  
+                    <mat-form-field style="width:97% !important;">                       
+                        <mat-chip-list maxlength="240" placeholder="Skill Set" aria-label="Skill selection"> 
+                            <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">S</label>  
+                          <mat-chip *ngFor="let item of descriptionSkill">
+                            {{item}}                           
+                          </mat-chip>
+                          <!--<input matInput type="text" formControlName="Skillset" placeholder="Skill Set"> -->                      
+                        </mat-chip-list>
+                        <!--<mat-hint (click)="openDialogSkill()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Skill</mat-hint> -->
+                    </mat-form-field>                              
+                </td>                            
+            </tr>
+            <tr>                
+                <td>
+                    <mat-form-field>
+                        <input matInput readonly maxlength="80" placeholder="Designation" formControlName="Designation">
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput readonly id="minExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">                        
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput readonly id="maxExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input  readonly matInput placeholder="Budget Type" formControlName="BudgetType">                        
+                    </mat-form-field> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <input readonly matInput placeholder="Budget Currency" formControlName="Budgetccy">                       
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input readonly matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="100000000" placeholder="Min. Budget" formControlName="Budgetminamt">                       
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input readonly matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="100000000" placeholder="Max. Budget" formControlName="Budgetmaxamt">
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-chip-list maxlength="240"  placeholder="Educational Qualification" aria-label="Educational selection">
+                            <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">E</label>
+                          <mat-chip *ngFor="let item of descriptionEducation">
+                            {{item}}
+                          </mat-chip>
+                         <!--<input matInput placeholder="Educational Qualification" formControlName="Eduqlfn">-->                                
+                        </mat-chip-list>
+                        <!--<mat-hint (click)="openDialogEducation()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Education Qualification</mat-hint>-->  
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr><td style="color:#757270f0;padding: 10px 0 0 0;">Job Description*</td></tr>
+            <tr>              
+                <td colspan="4">    
+                  <ejs-richtexteditor readonly maxlength="4800" class="richtextboxwidth" required #toolsRTE id='alltoolRTE' formControlName="Jobdescription" [toolbarSettings]='tools' ></ejs-richtexteditor>                   
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">                    
+                    <mat-form-field style="width:97% !important;">
+                        <mat-chip-list placeholder="Competency" aria-label="Competency selection">
+                          <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">C</label>
+                          <mat-chip *ngFor="let item of descriptionCompetency" >
+                            {{item}}                            
+                          </mat-chip>
+                          <!--<input matInput placeholder="Competency" formControlName="Competency">-->                                  
+                        </mat-chip-list>
+                        <!--<mat-hint (click)="openDialogCompetency()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Competency</mat-hint>-->  
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    JD Doc - <span *ngIf="attachmentShow != 0 && id > 0" id="FileChange"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadJD(id)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></span>     
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input readonly matInput placeholder="Contact Person" formControlName="Hiringmanager">                                                            
+                    </mat-form-field> 
+                </td>
+                <td *ngIf="id > 0">
+                    <mat-form-field>
+                        <input readonly matInput placeholder="Requisition Status" formControlName="ReqStatus">                                            
+                    </mat-form-field> 
+                </td>
+                <td *ngIf="id > 0">
+                    <mat-form-field *ngIf="show">
+                        <input readonly matInput id="ReqStatusRemarks" placeholder="Status Remarks" formControlName="ReqStatusRemarks">       
+                       <!-- <mat-error *ngFor="let validation of requisition_validation_messages.ReqStatusRemarks">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('ReqStatusRemarks').hasError(validation.type) && (addRequisitionForm.get('ReqStatusRemarks').dirty || addRequisitionForm.get('ReqStatusRemarks').touched)">{{validation.message}}</mat-error>
+                        </mat-error>      -->      
+                    </mat-form-field>                    
+                </td>
+            </tr>
+            <tr>
+                <td><div mat-dialog-actions>                    
+                    <button mat-button  (click)="onNoClick()">Cancel</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+		</mat-drawer-content>
+	</mat-drawer-container>
+</div>
+
+

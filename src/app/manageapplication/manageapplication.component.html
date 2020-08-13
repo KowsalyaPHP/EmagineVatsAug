@@ -94,12 +94,12 @@
     <a class="newitem" [routerLink]="['/cvupload',id]">+Add Candidate</a> 
     <div class="stage" *ngFor="let item of SubStageValueCount; let i = index">   
       <p style="margin-bottom: -20px;margin-left: 270px;color: #ffff;font-weight: 500;" *ngIf="currentstage == 'AS'">
-        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getStageValuesOnChange('AS')">All - {{item.ALL}}</span>&nbsp;&nbsp;
-        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('AS')">Assessment - {{item.AS}}</span>&nbsp;&nbsp;
-        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('CV')">CV Submit - {{item.CV}}</span>&nbsp;&nbsp;
-        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('R1')">Round 1 - {{item.R1}}</span>&nbsp;&nbsp;
-        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('R2')">Round 2 - {{item.R2}}</span>&nbsp;&nbsp;
-        <span style="cursor: pointer;background: #0670c4;padding: 5px;" (click)="getSubStageDetails('R3')"> Round 3 - {{item.R3}}</span>
+        <span class="displaySubStage substage1" [ngClass]="{'is-clicked': clicked == 0}" (click)="getAssessmentStageValue('AS',1)">All - {{item.ALL}}</span>&nbsp;&nbsp;
+        <span class="displaySubStage substage2" [ngClass]="{'is-clicked': clicked == 1}" (click)="getSubStageDetails('AS',2)">Assessment - {{item.AS}}</span>&nbsp;&nbsp;
+        <span class="displaySubStage substage3" [ngClass]="{'is-clicked': clicked == 2}" (click)="getSubStageDetails('CV',3)">CV Submit - {{item.CV}}</span>&nbsp;&nbsp;
+        <span class="displaySubStage substage4" [ngClass]="{'is-clicked': clicked == 3}" (click)="getSubStageDetails('R1',4)">Round 1 - {{item.R1}}</span>&nbsp;&nbsp;
+        <span class="displaySubStage substage5" [ngClass]="{'is-clicked': clicked == 4}" (click)="getSubStageDetails('R2',5)">Round 2 - {{item.R2}}</span>&nbsp;&nbsp;
+        <span class="displaySubStage substage6" [ngClass]="{'is-clicked': clicked == 5}" (click)="getSubStageDetails('R3',6)"> Round 3 - {{item.R3}}</span>
       </p> 
     </div>
     <!--Assessment CV Submit Round 2 Round 3 Round 4 -->

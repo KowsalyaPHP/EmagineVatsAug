@@ -225,3 +225,13 @@ ul#submenu li {
   position: relative;
   background-color: black;
   }
+
+  .displaySubStage{
+    cursor: pointer;
+    background: #0670c4;
+    padding: 5px;
+  }
+
+  .is-clicked{
+    background: #949697 !important;
+  }

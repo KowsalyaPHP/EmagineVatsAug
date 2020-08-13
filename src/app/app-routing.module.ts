@@ -23,6 +23,8 @@ import { ReqcvlogsComponent } from './reqcvlogs/reqcvlogs.component';
 import { ClientregComponent } from './clientreg/clientreg.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { ViewrequisitionComponent } from './viewrequisition/viewrequisition.component';
+import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeningquestion.component';
 
 const routes: Routes = [
 {
@@ -116,6 +118,14 @@ const routes: Routes = [
 {
   path: "changepassword",
   component: ChangepasswordComponent
+},
+{
+  path: "viewrequisition/:id",
+  component: ViewrequisitionComponent
+},
+{
+  path: "prescreeningquestion/:id",
+  component: PrescreeningquestionComponent
 }
 
 ];

@@ -44,6 +44,8 @@ import { ClientregComponent } from './clientreg/clientreg.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { DocviewjdComponent } from './docviewjd/docviewjd.component';
+import { ViewrequisitionComponent } from './viewrequisition/viewrequisition.component';
+import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeningquestion.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { DocviewjdComponent } from './docviewjd/docviewjd.component';
     ClientregComponent,
     ForgotpasswordComponent,
     ChangepasswordComponent,
-    DocviewjdComponent
+    DocviewjdComponent,
+    ViewrequisitionComponent,
+    PrescreeningquestionComponent
   ],
   imports: [
     BrowserModule,
