@@ -30,8 +30,8 @@ export class NothiredService {
    /* params.set('EntityId', RefId);
     params.set('RequisitionId', reqId);
     params.set('Nothiredlist', FormObj); 
-
-    console.log(params);*/
+*/
+    console.log(params);
 
     return this.http.post(url, formData)
       .map(response => response.json()).map(data => {

@@ -11,7 +11,13 @@ export class EmpGrid{
     Role:string;  
 }  
 export class PreScreeningQuestionGrid{     
-    question_type:string;  
-    question:string;  
-    answer_option:string; 
+    
+    Question:string;      
+    QuesId:string;
+    QnOrder:string;
+    QnType:string;  
+    Content:string;
+    Applicant?: boolean;
+    mandatory?: boolean;
+    Interviewer?: boolean;
 }  

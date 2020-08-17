@@ -758,7 +758,7 @@ export class ManageapplicationComponent implements OnInit {
       this.currentstage = params['stage'];    
     });
 
-    this.ManageapplicationServices.updateStagetoStage(this.id,ApplicationId,updatestage,this.currentstage,candidateId).subscribe(
+    this.ManageapplicationServices.updateBackwardStagetoStage(this.id,ApplicationId,updatestage,this.currentstage,candidateId).subscribe(
       response => {
         if (response != "No data") {  
           let getMessage =  response['Message'].split(":");
