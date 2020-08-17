@@ -49,28 +49,38 @@ export class ViewrequisitionComponent implements OnInit {
   LkupClient:[];
   LkupAccountManager:[];
   reqStatus:any;
+  showsideNav:boolean=false;
+  public tools: object = {
+    items: [
+        'Bold', 'Italic', 'Underline', 'StrikeThrough', '|',
+        'FontName', 'FontSize', 'FontColor', 'BackgroundColor', '|',
+        'LowerCase', 'UpperCase', '|', 'Undo', 'Redo', '|',
+        'Formats', 'Alignments', '|', 'OrderedList', 'UnorderedList', '|',
+        'Indent', 'Outdent', '|', 'CreateLink','CreateTable',
+        'Image', '|', 'ClearFormat', 'Print', 'SourceCode', '|', 'FullScreen']
+};
 
   constructor(public dialogRef: MatDialogRef<ViewrequisitionComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private ViewrequisitionServices: ViewrequisitionService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) { 
     this.addRequisitionForm = this.formBuilderObj.group({
-      Reqtitle: ['', [Validators.required]],
-      EmploymentType:['', [Validators.required]],
-      ClientId:['', [Validators.required]],
-      Hiringmanager:['', [Validators.required]],
-      Emplocation:['', [Validators.required]],
-      Noofposition:['', [Validators.required,Validators.pattern("[0-9]*")]],
+      Reqtitle: '',
+      EmploymentType:'',
+      ClientId:'',
+      Hiringmanager:'',
+      Emplocation:'',
+      Noofposition:'',
       Skillset:'',
       Designation:'',
-      Minexperience:['', [Validators.max(99.9), Validators.min(0)]],
-      Maxexperience:['', [Validators.max(99.9), Validators.min(0)]],
-      Budgetminamt:['', [Validators.pattern("[0-9]*"),Validators.max(100000000), Validators.min(0)]],
-      Budgetmaxamt:['', [Validators.pattern("[0-9]*"),Validators.max(100000000), Validators.min(0)]],
-      BudgetType:['', [Validators.required]],
-      Budgetccy:['', [Validators.required]],
+      Minexperience:'',
+      Maxexperience:'',
+      Budgetminamt:'',
+      Budgetmaxamt:'',
+      BudgetType:'',
+      Budgetccy:'',
       Eduqlfn:'',
-      Jobdescription:['', [Validators.required]],
+      Jobdescription:'',
       Competency:'',
       Jdattachment:'',
-      EACManager:['', [Validators.required]],
+      EACManager:'',
       ReqStatus:'',
       ReqStatusRemarks:''
     });    

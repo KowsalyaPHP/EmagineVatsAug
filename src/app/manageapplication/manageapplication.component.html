@@ -141,7 +141,8 @@
                 <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
                 <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
                 <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Movement to Substage</a></li>
-                <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li> 
+               <!-- <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li> -->
+               <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li>
               </ul>
           </td>        
           <td>{{item.VendorName}}</td>         
@@ -193,7 +194,7 @@
                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
                 <!--<li (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>--> 
-                <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li>                   
+                <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li>                   
             </ul>
           </td>
        
@@ -246,7 +247,7 @@
                 <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
                 <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
                 <!--<li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>-->
-                <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li>  
+                <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li> 
                 <li (click)="updateNothiredBackwardMovement('NH',item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Back to Previous Stage</a></li> 
               </ul>
           </td>        

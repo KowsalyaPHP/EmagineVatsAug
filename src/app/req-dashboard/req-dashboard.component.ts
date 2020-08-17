@@ -115,8 +115,8 @@ export class ReqDashboardComponent implements OnInit {
   openDialogViewJd(reqId): void {
   
     const dialogRef = this.dialog.open(ViewrequisitionComponent, {
-      width: '1000px',
-      height:'1000px',
+      width: '1100px',
+      height:'900px',
       data: {ReqId: reqId}      
     });
     

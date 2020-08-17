@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { saveAs } from 'file-saver';
 import {DocviewComponent} from '../docview/docview.component'
 import {DocviewjdComponent} from '../docviewjd/docviewjd.component'
-
+import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.component';
 declare var $: any
 
 interface Applicationlist {
@@ -246,6 +246,19 @@ export class ManageapplicationComponent implements OnInit {
     });
 
     
+  }
+
+  openDialogViewJd(reqId): void {
+  
+    const dialogRef = this.dialog.open(ViewrequisitionComponent, {
+      width: '1100px',
+      height:'900px',
+      data: {ReqId: reqId}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+
+    });    
   }
 
   viewJD(reqId) {
