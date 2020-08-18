@@ -59,6 +59,7 @@ export class ManageapplicationComponent implements OnInit {
   movement:any;
   attachment:any;
   clicked = 0;
+  displayNoData =  false;
 
   constructor(private routerObj: Router,private ManageapplicationServices: ManageapplicationService,private route: ActivatedRoute,public dialog: MatDialog,private datePipe : DatePipe) { 
     
@@ -459,6 +460,13 @@ export class ManageapplicationComponent implements OnInit {
             this.StageValueCount = response['Data']['StageCount'];  
             this.SubStageValueCount =  response['Data']['SubStageCount'];
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
+            
+            if(this.StageValueList.length != 0){              
+              this.displayNoData = false;
+            }
+            else{              
+              this.displayNoData = true;
+            }
           }
         }
       ); 
@@ -543,7 +551,7 @@ export class ManageapplicationComponent implements OnInit {
   getStageValuesOnChange(stage){   
     
     $("#loader").show();
-    
+  
     this.route.params.subscribe(params => {
       this.id = params['id'];  
       this.currentstage = params['stage'];    
@@ -608,6 +616,7 @@ export class ManageapplicationComponent implements OnInit {
       this.showjoinoffer = 'false';
       this.shownothired='false';
       this.showall='true';
+      this.clicked = 0;
       this.ManageapplicationServices.getStageValues(this.id,stage).subscribe(
         response => {
           if (response != "No data") {  

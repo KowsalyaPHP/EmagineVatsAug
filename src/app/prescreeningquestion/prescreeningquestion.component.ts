@@ -34,7 +34,7 @@ export class PrescreeningquestionComponent implements OnInit {
   passQuestionData:any;
   id:any;
   rowCount = 0;
-  rowNumber:any;
+  rowNumber : string[] = [];
 
   constructor(private PrescreeningquestionServices: PrescreeningquestionService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) { 
     
@@ -52,12 +52,9 @@ export class PrescreeningquestionComponent implements OnInit {
   }
 
     
-  deleteQuestionbyRow(index,rowNum) {  
-    console.log 
-    this.rowNumber = rowNum.join(',');
-    console.log(this.rowNumber);
+  deleteQuestionbyRow(index,rowNum) {      
+    this.rowNumber.push(rowNum);   
     this.quesArray.splice(index, 1);  
-    //this.toastr.warning('Row deleted successfully', 'Delete row');  
     return true;    
   }
 
@@ -150,7 +147,7 @@ export class PrescreeningquestionComponent implements OnInit {
 
     this.passQuestionData = JSON.stringify(this.quesArray);
   
-    this.PrescreeningquestionServices.addQuestionDetails(this.id,this.passQuestionData).subscribe(
+    this.PrescreeningquestionServices.addQuestionDetails(this.id,this.passQuestionData,this.rowNumber).subscribe(
       response => {
         if (response != '') {         
           //this.QuestionDetails = response['Data'];

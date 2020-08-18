@@ -30,7 +30,7 @@ export class PrescreeningquestionService {
       });
   }
 
-  public addQuestionDetails(reqId:any,questionDetails): Observable<any> {
+  public addQuestionDetails(reqId:any,questionDetails,deleteRowNumber): Observable<any> {
 
    // const url = AppComponent.urlPath + 'PreScreeningQueAdd';
     const url = 'http://57a05fe0c81d.ngrok.io/PreScreeningQueAdd';
