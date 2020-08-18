@@ -46,6 +46,8 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 import { DocviewjdComponent } from './docviewjd/docviewjd.component';
 import { ViewrequisitionComponent } from './viewrequisition/viewrequisition.component';
 import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeningquestion.component';
+import { VendorregComponent } from './vendorreg/vendorreg.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeni
     ChangepasswordComponent,
     DocviewjdComponent,
     ViewrequisitionComponent,
-    PrescreeningquestionComponent
+    PrescreeningquestionComponent,
+    VendorregComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

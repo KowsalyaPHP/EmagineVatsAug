@@ -220,7 +220,7 @@ export class SharedService {
  
     params.set('lkup', 'city');    
     return this.http.post(url, params)
-      .map(response => response.json()['Message']).map(data => {
+      .map(response => response.json()['Data']).map(data => {
         if (data != '')
           return data;
         else
@@ -235,7 +235,7 @@ export class SharedService {
  
     params.set('lkup', 'CSTATUS');    
     return this.http.post(url, params)
-      .map(response => response.json()['Message']).map(data => {
+      .map(response => response.json()['Data']).map(data => {
         if (data != '')
           return data;
         else
@@ -250,7 +250,7 @@ export class SharedService {
  
     params.set('lkup', 'CCAT');    
     return this.http.post(url, params)
-      .map(response => response.json()['Message']).map(data => {
+      .map(response => response.json()['Data']).map(data => {
         if (data != '')
           return data;
         else
@@ -265,7 +265,7 @@ export class SharedService {
  
     params.set('lkup', 'CTYPE');    
     return this.http.post(url, params)
-      .map(response => response.json()['Message']).map(data => {
+      .map(response => response.json()['Data']).map(data => {
         if (data != '')
           return data;
         else
@@ -273,4 +273,63 @@ export class SharedService {
       });
   }
 
+  public getVLookupCategory(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'VCAT');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getVLookupType(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'VTYPE');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getVLookupExpertise(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'VExpert');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getVLookupStatus(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'VSTATUS');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
 }

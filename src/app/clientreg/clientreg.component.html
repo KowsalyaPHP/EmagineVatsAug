@@ -1,4 +1,32 @@
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
+			<mat-nav-list>
+         <ul>            			
+            <li><a [routerLink]="['/clientreg']">Client</a></li>
+            <li><a [routerLink]="['/vendorreg']">Vendor</a></li>
+            <li><a [routerLink]="['/userreg']">User</a></li>
+            <li><a [routerLink]="['/userreg']">Role</a></li>
+            <li><a [routerLink]="['/userreg']">Rule</a></li>
 
+          </ul>				
+			</mat-nav-list>
+		</mat-drawer>
+        <mat-drawer  #snav class="adminList" style="position: relative;"  opened [mode]="'side'">
+			<mat-nav-list>
+         <ul>            			
+            <li><a [routerLink]="['/clientreg']">Client</a></li>
+            <li><a [routerLink]="['/vendorreg']">Vendor</a></li>
+            <li><a [routerLink]="['/userreg']">User</a></li>
+            <li><a [routerLink]="['/userreg']">Role</a></li>
+            <li><a [routerLink]="['/userreg']">Rule</a></li>
+
+          </ul>				
+			</mat-nav-list>
+		</mat-drawer>
+        <mat-drawer-content style="margin-left:20%">
 <form class="form" role="form" focusInvalidInput autocomplete="off" id="Clientform" novalidate=""
 [formGroup]="addClientForm" (submit)='addClient(addClientForm.value)'>
 <div class="whiteframe" style="width: 93%;">
@@ -209,3 +237,4 @@
 </table>
 </div>
 </form>
+</mat-drawer-content></mat-drawer-container></div>

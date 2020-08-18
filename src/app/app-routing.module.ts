@@ -25,6 +25,8 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { ViewrequisitionComponent } from './viewrequisition/viewrequisition.component';
 import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeningquestion.component';
+import { VendorregComponent } from './vendorreg/vendorreg.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
 {
@@ -126,6 +128,14 @@ const routes: Routes = [
 {
   path: "prescreeningquestion/:id",
   component: PrescreeningquestionComponent
+},
+{
+  path: "vendorreg",
+  component: VendorregComponent
+},
+{
+  path: "admin",
+  component: AdminComponent
 }
 
 ];
