@@ -19,6 +19,12 @@ export class ClientregComponent implements OnInit {
   addClientForm: FormGroup;
   submitted = false;
   message:any;
+  cityLookups:[];
+  LookupCategory:[];
+  LookupType:[];
+  CLookupStatus:[];
+  id:any;
+  clientSingle:[];
 
   constructor(private ClientregServices: ClientregService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) {
 
@@ -39,6 +45,8 @@ export class ClientregComponent implements OnInit {
       AltContactDesgn: '',
       AltContactNo: '',
       AltContactEmailId:'',
+      ClientGSTNo:'',
+      ClientLandMark:'',
       ClientCategory:['', [Validators.required]],
       ClientType:['', [Validators.required]] ,
       MasterClientID:'',
@@ -47,8 +55,70 @@ export class ClientregComponent implements OnInit {
       Coordinator:'',
     });    
 
+    this.cityLookup();
+    this.getCLookupCategories();
+    this.getCLookupTypes();
+    this.getStatusLookup();
+    //this.viewClientDetails();
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];     
+    }); 
+
+    var userName = sessionStorage.getItem("userName");  
+    if (userName && this.id != 0){           
+      this.ClientregServices.viewClientSingleProfile(this.id).subscribe(
+        response =>  { 
+            if (response != "No data") {          
+              let getMessage =  response['Message'].split(":");
+              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                this.message = getMessage['1'];
+                this.openSnackBar(); 
+              }
+              else {                     
+                this.clientSingle = response;   
+              
+                this.addClientForm.patchValue({
+                  ClientName: this.clientSingle['Data'][0]['ClientName'],
+                  RegdAddressL1:this.clientSingle['Data'][0]['RegdAddressL1'],
+                  Area:this.clientSingle['Data'][0]['Area'],
+                  City:this.clientSingle['Data'][0]['CityCode'],
+                  PINCODE:this.clientSingle['Data'][0]['PINCODE'],
+                  ClientPhoneNo:this.clientSingle['Data'][0]['ClientPhoneNo'],
+                  ClientMobileNo:this.clientSingle['Data'][0]['ClientMobileNo'],
+                  ClientEMAILID:this.clientSingle['Data'][0]['ClientEMAILID'],
+                  MainContact:this.clientSingle['Data'][0]['MainContact'],
+                  MainContactDesgn:this.clientSingle['Data'][0]['MainContactDesgn'],
+                  MainContactNo:this.clientSingle['Data'][0]['MainContactNo'],
+                  MainContactEmailId:this.clientSingle['Data'][0]['MainContactEmailId'],
+                  AltContact:this.clientSingle['Data'][0]['AltContact'],
+                  AltContactDesgn:this.clientSingle['Data'][0]['AltContactDesgn'],
+                  AltContactNo:this.clientSingle['Data'][0]['AltContactNo'],
+                  AltContactEmailId:this.clientSingle['Data'][0]['AltContactEmailId'],
+                  ClientGSTNo:this.clientSingle['Data'][0]['ClientGSTNo'],
+                  ClientLandMark:this.clientSingle['Data'][0]['ClientLandMark'],
+                  ClientCategory:this.clientSingle['Data'][0]['ClientCategoryCode'],
+                  ClientType:this.clientSingle['Data'][0]['ClientTypeCode'],
+                  MasterClientID:this.clientSingle['Data'][0]['MasterClientID'],
+                  ClientGLCode:this.clientSingle['Data'][0]['ClientGLCode'],
+                  AccountManager:this.clientSingle['Data'][0]['AccountManager'],
+                  Coordinator:this.clientSingle['Data'][0]['Coordinator'],
+                }); 
+              }    
+                
+            } else {
+            console.log("something is wrong with Service Execution"); 
+            }
+          },
+          error => console.log(error)      
+        );
+    }
+    
   }
   
+   
+
+
   ngOnInit() {
   }
 
@@ -56,6 +126,62 @@ export class ClientregComponent implements OnInit {
     var x = document.getElementById("snackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
+  }
+
+  cityLookup() {
+    this.SharedServices.getLkupCity().subscribe(
+      response => {
+        if (response != '') {         
+          this.cityLookups = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+
+  getCLookupCategories() {
+    this.SharedServices.getCLookupCategory().subscribe(
+      response => {
+        if (response != '') {         
+          this.LookupCategory = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+
+  getCLookupTypes() {
+    this.SharedServices.getCLookupType().subscribe(
+      response => {
+        if (response != '') {         
+          this.LookupType = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+
+  getStatusLookup() {
+    this.SharedServices.getCLookupStatus().subscribe(
+      response => {
+        if (response != '') {         
+          this.CLookupStatus = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
   }
 
   get f() { return this.addClientForm.controls; }
@@ -68,7 +194,74 @@ export class ClientregComponent implements OnInit {
       return;
     }
 
-    this.ClientregServices.addClientDetails(formObj).subscribe(
+    var userId = sessionStorage.getItem("uniqueSessionId");    
+    var userName = sessionStorage.getItem("userName");
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+
+    if (userId && this.id != 0){   
+      
+      var confirm = window.confirm('Do you want to update the client details?');
+      if (confirm == true) {    
+       
+        this.ClientregServices.UpdateClientDetails(formObj,this.id).subscribe(
+          response => {  
+            
+            if (response != "No data") {
+              let getMessage =  response['Message'].split(":");
+              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                this.message = getMessage['1'];
+                this.openSnackBar(); 
+              }          
+              else{
+                this.message = getMessage['1'];
+                this.openSnackBar();
+               // this.routerObj.navigate(['req-dashboard/',formObj['ReqStatus']]);
+              }            
+            }            
+            else{
+              console.log('something is wrong with Service Execution');
+            }
+          },
+          error => console.log("Error Occurd!")
+        );
+      }
+    }
+    else{
+    
+      var confirm = window.confirm('Do you want to add this client details?');
+      
+      if (confirm == true) {         
+        
+        this.ClientregServices.addClientDetails(formObj).subscribe(
+          response => {  
+            if (response != "No data") {
+              let getMessage =  response['Message'].split(":");
+              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                this.message = getMessage['1'];
+                this.openSnackBar(); 
+              }          
+              else{
+                this.message = getMessage['1'];
+                this.openSnackBar();
+                //this.routerObj.navigate(['manage/',this.id,'SO']);
+              }            
+            }
+            else {         
+              console.log('something is wrong with Service Execution');
+            }        
+          },
+          error => console.log("Error Occurd!")
+        );   
+    }
+  }
+    
+  }
+
+  viewClientDetails(){
+    this.ClientregServices.viewClientDetails().subscribe(
       response => {  
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");

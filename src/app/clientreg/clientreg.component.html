@@ -1,36 +1,42 @@
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+  </div>
 <div fxLayout="row" >
    
 	<mat-drawer-container style="width: 100%;">
        
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
-         <ul>            			
-            <li><a [routerLink]="['/clientreg']">Client</a></li>
-            <li><a [routerLink]="['/vendorreg']">Vendor</a></li>
-            <li><a [routerLink]="['/userreg']">User</a></li>
-            <li><a [routerLink]="['/userreg']">Role</a></li>
-            <li><a [routerLink]="['/userreg']">Rule</a></li>
+                   			
+            <ul>
+                <li class="activeMenu"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg','0']">Client</a></li>
+                <li><i class="fa fa-industry" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']">Vendor</a></li>
+                <li><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">User</a></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Role</a></li>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Rule</a></li>
+              </ul>			
 
-          </ul>				
+          			
 			</mat-nav-list>
 		</mat-drawer>
-        <mat-drawer  #snav class="adminList" style="position: relative;"  opened [mode]="'side'">
-			<mat-nav-list>
-         <ul>            			
-            <li><a [routerLink]="['/clientreg']">Client</a></li>
-            <li><a [routerLink]="['/vendorreg']">Vendor</a></li>
-            <li><a [routerLink]="['/userreg']">User</a></li>
-            <li><a [routerLink]="['/userreg']">Role</a></li>
-            <li><a [routerLink]="['/userreg']">Rule</a></li>
 
-          </ul>				
-			</mat-nav-list>
-		</mat-drawer>
-        <mat-drawer-content style="margin-left:20%">
+   <mat-drawer-content style="margin-left:20%">
+    
+        <div style="float: left;" class="adminList">
+            <p style="font-size: 14px;font-weight: 600;padding-left: 8px;">Client List</p>
+            <ul>            			
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg','CB190002']">IBM</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg']">Infosys</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">HCL</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Tata Group</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Bosch</a></li>
+            </ul>
+        </div>
+<div style="float: left;width: 81%;">
 <form class="form" role="form" focusInvalidInput autocomplete="off" id="Clientform" novalidate=""
 [formGroup]="addClientForm" (submit)='addClient(addClientForm.value)'>
 <div class="whiteframe" style="width: 93%;">
-<h3 >Client</h3>       
+<h3>New Client</h3>       
 <table style="width:100%">
     <tr> 
         <td>
@@ -51,7 +57,7 @@
         </td>
         <td>            
             <mat-form-field>
-                <input maxlength="80" required matInput placeholder="Area" formControlName="Area" class="form-control"/>
+                <input maxlength="40" required matInput placeholder="Area" formControlName="Area" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.Area">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('Area').hasError(validation.type) && (addClientForm.get('Area').dirty || addClientForm.get('Area').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -59,7 +65,9 @@
         </td>
         <td>            
             <mat-form-field>
-                <input maxlength="80" required matInput placeholder="City" formControlName="City" class="form-control"/>
+                <select matNativeControl required maxlength="40" placeholder="City" formControlName="City"> 
+                    <option *ngFor="let item of cityLookups" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                </select>                  
                 <mat-error *ngFor="let validation of validation_messages.City">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('City').hasError(validation.type) && (addClientForm.get('City').dirty || addClientForm.get('City').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -70,7 +78,7 @@
                       
         <td>            
             <mat-form-field>
-                <input maxlength="80" required matInput placeholder="PINCODE" formControlName="PINCODE" class="form-control"/>
+                <input maxlength="6" required matInput placeholder="PINCODE" formControlName="PINCODE" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.PINCODE">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('PINCODE').hasError(validation.type) && (addClientForm.get('PINCODE').dirty || addClientForm.get('PINCODE').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -78,7 +86,7 @@
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput required placeholder="Contact Number" formControlName="ClientPhoneNo" class="form-control"/>
+                <input maxlength="40" matInput required placeholder="Contact Number" formControlName="ClientPhoneNo" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.ClientPhoneNo">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientPhoneNo').hasError(validation.type) && (addClientForm.get('ClientPhoneNo').dirty || addClientForm.get('ClientPhoneNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -86,7 +94,7 @@
         </td>
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput required placeholder="Mobile Number" formControlName="ClientMobileNo" class="form-control"/>
+                <input maxlength="10" matInput required placeholder="Mobile Number" formControlName="ClientMobileNo" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.ClientMobileNo">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientMobileNo').hasError(validation.type) && (addClientForm.get('ClientMobileNo').dirty || addClientForm.get('ClientMobileNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -94,14 +102,14 @@
         </td>                  
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput required placeholder="Email Id" formControlName="ClientEMAILID" class="form-control"/>
+                <input maxlength="40" matInput required placeholder="Email Id" formControlName="ClientEMAILID" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.ClientEMAILID">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientEMAILID').hasError(validation.type) && (addClientForm.get('ClientEMAILID').dirty || addClientForm.get('ClientEMAILID').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </mat-form-field>
         </td>      
     </tr>
-  <!-- <tr>      
+   <tr>      
         <td>            
             <mat-form-field>
                 <input maxlength="80" matInput placeholder="Gst Number" formControlName="ClientGSTNo" class="form-control"/>
@@ -112,7 +120,7 @@
                 <input maxlength="80" matInput placeholder="Land Mark" formControlName="ClientLandMark" class="form-control"/>
             </mat-form-field>
         </td>      
-    </tr>-->
+    </tr>
 </table>
 </div>
 <div class="whiteframe" style="width: 93%;">
@@ -121,7 +129,7 @@
     <tr>
         <td>            
             <mat-form-field>
-                <input maxlength="80" required matInput placeholder="Main Contact" formControlName="MainContact" class="form-control"/>
+                <input maxlength="40" required matInput placeholder="Main Contact" formControlName="MainContact" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.MainContact">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('MainContact').hasError(validation.type) && (addClientForm.get('MainContact').dirty || addClientForm.get('MainContact').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -129,24 +137,24 @@
         </td>                
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Main Designation" formControlName="MainContactDesgn" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Main Designation" formControlName="MainContactDesgn" class="form-control"/>
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Main Contact No" formControlName="MainContactNo" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Main Contact No" formControlName="MainContactNo" class="form-control"/>
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Main Email Id" formControlName="MainContactEmailId" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Main Email Id" formControlName="MainContactEmailId" class="form-control"/>
             </mat-form-field>
         </td>      
     </tr>
     <tr>
         <td>            
             <mat-form-field>
-                <input maxlength="80" required matInput placeholder="Alternate Contact" formControlName="AltContact" class="form-control"/>
+                <input maxlength="40" required matInput placeholder="Alternate Contact" formControlName="AltContact" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.AltContact">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('AltContact').hasError(validation.type) && (addClientForm.get('AltContact').dirty || addClientForm.get('AltContact').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -154,17 +162,17 @@
         </td>                
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Alternate Designation" formControlName="AltContactDesgn" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Alternate Designation" formControlName="AltContactDesgn" class="form-control"/>
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Alternate Contact No" formControlName="AltContactNo" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Alternate Contact No" formControlName="AltContactNo" class="form-control"/>
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Alternate Email Id" formControlName="AltContactEmailId" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Alternate Email Id" formControlName="AltContactEmailId" class="form-control"/>
             </mat-form-field>
         </td>      
     </tr>
@@ -176,12 +184,14 @@
     <tr>
        <!-- <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Client Status" formControlName="ClientStatus" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Client Status" formControlName="ClientStatus" class="form-control"/>
             </mat-form-field>
         </td>        -->
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput required placeholder="Client Category" formControlName="ClientCategory" class="form-control"/>
+                <select matNativeControl required maxlength="40" placeholder="Client Category" formControlName="ClientCategory"> 
+                    <option *ngFor="let item of LookupCategory" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                </select>  
                 <mat-error *ngFor="let validation of validation_messages.ClientCategory">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientCategory').hasError(validation.type) && (addClientForm.get('ClientCategory').dirty || addClientForm.get('ClientCategory').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -189,7 +199,9 @@
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput required placeholder="Client Type" formControlName="ClientType" class="form-control"/>
+                <select matNativeControl required maxlength="40" placeholder="Client Type" formControlName="ClientType"> 
+                    <option *ngFor="let item of LookupType" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                </select>
                 <mat-error *ngFor="let validation of validation_messages.ClientType">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientType').hasError(validation.type) && (addClientForm.get('ClientType').dirty || addClientForm.get('ClientType').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -197,12 +209,12 @@
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Master Client Id" formControlName="MasterClientID" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Master Client Id" formControlName="MasterClientID" class="form-control"/>
             </mat-form-field>
         </td>
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Client GL Code" formControlName="ClientGLCode" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Client GL Code" formControlName="ClientGLCode" class="form-control"/>
             </mat-form-field>
         </td>  
     </tr>
@@ -210,31 +222,30 @@
            
        <!-- <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Source" formControlName="Source" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Source" formControlName="Source" class="form-control"/>
             </mat-form-field>
         </td>-->
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Account Manager" formControlName="AccountManager" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Account Manager" formControlName="AccountManager" class="form-control"/>
             </mat-form-field>
         </td>    
         <td>            
             <mat-form-field>
-                <input maxlength="80" matInput placeholder="Client" formControlName="Coordinator" class="form-control"/>
+                <input maxlength="40" matInput placeholder="Client" formControlName="Coordinator" class="form-control"/>
             </mat-form-field>
         </td>    
     </tr>
-    <tr>
-        <td >
-            <button type="submit" mat-button cdkFocusInitial>Add Client</button>&nbsp;&nbsp;
-            <!-- <button *ngIf="id > 0; else add" type="submit" mat-button cdkFocusInitial>Update Client</button>&nbsp;&nbsp;
+    <tr>        
+        <td><button *ngIf="id != 0 else add" type="submit" mat-button cdkFocusInitial>Update Client</button>&nbsp;&nbsp;
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Client</button>&nbsp;&nbsp;
-              </ng-template>-->
-           
-              <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a></td>
+            </ng-template>               
+            <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a>
+        </td>
     </tr>
 </table>
 </div>
 </form>
+</div>
 </mat-drawer-content></mat-drawer-container></div>

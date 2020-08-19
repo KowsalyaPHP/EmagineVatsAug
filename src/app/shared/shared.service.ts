@@ -332,4 +332,49 @@ export class SharedService {
           return '';
       });
   }
+
+  public getCLookupCategory(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'CCAT');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+  public getCLookupType(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'CTYPE');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getCLookupStatus(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'CSTATUS');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
 }

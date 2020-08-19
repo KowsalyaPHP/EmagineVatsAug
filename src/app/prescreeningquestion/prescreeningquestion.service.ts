@@ -14,12 +14,14 @@ export class PrescreeningquestionService {
 
   public getQuestionDetails(reqId:any): Observable<any> {
 
-    const url = AppComponent.urlPath + 'reqdashboard';
+    //const url = AppComponent.urlPath + 'reqdashboard';
+    const url = 'http://ae172f5ef4a7.ngrok.io/PreScreeningQueView';
+  
     const params = new URLSearchParams();  
     var RefId = sessionStorage.getItem("RefId");
-
-    params.set('ReqStatus', 'OP');
+  
     params.set('EntityId', RefId); 
+    params.set('RequisitionId', reqId); 
     
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {

@@ -27,6 +27,7 @@ import { ViewrequisitionComponent } from './viewrequisition/viewrequisition.comp
 import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeningquestion.component';
 import { VendorregComponent } from './vendorreg/vendorreg.component';
 import { AdminComponent } from './admin/admin.component';
+import { UserregComponent } from './userreg/userreg.component';
 
 const routes: Routes = [
 {
@@ -110,7 +111,7 @@ const routes: Routes = [
   component: ReqcvlogsComponent
 },
 {
-  path: "clientreg",
+  path: "clientreg/:id",
   component: ClientregComponent
 },
 {
@@ -130,12 +131,16 @@ const routes: Routes = [
   component: PrescreeningquestionComponent
 },
 {
-  path: "vendorreg",
+  path: "vendorreg/:id",
   component: VendorregComponent
 },
 {
   path: "admin",
   component: AdminComponent
+},
+{
+  path: "userreg",
+  component: UserregComponent
 }
 
 ];

@@ -69,18 +69,24 @@ a{
   }
   .adminMenu{
     width: 7%;
-    height: 56.4vh !important;
+    height: 93vh !important;
     float: left;
     background: #0670c4 !important;
     color: #fff !important;
-    margin-top:5px;
   }
   .adminList{
-    width: 12%;
-    height: 150vh !important;
+    width: 17%;
+    height: 83vh !important;
     float: left;
-    margin-top: 5px;
+    margin-top: 30px;
     margin-left: 20px;
+    background: #f4efef;
+  }
+  .adminList a {   
+    color: #0a0a0a;
+  }
+  .activeMenu{
+    background: #5f8cb4;
   }
 @-webkit-keyframes fadein {
     from {top: 0; opacity: 0;}

@@ -1,21 +1,43 @@
-<div fxLayout="row" >   
-	<mat-drawer-container style="width: 100%;">       
-		<mat-drawer #snav class="adminMenu" style="position: relative;" opened [mode]="'side'">
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+</div>
+
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
-         <ul>
-            <li><a [routerLink]="['/clientreg']">Client</a></li>
-            <li><a [routerLink]="['/vendorreg']">Vendor</a></li>
-            <li><a [routerLink]="['/userreg']">User</a></li>
-            <li><a [routerLink]="['/userreg']">Role</a></li>
-            <li><a [routerLink]="['/userreg']">Rule</a></li>
-          </ul>				
+                   			
+            <ul>
+                <li ><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg','0']">Client</a></li>
+                <li class="activeMenu"><i class="fa fa-industry" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']">Vendor</a></li>
+                <li><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">User</a></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Role</a></li>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Rule</a></li>
+              </ul>			
+
+          			
 			</mat-nav-list>
 		</mat-drawer>
-        <mat-drawer-content style="margin-left:20%">
+
+   <mat-drawer-content style="margin-left:20%">
+    
+        <div style="float: left;" class="adminList">
+            <p style="font-size: 14px;font-weight: 600;padding-left: 8px;">Vendor List</p>
+            <ul>            			
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg','CB190002']">IBM</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg']">Infosys</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">HCL</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Tata Group</a></li>
+                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Bosch</a></li>
+            </ul>
+        </div>
+<div style="float: left;width: 81%;">
 <form class="form" role="form" focusInvalidInput autocomplete="off" id="Vendorform" novalidate=""
 [formGroup]="addVendorForm" (submit)='addVendor(addVendorForm.value)'>
 <div class="whiteframe" style="width: 93%;">
-<h3 >Vendor</h3>       
+<h3 >New Vendor</h3>       
 <table style="width:100%">
     <tr> 
         <td>
@@ -263,18 +285,18 @@
         </td> 
     </tr>
     <tr>
-        <td >
-            <button type="submit" mat-button cdkFocusInitial>Add Vendor</button>&nbsp;&nbsp;
-            <!-- <button *ngIf="id > 0; else add" type="submit" mat-button cdkFocusInitial>Update Vendor</button>&nbsp;&nbsp;
+        <td> <button *ngIf="id != 0; else add" type="submit" mat-button cdkFocusInitial>Update Vendor</button>&nbsp;&nbsp;
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Vendor</button>&nbsp;&nbsp;
-              </ng-template>-->
-           
-              <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a></td>
+                </ng-template>
+            
+                <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a>
+        </td>
     </tr>
 </table>
 </div>
 </form>
+</div>
 </mat-drawer-content>
 </mat-drawer-container>
 </div>

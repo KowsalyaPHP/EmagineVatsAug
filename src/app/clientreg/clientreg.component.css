@@ -1,5 +1,5 @@
-.mat-form-field{
-    width: 95% !important;
+ .mat-form-field{
+   width: 90% !important;
   }
   .mat-button, .mat-raised-button{
     background-color:#0670c4;
@@ -12,4 +12,6 @@
   li{
       padding: 7px;
       margin-left: -30px;
+      margin-right: 5px;
   }
+  

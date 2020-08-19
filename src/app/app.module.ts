@@ -48,6 +48,7 @@ import { ViewrequisitionComponent } from './viewrequisition/viewrequisition.comp
 import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeningquestion.component';
 import { VendorregComponent } from './vendorreg/vendorreg.component';
 import { AdminComponent } from './admin/admin.component';
+import { UserregComponent } from './userreg/userreg.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { AdminComponent } from './admin/admin.component';
     ViewrequisitionComponent,
     PrescreeningquestionComponent,
     VendorregComponent,
-    AdminComponent
+    AdminComponent,
+    UserregComponent
   ],
   imports: [
     BrowserModule,

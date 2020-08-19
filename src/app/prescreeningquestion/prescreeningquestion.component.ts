@@ -161,10 +161,15 @@ export class PrescreeningquestionComponent implements OnInit {
   }   
 
   getQuestionDetails() {
-    this.PrescreeningquestionServices.getQuestionDetails(1).subscribe(
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+
+    this.PrescreeningquestionServices.getQuestionDetails(this.id).subscribe(
       response => {
         if (response != '') {         
-          this.QuestionDetails = response['Data'];
+          this.quesArray = response['Data'];
         }
         else {         
           console.log('something is wrong with Service  Execution');
@@ -172,6 +177,7 @@ export class PrescreeningquestionComponent implements OnInit {
       },
       error => console.log("Error Occurd!")
     );
+    
   }   
 
   validation_messages = {
