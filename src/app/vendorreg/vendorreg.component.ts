@@ -312,10 +312,19 @@ export class VendorregComponent implements OnInit {
       { type: 'pattern', message: 'Please enter alternate contact' }
     ],
     'VendorCategory': [
-      { type: 'pattern', message: 'Please enter client category' }
+      { type: 'pattern', message: 'Please enter vendor category' }
     ],
     'VendorType': [
-      { type: 'pattern', message: 'Please enter client type' }
+      { type: 'pattern', message: 'Please enter vendor type' }
+    ],
+    'VendorExpertise': [
+      { type: 'pattern', message: 'Please enter vendor expertise' }
+    ],
+    'VendorTier': [
+      { type: 'pattern', message: 'Please enter vendor tier' }
+    ],
+    'VendorStatus': [
+      { type: 'pattern', message: 'Please enter vendor status' }
     ]
   }
 
