@@ -8,36 +8,31 @@
        
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
-                   			
-            <ul>
-                <li ><i class="fa fa-users" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg','0']">Client</a></li>
-                <li class="activeMenu"><i class="fa fa-industry" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']">Vendor</a></li>
-                <li><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">User</a></li>
-                <li><i class="fa fa-star" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Role</a></li>
-                <li><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Rule</a></li>
-              </ul>			
-
-          			
+                <ul>
+                    <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0','0']">Client</a></li>
+                    <li class="activeMenu textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
+                    <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
+                    <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Role</a></li>
+                    <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Rule</a></li>
+                </ul>          			
 			</mat-nav-list>
 		</mat-drawer>
 
    <mat-drawer-content style="margin-left:20%">
     
-        <div style="float: left;" class="adminList">
-            <p style="font-size: 14px;font-weight: 600;padding-left: 8px;">Vendor List</p>
-            <ul>            			
-                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg','CB190002']">IBM</a></li>
-                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg']">Infosys</a></li>
-                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">HCL</a></li>
-                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Tata Group</a></li>
-                <li><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/userreg']">Bosch</a></li>
+        <div style="float: left;" class="adminList">           
+            <ul>         
+                <li *ngFor="let item of vendorList"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg',item.MId]" (click)="getId(item.MId)">{{item.MName}}</a></li>              
             </ul>
         </div>
 <div style="float: left;width: 81%;">
 <form class="form" role="form" focusInvalidInput autocomplete="off" id="Vendorform" novalidate=""
 [formGroup]="addVendorForm" (submit)='addVendor(addVendorForm.value)'>
 <div class="whiteframe" style="width: 93%;">
-<h3 >New Vendor</h3>       
+    <h3 *ngIf="id != 0 else title">Update Vendor  <span *ngIf="id != 0"> for #{{id}} - {{vendorname}}</span></h3>
+    <ng-template #title>
+        <h3 *ngIf="id == 0 ">Add New Vendor</h3>
+    </ng-template>       
 <table style="width:100%">
     <tr> 
         <td>
@@ -87,7 +82,7 @@
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="40" matInput required placeholder="Contact Number" formControlName="VendorPhoneNo" class="form-control"/>
+                <input maxlength="10" matInput required placeholder="Contact Number" formControlName="VendorPhoneNo" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.VendorPhoneNo">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorPhoneNo').hasError(validation.type) && (addVendorForm.get('VendorPhoneNo').dirty || addVendorForm.get('VendorPhoneNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -143,12 +138,18 @@
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="40" matInput placeholder="Main Contact No" formControlName="MainContactNo" class="form-control"/>
+                <input maxlength="10" matInput placeholder="Main Contact No" formControlName="MainContactNo" class="form-control"/>
+                <mat-error *ngFor="let validation of validation_messages.MainContactNo">
+                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('MainContactNo').hasError(validation.type) && (addVendorForm.get('MainContactNo').dirty || addVendorForm.get('MainContactNo').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
                 <input maxlength="40" matInput placeholder="Main Email Id" formControlName="MainContactEmailId" class="form-control"/>
+                <mat-error *ngFor="let validation of validation_messages.MainContactEmailId">
+                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('MainContactEmailId').hasError(validation.type) && (addVendorForm.get('MainContactEmailId').dirty || addVendorForm.get('MainContactEmailId').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </mat-form-field>
         </td>      
     </tr>
@@ -169,11 +170,17 @@
         <td>            
             <mat-form-field>
                 <input maxlength="10" matInput placeholder="Alternate Contact No" formControlName="AltContactNo" class="form-control"/>
+                <mat-error *ngFor="let validation of validation_messages.AltContactNo">
+                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('AltContactNo').hasError(validation.type) && (addVendorForm.get('AltContactNo').dirty || addVendorForm.get('AltContactNo').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
                 <input maxlength="40" matInput placeholder="Alternate Email Id" formControlName="AltContactEmailId" class="form-control"/>
+                <mat-error *ngFor="let validation of validation_messages.AltContactEmailId">
+                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('AltContactEmailId').hasError(validation.type) && (addVendorForm.get('AltContactEmailId').dirty || addVendorForm.get('AltContactEmailId').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </mat-form-field>
         </td>      
     </tr>
@@ -188,16 +195,7 @@
                 <input maxlength="80" matInput placeholder="Vendor Status" formControlName="VendorStatus" class="form-control"/>
             </mat-form-field>
         </td>        -->
-        <td>            
-            <mat-form-field>
-                <select matNativeControl required maxlength="40" placeholder="Vendor Status" formControlName="VendorStatus"> 
-                    <option *ngFor="let item of VLookupStatus" value="{{item.Code}}" selected>{{item.Description}}</option>                       
-                </select>                 
-                <mat-error *ngFor="let validation of validation_messages.VendorStatus">
-                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorStatus').hasError(validation.type) && (addVendorForm.get('VendorStatus').dirty || addVendorForm.get('VendorStatus').touched)">{{validation.message}}</mat-error>
-                </mat-error>
-            </mat-form-field>
-        </td>     
+        
         <td>            
             <mat-form-field>
                 <select matNativeControl required maxlength="80" placeholder="Vendor Category" formControlName="VendorTier"> 
@@ -228,14 +226,14 @@
                 </mat-error>
             </mat-form-field>
         </td>      
-        
-    </tr>
-    <tr>        
         <td>            
             <mat-form-field>
                 <input maxlength="40" matInput placeholder="Team Size" formControlName="TeamSize" class="form-control"/>
             </mat-form-field>
         </td>
+    </tr>
+    <tr>        
+       
         <td>            
             <mat-form-field>
                 <input maxlength="40" matInput placeholder="AccountCode" formControlName="VendorGLCode" class="form-control"/>
@@ -255,9 +253,7 @@
             <mat-form-field>
                 <input maxlength="4" matInput placeholder="Concurrent User Count" formControlName="ConcurrentUserCt" class="form-control"/>
             </mat-form-field>
-        </td>    
-    </tr>
-    <tr>        
+        </td> 
         <td>            
             <mat-form-field>
                 <select matNativeControl placeholder="CommonPoolYorN" class="form-control" id="CommonPoolYorN" name="CommonPoolYorN" formControlName="CommonPoolYorN" >
@@ -265,7 +261,9 @@
                     <option  value='N' selected>N</option>
                 </select> 
             </mat-form-field>
-        </td>
+        </td>   
+    </tr>
+    <tr>   
         <td>            
             <mat-form-field>
                 <select matNativeControl placeholder="OwnPoolPermitYorN" class="form-control" id="OwnPoolPermitYorN" name="OwnPoolPermitYorN" formControlName="OwnPoolPermitYorN" >
@@ -273,8 +271,7 @@
                 <option  value='N' selected>N</option>
             </select>   
             </mat-form-field>
-        </td>  
-     
+        </td> 
         <td>            
             <mat-form-field>
                 <select matNativeControl placeholder="AdminRightsYorN" class="form-control" id="AdminRightsYorN" name="AdminRightsYorN" formControlName="AdminRightsYorN" >
@@ -283,14 +280,23 @@
                 </select>
             </mat-form-field>
         </td> 
+        <td *ngIf="id != 0">            
+            <mat-form-field>
+                <select matNativeControl required maxlength="40" placeholder="Vendor Status" formControlName="VendorStatus"> 
+                    <option *ngFor="let item of VLookupStatus" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                </select>                 
+                <mat-error *ngFor="let validation of validation_messages.VendorStatus">
+                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorStatus').hasError(validation.type) && (addVendorForm.get('VendorStatus').dirty || addVendorForm.get('VendorStatus').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </td>     
     </tr>
     <tr>
-        <td> <button *ngIf="id != 0; else add" type="submit" mat-button cdkFocusInitial>Update Vendor</button>&nbsp;&nbsp;
+        <td> 
+            <button *ngIf="id != 0; else add" type="submit" mat-button cdkFocusInitial>Update Vendor</button>&nbsp;&nbsp;
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Vendor</button>&nbsp;&nbsp;
                 </ng-template>
-            
-                <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a>
         </td>
     </tr>
 </table>

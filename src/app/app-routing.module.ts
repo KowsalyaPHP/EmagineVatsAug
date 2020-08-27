@@ -28,6 +28,7 @@ import { PrescreeningquestionComponent } from './prescreeningquestion/prescreeni
 import { VendorregComponent } from './vendorreg/vendorreg.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserregComponent } from './userreg/userreg.component';
+import { UserdashboardComponent } from './userdashboard/userdashboard.component';
 
 const routes: Routes = [
 {
@@ -111,7 +112,7 @@ const routes: Routes = [
   component: ReqcvlogsComponent
 },
 {
-  path: "clientreg/:id",
+  path: "clientreg/:id/:cid",
   component: ClientregComponent
 },
 {
@@ -139,8 +140,12 @@ const routes: Routes = [
   component: AdminComponent
 },
 {
-  path: "userreg",
+  path: "userreg/:id",
   component: UserregComponent
+},
+{
+  path: "user",
+  component: UserdashboardComponent
 }
 
 ];

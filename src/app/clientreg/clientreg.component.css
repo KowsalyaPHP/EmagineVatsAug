@@ -1,4 +1,4 @@
- .mat-form-field{
+  .mat-form-field{
    width: 90% !important;
   }
   .mat-button, .mat-raised-button{
@@ -14,4 +14,13 @@
       margin-left: -30px;
       margin-right: 5px;
   }
-  
+  .textsize{
+    font-size: 13px;
+    text-align: center;
+    margin-left: -40px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .childList{
+    margin-top:5px;
+  }

@@ -45,7 +45,7 @@ a{
     padding: 14px 16px; 
     position: fixed; 
     transform-origin: center;
-    z-index: 1; 
+    z-index: 5;
     top: 30px; 
     color: #ffffff;
     background: #323232;
@@ -68,25 +68,24 @@ a{
     color: #fff !important;
   }
   .adminMenu{
-    width: 7%;
+    width: 5%;
     height: 93vh !important;
     float: left;
-    background: #0670c4 !important;
+    background: #434a54 !important;
     color: #fff !important;
   }
   .adminList{
     width: 17%;
-    height: 83vh !important;
-    float: left;
-    margin-top: 30px;
-    margin-left: 20px;
+    height: 93vh !important;
+    float: left;    
     background: #f4efef;
+    overflow:scroll;
   }
   .adminList a {   
     color: #0a0a0a;
   }
   .activeMenu{
-    background: #5f8cb4;
+    background: #0670c4;
   }
 @-webkit-keyframes fadein {
     from {top: 0; opacity: 0;}

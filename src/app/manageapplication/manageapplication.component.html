@@ -121,6 +121,7 @@
           <th>Step Owner</th>
           <th>Date</th>
           <th>Ageing</th>
+          <th>Source Ageing</th>
         </tr>
       </thead>
       <tbody>  
@@ -157,6 +158,7 @@
           <td style="width: 8vw;">{{item.Step_Owner}}</td>
           <td style="width: 8vw;">{{item.Date}}</td>
           <td>{{item.Ageing}}d</td>         
+          <td>{{item.SourceAgeing}}d</td>         
         </tr>        
       </tbody>      
       
@@ -227,6 +229,7 @@
           <th>Step Owner</th>
           <th>Date</th>
           <th>Ageing</th>
+          <th>Source Ageing</th>
           <th>Reject Reason</th>
         </tr>
       </thead>
@@ -262,8 +265,9 @@
           <td>{{item.Step_Owner}}</td>
           <td>{{item.EACManager}}</td>
           <td style="width: 8vw;" >{{item.Date}}</td>
-          <td style="width: 8vw;" >{{item.Ageing}}d</td>         
-          <td>{{item.RejectionReason}}</td>         
+          <td style="width: 8vw;" >{{item.Ageing}}d</td> 
+          <td>{{item.SourceAgeing}}d</td>        
+          <td>{{item.RejectionReason}}</td>    
         </tr>        
         </tbody>
     </table>

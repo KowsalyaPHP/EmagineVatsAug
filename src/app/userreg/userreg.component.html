@@ -1,1 +1,123 @@
-<p>userreg works!</p>
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+</div>
+
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
+			<mat-nav-list>   
+                <ul>
+                    <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><a [routerLink]="['/clientreg','0','0']">Client</a></li>
+                    <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']">Vendor</a></li>
+                    <li class="activeMenu textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
+                    <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Role</a></li>
+                    <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Rule</a></li>
+                </ul>        			
+			</mat-nav-list>
+		</mat-drawer>
+
+   <mat-drawer-content style="margin-left:20%">
+    <form class="form" role="form" focusInvalidInput autocomplete="off" id="UserForm" novalidate=""
+[formGroup]="addUserForm" (submit)='addUser(addUserForm.value)'>
+<div class="whiteframe" style="width: 93%;">
+    <h3>Add User</h3>
+    <table style="width:100%">
+        <tr> 
+            <td>
+                <mat-form-field>
+                    <select placeholder="User Category" matNativeControl maxlength="40" class="form-control" id="usercategory" name="usercategory" formControlName="usercategory">
+                        <option value="E">Emagine</option>                  
+                        <option value="C">Client</option> 
+                        <option value="V">Vendor</option> 
+                   </select>  
+                   <mat-error *ngFor="let validation of validation_messages.usercategory">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('usercategory').hasError(validation.type) && (addUserForm.get('usercategory').dirty || addUserForm.get('usercategory').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+            <td>
+                <mat-form-field>
+                    <select placeholder="Prefix" matNativeControl maxlength="40" class="form-control" id="UserMrMs" name="UserMrMs" formControlName="UserMrMs">                  
+                        <option value="Mr">Mr.</option>                  
+                        <option value="Ms">Ms.</option> 
+                   </select>  
+                </mat-form-field>        
+            </td> 
+            <td>
+                <mat-form-field>
+                    <input placeholder="Name" type="text" id="UserName"  maxlength="80" formControlName="UserName" class="form-control"  required matInput/>  
+                    <mat-error *ngFor="let validation of validation_messages.UserName">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('UserName').hasError(validation.type) && (addUserForm.get('UserName').dirty || addUserForm.get('UserName').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+            <td>
+                <mat-form-field>
+                    <input type="text" id="UserRemarks" matInput placeholder="Remarks"  maxlength="80" formControlName="UserRemarks" class="form-control"/>
+                </mat-form-field>        
+            </td>            
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input type="text" id="UserEmail" matInput placeholder="Email Id"  maxlength="80" formControlName="UserEmail" class="form-control" required/>
+                    <mat-error *ngFor="let validation of validation_messages.UserEmail">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('UserEmail').hasError(validation.type) && (addUserForm.get('UserEmail').dirty || addUserForm.get('UserEmail').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+            <td>
+                <mat-form-field>
+                    <input type="text" maxlength="10" matInput id="UserContactNo" placeholder="Contact Number"  formControlName="UserContactNo" class="form-control" required/>
+                    <mat-error *ngFor="let validation of validation_messages.UserContactNo">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('UserContactNo').hasError(validation.type) && (addUserForm.get('UserContactNo').dirty || addUserForm.get('UserContactNo').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+            <td>
+                <mat-form-field>
+                    <input type="text" maxlength="10" matInput id="userRole" placeholder="Role"  formControlName="userRole" class="form-control" required/>
+                    <mat-error *ngFor="let validation of validation_messages.userRole">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRole').hasError(validation.type) && (addUserForm.get('userRole').dirty || addUserForm.get('userRole').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+            <td>
+                <mat-form-field>
+                    <input type="text" maxlength="10" matInput id="userRule" placeholder="Rule"  formControlName="userRule" class="form-control" required/>
+                    <mat-error *ngFor="let validation of validation_messages.userRule">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+        </tr>
+        <tr>
+            <td *ngIf="id != 0;"> 
+                <mat-form-field>
+                    <select matNativeControl required maxlength="40" placeholder="User Status" formControlName="UserStatus"> 
+                        <option *ngFor="let item of VLookupStatus" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select>  
+                    <mat-error *ngFor="let validation of validation_messages.UserStatus">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('UserStatus').hasError(validation.type) && (addUserForm.get('UserStatus').dirty || addUserForm.get('UserStatus').touched)">{{validation.message}}</mat-error>
+                    </mat-error> 
+                </mat-form-field>     
+            </td>
+        </tr>
+        <tr>
+            <td> 
+                <button *ngIf="id != 0; else add" type="submit" mat-button cdkFocusInitial>Update User</button>&nbsp;&nbsp;
+                <ng-template #add>
+                    <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add User</button>&nbsp;&nbsp;
+                </ng-template>
+               <!-- <a [routerLink]="['/user']"><button mat-button>Cancel</button></a>-->
+            </td>
+        </tr>
+    </table>
+</div>
+    </form>
+    </mat-drawer-content>
+    </mat-drawer-container>
+    </div>
+    

@@ -30,7 +30,7 @@ constructor(private http: Http) { }
     params.set('VendorMobileNo', FormObj.VendorMobileNo);
     params.set('VendorEMAILID', FormObj.VendorEMAILID);
     params.set('VendorGSTNo', FormObj.VendorGSTNo);
-    params.set('VendorLandmark', FormObj.VendorLandmark);
+    params.set('VendorLandMark', FormObj.VendorLandMark);
     params.set('MainContact', FormObj.MainContact);
     params.set('MainContactDesgn', FormObj.MainContactDesgn);
     params.set('MainContactNo', FormObj.MainContactNo);
@@ -64,13 +64,15 @@ constructor(private http: Http) { }
 
   public viewVendorDetails(): Observable<any> {
 
-    const url = AppComponent.urlPath + 'EmgCVProfile';
-    const params = new URLSearchParams();   
+    const url = AppComponent.urlPath + 'ClientVendorList';
+    const params = new URLSearchParams(); 
 
     var C_ID = sessionStorage.getItem("uniqueSessionId");
+    var RefId = sessionStorage.getItem("RefId");
     
-    params.set('usercategory', 'V');
-    params.set('userid', 'CB190002');
+    params.set('UserCategory', 'V');
+    params.set('EntityId',RefId);
+    
     
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
@@ -84,7 +86,7 @@ constructor(private http: Http) { }
 
   public viewVendorSingleProfile(vendorId): Observable<any> {
 
-    const url = AppComponent.urlPath + 'EmgCVProfile';
+    const url = AppComponent.urlPath + 'CVProfile';
     const params = new URLSearchParams();   
 
     var C_ID = sessionStorage.getItem("uniqueSessionId");
@@ -103,16 +105,16 @@ constructor(private http: Http) { }
 
   public UpdateVendorDetails(FormObj,VendorId:any): Observable<any> {
 
-    const url_Vendor = AppComponent.urlPath + 'EmgVProfileEdit';
+    const url_Vendor = AppComponent.urlPath + 'VendorProfileEdit';
     const params = new URLSearchParams();
-   
+    var M_ID = sessionStorage.getItem("uniqueSessionId");
+
     params.set('VendorID', VendorId);    
     params.set('RegdAddressL1', FormObj.RegdAddressL1);
     params.set('Area', FormObj.Area);
     params.set('City', FormObj.City);
     params.set('PINCODE', FormObj.PINCODE);
     params.set('VendorPhoneNo', FormObj.VendorPhoneNo);
-    params.set('VendorFaxNo', FormObj.VendorFaxNo);
     params.set('VendorGSTNo', FormObj.VendorGSTNo);
     params.set('VendorLandMark', FormObj.VendorLandMark);
     params.set('VendorMobileNo', FormObj.VendorMobileNo);
@@ -135,6 +137,10 @@ constructor(private http: Http) { }
     params.set('CommonPoolYorN', FormObj.CommonPoolYorN);
     params.set('OwnPoolPermitYorN', FormObj.OwnPoolPermitYorN);
     params.set('AdminRightsYorN', FormObj.AdminRightsYorN);
+    params.set('VendorStatus', FormObj.VendorStatus);
+    params.set('M_ID', M_ID);
+
+    console.log(params);
     
     return this.http.post(url_Vendor, params)
       .map(response => response.json()).map(data => {
