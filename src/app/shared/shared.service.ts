@@ -377,4 +377,33 @@ export class SharedService {
       });
   }
 
+  public getRoleList(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'RoleList');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getRuleList(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'DataRuleList');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
 }

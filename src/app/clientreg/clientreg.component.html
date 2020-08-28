@@ -26,7 +26,7 @@
             <ul>         
                 <li *ngFor="let item of clientList"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId,0]" (click)="getId(item.MId,0)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
                     <ul *ngIf="item.MId == clientId && item.Sc != 0" class="childList">
-                        <li *ngFor="let item of childList" style="padding-left: 25px;"> - <a [routerLink]="['/clientreg',item.MId,1]" (click)="getId(item.MId,0)">{{item.SName}}</a></li>
+                        <li *ngFor="let item of childList" style="padding-left: 25px;"> - <a [routerLink]="['/clientreg',item.SId,1]" (click)="getId(item.SId,0)">{{item.SName}}</a></li>
                     </ul>
                
                 </li>

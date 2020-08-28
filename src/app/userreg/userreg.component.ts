@@ -22,6 +22,9 @@ export class UserregComponent implements OnInit {
   message:any;
   userSingle:[];
   VLookupStatus:[];
+  RoleList:[];
+  RuleList:[];
+  userName:any;
 
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute) {
 
@@ -42,6 +45,8 @@ export class UserregComponent implements OnInit {
     });  
 
     this.getStatusLookup();
+    this.getRoleList();
+    this.getRuleList();
 
     var userName = sessionStorage.getItem("userName"); 
 
@@ -73,9 +78,9 @@ export class UserregComponent implements OnInit {
             }
             else {                     
               this.userSingle = response;
-
+              this.userName = this.userSingle['Data'][0]['USERNAME'];
               this.addUserForm.patchValue({           
-                usercategory: this.userSingle['Data'][0]['usercategory'],
+                usercategory: this.userSingle['Data'][0]['USERCATEGORY'],
                 UserMrMs:this.userSingle['Data'][0]['USERMRMS'],
                 UserName:this.userSingle['Data'][0]['USERNAME'],
                 UserRemarks:this.userSingle['Data'][0]['Remarks'],
@@ -100,6 +105,34 @@ export class UserregComponent implements OnInit {
       response => {
         if (response != '') {         
           this.VLookupStatus = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+
+  getRoleList() {
+    this.SharedServices.getRoleList().subscribe(
+      response => {
+        if (response != '') {         
+          this.RoleList = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+  
+  getRuleList() {
+    this.SharedServices.getRuleList().subscribe(
+      response => {
+        if (response != '') {         
+          this.RuleList = response;
         }
         else {         
           console.log('something is wrong with Service  Execution');

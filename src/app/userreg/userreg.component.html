@@ -22,7 +22,11 @@
     <form class="form" role="form" focusInvalidInput autocomplete="off" id="UserForm" novalidate=""
 [formGroup]="addUserForm" (submit)='addUser(addUserForm.value)'>
 <div class="whiteframe" style="width: 93%;">
-    <h3>Add User</h3>
+    <h3 *ngIf="id != 0 else title">Update User<span *ngIf="id != 0"> for #{{id}} - {{userName}}</span></h3>
+    <ng-template #title>
+        <h3 *ngIf="id == 0 ">Add User</h3>
+    </ng-template>    
+   
     <table style="width:100%">
         <tr> 
             <td>
@@ -78,7 +82,9 @@
             </td> 
             <td>
                 <mat-form-field>
-                    <input type="text" maxlength="10" matInput id="userRole" placeholder="Role"  formControlName="userRole" class="form-control" required/>
+                    <select matNativeControl required maxlength="40" placeholder="Role" formControlName="userRole"> 
+                        <option *ngFor="let item of RoleList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select>  
                     <mat-error *ngFor="let validation of validation_messages.userRole">
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRole').hasError(validation.type) && (addUserForm.get('userRole').dirty || addUserForm.get('userRole').touched)">{{validation.message}}</mat-error>
                     </mat-error>
@@ -86,7 +92,9 @@
             </td> 
             <td>
                 <mat-form-field>
-                    <input type="text" maxlength="10" matInput id="userRule" placeholder="Rule"  formControlName="userRule" class="form-control" required/>
+                    <select matNativeControl required maxlength="40" placeholder="Rule" formControlName="userRule"> 
+                        <option *ngFor="let item of RuleList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select> 
                     <mat-error *ngFor="let validation of validation_messages.userRule">
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
                     </mat-error>
@@ -111,7 +119,7 @@
                 <ng-template #add>
                     <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add User</button>&nbsp;&nbsp;
                 </ng-template>
-               <!-- <a [routerLink]="['/user']"><button mat-button>Cancel</button></a>-->
+                <a [routerLink]="['/user']"><button mat-button>Cancel</button></a>
             </td>
         </tr>
     </table>

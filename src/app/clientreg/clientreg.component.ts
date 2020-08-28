@@ -353,8 +353,8 @@ export class ClientregComponent implements OnInit {
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
-            this.openSnackBar(); 
+           // this.message = getMessage['1'];
+           // this.openSnackBar(); 
           }          
           else{
             this.childList = response['Data'];
