@@ -25,6 +25,8 @@ export class UserregComponent implements OnInit {
   RoleList:[];
   RuleList:[];
   userName:any;
+  ClientList:[];
+  VendorList:[];
 
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute) {
 
@@ -41,12 +43,16 @@ export class UserregComponent implements OnInit {
       UserContactNo:  ['', [Validators.required,Validators.pattern("[0-9]\\d{9}")]],
       userRole: ['', [Validators.required]],
       userRule: ['', [Validators.required]],
-      UserStatus: ''
+      UserStatus: '',
+      clientName: '',
+      vendorName: ''
     });  
 
     this.getStatusLookup();
     this.getRoleList();
     this.getRuleList();
+    this.getClientList();
+    this.getVendorList();
 
     var userName = sessionStorage.getItem("userName"); 
 
@@ -66,6 +72,29 @@ export class UserregComponent implements OnInit {
 
   get f() { return this.addUserForm.controls; }
 
+  userType(userType){
+    
+    if(userType == 'C')
+    {
+     /* if(this.addUserForm.get('AgencyFees_percent').value != '')
+      { 
+        const variable = this.addUserForm.get('AgencyFees_percent');  
+        this.addUserForm.get('AgencyFees_percent').setValidators([Validators.required]);      
+        variable.updateValueAndValidity();
+      }*/
+      $("#vendorlist").hide();
+      $("#clientlist").show();          
+               
+    }
+    else if(userType == 'V'){
+      $("#clientlist").hide();
+      $("#vendorlist").show();
+    }    
+    else{
+      $("#vendorlist").hide();
+      $("#clientlist").hide();
+    }
+  }
   viewSingleUser(userId){
 
     this.UserregServices.viewUserSingleProfile(userId).subscribe(
@@ -133,6 +162,35 @@ export class UserregComponent implements OnInit {
       response => {
         if (response != '') {         
           this.RuleList = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+
+  
+  getClientList() {
+    this.SharedServices.getClientList().subscribe(
+      response => {
+        if (response != '') {         
+          this.ClientList = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+  
+  getVendorList() {
+    this.SharedServices.getVendorList().subscribe(
+      response => {
+        if (response != '') {         
+          this.VendorList = response;
         }
         else {         
           console.log('something is wrong with Service  Execution');
@@ -237,6 +295,12 @@ export class UserregComponent implements OnInit {
     ],
     'UserStatus': [
       { type: 'pattern', message: 'Please enter user status' }
+    ],
+    'clientName': [
+      { type: 'required', message: 'Please select client name' }      
+    ],
+    'vendorName': [
+      { type: 'required', message: 'Please select vendor name' }      
     ]
   }
 }

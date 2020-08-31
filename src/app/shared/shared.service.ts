@@ -406,4 +406,34 @@ export class SharedService {
           return '';
       });
   }
+
+  public getClientList(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'ClientList');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getVendorList(): Observable<any> {
+
+    const url_city = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'VendorList');    
+    return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
 }

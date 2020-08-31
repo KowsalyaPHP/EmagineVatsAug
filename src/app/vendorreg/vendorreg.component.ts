@@ -254,7 +254,11 @@ export class VendorregComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();
                 this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
-                this.routerObj.navigate(['vendorreg/0']);
+                setTimeout(() => {
+                  this.routerObj.navigate(['vendorreg/'+response['Data']]);
+                }
+                , 4000);
+               // this.routerObj.navigate(['vendorreg/0']);
               }            
             }            
             else{
@@ -282,8 +286,13 @@ export class VendorregComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();
-                this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
-                window.location.reload();
+
+                this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
+                setTimeout(() => {
+                  this.routerObj.navigate(['vendorreg/'+response['Data']]);
+                }
+                , 4000);
+                
                 //this.routerObj.navigate(['vendorreg/0']);
               }            
             }

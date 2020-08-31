@@ -6,16 +6,16 @@ import {
   FormBuilder,
   Validators
 } from "@angular/forms";
-import { ClientregService } from './clientreg.service';
+import { ClientchildService } from './clientchild.service';
 import { SharedService } from '../shared/shared.service';
 declare var $: any
 
 @Component({
-  selector: 'app-clientreg',
-  templateUrl: './clientreg.component.html',
-  styleUrls: ['./clientreg.component.css']
+  selector: 'app-clientchild',
+  templateUrl: './clientchild.component.html',
+  styleUrls: ['./clientchild.component.css']
 })
-export class ClientregComponent implements OnInit {
+export class ClientchildComponent implements OnInit {
 
   addClientForm: FormGroup;
   submitted = false;
@@ -38,10 +38,12 @@ export class ClientregComponent implements OnInit {
   type:any;
   getChildType:any;
 
-  constructor(private ClientregServices: ClientregService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) {
+ constructor(private ClientchildServices: ClientchildService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) {
     
     this.route.params.subscribe(params => {
-      this.id = params['id'] 
+      this.id = params['id'],
+      this.child = params['cid']; 
+
     }); 
 
     this.addClientForm = this.formBuilderObj.group({
@@ -65,7 +67,7 @@ export class ClientregComponent implements OnInit {
       ClientLandMark:'',    
       ClientCategory:['', [Validators.required]],
       ClientType:['', [Validators.required]] ,
-      MasterClientID:[this.id],
+      MasterClientID:'',
       ClientGLCode:'',     
       AccountManager:'',
       Coordinator:'',
@@ -82,31 +84,29 @@ export class ClientregComponent implements OnInit {
     this.viewClientDetails();
     this.clientname = sessionStorage.getItem("clientname");
 
-   var userName = sessionStorage.getItem("userName");
-   if (userName && this.id != 0){              
-    this.viewSingleClient(this.id);
-  //  this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
-  }  
-  /* console.log(this.getChildType);
-    if (userName && this.id != 0 &&  this.child == 0 && this.getChildType != 'C'){              
+   var userName = sessionStorage.getItem("userName");  
+ 
+    if (userName && this.id != 0 &&  this.child == 1){
       this.viewSingleClient(this.id);
-      console.log('P'+this.getChildType);
     }
-    else if(userName && this.id != 0 && this.child == 1 && this.getChildType == 'C'){
-      this.viewSingleClient(this.id);
-      console.log('V'+this.getChildType);
-    }*/
+    else if (userName && this.id != 0 &&  this.child == 0){
+      this.addClientForm.patchValue({
+        MasterClientID:this.id
+      });
+    }
   }
-  
-   
 
   ngOnInit() {
     
    
   }
 
-  getId(clientid){  
+  
+  getChild(clientid,getChild){
+    this.getChildType = getChild;
     this.viewSingleClient(clientid);
+    //this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
+   // this.routerObj.navigate(['clientreg/'+clientid+'/1']);
   }
 
   childlist(clientid){
@@ -120,7 +120,7 @@ export class ClientregComponent implements OnInit {
   }
 
   viewSingleClient(clientId){
-    this.ClientregServices.viewClientSingleProfile(clientId).subscribe(
+    this.ClientchildServices.viewClientSingleProfile(clientId).subscribe(
       response =>  { 
           if (response != "No data") {          
             let getMessage =  response['Message'].split(":");
@@ -155,7 +155,7 @@ export class ClientregComponent implements OnInit {
                 ClientLandMark:this.clientSingle['Data'][0]['ClientLandMark'],
                 ClientCategory:this.clientSingle['Data'][0]['ClientCategoryCode'],
                 ClientType:this.clientSingle['Data'][0]['ClientTypeCode'],
-                MasterClientID:this.clientSingle['Data'][0]['MASTERCLIENTID"'],
+                MasterClientID:this.clientSingle['Data'][0]['MASTERCLIENTID'],
                 clientstatus:this.clientSingle['Data'][0]['ClientStatusCode'],                  
                 ClientGLCode:this.clientSingle['Data'][0]['CLIENTGLCODE'],
                 AccountManager:this.clientSingle['Data'][0]['AccountManagerCode'],
@@ -290,15 +290,16 @@ export class ClientregComponent implements OnInit {
     var userName = sessionStorage.getItem("userName");
 
     this.route.params.subscribe(params => {
-      this.id = params['id']     
+      this.id = params['id'],
+      this.child = params['cid'];     
     }); 
 
-    if (userId && this.id != 0){   
+    if (userId && this.id != 0 && this.child == 1){   
       
-      var confirm = window.confirm('Do you want to update the client details?');
+      var confirm = window.confirm('Do you want to update the child client details?');
       if (confirm == true) {    
        
-        this.ClientregServices.UpdateClientDetails(formObj,this.id).subscribe(
+        this.ClientchildServices.UpdateClientDetails(formObj,this.id).subscribe(
           response => {  
             
             if (response != "No data") {
@@ -312,7 +313,7 @@ export class ClientregComponent implements OnInit {
                 this.openSnackBar();               
                 this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
                 setTimeout(() => {
-                  this.routerObj.navigate(['clientreg/'+this.id]);
+                  this.routerObj.navigate(['child/'+this.id+'/1']);
                   }
                   , 3000);
               }            
@@ -327,11 +328,11 @@ export class ClientregComponent implements OnInit {
     }
     else{
     
-      var confirm = window.confirm('Do you want to add this client details?');
+      var confirm = window.confirm('Do you want to add this child client details?');
       
       if (confirm == true) {         
         
-        this.ClientregServices.addClientDetails(formObj).subscribe(
+        this.ClientchildServices.addClientDetails(formObj).subscribe(
           response => {  
             if (response != "No data") {
               let getMessage =  response['Message'].split(":");
@@ -345,7 +346,7 @@ export class ClientregComponent implements OnInit {
                
                this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
                setTimeout(() => {
-                this.routerObj.navigate(['clientreg/'+response['Data']]);
+                this.routerObj.navigate(['child/'+response['Data']+'/1']);
                 }
                 , 3000);
                
@@ -363,7 +364,7 @@ export class ClientregComponent implements OnInit {
   }
 
   viewChildClientDetails(clientId){
-    this.ClientregServices.viewChildClientDetails(clientId).subscribe(
+    this.ClientchildServices.viewChildClientDetails(clientId).subscribe(
       response => {  
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
@@ -385,7 +386,7 @@ export class ClientregComponent implements OnInit {
   }
 
   viewClientDetails(){
-    this.ClientregServices.viewClientDetails().subscribe(
+    this.ClientchildServices.viewClientDetails().subscribe(
       response => {  
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
@@ -463,3 +464,4 @@ export class ClientregComponent implements OnInit {
     ]
   }
 }
+

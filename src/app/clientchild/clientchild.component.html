@@ -9,7 +9,7 @@
 			<mat-nav-list>
                    			
             <ul>
-                <li class="activeMenu textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
+                <li class="activeMenu textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0','0']">Client</a></li>
                 <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/vendorreg','0']">Vendor</a></li>
                 <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
                 <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Role</a></li>
@@ -24,9 +24,9 @@
     
         <div style="float: left;" class="adminList">
             <ul>         
-                <li *ngFor="let item of clientList"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId]" (click)=getId(item.MId) (mouseover)="childlist(item.MId)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
+                <li *ngFor="let item of clientList"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId]" (mouseover)="childlist(item.MId)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
                     <ul *ngIf="item.MId == clientId && item.Sc != 0" class="childList">
-                        <li *ngFor="let item of childList" style="padding-left: 25px;"> - <a [routerLink]="['/child',item.SId,1]">{{item.SName}}</a></li>
+                        <li *ngFor="let item of childList" style="padding-left: 25px;"> - <a [routerLink]="['/child',item.SId,1]" (click)="getChild(item.SId,1)">{{item.SName}}</a></li>
                     </ul>               
                 </li>               
             </ul>
@@ -36,10 +36,10 @@
 [formGroup]="addClientForm" (submit)='addClient(addClientForm.getRawValue())'>
 
 <div class="whiteframe" style="width: 93%;">
-    <h3 *ngIf="id != 0 else title">Update Client  <span *ngIf="id != 0"> for #{{id}} - {{clientname}}</span> <span style="font-size: 13px;font-weight: normal;color: #0670c4 !important;float: right;text-decoration: underline;cursor:pointer;"><table style="padding:0px !important;"><tr style="padding:0px !important;"><td style="padding:0px !important;" [routerLink]="['/child',id,0]" (click)="getMasterId(id);">Add Child Client</td></tr></table></span></h3>
-    <ng-template #title>
-        <h3 *ngIf="id == 0">Add New Client</h3>
-    </ng-template> 
+    <h3 *ngIf="id != 0 && child == 1  else childtitle">Update Child Client  <span *ngIf="id != 0"> for #{{id}} - {{clientname}}</span></h3>
+    <ng-template #childtitle>
+        <h3 *ngIf="id != 0 && child == 0">Add Child Client for #{{id}} - {{clientname}}</h3>
+    </ng-template>
 
 <table style="width:100%">
     <tr> 
@@ -251,12 +251,12 @@
                 </mat-error>
             </mat-form-field>
         </td>   
-       <!--<td *ngIf="child == 1">            
+       <td>            
             <mat-form-field>
                 <input maxlength="40" readonly id="MasterClientId" matInput placeholder="Master Client Id" formControlName="MasterClientID" class="form-control"/>
             </mat-form-field>
-        </td> -->
-        <td *ngIf="id != 0 && child == 0">            
+        </td> 
+        <td *ngIf="id != 0 && child == 1">            
             <mat-form-field>
                 <select matNativeControl placeholder="Client Status" formControlName="clientstatus"> 
                     <option *ngFor="let item of LkupClientStatus" value="{{item.Code}}" selected>{{item.Description}}</option>                       
@@ -265,11 +265,13 @@
         </td> 
     </tr>
     <tr>        
-        <td><button *ngIf="id != 0 else add" type="submit" mat-button cdkFocusInitial>Update Client</button>
-            <ng-template #add>
-                <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Client</button>
+        <td>
+            <button *ngIf="id != 0 && child == 1 else childadd" type="submit" mat-button cdkFocusInitial>Update Child Client</button>
+            <ng-template #childadd>
+                <button *ngIf="id != 0 && child == 0" type="submit" mat-button cdkFocusInitial>Add Child Client</button>
             </ng-template> 
 
+           
             <!--<a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a>-->
         </td>
     </tr>

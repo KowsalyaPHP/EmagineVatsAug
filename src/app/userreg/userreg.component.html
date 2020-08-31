@@ -9,7 +9,7 @@
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>   
                 <ul>
-                    <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><a [routerLink]="['/clientreg','0','0']">Client</a></li>
+                    <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><a [routerLink]="['/clientreg','0']">Client</a></li>
                     <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']">Vendor</a></li>
                     <li class="activeMenu textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
                     <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Role</a></li>
@@ -31,13 +31,33 @@
         <tr> 
             <td>
                 <mat-form-field>
-                    <select placeholder="User Category" matNativeControl maxlength="40" class="form-control" id="usercategory" name="usercategory" formControlName="usercategory">
+                    <select placeholder="User Category" matNativeControl maxlength="40" class="form-control" id="usercategory" name="usercategory" formControlName="usercategory" (change)="userType($event.target.value)">
                         <option value="E">Emagine</option>                  
                         <option value="C">Client</option> 
                         <option value="V">Vendor</option> 
                    </select>  
                    <mat-error *ngFor="let validation of validation_messages.usercategory">
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('usercategory').hasError(validation.type) && (addUserForm.get('usercategory').dirty || addUserForm.get('usercategory').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+            <td style="display:none;" id="clientlist">
+                <mat-form-field>
+                    <select matNativeControl maxlength="40" placeholder="Client List" formControlName="clientName"> 
+                        <option *ngFor="let item of ClientList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select>  
+                   <mat-error *ngFor="let validation of validation_messages.clientName">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('clientName').hasError(validation.type) && (addUserForm.get('clientName').dirty || addUserForm.get('clientName').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td> 
+            <td style="display:none;" id="vendorlist">
+                <mat-form-field>
+                    <select matNativeControl maxlength="40" placeholder="Vendor List" formControlName="vendorName"> 
+                        <option *ngFor="let item of VendorList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select> 
+                   <mat-error *ngFor="let validation of validation_messages.vendorName">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('vendorName').hasError(validation.type) && (addUserForm.get('vendorName').dirty || addUserForm.get('vendorName').touched)">{{validation.message}}</mat-error>
                     </mat-error>
                 </mat-form-field>        
             </td> 

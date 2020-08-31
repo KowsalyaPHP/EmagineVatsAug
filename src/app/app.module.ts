@@ -50,6 +50,7 @@ import { VendorregComponent } from './vendorreg/vendorreg.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserregComponent } from './userreg/userreg.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
+import { ClientchildComponent } from './clientchild/clientchild.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { UserdashboardComponent } from './userdashboard/userdashboard.component'
     VendorregComponent,
     AdminComponent,
     UserregComponent,
-    UserdashboardComponent
+    UserdashboardComponent,
+    ClientchildComponent
   ],
   imports: [
     BrowserModule,

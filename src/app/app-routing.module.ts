@@ -29,6 +29,7 @@ import { VendorregComponent } from './vendorreg/vendorreg.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserregComponent } from './userreg/userreg.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
+import { ClientchildComponent } from './clientchild/clientchild.component';
 
 const routes: Routes = [
 {
@@ -112,7 +113,7 @@ const routes: Routes = [
   component: ReqcvlogsComponent
 },
 {
-  path: "clientreg/:id/:cid",
+  path: "clientreg/:id",
   component: ClientregComponent
 },
 {
@@ -146,7 +147,12 @@ const routes: Routes = [
 {
   path: "user",
   component: UserdashboardComponent
+},
+{
+  path: "child/:id/:cid",
+  component: ClientchildComponent
 }
+
 
 ];
 

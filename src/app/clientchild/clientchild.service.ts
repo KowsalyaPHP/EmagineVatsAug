@@ -8,7 +8,7 @@ import { AppComponent } from '../app.component';
 @Injectable({
   providedIn: 'root'
 })
-export class ClientregService {
+export class ClientchildService {
 
   constructor(private http: Http) { }
 
@@ -160,5 +160,4 @@ export class ClientregService {
           return '';
       });
   }
-  
 }
