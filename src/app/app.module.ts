@@ -51,6 +51,8 @@ import { AdminComponent } from './admin/admin.component';
 import { UserregComponent } from './userreg/userreg.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
 import { ClientchildComponent } from './clientchild/clientchild.component';
+import { TemplateComponent } from './template/template.component';
+import { DownloadComponent } from './download/download.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { ClientchildComponent } from './clientchild/clientchild.component';
     AdminComponent,
     UserregComponent,
     UserdashboardComponent,
-    ClientchildComponent
+    ClientchildComponent,
+    TemplateComponent,
+    DownloadComponent
   ],
   imports: [
     BrowserModule,

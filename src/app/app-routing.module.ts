@@ -30,6 +30,8 @@ import { AdminComponent } from './admin/admin.component';
 import { UserregComponent } from './userreg/userreg.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
 import { ClientchildComponent } from './clientchild/clientchild.component';
+import { TemplateComponent } from './template/template.component';
+import { DownloadComponent } from './download/download.component';
 
 const routes: Routes = [
 {
@@ -151,9 +153,15 @@ const routes: Routes = [
 {
   path: "child/:id/:cid",
   component: ClientchildComponent
+},
+{
+  path: "template/:id",
+  component: TemplateComponent
+},
+{
+  path: "tracker/:id/:stage",
+  component: DownloadComponent
 }
-
-
 ];
 
 @NgModule({

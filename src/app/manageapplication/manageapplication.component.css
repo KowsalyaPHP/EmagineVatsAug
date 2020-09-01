@@ -235,3 +235,11 @@ ul#submenu li {
   .is-clicked{
     background: #949697 !important;
   }
+
+  .templatetracker{
+    color: #0670c4;
+    text-decoration: underline;
+    padding: -17px;
+    float: left;
+    margin-bottom: -22px;
+  }

@@ -68,10 +68,10 @@ export class UserdashboardComponent implements OnInit {
                   item.UserCategoryName = 'Emagine';
                 }
                 else if(response['Data'][i]['UserCategory'] == 'C'){
-                  this.userList['UserCategoryName'] = 'Cleint';
+                  item.UserCategoryName = 'Client';
                 }
                 else if(response['Data'][i]['UserCategory'] == 'V'){
-                  this.userList['UserCategoryName'] = 'Vendor';
+                  item.UserCategoryName = 'Vendor';
                 }
               }               
             });

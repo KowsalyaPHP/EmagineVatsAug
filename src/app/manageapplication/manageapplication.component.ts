@@ -11,6 +11,8 @@ import { saveAs } from 'file-saver';
 import {DocviewComponent} from '../docview/docview.component'
 import {DocviewjdComponent} from '../docviewjd/docviewjd.component'
 import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.component';
+import { DownloadComponent } from '../download/download.component';
+import { TemplateComponent } from '../template/template.component';
 declare var $: any
 
 interface Applicationlist {
@@ -228,6 +230,33 @@ export class ManageapplicationComponent implements OnInit {
     );
     
   }
+
+  openDialogDownloadTracker(reqId,stage): void {
+  
+    const dialogRef = this.dialog.open(DownloadComponent, {
+      width: '1100px',
+      height:'900px',
+      data: {ReqId: reqId,Stage:stage}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+
+    });    
+  }
+
+  openDialogTemplate(): void {
+  
+    const dialogRef = this.dialog.open(TemplateComponent, {
+      width: '600px',
+      height:'900px',
+     // data: {ReqId: reqId,Stage:stage}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+
+    });    
+  }
+
 
   viewCV(reqId,CandId,AppId) {
     let RefId = sessionStorage.getItem("RefId");
@@ -802,6 +831,18 @@ export class ManageapplicationComponent implements OnInit {
     ); 
   }
 
+  downloadTracker(){
+    this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
+    this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
+    this.selectedCandidateId = this.selectedApplication.map(element => element.CandidateId);
+
+    if(this.selectedApplication.length < 1){
+      this.message = "Please select atleast one candidate to download resume.";
+      this.openSnackBar();
+      return;
+    }
+  }
+
   updateStage(updatestage,updatestagestring){
 
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
@@ -1032,6 +1073,8 @@ export class ManageapplicationComponent implements OnInit {
   }
 
   }
+
+
 
   /*downLoadFile(data: any, type: string) {
     let blob = new Blob([data], { type: type});

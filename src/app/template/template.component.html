@@ -1,0 +1,88 @@
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+</div>
+
+    <h3 mat-dialog-title>Create Template</h3>
+    <hr>
+    <!--<div id="template">
+        <form class="form" role="form" focusInvalidInput autocomplete="off" id="TemplateForm" novalidate="" [formGroup]="addTemplateForm" (submit)='addTemplate(addTemplateForm.value)'>
+            <div class="templateTitle">
+                <ul>
+                    <li *ngFor="let item of templateList"><a style="color:#000000;" [routerLink]="['/template',item.Template_Id]">{{item.Template_Name}}</a></li>
+                    <li><a [routerLink]="['/template/0']">Custom Template</a></li>
+                </ul>
+            </div>
+            <div class="templateFieldlist">
+                <h3>Field List</h3>
+                <hr>
+                <ul>               
+                    <li *ngFor="let item of FieldList">
+                        <input type="checkbox" [ngModelOptions]="{standalone: true}" name="Fields{{item.Field_Id}}" [(ngModel)]="item.checked" value="{{item.Field_Id}}" />
+                        <label for="Fields{{item.Field_Id}}">{{item.Field_Display_Name}}</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="templategenerate">
+                <mat-form-field>
+                    <input placeholder="Template Name" type="text" id="Template_Name"  maxlength="80" formControlName="Template_Name" class="form-control"  required matInput/>  
+                    <mat-error *ngFor="let validation of validation_messages.Template_Name">
+                        <mat-error class="error-message" *ngIf="addTemplateForm.invalid || addTemplateForm.get('Template_Name').hasError(validation.type) && (addTemplateForm.get('Template_Name').dirty || addTemplateForm.get('Template_Name').touched)">{{validation.message}}</mat-error>
+                    </mat-error>              
+                </mat-form-field>  
+                <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Create Template</button>&nbsp;&nbsp;  
+            </div>
+        </form>
+    </div>
+</div>-->
+
+
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer  #snav class="templatelist" style="position: relative;"  opened [mode]="'side'">
+			<mat-nav-list>
+                <h3 style="margin-left: 5px;">Template Name</h3>
+                <hr>  
+                <ul>
+                    <li class="textsize">Template 11</li>
+                    <li class="textsize">Template 2</li>
+                    <li class="textsize">Template 3</li>
+                    <li class="textsize">Template 4</li>
+                    <li class="textsize">Custom Template</li>
+                </ul>          			
+			</mat-nav-list>
+		</mat-drawer>
+
+   <mat-drawer-content >
+    
+        <div style="float: left;" class="fieldList">
+            <h3 style="margin-left: 5px;">Field List</h3>
+            <hr>           
+            <ul>         
+                <li><input type="checkbox">Name</li>         
+                <li><input type="checkbox">Age</li>         
+                <li><input type="checkbox">Date of Birth</li>         
+                <li><input type="checkbox">Address</li>         
+                <li><input type="checkbox">Mobile Number</li>         
+            </ul>
+        </div>
+
+
+     
+    </mat-drawer-content>
+    
+</mat-drawer-container>
+        
+
+</div>
+<div style="float: left;width: 60%;">    
+    <mat-form-field>
+        <input placeholder="Template Name" type="text" id="Template_Name"  maxlength="80" formControlName="Template_Name" class="form-control"  required matInput/>  
+        <mat-error *ngFor="let validation of validation_messages.Template_Name">
+            <mat-error class="error-message" *ngIf="addTemplateForm.invalid || addTemplateForm.get('Template_Name').hasError(validation.type) && (addTemplateForm.get('Template_Name').dirty || addTemplateForm.get('Template_Name').touched)">{{validation.message}}</mat-error>
+        </mat-error>              
+    </mat-form-field>  
+    <button  type="submit" mat-button cdkFocusInitial>Create Template</button>&nbsp;&nbsp;
+    <button mat-button  (click)="onNoClick()">Cancel</button>
+</div>

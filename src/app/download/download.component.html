@@ -1,0 +1,27 @@
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+</div>
+<div class="content whiteframe" style="height:600px;">
+    <h3 style="text-align: center;">Tracker Download</h3>
+    <div id="template">
+            <div class="templateTitle">
+                <ul>
+                    <li *ngFor="let item of templateList"><a style="color:#000000;" (click)="viewSingleTemplate(item.Template_Id)">{{item.Template_Name}}</a></li>
+                    <li><a [routerLink]="['/tracker/0']">Custom Template</a></li>
+                </ul>
+            </div>
+            <div class="templateFieldlist">
+                <h3>Field List</h3>
+                <hr>
+                <ul>               
+                    <li *ngFor="let item of FieldList">
+                        <input type="checkbox" [ngModelOptions]="{standalone: true}" name="Fields{{item.Field_Id}}" [(ngModel)]="item.checked" value="{{item.Field_Id}}" />
+                        <label for="Fields{{item.Field_Id}}">{{item.Field_Display_Name}}</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="templategenerate">
+                
+            </div>
+    </div>
+</div>
