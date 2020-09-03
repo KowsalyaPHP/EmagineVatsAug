@@ -65,13 +65,13 @@ export class UserdashboardComponent implements OnInit {
               for (let i = 0; i < response['Data'].length; i++) {                  
                 if(response['Data'][i]['UserCategory'] == 'E')
                 {
-                  item.UserCategoryName = 'Emagine';
+                  response['Data'][i]['UserCategoryName'] = 'Emagine';
                 }
                 else if(response['Data'][i]['UserCategory'] == 'C'){
-                  item.UserCategoryName = 'Client';
+                  response['Data'][i]['UserCategoryName'] = 'Client';
                 }
                 else if(response['Data'][i]['UserCategory'] == 'V'){
-                  item.UserCategoryName = 'Vendor';
+                  response['Data'][i]['UserCategoryName'] = 'Vendor';
                 }
               }               
             });

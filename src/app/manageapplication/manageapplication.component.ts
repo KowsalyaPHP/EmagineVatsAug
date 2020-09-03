@@ -234,7 +234,7 @@ export class ManageapplicationComponent implements OnInit {
   openDialogDownloadTracker(reqId,stage): void {
   
     const dialogRef = this.dialog.open(DownloadComponent, {
-      width: '1100px',
+      width: '900px',
       height:'900px',
       data: {ReqId: reqId,Stage:stage}      
     });

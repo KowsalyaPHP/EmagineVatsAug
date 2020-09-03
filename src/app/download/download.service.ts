@@ -66,4 +66,34 @@ export class DownloadService {
           return 'No Data';
       });
   }
+
+  public downloadTracker(reqId,TemplateId,ApplicationId,CandidateId): Observable<any> {
+
+    //const url = AppComponent.urlPath + 'DownloadTracker';
+    const url = 'http://9fcb3cc0eedb.ngrok.io/DownloadTracker';
+    
+  
+    var RefId = sessionStorage.getItem("RefId");        
+    const formData = new FormData();
+
+    formData.append('EntityID', RefId);
+    formData.append('RequisitionId', reqId);
+    formData.append('TemplateId',TemplateId);
+    formData.append('CandidateId', CandidateId);
+    formData.append('ApplicationId', ApplicationId);
+
+    console.log(RefId)
+    console.log(reqId)
+    console.log(TemplateId)
+    console.log(CandidateId)
+    console.log(ApplicationId)
+
+    return this.http.post(url, formData)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
+  }
 }

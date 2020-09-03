@@ -47,9 +47,10 @@ export class TemplateComponent implements OnInit {
     
     var userName = sessionStorage.getItem("userName"); 
 
-    if (userName && this.id != 0){           
+   /* if (userName && this.id != 0){           
       this.viewSingleTemplate(this.id);
-    }
+    }*/
+
     this.viewTemplateDetails();
    }
 
@@ -66,7 +67,10 @@ export class TemplateComponent implements OnInit {
     this.dialogRef.close();
    }
 
-  viewTemplateDetails(){
+   viewcustomTemplateDetails(){
+     
+    $('#createTemplate').show();
+
     this.TemplateServices.viewTemplateDetails().subscribe(
       response => {  
         if (response != "No data") {
@@ -76,17 +80,11 @@ export class TemplateComponent implements OnInit {
             this.openSnackBar(); 
           }          
           else{ 
-            this.templateList = response['Data']['templateDetail'];
-            response['Data']['FieldDetails'].forEach(item => {
-              for (let i = 0; i < this.FieldListData.length; i++) {                  
-                if(this.FieldListData[i] == item['Field_Id'])
-                {
-                  item.checked = true;
-                }
-              }               
-            });
+            this.templateList = response['Data']['templateDetail'];         
             this.FieldList = response['Data']['FieldDetails'];
-
+            
+              $('#customtemplate').removeClass('selected');
+              $('#customtemplate').addClass('selected');
           }            
         }
         else {         
@@ -97,8 +95,45 @@ export class TemplateComponent implements OnInit {
     );  
   }
 
-  viewSingleTemplate(templateId){
-    
+  viewTemplateDetails(){
+    //$('#customtemplate').addClass('selected');
+    this.TemplateServices.viewTemplateDetails().subscribe(
+      response => {  
+        if (response != "No data") {
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+          }          
+          else{ 
+            this.templateList = response['Data']['templateDetail'];
+           console.log(this.FieldListData);
+            if(typeof(this.FieldListData) != 'undefined' || this.FieldListData != null){
+              response['Data']['FieldDetails'].forEach(item => {
+                for (let i = 0; i < this.FieldListData.length; i++) {                  
+                  if(this.FieldListData[i] == item['Field_Id'])
+                  {
+                    item.checked = true;
+                  }
+                }               
+              });
+              this.FieldList = response['Data']['FieldDetails'];
+            }
+          else{
+            this.FieldList = response['Data']['FieldDetails'];
+          }
+          }            
+        }
+        else {         
+          console.log('something is wrong with Service Execution');
+        }        
+      },
+      error => console.log("Error Occurd!")
+    );  
+  }
+
+  viewSingleTemplate(templateId,index){
+  
       this.TemplateServices.viewTemplateSingle(templateId).subscribe(
         response =>  { 
             if (response != "No data") {          
@@ -111,11 +146,19 @@ export class TemplateComponent implements OnInit {
                 this.FieldListData = response['Data'][0]['Field_List'].split(";"); 
 
                 this.templateSingle = response['Data']; 
-                console.log(this.templateSingle);
-
+               
                 this.addTemplateForm.patchValue({
                   Template_Name: response['Data'][0]['Template_Name']               
                 }); 
+                this.viewTemplateDetails();
+
+                setTimeout(() => {
+                  $('#customtemplate').removeClass('selected');
+                  $('#templateList'+index).removeClass('selected');
+                  $('#templateList'+index).addClass('selected');
+                  }
+                  , 400);
+                  $('#createTemplate').hide();            
               }    
                 
             } else {
@@ -139,10 +182,6 @@ export class TemplateComponent implements OnInit {
 
       var userId = sessionStorage.getItem("uniqueSessionId");    
       var userName = sessionStorage.getItem("userName");
-
-      this.route.params.subscribe(params => {
-        this.id = params['id'];
-      });
 
       this.Fieldselect = this.FieldList.filter( (field) => field.checked );
 
@@ -171,6 +210,7 @@ export class TemplateComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();
+                this.viewTemplateDetails();
                 //this.routerObj.navigate(["/req-dashboard/DR"]);
               }            
             }

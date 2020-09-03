@@ -35,43 +35,33 @@
     </div>
 </div>-->
 
-
-<div fxLayout="row" >
-   
-	<mat-drawer-container style="width: 100%;">
-       
+<form class="form" role="form" focusInvalidInput autocomplete="off" id="TemplateForm" novalidate="" [formGroup]="addTemplateForm" (submit)='addTemplate(addTemplateForm.value)'>
+<div fxLayout="row" >   
+    
+	<mat-drawer-container style="width: 100%;">       
 		<mat-drawer  #snav class="templatelist" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
-                <h3 style="margin-left: 5px;">Template Name</h3>
-                <hr>  
-                <ul>
-                    <li class="textsize">Template 11</li>
-                    <li class="textsize">Template 2</li>
-                    <li class="textsize">Template 3</li>
-                    <li class="textsize">Template 4</li>
-                    <li class="textsize">Custom Template</li>
+                <h3 style="margin: 15px 0 15px 2px;font-weight: 600;">Template Name</h3>
+                <hr>                  
+                <ul id="template">
+                    <li  class="textsize" *ngFor="let item of templateList;let i = index" id="templateList{{i}}"><a style="cursor:pointer" (click)="viewSingleTemplate(item.Template_Id,i)">{{item.Template_Name}}</a></li>
+                    <li class="textsize selected" id="customtemplate"><a style="cursor:pointer" (click)="viewcustomTemplateDetails()">Custom Template</a></li>
                 </ul>          			
 			</mat-nav-list>
 		</mat-drawer>
 
-   <mat-drawer-content >
-    
+   <mat-drawer-content >    
         <div style="float: left;" class="fieldList">
-            <h3 style="margin-left: 5px;">Field List</h3>
+            <h3 style="margin: 15px 0 15px 6px;">Field List</h3>
             <hr>           
             <ul>         
-                <li><input type="checkbox">Name</li>         
-                <li><input type="checkbox">Age</li>         
-                <li><input type="checkbox">Date of Birth</li>         
-                <li><input type="checkbox">Address</li>         
-                <li><input type="checkbox">Mobile Number</li>         
+                <li *ngFor="let item of FieldList">
+                    <input type="checkbox" [ngModelOptions]="{standalone: true}" name="Fields{{item.Field_Id}}" [(ngModel)]="item.checked" value="{{item.Field_Id}}" />
+                    <label for="Fields{{item.Field_Id}}">{{item.Field_Display_Name}}</label>
+                </li>                      
             </ul>
         </div>
-
-
-     
-    </mat-drawer-content>
-    
+    </mat-drawer-content>    
 </mat-drawer-container>
         
 
@@ -83,6 +73,8 @@
             <mat-error class="error-message" *ngIf="addTemplateForm.invalid || addTemplateForm.get('Template_Name').hasError(validation.type) && (addTemplateForm.get('Template_Name').dirty || addTemplateForm.get('Template_Name').touched)">{{validation.message}}</mat-error>
         </mat-error>              
     </mat-form-field>  
-    <button  type="submit" mat-button cdkFocusInitial>Create Template</button>&nbsp;&nbsp;
-    <button mat-button  (click)="onNoClick()">Cancel</button>
+    <button  type="submit" id="createTemplate" mat-button cdkFocusInitial>Create Template</button>&nbsp;&nbsp;
+    <span  (click)="onNoClick()" class="cancelbutton">Cancel</span>
 </div>
+
+</form>

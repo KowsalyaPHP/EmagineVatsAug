@@ -228,12 +228,12 @@ ul#submenu li {
 
   .displaySubStage{
     cursor: pointer;
-    background: #0670c4;
+    background: #6d7278;
     padding: 5px;
   }
 
   .is-clicked{
-    background: #949697 !important;
+    background: #0670c4 !important;
   }
 
   .templatetracker{

@@ -8,13 +8,14 @@ import {
 } from "@angular/forms";
 import { DownloadService } from './download.service';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ToastrService } from 'ngx-toastr'; 
+declare var $: any
 
 interface Fields {
   Field_Id: any;
   Field_Display_Name: string;
   checked?: boolean;
 }
-
 
 interface Applicationlist {
   ApplicationId: any;
@@ -38,7 +39,6 @@ interface Applicationlist {
   styleUrls: ['./download.component.css']
 })
 export class DownloadComponent implements OnInit {
-
  
   message:any;  
   templateList:[];
@@ -51,8 +51,12 @@ export class DownloadComponent implements OnInit {
   templateSingle:[];
   FieldListData:any;
   stage:any;
+  templateId:any;
+  selectedApplication:any;
+  selectedApplicationId:any;
+  selectedCandidateId:any;
 
-  constructor(private routerObj: Router,private DownloadServices: DownloadService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<DownloadComponent>,@Inject(MAT_DIALOG_DATA) public data:any) {
+  constructor(private routerObj: Router,private DownloadServices: DownloadService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<DownloadComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private toastr: ToastrService) {
     
    
 
@@ -80,6 +84,7 @@ export class DownloadComponent implements OnInit {
   }
 
   viewTemplateDetails(){
+   // $('#templateList0').addClass('selected');
     this.DownloadServices.viewTemplateDetails().subscribe(
       response => {  
         if (response != "No data") {
@@ -90,15 +95,20 @@ export class DownloadComponent implements OnInit {
           }          
           else{ 
             this.templateList = response['Data']['templateDetail'];
-            response['Data']['FieldDetails'].forEach(item => {
-              for (let i = 0; i < this.FieldListData.length; i++) {                  
-                if(this.FieldListData[i] == item['Field_Id'])
-                {
-                  item.checked = true;
-                }
-              }               
-            });
-            this.FieldList = response['Data']['FieldDetails'];
+            if(typeof(this.FieldListData) != 'undefined'){
+              response['Data']['FieldDetails'].forEach(item => {
+                for (let i = 0; i < this.FieldListData.length; i++) {                  
+                  if(this.FieldListData[i] == item['Field_Id'])
+                  {
+                    item.checked = true;
+                  }
+                }               
+              });
+              this.FieldList = response['Data']['FieldDetails'];
+            }
+            else{
+              this.FieldList = response['Data']['FieldDetails'];
+            }
 
           }            
         }
@@ -110,19 +120,28 @@ export class DownloadComponent implements OnInit {
     );  
   }
 
-  viewSingleTemplate(templateId){
-    
+  viewSingleTemplate(templateId,index){
+
+    this.templateId = templateId;
+
     this.DownloadServices.viewTemplateSingle(templateId).subscribe(
       response =>  { 
           if (response != "No data") {          
             let getMessage =  response['Message'].split(":");
             if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
               this.message = getMessage['1'];
-              this.openSnackBar(); 
+              this.openSnackBar();               
             }
             else {                  
               this.FieldListData = response['Data'][0]['Field_List'].split(";"); 
               this.templateSingle = response['Data']; 
+              this.viewTemplateDetails();
+              setTimeout(() => {               
+                $('#templateList'+index).removeClass('selected');
+                $('#templateList'+index).addClass('selected');
+                }
+                , 400);
+                
             }    
               
           } else {
@@ -142,5 +161,35 @@ export class DownloadComponent implements OnInit {
       }
     );
   }
+  downloadTracker(){
+    this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
+    this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
+    this.selectedCandidateId = this.selectedApplication.map(element => element.CandidateId);
 
+    if(this.selectedApplication == ''){ 
+      this.toastr.error('Please select atleast one candidate');
+      return; 
+    }
+
+    this.DownloadServices.downloadTracker(this.data['ReqId'],this.templateId,this.selectedApplicationId,this.selectedCandidateId).subscribe(
+      response =>  { 
+          if (response != "No data") {          
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+              this.message = getMessage['1'];
+              this.openSnackBar(); 
+            }
+            else {                  
+              this.FieldListData = response['Data'][0]['Field_List'].split(";"); 
+              this.templateSingle = response['Data']; 
+              this.viewTemplateDetails();
+            }    
+              
+          } else {
+          console.log("something is wrong with Service Execution"); 
+          }
+        },
+        error => console.log(error)      
+      );
+  }
 }
