@@ -58,8 +58,6 @@ export class DownloadComponent implements OnInit {
 
   constructor(private routerObj: Router,private DownloadServices: DownloadService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<DownloadComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private toastr: ToastrService) {
     
-   
-
     this.route.params.subscribe(params => {
       this.id = params['id'],
       this.stage = params['stage'] 

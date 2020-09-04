@@ -91,3 +91,7 @@
   background: #6d7278;
   color:#ffffff !important;
 }
+.toast-top-right {
+  top: 12px;
+  right: 256px !important; 
+}

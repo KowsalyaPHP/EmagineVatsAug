@@ -31,7 +31,7 @@
         </div>
         <div style="float: left;width: 40%;">    
             <div style="float: left;" class="fieldList">
-                <h3 style="margin-left: 5px;">Client List</h3>
+                <h3 style="margin-left: 5px;">Candidate List</h3>
                 <hr>           
                 <ul>         
                     <li *ngFor="let item of StageValueList;let i = index"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}">{{item.Candidate_FN}}</li>
