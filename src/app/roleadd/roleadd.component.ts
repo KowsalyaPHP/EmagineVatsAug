@@ -26,7 +26,16 @@ export class RoleaddComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
+  addRole(formObj) {
+
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
   validation_messages = {
     'role_name': [
       { type: 'required', message: 'Please enter requisition title' }      

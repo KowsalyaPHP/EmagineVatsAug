@@ -12,7 +12,7 @@ declare var $: any
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent implements OnInit {
-
+  message:any;
   constructor(private routerObj: Router,private RoleServices: RoleService,private route: ActivatedRoute,public dialog: MatDialog) { }
 
   ngOnInit() {
