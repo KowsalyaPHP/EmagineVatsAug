@@ -1,5 +1,5 @@
 <div style="margin: 0;">
-    <div id="snackbar">{{message}}</div>
+    <div id="dialogsnackbar">{{message}}</div>
 </div>
 
     <h3 mat-dialog-title>Create Template</h3>
@@ -8,8 +8,8 @@
         <form class="form" role="form" focusInvalidInput autocomplete="off" id="TemplateForm" novalidate="" [formGroup]="addTemplateForm" (submit)='addTemplate(addTemplateForm.value)'>
             <div class="templateTitle">
                 <ul>
-                    <li *ngFor="let item of templateList"><a style="color:#000000;" [routerLink]="['/template',item.Template_Id]">{{item.Template_Name}}</a></li>
                     <li><a [routerLink]="['/template/0']">Custom Template</a></li>
+                    <li *ngFor="let item of templateList"><a style="color:#000000;" [routerLink]="['/template',item.Template_Id]">{{item.Template_Name}}</a></li>                    
                 </ul>
             </div>
             <div class="templateFieldlist">
@@ -41,22 +41,26 @@
 	<mat-drawer-container style="width: 100%;">       
 		<mat-drawer  #snav class="templatelist" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
-                <h3 style="margin: 15px 0 15px 2px;font-weight: 600;">Template Name</h3>
-                <hr>                  
-                <ul id="template">
-                    <li  class="textsize" *ngFor="let item of templateList;let i = index" id="templateList{{i}}"><a style="cursor:pointer" (click)="viewSingleTemplate(item.Template_Id,i)">{{item.Template_Name}}</a></li>
+                <div style="position: fixed;margin-top: -58px;background: white;">
+                    <h3 style="margin: 15px 0 15px 2px;font-weight: 600;width: 151px;">Template Name</h3>
+                    <hr>      
+                </div>            
+                <ul id="template" style="margin-top:56px;">
                     <li class="textsize selected" id="customtemplate"><a style="cursor:pointer" (click)="viewcustomTemplateDetails()">Custom Template</a></li>
+                    <li  class="textsize" *ngFor="let item of templateList;let i = index" id="templateList{{i}}"><a style="cursor:pointer" (click)="viewSingleTemplate(item.Template_Id,i)">{{item.Template_Name}}</a></li>                    
                 </ul>          			
 			</mat-nav-list>
 		</mat-drawer>
 
    <mat-drawer-content >    
         <div style="float: left;" class="fieldList">
-            <h3 style="margin: 15px 0 15px 6px;">Field List</h3>
-            <hr>           
-            <ul>         
+            <div style="position: fixed;background: #f4efef;width: 21%;">
+                <h3 style="margin: 15px 0 15px 6px;">Field List</h3>
+                <hr>         
+            </div>  
+            <ul style="margin-top:52px;">         
                 <li *ngFor="let item of FieldList">
-                    <input type="checkbox" [ngModelOptions]="{standalone: true}" name="Fields{{item.Field_Id}}" [(ngModel)]="item.checked" value="{{item.Field_Id}}" />
+                    <input type="checkbox" disabled="{{disable}}" [ngModelOptions]="{standalone: true}" name="Fields{{item.Field_Id}}" [(ngModel)]="item.checked" value="{{item.Field_Id}}" />
                     <label for="Fields{{item.Field_Id}}">{{item.Field_Display_Name}}</label>
                 </li>                      
             </ul>

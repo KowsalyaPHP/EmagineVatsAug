@@ -1,0 +1,20 @@
+<div class="dialogContent">
+    <div style="border-bottom: 1px dotted;">     
+        <h3 class="addcompetencycolor">Add Role</h3>        
+    </div>
+    <form class="form" role="form" focusInvalidInput autocomplete="off" id="formRole" novalidate=""
+    [formGroup]="addRoleForm" (submit)='addRole(addRoleForm.getRawValue())'>
+        <div mat-dialog-content class="contentCompetency">
+            <mat-form-field>
+                <input placeholder="Role Name" type="text" id="role_name"  maxlength="80" formControlName="role_name" class="form-control"  required matInput/>  
+                <mat-error *ngFor="let validation of validation_messages.role_name">
+                    <mat-error class="error-message" *ngIf="addRoleForm.invalid || addRoleForm.get('role_name').hasError(validation.type) && (addRoleForm.get('role_name').dirty || addRoleForm.get('role_name').touched)">{{validation.message}}</mat-error>
+                </mat-error>              
+            </mat-form-field> 
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button (click)="sendCheckedcompetency()" cdkFocusInitial>Add Role</button>
+            <button mat-button  (click)="onNoClick()">Cancel</button>
+        </div>
+    </form>
+</div>

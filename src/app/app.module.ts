@@ -53,6 +53,8 @@ import { UserdashboardComponent } from './userdashboard/userdashboard.component'
 import { ClientchildComponent } from './clientchild/clientchild.component';
 import { TemplateComponent } from './template/template.component';
 import { DownloadComponent } from './download/download.component';
+import { RoleComponent } from './role/role.component';
+import { RoleaddComponent } from './roleadd/roleadd.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,9 @@ import { DownloadComponent } from './download/download.component';
     UserdashboardComponent,
     ClientchildComponent,
     TemplateComponent,
-    DownloadComponent
+    DownloadComponent,
+    RoleComponent,
+    RoleaddComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +118,7 @@ import { DownloadComponent } from './download/download.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],
   bootstrap: [AppComponent],
-  entryComponents: [DocviewComponent,DocviewjdComponent]
+  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent]
 })
 
 export class AppModule { }

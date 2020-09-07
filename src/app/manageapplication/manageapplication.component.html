@@ -103,7 +103,7 @@
       </p>      
       <!--<span *ngIf="currentstage == 'AS' || currentstage == 'SC'">Template</span><span *ngIf="currentstage == 'AS' || currentstage == 'SC'">Tracker</span>-->
     </div>
-    <a class="templatetracker" style="margin-left: 71%;cursor:pointer;" *ngIf="currentstage == 'AS' || currentstage == 'SC'" (click)="openDialogTemplate();">Template</a>
+    <!--<a class="templatetracker" style="margin-left: 71%;cursor:pointer;" *ngIf="currentstage == 'AS' || currentstage == 'SC'" (click)="openDialogTemplate();">Template</a>-->
     <a class="templatetracker" style="margin-left: 77%;cursor:pointer;" *ngIf="currentstage == 'AS' || currentstage == 'SC'" (click)="currentstage != 'AS' ? openDialogDownloadTracker(id,'SC') : openDialogDownloadTracker(id,'AS')">Tracker</a>
     <!--Assessment CV Submit Round 2 Round 3 Round 4 -->
     <table *ngIf="showall == 'true'"  #dataTable class="display" id="applicationDashboard" style="width:100%;">

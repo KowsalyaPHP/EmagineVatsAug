@@ -32,6 +32,7 @@ import { UserdashboardComponent } from './userdashboard/userdashboard.component'
 import { ClientchildComponent } from './clientchild/clientchild.component';
 import { TemplateComponent } from './template/template.component';
 import { DownloadComponent } from './download/download.component';
+import { RoleComponent } from './role/role.component';
 
 const routes: Routes = [
 {
@@ -161,6 +162,10 @@ const routes: Routes = [
 {
   path: "tracker/:id/:stage",
   component: DownloadComponent
+},
+{
+  path: "role",
+  component: RoleComponent
 }
 ];
 

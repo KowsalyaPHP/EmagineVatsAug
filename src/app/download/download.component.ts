@@ -7,8 +7,9 @@ import {
   Validators
 } from "@angular/forms";
 import { DownloadService } from './download.service';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA,MatDialog} from '@angular/material';
 import { ToastrService } from 'ngx-toastr'; 
+import { TemplateComponent } from '../template/template.component';
 declare var $: any
 
 interface Fields {
@@ -56,7 +57,7 @@ export class DownloadComponent implements OnInit {
   selectedApplicationId:any;
   selectedCandidateId:any;
 
-  constructor(private routerObj: Router,private DownloadServices: DownloadService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<DownloadComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private toastr: ToastrService) {
+  constructor(private routerObj: Router,private DownloadServices: DownloadService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<DownloadComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private toastr: ToastrService,public dialog: MatDialog) {
     
     this.route.params.subscribe(params => {
       this.id = params['id'],
@@ -76,9 +77,32 @@ export class DownloadComponent implements OnInit {
   }
 
   openSnackBar() { 
-    var x = document.getElementById("snackbar")
+    var x = document.getElementById("dialogDownloadsnackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
+  }
+
+  viewcustomTemplateDetails(){
+ 
+    this.DownloadServices.viewTemplateDetails().subscribe(
+      response => {  
+        if (response != "No data") {
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+          }          
+          else{ 
+            this.templateList = response['Data']['templateDetail'];         
+            this.FieldList = response['Data']['FieldDetails'];            
+          }            
+        }
+        else {         
+          console.log('something is wrong with Service Execution');
+        }        
+      },
+      error => console.log("Error Occurd!")
+    );  
   }
 
   viewTemplateDetails(){
@@ -135,8 +159,8 @@ export class DownloadComponent implements OnInit {
               this.templateSingle = response['Data']; 
               this.viewTemplateDetails();
               setTimeout(() => {               
-                $('#templateList'+index).removeClass('selected');
-                $('#templateList'+index).addClass('selected');
+                $('#downtemplateList'+index).removeClass('selected');
+                $('#downtemplateList'+index).addClass('selected');
                 }
                 , 400);
                 
@@ -159,13 +183,29 @@ export class DownloadComponent implements OnInit {
       }
     );
   }
+
+  openDialogTemplate(): void {
+  
+    const dialogRef = this.dialog.open(TemplateComponent, {
+      width: '600px',
+      height:'900px',
+     // data: {ReqId: reqId,Stage:stage}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+        //this.viewcustomTemplateDetails();
+    });    
+  }
+
   downloadTracker(){
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
     this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
     this.selectedCandidateId = this.selectedApplication.map(element => element.CandidateId);
 
+  
     if(this.selectedApplication == ''){ 
-      this.toastr.error('Please select atleast one candidate');
+      this.message = "Please select atleast one candidate to download tracker.";
+      this.openSnackBar();
       return; 
     }
 

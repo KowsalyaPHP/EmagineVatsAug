@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams , ResponseContentType } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
@@ -69,8 +69,8 @@ export class DownloadService {
 
   public downloadTracker(reqId,TemplateId,ApplicationId,CandidateId): Observable<any> {
 
-    //const url = AppComponent.urlPath + 'DownloadTracker';
-    const url = 'http://9fcb3cc0eedb.ngrok.io/DownloadTracker';
+    const url = AppComponent.urlPath + 'DownloadTracker';
+   // const url = 'http://7c5ccf921a31.ngrok.io/DownloadTracker';
     
   
     var RefId = sessionStorage.getItem("RefId");        
@@ -88,7 +88,7 @@ export class DownloadService {
     console.log(CandidateId)
     console.log(ApplicationId)
 
-    return this.http.post(url, formData)
+    return this.http.post(url, formData, { responseType: ResponseContentType.Blob })
       .map(response => response.json()).map(data => {
         if (data != '')
           return data;

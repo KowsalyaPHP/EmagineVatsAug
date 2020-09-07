@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import { TemplateService } from './template.service';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+declare var $: any
 
 interface Fields {
   Field_Id: any;
@@ -33,6 +34,7 @@ export class TemplateComponent implements OnInit {
   FieldselectId:any;
   templateSingle:[];
   FieldListData:any;
+  disable=false;
 
   constructor(private routerObj: Router,private TemplateServices: TemplateService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<TemplateComponent>,@Inject(MAT_DIALOG_DATA) public data:any) {
 
@@ -58,7 +60,7 @@ export class TemplateComponent implements OnInit {
   }
 
   openSnackBar() { 
-    var x = document.getElementById("snackbar")
+    var x = document.getElementById("dialogsnackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
   }
@@ -68,7 +70,8 @@ export class TemplateComponent implements OnInit {
    }
 
    viewcustomTemplateDetails(){
-     
+ 
+    this.disable=false;
     $('#createTemplate').show();
 
     this.TemplateServices.viewTemplateDetails().subscribe(
@@ -107,8 +110,9 @@ export class TemplateComponent implements OnInit {
           }          
           else{ 
             this.templateList = response['Data']['templateDetail'];
-           console.log(this.FieldListData);
+           
             if(typeof(this.FieldListData) != 'undefined' || this.FieldListData != null){
+              this.disable=true;
               response['Data']['FieldDetails'].forEach(item => {
                 for (let i = 0; i < this.FieldListData.length; i++) {                  
                   if(this.FieldListData[i] == item['Field_Id'])
@@ -119,9 +123,9 @@ export class TemplateComponent implements OnInit {
               });
               this.FieldList = response['Data']['FieldDetails'];
             }
-          else{
-            this.FieldList = response['Data']['FieldDetails'];
-          }
+            else{             
+              this.FieldList = response['Data']['FieldDetails'];            
+            }
           }            
         }
         else {         
@@ -144,7 +148,8 @@ export class TemplateComponent implements OnInit {
               }
               else {                  
                 this.FieldListData = response['Data'][0]['Field_List'].split(";"); 
-
+                console.log(this.FieldListData)
+                
                 this.templateSingle = response['Data']; 
                
                 this.addTemplateForm.patchValue({
@@ -154,10 +159,10 @@ export class TemplateComponent implements OnInit {
 
                 setTimeout(() => {
                   $('#customtemplate').removeClass('selected');
-                  $('#templateList'+index).removeClass('selected');
+                 // $('#templateList'+index).removeClass('selected');
                   $('#templateList'+index).addClass('selected');
                   }
-                  , 400);
+                  , 500);
                   $('#createTemplate').hide();            
               }    
                 
@@ -189,13 +194,13 @@ export class TemplateComponent implements OnInit {
         const FieldId= this.Fieldselect.map(element => element.Field_Id);
         this.FieldselectId = FieldId.join(';'); 
       }
-      else{
-        this.message = "Please select atleast one field to generate template.";
+      else{        
+        this.message = "Please select atleast one field to create template.";
         this.openSnackBar();
         return;
       }
-
-      var confirm = window.confirm('Do you want to generate this template?');
+      
+      var confirm = window.confirm('Do you want to create this template?');
       
       if (confirm == true) {         
        

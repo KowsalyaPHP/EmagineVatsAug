@@ -1,0 +1,30 @@
+<div style="margin: 0;">
+    <div id="snackbar">{{message}}</div>
+</div>
+
+<div fxLayout="row" >
+   
+	<mat-drawer-container style="width: 100%;">
+       
+		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
+			<mat-nav-list>
+                <ul>
+                    <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
+                    <li class="activeMenu textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
+                    <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
+                    <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
+                    <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Rule</a></li>
+                </ul>          			
+			</mat-nav-list>
+		</mat-drawer>
+
+   <mat-drawer-content style="margin-left:20%">
+    
+        <div style="float: left;">           
+            <h3>Role <span (click)="opendialogaddrole()">Add Role</span></h3>
+        </div>
+        <div style="float: left;width: 81%;">
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
+</div>

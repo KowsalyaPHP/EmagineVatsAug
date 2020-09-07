@@ -820,7 +820,12 @@ export class ManageapplicationComponent implements OnInit {
           else {             
             if (getMessage['0'] == "200") {  
               this.message = getMessage['1'];
-              this.openSnackBar();        
+              this.openSnackBar();      
+              this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
+              setTimeout(() => {
+                this.routerObj.navigate(['manage/'+this.id+'/'+response['Data']]);
+              }
+              , 2000);  
             //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
              // this.getStageValuesOnChange(updatestage);
              // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
