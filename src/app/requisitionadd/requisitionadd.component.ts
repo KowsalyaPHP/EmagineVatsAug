@@ -244,6 +244,7 @@ export class RequisitionaddComponent implements OnInit {
   }
   
   downLoadFile(data: any) {    
+    console.log('dd'+data);  
     let contenType = data.headers.get("content-type");
     let contdisp = data.headers.get("content-disposition").split("=");
     let fileName = contdisp[1].trim();

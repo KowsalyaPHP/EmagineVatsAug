@@ -69,8 +69,8 @@ export class DownloadService {
 
   public downloadTracker(reqId,TemplateId,ApplicationId,CandidateId): Observable<any> {
 
-    const url = AppComponent.urlPath + 'DownloadTracker';
-   // const url = 'http://7c5ccf921a31.ngrok.io/DownloadTracker';
+   // const url = AppComponent.urlPath + 'DownloadTracker';
+    const url = 'http://253d1785911b.ngrok.io/DownloadTracker';
     
   
     var RefId = sessionStorage.getItem("RefId");        

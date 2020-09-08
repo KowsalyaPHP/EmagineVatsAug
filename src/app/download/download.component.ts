@@ -10,6 +10,7 @@ import { DownloadService } from './download.service';
 import { MatDialogRef, MAT_DIALOG_DATA,MatDialog} from '@angular/material';
 import { ToastrService } from 'ngx-toastr'; 
 import { TemplateComponent } from '../template/template.component';
+import { saveAs } from 'file-saver';
 declare var $: any
 
 interface Fields {
@@ -197,6 +198,28 @@ export class DownloadComponent implements OnInit {
     });    
   }
 
+  downLoadFile(data: any) {  
+    
+    console.log('dd'+data);  
+    let contenType = data.headers.get("content-type");
+    let contdisp = data.headers.get("content-disposition").split("=");
+    let fileName = contdisp[1].trim();
+    let blob = new Blob([data._body], {  type: contenType });  
+    let file = new File([blob], fileName, { type: contenType});
+    saveAs(file);
+
+   /* let downloadZipUrl = 'http://myserver/test-download';
+let json: any = {};
+let headers = new Headers();
+headers.append('Content-Type', 'application/json');
+headers.append('responseType', ResponseContentType.Blob);
+headers.append('X-HTTP-Method-Override', 'GET');
+this.http.post(downloadZipUrl, json, {headers: headers}).subscribe(response => {
+var blob = new Blob([response['_body']], {type: 'application/zip'});
+var url= URL.createObjectURL(blob);
+window.open(url);*/
+  }
+
   downloadTracker(){
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
     this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
@@ -209,19 +232,13 @@ export class DownloadComponent implements OnInit {
       return; 
     }
 
+
     this.DownloadServices.downloadTracker(this.data['ReqId'],this.templateId,this.selectedApplicationId,this.selectedCandidateId).subscribe(
       response =>  { 
           if (response != "No data") {          
-            let getMessage =  response['Message'].split(":");
-            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-              this.message = getMessage['1'];
-              this.openSnackBar(); 
-            }
-            else {                  
-              this.FieldListData = response['Data'][0]['Field_List'].split(";"); 
-              this.templateSingle = response['Data']; 
-              this.viewTemplateDetails();
-            }    
+           
+             this.downLoadFile(response);  
+              
               
           } else {
           console.log("something is wrong with Service Execution"); 
@@ -230,4 +247,7 @@ export class DownloadComponent implements OnInit {
         error => console.log(error)      
       );
   }
+
+ 
+
 }
