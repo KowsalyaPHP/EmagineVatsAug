@@ -69,8 +69,8 @@ export class DownloadService {
 
   public downloadTracker(reqId,TemplateId,ApplicationId,CandidateId): Observable<any> {
 
-   // const url = AppComponent.urlPath + 'DownloadTracker';
-    const url = 'http://253d1785911b.ngrok.io/DownloadTracker';
+    const url = AppComponent.urlPath + 'DownloadTracker';
+   // const url = 'http://d6011a7849a1.ngrok.io/DownloadTracker';
     
   
     var RefId = sessionStorage.getItem("RefId");        
@@ -88,12 +88,16 @@ export class DownloadService {
     console.log(CandidateId)
     console.log(ApplicationId)
 
-    return this.http.post(url, formData, { responseType: ResponseContentType.Blob })
+    return this.http.post(url, formData, { responseType: ResponseContentType.Blob }).map(data => {   
+      return data;     
+    });
+
+   /* return this.http.post(url, formData, { responseType: ResponseContentType.Blob })
       .map(response => response.json()).map(data => {
         if (data != '')
           return data;
         else
           return 'No Data';
-      });
+      });*/
   }
 }

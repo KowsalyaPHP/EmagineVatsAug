@@ -1,19 +1,98 @@
-<div class="dialogContent">
-    <div style="border-bottom: 1px dotted;">     
-        <h3 class="addcompetencycolor">Add Role</h3>        
+<div class="dialogContent" *ngIf="showRoleForm">
+    <div>     
+        <h3>Add Role</h3>        
     </div>
     <form class="form" role="form" focusInvalidInput autocomplete="off" id="formRole" novalidate=""
     [formGroup]="addRoleForm" (submit)='addRole(addRoleForm.getRawValue())'>
-        <div mat-dialog-content class="contentCompetency">
+        <div mat-dialog-content>
             <mat-form-field>
-                <input placeholder="Role Name" type="text" id="role_name"  maxlength="80" formControlName="role_name" class="form-control"  required matInput/>  
-                <mat-error *ngFor="let validation of validation_messages.role_name">
-                    <mat-error class="error-message" *ngIf="addRoleForm.invalid || addRoleForm.get('role_name').hasError(validation.type) && (addRoleForm.get('role_name').dirty || addRoleForm.get('role_name').touched)">{{validation.message}}</mat-error>
+                <input placeholder="Role Name" type="text" id="RoleName"  maxlength="80" formControlName="RoleName" class="form-control"  required matInput/>  
+                <mat-error *ngFor="let validation of validation_messages.RoleName">
+                    <mat-error class="error-message" *ngIf="addRoleForm.invalid || addRoleForm.get('RoleName').hasError(validation.type) && (addRoleForm.get('RoleName').dirty || addRoleForm.get('RoleName').touched)">{{validation.message}}</mat-error>
                 </mat-error>              
             </mat-form-field> 
         </div>
         <div mat-dialog-actions>
-            <button mat-button (click)="sendCheckedcompetency()" cdkFocusInitial>Add Role</button>
+            <button mat-button cdkFocusInitial>Add Role</button>
+            <button mat-button  (click)="onNoClick()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="dialogContent" *ngIf="showModuleForm">
+    <div>     
+        <h3>Add Module</h3>        
+    </div>
+    <form class="form" role="form" focusInvalidInput autocomplete="off" id="formModule" novalidate=""
+    [formGroup]="addModuleForm" (submit)='addModule(addModuleForm.getRawValue())'>
+        <div mat-dialog-content>
+            <mat-form-field>
+                <input placeholder="Module Name" type="text" id="ModuleName"  maxlength="80" formControlName="ModuleName" class="form-control"  required matInput/>  
+                <mat-error *ngFor="let validation of validation_messages.ModuleName">
+                    <mat-error class="error-message" *ngIf="addModuleForm.invalid || addModuleForm.get('ModuleName').hasError(validation.type) && (addModuleForm.get('ModuleName').dirty || addModuleForm.get('ModuleName').touched)">{{validation.message}}</mat-error>
+                </mat-error>              
+            </mat-form-field> 
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button cdkFocusInitial>Add Module</button>
+            <button mat-button  (click)="onNoClick()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="dialogContent" *ngIf="showFunctionForm">
+    <div>     
+        <h3>Add Function</h3>        
+    </div>
+    <form class="form" role="form" focusInvalidInput autocomplete="off" id="formFunction" novalidate=""
+    [formGroup]="addFunctionForm" (submit)='addFunction(addFunctionForm.getRawValue())'>
+        <div mat-dialog-content>
+            <mat-form-field class="example-full-width">  
+                <select matNativeControl required placeholder="Module Name" formControlName="ModuleId"> 
+                    <option *ngFor="let item of ModuleList" value="{{item.ModuleId}}" selected>{{item.ModuleName}}</option>                       
+                </select> 
+                <mat-error *ngFor="let validation of validation_messages.ModuleId">
+                    <mat-error class="error-message" *ngIf="addFunctionForm.invalid || addFunctionForm.get('ModuleId').hasError(validation.type) && (addFunctionForm.get('ModuleId').dirty || addFunctionForm.get('ModuleId').touched)">{{validation.message}}</mat-error>
+                </mat-error> 
+            </mat-form-field>
+            <mat-form-field>
+                <input placeholder="Function Name" type="text" id="FunctionName"  maxlength="80" formControlName="FunctionName" class="form-control"  required matInput/>  
+                <mat-error *ngFor="let validation of validation_messages.FunctionName">
+                    <mat-error class="error-message" *ngIf="addFunctionForm.invalid || addFunctionForm.get('FunctionName').hasError(validation.type) && (addFunctionForm.get('FunctionName').dirty || addFunctionForm.get('FunctionName').touched)">{{validation.message}}</mat-error>
+                </mat-error>              
+            </mat-form-field> 
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button cdkFocusInitial>Add Function</button>
+            <button mat-button  (click)="onNoClick()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="dialogContent" *ngIf="showSubfunctionForm">
+    <div>     
+        <h3>Add Subfunction</h3>        
+    </div>
+    <form class="form" role="form" focusInvalidInput autocomplete="off" id="formSubFunction" novalidate=""
+    [formGroup]="addSubFunctionForm" (submit)='addSubFunction(addSubFunctionForm.getRawValue())'>
+        <div mat-dialog-content>
+            <mat-form-field class="example-full-width">  
+                <select matNativeControl required placeholder="Function Name" formControlName="FunctionId"> 
+                    <option *ngFor="let item of FunctionList" value="{{item.FunctionId}}" selected>{{item.FunctionName}}</option>                       
+                </select> 
+                <mat-error *ngFor="let validation of validation_messages.FunctionId">
+                    <mat-error class="error-message" *ngIf="addSubFunctionForm.invalid || addSubFunctionForm.get('FunctionId').hasError(validation.type) && (addSubFunctionForm.get('FunctionId').dirty || addSubFunctionForm.get('FunctionId').touched)">{{validation.message}}</mat-error>
+                </mat-error> 
+            </mat-form-field>
+            <mat-form-field>
+                <input placeholder="Sub Function Name" type="text" id="SubFunctionName"  maxlength="80" formControlName="SubFunctionName" class="form-control"  required matInput/>  
+                <mat-error *ngFor="let validation of validation_messages.SubFunctionName">
+                    <mat-error class="error-message" *ngIf="addSubFunctionForm.invalid || addSubFunctionForm.get('SubFunctionName').hasError(validation.type) && (addSubFunctionForm.get('SubFunctionName').dirty || addSubFunctionForm.get('SubFunctionName').touched)">{{validation.message}}</mat-error>
+                </mat-error>              
+            </mat-form-field> 
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button cdkFocusInitial>Add Subfunction</button>
             <button mat-button  (click)="onNoClick()">Cancel</button>
         </div>
     </form>

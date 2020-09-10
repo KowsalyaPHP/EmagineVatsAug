@@ -13,34 +13,116 @@ declare var $: any
 })
 export class RoleComponent implements OnInit {
   message:any;
-  constructor(private routerObj: Router,private RoleServices: RoleService,private route: ActivatedRoute,public dialog: MatDialog) { }
+  ModuleList=[];
+  RoleList=[];
+  SubfunctionList=[];
+  FunctionList=[];
+
+  constructor(private routerObj: Router,private RoleServices: RoleService,private route: ActivatedRoute,public dialog: MatDialog) { 
+
+    this.viewRoleList();
+    this.viewModuleList();
+    this.viewFunctionList();
+    this.viewSubfunctionList();
+
+  }
 
   ngOnInit() {
   }
 
-  opendialogaddrole() {
+  opendialogaddrole(type) {
   
     const dialogRef = this.dialog.open(RoleaddComponent, {
       width: '300px',
       height:'300px',
-    //  data: {ReqId: reqId,Stage:stage}      
+      data: {addType: type}      
     });
     
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result && result.action === 1) {
+        if(type == 'Role'){
+          this.RoleList = result['data'];
+        }
+        else if(type == 'Module'){
+          this.ModuleList = result['data']; 
+        }
+        else if(type == 'Function'){
+          this.FunctionList = result['data']; 
+        }
+        else if(type == 'Subfunction'){
+          this.SubfunctionList = result['data']; 
+        }
+      }
+    }); 
+   
+  }
 
-    });   
-   /* this.RoleServices.downloadCVLink(reqId,CandId,AppId).subscribe(
+  viewRoleList(){
+    this.RoleServices.getRoleList().subscribe(
       response => {
-        if (response != '') {         
-          this.downLoadFile(response);      
+        if (response != "No data") {
+          if (response == "Login Failed") {           
+            alert ("Your given details are not existed.");
+            this.routerObj.navigate(["/login"]);           
+          }
+          else {                     
+            this.RoleList = response['Data']; 
+          }
+        } else {
+            console.log("something is wrong with Service Execution");
         }
-        else {         
-          console.log('something is wrong with Service  Execution');
+      });
+    }
+
+    viewModuleList(){
+      this.RoleServices.getModuleList().subscribe(
+        response => {
+          if (response != "No data") {
+            if (response == "Login Failed") {           
+              alert ("Your given details are not existed.");
+              this.routerObj.navigate(["/login"]);           
+            }
+            else {                     
+              this.ModuleList = response['Data']; 
+            }
+          } else {
+              console.log("something is wrong with Service Execution");
+          }
+        });
+      }
+
+    viewFunctionList(){
+      this.RoleServices.getFunctionList().subscribe(
+        response => {
+          if (response != "No data") {
+            if (response == "Login Failed") {           
+              alert ("Your given details are not existed.");
+              this.routerObj.navigate(["/login"]);           
+            }
+            else {                     
+              this.FunctionList = response['Data']; 
+            }
+          } else {
+              console.log("something is wrong with Service Execution");
+          }
+        });
+      }
+
+      viewSubfunctionList(){
+        this.RoleServices.getSubfunctionList().subscribe(
+          response => {
+            if (response != "No data") {
+              if (response == "Login Failed") {           
+                alert ("Your given details are not existed.");
+                this.routerObj.navigate(["/login"]);           
+              }
+              else {                     
+                this.SubfunctionList = response['Data']; 
+              }
+            } else {
+                console.log("something is wrong with Service Execution");
+            }
+          });
         }
-      },
-      error => console.log("Error Occurd!")
-    );
-    
-  }*/
-}
 }

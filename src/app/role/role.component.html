@@ -10,21 +10,42 @@
 			<mat-nav-list>
                 <ul>
                     <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
-                    <li class="activeMenu textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
+                    <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
                     <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
-                    <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
+                    <li class="activeMenu textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
                     <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Rule</a></li>
                 </ul>          			
 			</mat-nav-list>
 		</mat-drawer>
 
    <mat-drawer-content style="margin-left:20%">
-    
-        <div style="float: left;">           
-            <h3>Role <span (click)="opendialogaddrole()">Add Role</span></h3>
+    <div class="whiteframe" style="width: 93%;float:left;">
+        <div style="float: left;width: 20%;">           
+            <h3 class="headerRole">Role <span style="margin-left: 80%;" (click)="opendialogaddrole('Role')">+</span></h3>
+            <ul style="margin-left: 6%;">
+                <li *ngFor="let item of RoleList"><input type="radio" id="RoleId">{{item.RoleName}}</li>
+            </ul>
         </div>
-        <div style="float: left;width: 81%;">
+        <div style="float: left;width: 20%;">
+            <h3 class="headerRole">Module <span style="margin-left: 70%;" (click)="opendialogaddrole('Module')">+</span></h3>
+            <ul style="margin-left: 6%;">
+                <li *ngFor="let item of ModuleList"><input type="checkbox" id="ModuleId">{{item.ModuleName}}</li>
+            </ul>
         </div>
+        <div style="float: left;width: 26%;">
+            <h3 class="headerRole" style="width:77%;margin-top: 11%;margin-left: 10%;">Functionality <span style="margin-left: 63%;" (click)="opendialogaddrole('Function')">+</span></h3>
+            <ul style="margin-left: 6%;">
+                <li *ngFor="let item of FunctionList"><input type="checkbox" id="FunctionId">{{item.FunctionName}}</li>
+            </ul>           
+        </div>
+        <div style="float: left;width: 30%;">
+            <h3 class="headerRole" style="width: 88%;margin-top: 10%;margin-left: 7%;">Sub Functionality <span style="margin-left: 63%;" (click)="opendialogaddrole('Subfunction')">+</span></h3>
+            <ul style="width: 129%;">
+                <li *ngFor="let item of SubfunctionList"><input type="checkbox" id="SubFunctionId">{{item.SubFunctionName}}</li>
+            </ul> 
+        </div>
+</div>
     </mat-drawer-content>
+
 </mat-drawer-container>
 </div>
