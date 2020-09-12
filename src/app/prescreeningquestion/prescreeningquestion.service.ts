@@ -14,8 +14,8 @@ export class PrescreeningquestionService {
 
   public getQuestionDetails(reqId:any): Observable<any> {
 
-    //const url = AppComponent.urlPath + 'reqdashboard';
-    const url = 'http://ae172f5ef4a7.ngrok.io/PreScreeningQueView';
+    const url = AppComponent.urlPath + 'PreScreeningQueView';
+    //const url = 'http://ae172f5ef4a7.ngrok.io/PreScreeningQueView';
   
     const params = new URLSearchParams();  
     var RefId = sessionStorage.getItem("RefId");
@@ -34,8 +34,8 @@ export class PrescreeningquestionService {
 
   public addQuestionDetails(reqId:any,questionDetails,deleteRowNumber): Observable<any> {
 
-   // const url = AppComponent.urlPath + 'PreScreeningQueAdd';
-    const url = 'http://57a05fe0c81d.ngrok.io/PreScreeningQueAdd';
+    const url = AppComponent.urlPath + 'PreScreeningQueAdd';
+   // const url = 'http://57a05fe0c81d.ngrok.io/PreScreeningQueAdd';
 
     //const params = new URLSearchParams();  
     const formData = new FormData();

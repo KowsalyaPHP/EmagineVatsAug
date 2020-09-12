@@ -28,7 +28,7 @@ export class RoleaddComponent implements OnInit {
   showSubfunctionForm = false;
   ModuleList=[];
   FunctionList=[];
-  
+
   constructor(private routerObj: Router,private RoleaddServices: RoleaddService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<RoleaddComponent>,@Inject(MAT_DIALOG_DATA) public data:any) {
 
     this.addRoleForm = this.formBuilderObj.group({
@@ -49,11 +49,24 @@ export class RoleaddComponent implements OnInit {
       SubFunctionName: ['', [Validators.required]]
     });
 
+    this.viewModuleList();
+    this.viewFunctionList();
+
     if(this.data['addType'] == 'Role'){
       this.showRoleForm = true;
+      if(this.data['Name'] != 'add'){
+        this.addRoleForm.patchValue({
+          RoleName: this.data['Name']        
+        });
+      }      
     }   
     else if(this.data['addType'] == 'Module'){
       this.showModuleForm = true;
+       if(this.data['Name'] != 'add'){
+        this.addModuleForm.patchValue({
+          ModuleName: this.data['Name']        
+        });
+      }   
     }   
     else if(this.data['addType'] == 'Function'){
       this.showFunctionForm = true;
@@ -67,7 +80,7 @@ export class RoleaddComponent implements OnInit {
   }
 
   openSnackBar() { 
-    var x = document.getElementById("snackbar")
+    var x = document.getElementById("Rolesnackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
   }
@@ -79,26 +92,50 @@ export class RoleaddComponent implements OnInit {
     if (this.addRoleForm.invalid) {
       return;
     }
-    this.RoleaddServices.addRoles(formObj).subscribe(
-      response => {  
-        if (response != "No data") {
-          let getMessage =  response['Message'].split(":");
-          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
-            this.openSnackBar(); 
-          }          
-          else{
-            this.message = getMessage['1'];
-            this.openSnackBar();
-            this.dialogRef.close({action: 1, data: response['Data']});
-          }            
-        }
-        else {         
-          console.log('something is wrong with Service Execution');
-        }        
-      },
-      error => console.log("Error Occurd!")
-    );  
+    if(this.data['Name'] != 'add'){
+      this.RoleaddServices.EditRole(formObj,this.data['Id']).subscribe(
+        response => {  
+          if (response != "No data") {
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+              this.message = getMessage['1'];
+              this.openSnackBar(); 
+            }          
+            else{
+              this.message = getMessage['1'];
+              this.openSnackBar();
+              this.dialogRef.close({action: 1, data: response['Data']});
+            }            
+          }
+          else {         
+            console.log('something is wrong with Service Execution');
+          }        
+        },
+        error => console.log("Error Occurd!")
+      );
+    }
+    else{
+      this.RoleaddServices.addRoles(formObj).subscribe(
+        response => {  
+          if (response != "No data") {
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+              this.message = getMessage['1'];
+              this.openSnackBar(); 
+            }          
+            else{
+              this.message = getMessage['1'];
+              this.openSnackBar();
+              this.dialogRef.close({action: 1, data: response['Data']});
+            }            
+          }
+          else {         
+            console.log('something is wrong with Service Execution');
+          }        
+        },
+        error => console.log("Error Occurd!")
+      );  
+    }
   }
 
   addModule(formObj) {
@@ -108,26 +145,50 @@ export class RoleaddComponent implements OnInit {
     if (this.addModuleForm.invalid) {
       return;
     }
-    this.RoleaddServices.addModules(formObj).subscribe(
-      response => {  
-        if (response != "No data") {
-          let getMessage =  response['Message'].split(":");
-          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
-            this.openSnackBar(); 
-          }          
-          else{
-            this.message = getMessage['1'];
-            this.openSnackBar();
-            this.dialogRef.close({action: 1, data: response['Data']});
-          }            
-        }
-        else {         
-          console.log('something is wrong with Service Execution');
-        }        
-      },
-      error => console.log("Error Occurd!")
-    );  
+    if(this.data['Name'] != 'add'){
+      this.RoleaddServices.EditModule(formObj,this.data['Id']).subscribe(
+        response => {  
+          if (response != "No data") {
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+              this.message = getMessage['1'];
+              this.openSnackBar(); 
+            }          
+            else{
+              this.message = getMessage['1'];
+              this.openSnackBar();
+              this.dialogRef.close({action: 1, data: response['Data']});
+            }            
+          }
+          else {         
+            console.log('something is wrong with Service Execution');
+          }        
+        },
+        error => console.log("Error Occurd!")
+      );  
+    }
+    else{
+      this.RoleaddServices.addModules(formObj).subscribe(
+        response => {  
+          if (response != "No data") {
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+              this.message = getMessage['1'];
+              this.openSnackBar(); 
+            }          
+            else{
+              this.message = getMessage['1'];
+              this.openSnackBar();
+              this.dialogRef.close({action: 1, data: response['Data']});
+            }            
+          }
+          else {         
+            console.log('something is wrong with Service Execution');
+          }        
+        },
+        error => console.log("Error Occurd!")
+      );  
+    }
   }
 
   
@@ -233,10 +294,17 @@ export class RoleaddComponent implements OnInit {
       { type: 'required', message: 'Please enter module name' }      
     ],
     'ModuleId': [
-      { type: 'required', message: 'Please select module id' }      
+      { type: 'required', message: 'Please select module name' }      
     ],
     'FunctionName': [
       { type: 'required', message: 'Please enter function name' }      
+    ],
+    'FunctionId': [
+      { type: 'required', message: 'Please enter function name' }      
+    ],
+    'SubFunctionName': [
+      { type: 'required', message: 'Please enter sub function name' }      
     ]
+
   }
 }

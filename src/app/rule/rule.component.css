@@ -1,0 +1,46 @@
+.mat-form-field{
+    width: 90% !important;
+  }
+.mat-button, .mat-raised-button{
+    background-color:#0670c4;
+    color:#ffffff;
+}
+ul{
+    list-style: none;
+  }
+li{
+    padding: 7px;
+    margin-left: -30px;
+    margin-right: 5px;
+}
+.textsize{
+    /*font-size: 16px !important;*/
+    text-align: center;
+    margin-left: -40px;
+    margin-right: 0;
+    margin-bottom: 10px;
+}
+.headerRole{
+    user-select: none;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    margin: 0;
+    width:75%;
+    line-height: 34px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    background-color: #cbcfd3;
+    color: #201f1f;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 15%;
+    margin-left: 12%;
+    text-align:center;
+}

@@ -110,8 +110,8 @@ export class RoleaddService {
 
    public getFunctionList(): Observable<any> {
    
-    const url = AppComponent.urlPath + 'FunctionList';
-    //const url ='http://461e06b1db5d.ngrok.io/FunctionList';
+    //const url = AppComponent.urlPath + 'FunctionList';
+    const url ='http://d2d9fe8b5c1a.ngrok.io/RoleFunctionMappingList_N';
   
     return this.http.get(url)
       .map(response => response.json()).map(data => {
@@ -122,7 +122,7 @@ export class RoleaddService {
       });
   }
 
-  public EditRole(FormObj): Observable<any> {
+  public EditRole(FormObj,RoleId): Observable<any> {
 
      const url = AppComponent.urlPath + 'RoleEdit';
     // const url = 'http://461e06b1db5d.ngrok.io/RoleEdit';
@@ -130,10 +130,10 @@ export class RoleaddService {
      const params = new URLSearchParams();   
      var C_ID = sessionStorage.getItem("uniqueSessionId");
      
-     params.set('RoleId', FormObj.RoleId);    
+     params.set('RoleId', RoleId);    
      params.set('RoleName', FormObj.RoleName);    
      params.set('M_ID', C_ID);
-     params.set('Active_Inactive', C_ID);
+     params.set('Active_Inactive', 'yes');
      
      return this.http.post(url, params)
        .map(response => response.json()).map(data => {
@@ -144,7 +144,7 @@ export class RoleaddService {
        });
    }
    
-   public EditModule(FormObj): Observable<any> {
+   public EditModule(FormObj,ModuleId): Observable<any> {
 
      const url = AppComponent.urlPath + 'ModuleEdit';
     // const url = 'http://461e06b1db5d.ngrok.io/ModuleEdit';
@@ -152,7 +152,7 @@ export class RoleaddService {
      const params = new URLSearchParams();   
      var C_ID = sessionStorage.getItem("uniqueSessionId");
   
-     params.set('ModuleId', FormObj.ModuleId);    
+     params.set('ModuleId',ModuleId);    
      params.set('ModuleName', FormObj.ModuleName);    
      params.set('M_ID', C_ID);
      params.set('IsSelected', C_ID);

@@ -1,6 +1,13 @@
+<div style="margin: 0;">
+    <div id="Rolesnackbar">{{message}}</div>
+</div>
+
 <div class="dialogContent" *ngIf="showRoleForm">
-    <div>     
-        <h3>Add Role</h3>        
+    <div>
+        <h3 *ngIf="data.Name != 'add' else title">Update Role</h3>
+        <ng-template #title>
+            <h3 *ngIf="data.Name == 'add'">Add Role</h3>
+        </ng-template> 
     </div>
     <form class="form" role="form" focusInvalidInput autocomplete="off" id="formRole" novalidate=""
     [formGroup]="addRoleForm" (submit)='addRole(addRoleForm.getRawValue())'>
@@ -13,15 +20,21 @@
             </mat-form-field> 
         </div>
         <div mat-dialog-actions>
-            <button mat-button cdkFocusInitial>Add Role</button>
+            <button *ngIf="data.Name != 'add' else add"  type="submit" mat-button cdkFocusInitial>Update</button>           
+            <ng-template #add>
+                <button *ngIf="data.Name == 'add'"  type="submit" mat-button cdkFocusInitial>Add</button>
+            </ng-template>             
             <button mat-button  (click)="onNoClick()">Cancel</button>
         </div>
     </form>
 </div>
 
 <div class="dialogContent" *ngIf="showModuleForm">
-    <div>     
-        <h3>Add Module</h3>        
+    <div>
+        <h3 *ngIf="data.Name != 'add' else modtitle">Update Module</h3>
+        <ng-template #modtitle>
+            <h3 *ngIf="data.Name == 'add'">Add Module</h3>
+        </ng-template> 
     </div>
     <form class="form" role="form" focusInvalidInput autocomplete="off" id="formModule" novalidate=""
     [formGroup]="addModuleForm" (submit)='addModule(addModuleForm.getRawValue())'>
@@ -34,7 +47,10 @@
             </mat-form-field> 
         </div>
         <div mat-dialog-actions>
-            <button mat-button cdkFocusInitial>Add Module</button>
+            <button *ngIf="data.Name != 'add' else mod"  type="submit" mat-button cdkFocusInitial>Update</button>           
+            <ng-template #add>
+                <button *ngIf="data.Name == 'mod'"  type="submit" mat-button cdkFocusInitial>Add</button>
+            </ng-template>             
             <button mat-button  (click)="onNoClick()">Cancel</button>
         </div>
     </form>
@@ -63,7 +79,7 @@
             </mat-form-field> 
         </div>
         <div mat-dialog-actions>
-            <button mat-button cdkFocusInitial>Add Function</button>
+            <button mat-button cdkFocusInitial>Add</button>
             <button mat-button  (click)="onNoClick()">Cancel</button>
         </div>
     </form>
@@ -92,7 +108,7 @@
             </mat-form-field> 
         </div>
         <div mat-dialog-actions>
-            <button mat-button cdkFocusInitial>Add Subfunction</button>
+            <button mat-button cdkFocusInitial>Add</button>
             <button mat-button  (click)="onNoClick()">Cancel</button>
         </div>
     </form>

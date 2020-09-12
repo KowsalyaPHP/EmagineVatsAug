@@ -13,7 +13,7 @@
                     <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
                     <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
                     <li class="activeMenu textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
-                    <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/userreg']">Rule</a></li>
+                    <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/rule']">Rule</a></li>
                 </ul>          			
 			</mat-nav-list>
 		</mat-drawer>
@@ -21,27 +21,27 @@
    <mat-drawer-content style="margin-left:20%">
     <div class="whiteframe" style="width: 93%;float:left;">
         <div style="float: left;width: 20%;">           
-            <h3 class="headerRole">Role <span style="margin-left: 80%;" (click)="opendialogaddrole('Role')">+</span></h3>
+            <h3 class="headerRole">Role <span style="margin-left: 80%;" ><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Role',0,'add')"></i></span></h3>
             <ul style="margin-left: 6%;">
-                <li *ngFor="let item of RoleList"><input type="radio" id="RoleId">{{item.RoleName}}</li>
+                <li *ngFor="let item of RoleList"><input type="radio" id="RoleId">{{item.RoleId}}.{{item.RoleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Role',item.RoleId,item.RoleName)"></i></li>
             </ul>
         </div>
         <div style="float: left;width: 20%;">
-            <h3 class="headerRole">Module <span style="margin-left: 70%;" (click)="opendialogaddrole('Module')">+</span></h3>
+            <h3 class="headerRole">Module <span style="margin-left: 70%;"><i class="fa fa-plus" aria-hidden="true"  (click)="opendialogaddrole('Module',0,'add')"></i></span></h3>
             <ul style="margin-left: 6%;">
-                <li *ngFor="let item of ModuleList"><input type="checkbox" id="ModuleId">{{item.ModuleName}}</li>
+                <li *ngFor="let item of ModuleList"><input type="checkbox" id="ModuleId">{{item.ModuleId}}.{{item.ModuleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Module',item.ModuleId,item.ModuleName)"></i></li>
             </ul>
         </div>
         <div style="float: left;width: 26%;">
-            <h3 class="headerRole" style="width:77%;margin-top: 11%;margin-left: 10%;">Functionality <span style="margin-left: 63%;" (click)="opendialogaddrole('Function')">+</span></h3>
+            <h3 class="headerRole" style="width:77%;margin-top: 11.5%;margin-left: 10%;">Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Function')"></i></span></h3>
             <ul style="margin-left: 6%;">
-                <li *ngFor="let item of FunctionList"><input type="checkbox" id="FunctionId">{{item.FunctionName}}</li>
+                <li *ngFor="let item of FunctionList"><input type="checkbox" id="FunctionId">{{item.FunctionId}}.{{item.FunctionName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Function',item.FunctionId,item.FunctionName)"></i></li>
             </ul>           
         </div>
         <div style="float: left;width: 30%;">
-            <h3 class="headerRole" style="width: 88%;margin-top: 10%;margin-left: 7%;">Sub Functionality <span style="margin-left: 63%;" (click)="opendialogaddrole('Subfunction')">+</span></h3>
-            <ul style="width: 129%;">
-                <li *ngFor="let item of SubfunctionList"><input type="checkbox" id="SubFunctionId">{{item.SubFunctionName}}</li>
+            <h3 class="headerRole" style="width: 88%;margin-top: 10%;margin-left: 7%;">Sub Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Subfunction')"></i></span></h3>
+            <ul style="margin-left:3%">
+                <li *ngFor="let item of SubfunctionList"><input type="checkbox" id="SubFunctionId">{{item.SubFunctionId}}.{{item.SubFunctionName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Subfunction',item.SubFunctionId,item.SubFunctionName)"></i></li>
             </ul> 
         </div>
 </div>

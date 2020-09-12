@@ -150,7 +150,7 @@ export class PrescreeningquestionComponent implements OnInit {
     this.PrescreeningquestionServices.addQuestionDetails(this.id,this.passQuestionData,this.rowNumber).subscribe(
       response => {
         if (response != '') {         
-          //this.QuestionDetails = response['Data'];
+          this.QuestionDetails = response['Data'];
         }
         else {         
           console.log('something is wrong with Service  Execution');

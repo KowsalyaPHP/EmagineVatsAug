@@ -33,6 +33,7 @@ import { ClientchildComponent } from './clientchild/clientchild.component';
 import { TemplateComponent } from './template/template.component';
 import { DownloadComponent } from './download/download.component';
 import { RoleComponent } from './role/role.component';
+import { RuleComponent } from './rule/rule.component';
 
 const routes: Routes = [
 {
@@ -166,6 +167,10 @@ const routes: Routes = [
 {
   path: "role",
   component: RoleComponent
+},
+{
+  path: "rule",
+  component: RuleComponent
 }
 ];
 

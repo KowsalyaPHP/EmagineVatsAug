@@ -55,6 +55,8 @@ import { TemplateComponent } from './template/template.component';
 import { DownloadComponent } from './download/download.component';
 import { RoleComponent } from './role/role.component';
 import { RoleaddComponent } from './roleadd/roleadd.component';
+import { RuleComponent } from './rule/rule.component';
+import { RuleaddComponent } from './ruleadd/ruleadd.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,9 @@ import { RoleaddComponent } from './roleadd/roleadd.component';
     TemplateComponent,
     DownloadComponent,
     RoleComponent,
-    RoleaddComponent
+    RoleaddComponent,
+    RuleComponent,
+    RuleaddComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +122,7 @@ import { RoleaddComponent } from './roleadd/roleadd.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],
   bootstrap: [AppComponent],
-  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent]
+  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent]
 })
 
 export class AppModule { }

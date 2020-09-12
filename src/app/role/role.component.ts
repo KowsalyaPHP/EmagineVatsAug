@@ -30,16 +30,15 @@ export class RoleComponent implements OnInit {
   ngOnInit() {
   }
 
-  opendialogaddrole(type) {
+  opendialogaddrole(type,id,name) {
   
     const dialogRef = this.dialog.open(RoleaddComponent, {
-      width: '300px',
-      height:'300px',
-      data: {addType: type}      
+      width: '400px',
+      data: {addType: type,Id:id,Name:name}      
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      
       if(result && result.action === 1) {
         if(type == 'Role'){
           this.RoleList = result['data'];

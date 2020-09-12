@@ -1,0 +1,14 @@
+.mat-form-field{
+    width: 90% !important;
+  }
+.mat-button, .mat-raised-button{
+    background-color:#0670c4;
+    color:#ffffff;
+}
+ul{
+  list-style: none;
+  margin-left:-50px;
+}
+li{
+    padding: 5px;
+}

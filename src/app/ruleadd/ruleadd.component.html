@@ -1,0 +1,28 @@
+<div class="dialogContent">
+    <div>     
+        <h3>Add Rule</h3>        
+    </div>
+    <form class="form" role="form" focusInvalidInput autocomplete="off" id="formRule" novalidate=""
+    [formGroup]="addRuleForm" (submit)='addRule(addRuleForm.getRawValue())'>
+        <div mat-dialog-content>
+            <mat-form-field>
+                <input placeholder="Rule Name" type="text" id="DataAccessRuleName"  maxlength="80" formControlName="DataAccessRuleName" class="form-control"  required matInput/>  
+                <mat-error *ngFor="let validation of validation_messages.DataAccessRuleName">
+                    <mat-error class="error-message" *ngIf="addRuleForm.invalid || addRuleForm.get('DataAccessRuleName').hasError(validation.type) && (addRuleForm.get('DataAccessRuleName').dirty || addRuleForm.get('DataAccessRuleName').touched)">{{validation.message}}</mat-error>
+                </mat-error>              
+            </mat-form-field> 
+            <div>
+                <h3>Client List</h3>
+                <ul>
+                    <li style="float:left;" *ngFor="let item of ClientList; let i = index"><input type="checkbox" class="Silver" >{{item.Description}}</li>
+                </ul>
+            </div>
+              
+            
+        </div>
+        <div mat-dialog-actions style="margin-top: 3%;">
+            <button mat-button cdkFocusInitial>Add</button>
+            <button mat-button  (click)="onNoClick()">Cancel</button>
+        </div>
+    </form>
+</div>
