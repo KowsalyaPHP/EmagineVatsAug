@@ -35,7 +35,7 @@ export class CvuploadService {
     formData.append('MobileNo', FormObj.MobileNo);
     formData.append('DateofBirth', date);
     formData.append('Gender', FormObj.Gender);
-    formData.append('MaritalStatus', FormObj.MaritalStatus);
+    //formData.append('MaritalStatus', FormObj.MaritalStatus);
     formData.append('WorkAuthorization', FormObj.WorkAuthorization);
     formData.append('PassportNo', FormObj.PassportNo);
     formData.append('Nationality', FormObj.Nationality);

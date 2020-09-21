@@ -45,3 +45,9 @@
     margin-top: 15%;
     margin-left: 12%;
   }
+
+  .row{
+    display: grid;
+    grid-auto-flow: column;
+    gap: 5%;
+  }

@@ -25,4 +25,20 @@ export class RuleService {
           return '';
       });
   }
+
+  public viewSingleRuleList(ruleId): Observable<any> {
+
+    const url = AppComponent.urlPath + 'RuleListById';
+    const params = new URLSearchParams(); 
+    
+    params.set('DataAccessRuleId', ruleId);
+        
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
 }

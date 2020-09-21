@@ -14,11 +14,10 @@
             <div>
                 <h3>Client List</h3>
                 <ul>
-                    <li style="float:left;" *ngFor="let item of ClientList; let i = index"><input type="checkbox" class="Silver" >{{item.Description}}</li>
+                    <li *ngFor="let item of ClientList; let i = index"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.Code}}" [(ngModel)]="item.checked" value="{{item.Code}}" />{{item.Description}}</li>
+                    
                 </ul>
             </div>
-              
-            
         </div>
         <div mat-dialog-actions style="margin-top: 3%;">
             <button mat-button cdkFocusInitial>Add</button>

@@ -68,26 +68,26 @@
                   </mat-form-field></td>
               </tr>
               <tr>
-                  <td>
+                  <!--<td>
                       <mat-form-field>
                       <select matNativeControl placeholder="Marital Status" formControlName="MaritalStatus">
                         <option value="S" selected>Single</option>                       
                         <option value="M" selected>Married</option>                     
                       </select>
                       </mat-form-field>
-                  </td>
+                  </td>-->
                   <td>
                       <mat-form-field class="example-full-width" style="padding-right: 65px;" >
                           <input matInput maxlength="240" placeholder="Work Authorization" formControlName="WorkAuthorization">
                       </mat-form-field>
-                  </td>                    
-              </tr>
-              <tr>
+                  </td>      
                   <td><mat-form-field>
-                      <select matNativeControl placeholder="Nationality" formControlName="Nationality">
-                          <option *ngFor="let item of LkupNationality" value="{{item.Code}}" selected>{{item.Description}}</option>                       
-                      </select>
-                  </mat-form-field></td>
+                    <select matNativeControl placeholder="Nationality" formControlName="Nationality">
+                        <option *ngFor="let item of LkupNationality" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select>
+                </mat-form-field></td>              
+              </tr>
+              <tr>                 
                   <td><mat-form-field class="example-full-width" style="padding-right: 65px;">
                     <input matInput placeholder="Passport Number" maxlength="12" formControlName="PassportNo">
                   </mat-form-field></td>                   

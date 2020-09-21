@@ -21,12 +21,20 @@
    <mat-drawer-content style="margin-left:20%">
     <div class="whiteframe" style="width: 93%;float:left;">
         <h3 style="text-align: center;">Rule <span (click)="opendialogaddrule()" style="font-size: 11px;color: #0670c4;text-decoration: underline;cursor:pointer;">+New Rule</span></h3>
-        <div style="float: left;width: 20%;">           
-            <h3 class="headerRole">{{userName}}</h3>
-            <ul style="margin-left: 6%;">
-                <li *ngFor="let item of RuleList">{{item.DataAccessRuleName}}</li>
+        
+        <div style="float: left;width: 20%;background: #f4efef;height: 500px;">           
+            <!--<h3 class="headerRole">{{userName}}</h3>-->
+            <h3 style="margin-left: 10px;">Rule List</h3>
+            <ul >
+                <li class="rule" *ngFor="let item of RuleList; let i = index" id="ruleList{{i}}"><a style="color:#000000;cursor:pointer;" (click)="viewSingleRuleList(item.DataAccessRuleId,i)">{{item.DataAccessRuleName}}</a></li>
             </ul>
         </div>       
+        <div class="clientList">
+            <h3 style="margin-left: 10px;">Client List</h3>
+                <ul>
+                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.Code}}" [(ngModel)]="item.checked" value="{{item.Code}}" />{{item.Description}}</li>                    
+                </ul>
+        </div>
     </div>
    </mat-drawer-content>
 

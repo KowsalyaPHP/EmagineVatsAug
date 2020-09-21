@@ -48,8 +48,8 @@
         </div>
         <div mat-dialog-actions>
             <button *ngIf="data.Name != 'add' else mod"  type="submit" mat-button cdkFocusInitial>Update</button>           
-            <ng-template #add>
-                <button *ngIf="data.Name == 'mod'"  type="submit" mat-button cdkFocusInitial>Add</button>
+            <ng-template #mod>
+                <button *ngIf="data.Name == 'add'"  type="submit" mat-button cdkFocusInitial>Add</button>
             </ng-template>             
             <button mat-button  (click)="onNoClick()">Cancel</button>
         </div>

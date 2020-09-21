@@ -10,6 +10,12 @@ import { RuleaddService } from './ruleadd.service';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { SharedService } from '../shared/shared.service';
 
+interface clientList {
+  code: any;
+  description: string;
+  checked?: boolean;
+}
+
 @Component({
   selector: 'app-ruleadd',
   templateUrl: './ruleadd.component.html',
@@ -20,13 +26,15 @@ export class RuleaddComponent implements OnInit {
   addRuleForm: FormGroup;
   submitted = false;
   message:any;
-  ClientList=[];
+ // ClientList=[];
+  public ClientList: clientList[];
+  selectedClient:any;
+  clientCode:any;
 
   constructor(private routerObj: Router,private RuleaddServices: RuleaddService,private formBuilderObj: FormBuilder,private route: ActivatedRoute,public dialogRef: MatDialogRef<RuleaddComponent>,@Inject(MAT_DIALOG_DATA) public data:any,private SharedServices: SharedService) {
 
     this.addRuleForm = this.formBuilderObj.group({
-      DataAccessRuleName: ['', [Validators.required]],
-      clientName: ['', [Validators.required]]
+      DataAccessRuleName: ['', [Validators.required]]
     });
 
     this.getClientList();
@@ -48,7 +56,12 @@ export class RuleaddComponent implements OnInit {
     if (this.addRuleForm.invalid) {
       return;
     }
-    this.RuleaddServices.addRules(formObj).subscribe(
+
+    this.selectedClient = this.ClientList.filter( (client) => client.checked );
+    const ClientCode= this.selectedClient.map(element => element.Code);
+    this.clientCode = ClientCode.join(',');
+
+    this.RuleaddServices.addRules(formObj,this.clientCode).subscribe(
       response => {  
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
@@ -83,6 +96,7 @@ export class RuleaddComponent implements OnInit {
       error => console.log("Error Occurd!")
     );
   }
+
 
   onNoClick(): void {
     this.dialogRef.close();

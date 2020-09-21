@@ -44,3 +44,16 @@ li{
     margin-left: 12%;
     text-align:center;
 }
+.clientList{
+    background: #f4efef;
+    overflow-y:scroll;    
+    float: left;
+    width: 70%;
+    height: 500px;
+    margin-left: 50px;
+  }
+
+li.selected {
+  background: #6d7278;
+  color:#ffffff !important;
+}

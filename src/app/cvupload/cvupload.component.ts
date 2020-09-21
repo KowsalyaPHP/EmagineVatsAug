@@ -43,7 +43,7 @@ export class CvuploadComponent implements OnInit {
       MobileNo:['', [Validators.required,Validators.pattern("[0-9]\\d{9}")]],
       DateofBirth:['', [Validators.required]],
       Gender:'',
-      MaritalStatus:'',
+      //MaritalStatus:'',
       WorkAuthorization:'',
       Nationality:'',
       PassportNo:'',

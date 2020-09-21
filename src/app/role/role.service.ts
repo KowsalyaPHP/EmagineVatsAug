@@ -26,27 +26,13 @@ export class RoleService {
       });
   }
 
-  public getModuleList(): Observable<any> {
+  public RoleModuleFunctionMappingList(roleId): Observable<any> {
    
-    const url = AppComponent.urlPath + 'ModuleList';
-    //const url ='http://461e06b1db5d.ngrok.io/ModuleList';
-  
-    return this.http.get(url)
-      .map(response => response.json()).map(data => {
-        if (data != '')
-          return data;
-        else
-          return '';
-      });
-  }
-
-  public getFunctionList(): Observable<any> {
-   
-    const url = AppComponent.urlPath + 'FunctionList';
-   // const url ='http://d2d9fe8b5c1a.ngrok.io/RoleFunctionMappingList_N';
+    const url = AppComponent.urlPath + 'RoleModuleFunctionMappingList';
+    //const url ='http://72758291b1ee.ngrok.io/FunctionList';
     const params = new URLSearchParams();
-    params.set('RoleId', "0");
-      
+    params.set('RoleId', roleId);
+    
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
         if (data != '')
@@ -55,13 +41,32 @@ export class RoleService {
           return '';
       });
   }
-
-  public getSubfunctionList(): Observable<any> {
-   
-    const url = AppComponent.urlPath + 'SubFunctionList';
-    //const url ='http://461e06b1db5d.ngrok.io/SubFunctionList';
   
-    return this.http.get(url)
+  public RoleModuleFunctionMapping(RoleId,Moduleid,Functionid,SubFunctionid): Observable<any> {
+   
+    const url = AppComponent.urlPath + 'RoleModuleFunctionMapping';
+    //const url ='http://af57f880a4b4.ngrok.io/RoleModuleFunctionMapping';
+
+    const formData = new FormData(); 
+   
+    formData.append('RoleId', RoleId);
+    formData.append('Moduleid', Moduleid);
+    formData.append('Functionid',Functionid);
+    formData.append('SubFunctionid', SubFunctionid);
+    console.log('rid'+RoleId)
+    console.log('mid'+Moduleid)
+    console.log('fid'+Functionid)
+    console.log('sid'+SubFunctionid)
+
+    /*const params = new URLSearchParams();
+    params.set('RoleId', RoleId);
+    params.set('Moduleid', Moduleid);
+    params.set('Functionid', Functionid);
+    params.set('SubFunctionid', SubFunctionid);
+
+    console.log(params);*/
+
+    return this.http.post(url, formData)
       .map(response => response.json()).map(data => {
         if (data != '')
           return data;
@@ -69,6 +74,6 @@ export class RoleService {
           return '';
       });
   }
-  
 
+   
 }

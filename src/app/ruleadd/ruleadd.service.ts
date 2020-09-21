@@ -12,10 +12,10 @@ export class RuleaddService {
 
   constructor(private http: Http) { }
 
-  public addRules(FormObj): Observable<any> {
+  public addRules(FormObj,clientCode): Observable<any> {
 
     const url = AppComponent.urlPath + 'RuleAdd';
-    //const url = 'http://d5bc9cd68336.ngrok.io/RoleAdd';
+  //  const url = 'http://c3a62d0aedfa.ngrok.io/RuleAdd';
 
     const params = new URLSearchParams();   
     var C_ID = sessionStorage.getItem("uniqueSessionId");
@@ -23,8 +23,10 @@ export class RuleaddService {
 
     params.set('EntityID', RefId);  
     params.set('DataAccessRuleName', FormObj.DataAccessRuleName);    
+    params.set('ClientId', clientCode);    
     params.set('C_ID', C_ID);
-    
+    console.log(params);
+
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
         if (data != '')
@@ -34,23 +36,5 @@ export class RuleaddService {
       });
   }
 
-  public viewUserDetails(): Observable<any> {
-
-    const url = AppComponent.urlPath + 'UserDashboard';
-    const params = new URLSearchParams(); 
-
-    var UserCategory = sessionStorage.getItem("USERCATEGORY");
-    var RefId = sessionStorage.getItem("RefId");
-    
-    params.set('UserCategory', UserCategory);
-    params.set('EntityId',RefId);
-        
-    return this.http.post(url, params)
-      .map(response => response.json()).map(data => {
-        if (data != '')
-          return data;
-        else
-          return '';
-      });
-  }
+  
 }

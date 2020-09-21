@@ -15,7 +15,7 @@ export class RoleaddService {
   public addRoles(FormObj): Observable<any> {
 
     const url = AppComponent.urlPath + 'RoleAdd';
-    //const url = 'http://d5bc9cd68336.ngrok.io/RoleAdd';
+    //const url = 'http://639c7484750f.ngrok.io/RoleAdd';
 
     const params = new URLSearchParams();   
     var C_ID = sessionStorage.getItem("uniqueSessionId");
@@ -35,7 +35,7 @@ export class RoleaddService {
   public addModules(FormObj): Observable<any> {
 
      const url = AppComponent.urlPath + 'ModuleAdd';
-    // const url = 'http://461e06b1db5d.ngrok.io/ModuleAdd';
+    // const url = 'http://639c7484750f.ngrok.io/ModuleAdd';
  
      const params = new URLSearchParams();   
      var C_ID = sessionStorage.getItem("uniqueSessionId");
@@ -110,8 +110,8 @@ export class RoleaddService {
 
    public getFunctionList(): Observable<any> {
    
-    //const url = AppComponent.urlPath + 'FunctionList';
-    const url ='http://d2d9fe8b5c1a.ngrok.io/RoleFunctionMappingList_N';
+    const url = AppComponent.urlPath + 'FunctionList';
+    //const url ='http://d2d9fe8b5c1a.ngrok.io/RoleFunctionMappingList_N';
   
     return this.http.get(url)
       .map(response => response.json()).map(data => {

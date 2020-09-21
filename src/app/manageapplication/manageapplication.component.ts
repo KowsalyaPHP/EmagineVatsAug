@@ -333,6 +333,7 @@ export class ManageapplicationComponent implements OnInit {
         $("#changePrevalue"+[i]).html(result['values'][0]['PrSalTotal']);
         $("#changeNPvalue"+[i]).html(result['values'][0]['NoticePeriod']);
         $("#changeLocvalue"+[i]).html(result['values'][0]['PresentLocation']);
+        $("#changeExpervalue"+[i]).html(result['values'][0]['Experience']);        
       }
     });   
   }
