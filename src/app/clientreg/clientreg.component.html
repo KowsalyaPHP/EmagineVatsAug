@@ -10,7 +10,7 @@
                    			
             <ul>
                 <li class="activeMenu textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
-                <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/vendorreg','0']">Vendor</a></li>
+                <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/vendorreg','0']">Vendor</a></li>
                 <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
                 <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
                 <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/rule']">Rule</a></li>
@@ -30,6 +30,7 @@
                     </ul>               
                 </li>               
             </ul>
+            <p *ngIf="clientList == null">No data Available</p>
         </div>
 <div style="float: left;width: 81%;">
 <form class="form" role="form" focusInvalidInput autocomplete="off" id="Clientform" novalidate=""
@@ -266,7 +267,7 @@
     </tr>
     <tr>        
         <td><button *ngIf="id != 0 else add" type="submit" mat-button cdkFocusInitial>Update Client</button>
-            <!--<a *ngIf="id != 0" [routerLink]="['/clientreg/0']"><button mat-button>Cancel</button></a>-->
+            <a *ngIf="id != 0" [routerLink]="['/clientreg/0']"><button mat-button>Go to Main Menu</button></a>
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Client</button>
             </ng-template> 

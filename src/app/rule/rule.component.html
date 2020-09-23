@@ -10,7 +10,7 @@
 			<mat-nav-list>
                 <ul>
                     <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
-                    <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
+                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
                     <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
                     <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
                     <li class="activeMenu textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/rule']">Rule</a></li>
@@ -25,15 +25,17 @@
         <div style="float: left;width: 20%;background: #f4efef;height: 500px;">           
             <!--<h3 class="headerRole">{{userName}}</h3>-->
             <h3 style="margin-left: 10px;">Rule List</h3>
-            <ul >
+            <ul *ngIf="RuleList != []">
                 <li class="rule" *ngFor="let item of RuleList; let i = index" id="ruleList{{i}}"><a style="color:#000000;cursor:pointer;" (click)="viewSingleRuleList(item.DataAccessRuleId,i)">{{item.DataAccessRuleName}}</a></li>
             </ul>
+            <p *ngIf="RuleList == null" style="margin-left: 5%;">No data Available</p>
         </div>       
         <div class="clientList">
             <h3 style="margin-left: 10px;">Client List</h3>
                 <ul>
-                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.Code}}" [(ngModel)]="item.checked" value="{{item.Code}}" />{{item.Description}}</li>                    
+                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.ClientId}}" [(ngModel)]="item.checked" value="{{item.ClientId}}" />{{item.ClientName}}</li>                    
                 </ul>
+                <p *ngIf="ClientList == null" style="margin-left: 1.5%;">No data Available</p>
         </div>
     </div>
    </mat-drawer-content>

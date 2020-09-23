@@ -18,9 +18,11 @@ export class RuleComponent implements OnInit {
   message:any;
   clientSingleList:any;
   ClientList:[];
+  userCategory:any;
 
   constructor(private routerObj: Router,private RuleServices: RuleService,private route: ActivatedRoute,public dialog: MatDialog,private SharedServices: SharedService) { 
      this.userName = sessionStorage.getItem("userName");
+     this.userCategory = sessionStorage.getItem("USERCATEGORY");
      this.viewRuleList();
      this.getClientList();
   }
@@ -51,23 +53,35 @@ export class RuleComponent implements OnInit {
   }
 
   getClientList() {
-    this.SharedServices.getClientList().subscribe(
+    this.RuleServices.viewClientList().subscribe(
       response => {
-        if (response != '') {         
-          if(typeof(this.clientSingleList) != 'undefined' || this.clientSingleList != null){
-            //this.disable=true;
-            response.forEach(item => {
-              for (let i = 0; i < this.clientSingleList.length; i++) {  
-                console.log('eee'+this.clientSingleList);                
-                if(this.clientSingleList[i] == item['Code'])
-                {
-                  item.checked = true;
-                }
-              }               
-            });
-
-            this.ClientList = response;
-          }
+        if (response != '') {   
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+          }          
+          else{
+            this.message = getMessage['1'];
+            this.openSnackBar();
+            if(typeof(this.clientSingleList) != 'undefined' || this.clientSingleList != null){
+              //this.disable=true;
+              response['Data'].forEach(item => {
+                for (let i = 0; i < this.clientSingleList.length; i++) {  
+                  console.log('eee'+this.clientSingleList);                
+                  if(this.clientSingleList[i] == item['ClientId'])
+                  {
+                    item.checked = true;
+                  }
+                }               
+              });
+  
+              this.ClientList = response['Data'];
+            }
+            
+            //this.routerObj.navigate(['vendorreg/0']);
+          }               
+        
          // this.ClientList = response;
         }
         else {         

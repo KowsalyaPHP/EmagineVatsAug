@@ -157,8 +157,10 @@ export class SharedService {
 
     const url = this.urlPath + 'lkup';
     const params = new URLSearchParams();
- 
-    params.set('lkup', 'CLIENT');    
+    var ClientList = sessionStorage.getItem("ClientList");
+
+    params.set('lkup', ClientList);    
+    
     return this.http.post(url, params)
       .map(response => response.json()['Data']).map(data => {
         if (data != '')

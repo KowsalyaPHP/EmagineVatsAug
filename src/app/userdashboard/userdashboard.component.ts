@@ -19,9 +19,11 @@ export class UserdashboardComponent implements OnInit {
   message:any;  
   userList:[];
   dataTable: any;
+  userCategory:any;
 
   constructor(private routerObj: Router,private UserdashboardServices: UserdashboardService) {
     this.viewUserDetails();
+    this.userCategory = sessionStorage.getItem("USERCATEGORY");
    }
 
   ngOnInit() {

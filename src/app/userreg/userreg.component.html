@@ -10,7 +10,7 @@
 			<mat-nav-list>   
                 <ul>
                     <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><a [routerLink]="['/clientreg','0']">Client</a></li>
-                    <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']">Vendor</a></li>
+                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']">Vendor</a></li>
                     <li class="activeMenu textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
                     <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
                     <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/rule']">Rule</a></li>
@@ -51,6 +51,12 @@
                     </mat-error>
                 </mat-form-field>        
             </td> 
+           <!-- <td *ngIf="userCategory == 'C' || userCategory == 'V'">
+                <p>{{sessionUserName}}</p>                 
+            </td> 
+            <td *ngIf="userCategory == 'C' || userCategory == 'V'">
+                <p>{{userCategoryName}}</p>
+            </td> -->
             <td style="display:none;" id="vendorlist">
                 <mat-form-field>
                     <select matNativeControl maxlength="40" placeholder="Vendor List" formControlName="vendorName"> 
@@ -113,12 +119,12 @@
             <td>
                 <mat-form-field>
                     <select matNativeControl required maxlength="40" placeholder="Rule" formControlName="userRule"> 
-                        <option *ngFor="let item of RuleList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        <option *ngFor="let item of RuleList" value="{{item.DataAccessRuleId}}" selected>{{item.DataAccessRuleName}}</option>                       
                     </select> 
                     <mat-error *ngFor="let validation of validation_messages.userRule">
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
                     </mat-error>
-                </mat-form-field>        
+                </mat-form-field>    
             </td> 
         </tr>
         <tr>

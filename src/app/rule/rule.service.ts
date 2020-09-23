@@ -16,14 +16,17 @@ export class RuleService {
    
     const url = AppComponent.urlPath + 'RuleList';
    // const url ='http://461e06b1db5d.ngrok.io/RuleList';
-  
-    return this.http.get(url)
-      .map(response => response.json()).map(data => {
-        if (data != '')
-          return data;
-        else
-          return '';
-      });
+    const params = new URLSearchParams(); 
+    var RefId = sessionStorage.getItem("RefId");
+    params.set('EntityId', RefId);
+          
+    return this.http.post(url, params)
+        .map(response => response.json()).map(data => {
+          if (data != '')
+            return data;
+          else
+            return '';
+        });
   }
 
   public viewSingleRuleList(ruleId): Observable<any> {
@@ -32,6 +35,24 @@ export class RuleService {
     const params = new URLSearchParams(); 
     
     params.set('DataAccessRuleId', ruleId);
+        
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public viewClientList(): Observable<any> {
+
+    const url = AppComponent.urlPath + 'clientlist';
+    const params = new URLSearchParams(); 
+
+    var RefId = sessionStorage.getItem("RefId");
+    console.log(RefId)
+    params.set('RefId', RefId);
         
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {

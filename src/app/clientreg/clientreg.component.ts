@@ -37,6 +37,7 @@ export class ClientregComponent implements OnInit {
   clientId:any;
   type:any;
   getChildType:any;
+  userCategory:any;
 
   constructor(private ClientregServices: ClientregService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) {
     
@@ -81,7 +82,8 @@ export class ClientregComponent implements OnInit {
     this.getLkupClientStatus();
     this.viewClientDetails();
     this.clientname = sessionStorage.getItem("clientname");
-
+    this.userCategory = sessionStorage.getItem("USERCATEGORY");
+    
    var userName = sessionStorage.getItem("userName");
    if (userName && this.id != 0){              
     this.viewSingleClient(this.id);

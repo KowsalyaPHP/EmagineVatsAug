@@ -12,37 +12,37 @@
       <div *ngIf="item.NotHired >= 0" class="circleRed" (click)="currentstage != 'NH' ? openDialogNotHired('NH') : false">
         <img style="margin: 0 0.7vw;" width="50%" height="50%" src="assets/img/nothired.png">
         <h4 class="h3style" style="margin-top: 0.4vw;">{{item.NotHired}}</h4>
-        <span style="margin-left: -9px;white-space: nowrap;">Not Hired</span>
+        <span style="margin-left: -9px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'NH'}">Not Hired</span>
       </div> 
       <div *ngIf="item.Sourcing >= 0" class="circleBlue"   (click)="updateStage('SO','Sourcing')">
         <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/search.png">
         <h4 class="h3style">{{item.Sourcing}}</h4>
-        <span style="margin-left: -8px;" >Sourcing</span>
+        <span style="margin-left: -8px;" [ngClass]="{'blinking': currentstage == 'SO'}">Sourcing</span>
       </div> 
       <div *ngIf="item.Screening >= 0" class="circleOrange" style="left:33%" (click)="updateStage('SC','Screening')">
         <img  style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/screening.png">
         <h4 class="h3style">{{item.Screening}}</h4>
-        <span style="margin-left: -12px;" >Screening</span>
+        <span style="margin-left: -12px;" [ngClass]="{'blinking': currentstage == 'SC'}">Screening</span>
       </div> 
       <div *ngIf="item.Assessment >= 0" class="circleOrange" style="left:47%" (click)="updateStage('AS','Assessment')">
         <img  style="margin:0 0.6vw;" width="58%" height="58%" src="assets/img/assessment.png">
         <h4 class="h3style">{{item.Assessment}}</h4>
-        <span style="margin-left: -14px;">Assessment</span>
+        <span style="margin-left: -14px;" [ngClass]="{'blinking': currentstage == 'AS'}">Assessment</span>
       </div> 
       <div *ngIf="item.HRRound >= 0" class="circleGreen" style="left:61%" (click)="updateStage('HR','HR Round')">
         <img  style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/hrround.png">
         <h4 class="h3style">{{item.HRRound}}</h4>
-        <span style="margin-left: -8px;white-space: nowrap;" >HR Round</span>
+        <span style="margin-left: -8px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'HR'}">HR Round</span>
       </div> 
       <div *ngIf="item.Offered >= 0" class="circleGreen" style="left:75%" (click)="updateStage('OF','Offered')">
         <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/hire.png">
         <h4 class="h3style">{{item.Offered}}</h4>
-        <span style="margin-left: -2px;" >Offered</span>
+        <span style="margin-left: -2px;" [ngClass]="{'blinking': currentstage == 'OF'}">Offered</span>
       </div> 
       <div *ngIf="item.Joined >= 0" class="circleGreen" style="left:89%" (click)="updateStage('JO','Joined')">
         <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/offered.png">
         <h4 class="h3style">{{item.Joined}}</h4>
-        <span style="margin-left: -1px;" >Joined</span>
+        <span style="margin-left: -1px;" [ngClass]="{'blinking': currentstage == 'JO'}">Joined</span>
       </div>
     </div>
   <!--  <div class="circleRed" (click)="currentstage != 'NH' ? openDialogNotHired('NH') : false"></div>    

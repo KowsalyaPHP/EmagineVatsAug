@@ -59,12 +59,14 @@ export class RoleComponent implements OnInit {
   selectedSubFunction:any;
   RoleId:any;
   array:[];
-
+  radioSelected?:boolean;
+  userCategory:any;
+  
   constructor(private routerObj: Router,private RoleServices: RoleService,private route: ActivatedRoute,public dialog: MatDialog) { 
 
     this.viewRoleList();  
     this.viewList(1);
-
+    this.userCategory = sessionStorage.getItem("USERCATEGORY");
   }
 
   ngOnInit() {
@@ -87,10 +89,29 @@ export class RoleComponent implements OnInit {
           this.ModuleList = result['data']; 
         }
         else if(type == 'Function'){
-          this.FunctionList = result['data']; 
+          var Functiongroups = result['data'].reduce(function(obj,item){
+            obj[item.ModuleName] = obj[item.ModuleName] || [];
+            obj[item.ModuleName].push({ ModuleId: item.ModuleId, FunctionId: item.FunctionId ,FunctionName: item.FunctionName, FunctionSelected:item.FunctionSelected});
+            return obj;
+          }, {});
+        
+         this.FunctionList = Object.keys(Functiongroups).map(function(key){
+              return {moduleName: key, functionGroupList: Functiongroups[key]};
+          });
+
+         // this.FunctionList = result['data']; 
         }
         else if(type == 'Subfunction'){
-          this.SubfunctionList = result['data']; 
+          var SubFunctiongroups = result['data'].reduce(function(obj,item){
+            obj[item.FunctionName] = obj[item.FunctionName] || [];
+            obj[item.FunctionName].push({ FunctionId: item.FunctionId, SubFunctionId: item.SubFunctionId ,SubFunctionName: item.SubFunctionName, SubFunctionSelected:item.SubFunctionSelected});
+            return obj;
+          }, {});
+        
+         this.SubfunctionList = Object.keys(SubFunctiongroups).map(function(key){
+              return {SubFunctionName: key, subfunctionGroupList: SubFunctiongroups[key]};
+          });
+        //  this.SubfunctionList = result['data']; 
         }
       }
     }); 

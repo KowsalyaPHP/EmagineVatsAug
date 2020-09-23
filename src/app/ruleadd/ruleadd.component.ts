@@ -11,8 +11,8 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { SharedService } from '../shared/shared.service';
 
 interface clientList {
-  code: any;
-  description: string;
+  ClientId: any;
+  ClientName: string;
   checked?: boolean;
 }
 
@@ -58,7 +58,7 @@ export class RuleaddComponent implements OnInit {
     }
 
     this.selectedClient = this.ClientList.filter( (client) => client.checked );
-    const ClientCode= this.selectedClient.map(element => element.Code);
+    const ClientCode= this.selectedClient.map(element => element.ClientId);
     this.clientCode = ClientCode.join(',');
 
     this.RuleaddServices.addRules(formObj,this.clientCode).subscribe(
@@ -84,10 +84,10 @@ export class RuleaddComponent implements OnInit {
   }
 
   getClientList() {
-    this.SharedServices.getClientList().subscribe(
+    this.RuleaddServices.viewClientList().subscribe(
       response => {
         if (response != '') {         
-          this.ClientList = response;
+          this.ClientList = response['Data'];
         }
         else {         
           console.log('something is wrong with Service  Execution');

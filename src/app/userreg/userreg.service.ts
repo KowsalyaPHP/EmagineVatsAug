@@ -17,8 +17,8 @@ export class UserregService {
   public addUserDetails(FormObj): Observable<any> {
 
     console.log(FormObj);
-    //const url = AppComponent.urlPath + 'Adduser';
-    const url = AppComponent.urlPath + 'Adduser';
+    //const url = AppComponent.urlPath + 'Addusers';
+    const url = AppComponent.urlPath + 'Addusers';
     const params = new URLSearchParams();   
 
     var C_ID = sessionStorage.getItem("uniqueSessionId");
@@ -103,5 +103,20 @@ export class UserregService {
       });
   }
 
-  
+  public getRuleList(): Observable<any> {
+   
+    const url = AppComponent.urlPath + 'RuleList';
+   // const url ='http://461e06b1db5d.ngrok.io/RuleList';
+    const params = new URLSearchParams(); 
+    var RefId = sessionStorage.getItem("RefId");
+    params.set('EntityId', RefId);
+          
+    return this.http.post(url, params)
+        .map(response => response.json()).map(data => {
+          if (data != '')
+            return data;
+          else
+            return '';
+        });
+  }
 }

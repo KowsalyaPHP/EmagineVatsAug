@@ -10,7 +10,7 @@
 			<mat-nav-list>
                 <ul>
                     <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
-                    <li class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
+                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
                     <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
                     <li class="activeMenu textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
                     <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/rule']">Rule</a></li>
@@ -28,15 +28,17 @@
                     <input type="radio" [(ngModel)]="radioSelected" name="role_name" value="{{item.RoleId}}" (change)="getRoleId(item.RoleId)"/>{{item.RoleId}}.{{item.RoleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Role',item.RoleId,item.RoleName)"></i>
                 </li>
             </ul>
+            <p *ngIf="RoleList == null" style="margin-left: 12%;">No data Available</p>
         </div>
         <div style="float: left;width: 20%;">
             <h3 class="headerRole">Module <span style="margin-left: 70%;"><i class="fa fa-plus" aria-hidden="true"  (click)="opendialogaddrole('Module',0,'add')"></i></span></h3>
             <ul style="margin-left: 6%;">
                 <li *ngFor="let item of ModuleList"> <input type="checkbox" name="ModuleList{{item.ModuleId}}" [(ngModel)]="item.ModuleSelected" value="{{item.ModuleId}}" />{{item.ModuleId}}.{{item.ModuleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Module',item.ModuleId,item.ModuleName)"></i></li>
             </ul>
+            <p *ngIf="ModuleList == null" style="margin-left: 12%;">No data Available</p>
         </div>
         <div style="float: left;width: 26%;">
-            <h3 class="headerRole" style="width:77%;margin-top: 11.5%;margin-left: 10%;">Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Function')"></i></span></h3>
+            <h3 class="headerRole" style="width:77%;margin-top: 11.5%;margin-left: 10%;">Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Function',0,'add')"></i></span></h3>
             <ul style="margin-left: 6%;">
                 <li *ngFor="let item of FunctionList">
                     <b>{{item.moduleName}}</b>
@@ -46,10 +48,11 @@
                         </li>
                     </ul>
                 </li>
-            </ul>           
+            </ul>          
+            <p *ngIf="FunctionList == null" style="margin-left: 12%;">No data Available</p> 
         </div>
         <div style="float: left;width: 30%;">
-            <h3 class="headerRole" style="width: 88%;margin-top: 10%;margin-left: 7%;">Sub Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Subfunction')"></i></span></h3>
+            <h3 class="headerRole" style="width: 88%;margin-top: 10%;margin-left: 7%;">Sub Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Subfunction',0,'add')"></i></span></h3>
             <ul style="margin-left:3%">
                 <li *ngFor="let item of SubfunctionList">
                     <b>{{item.SubFunctionName}}</b>
@@ -60,9 +63,10 @@
                     </ul>
                 </li>              
             </ul> 
+            <p *ngIf="SubfunctionList == null" style="margin-left: 12%;">No data Available</p>
         </div>
         </div>
-        <div style="float:left"><p><button mat-button (click)="addRoleMapping()">Save</button></p></div>        
+        <div style="float:left;margin-left: 30px;"><p><button mat-button (click)="addRoleMapping()">Save</button></p></div>        
      </div>
     </mat-drawer-content>
 

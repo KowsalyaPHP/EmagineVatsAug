@@ -21,7 +21,7 @@ export class RoleaddComponent implements OnInit {
   addFunctionForm: FormGroup;
   addSubFunctionForm: FormGroup;
   submitted = false;
-  message:any;
+  messages:any;
   showRoleForm = false;
   showModuleForm = false;
   showFunctionForm = false;
@@ -98,13 +98,16 @@ export class RoleaddComponent implements OnInit {
           if (response != "No data") {
             let getMessage =  response['Message'].split(":");
             if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar(); 
             }          
             else{
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar();
-              this.dialogRef.close({action: 1, data: response['Data']});
+              setTimeout(() => {
+                this.dialogRef.close({action: 1, data: response['Data']});
+              }
+              , 3000);              
             }            
           }
           else {         
@@ -120,13 +123,16 @@ export class RoleaddComponent implements OnInit {
           if (response != "No data") {
             let getMessage =  response['Message'].split(":");
             if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar(); 
             }          
             else{
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar();
-              this.dialogRef.close({action: 1, data: response['Data']});
+              setTimeout(() => {
+                this.dialogRef.close({action: 1, data: response['Data']});
+              }
+              , 3000);                
             }            
           }
           else {         
@@ -151,13 +157,16 @@ export class RoleaddComponent implements OnInit {
           if (response != "No data") {
             let getMessage =  response['Message'].split(":");
             if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar(); 
             }          
             else{
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar();
-              this.dialogRef.close({action: 1, data: response['Data']});
+              setTimeout(() => {
+                this.dialogRef.close({action: 1, data: response['Data']});
+              }
+              , 3000); 
             }            
           }
           else {         
@@ -173,13 +182,16 @@ export class RoleaddComponent implements OnInit {
           if (response != "No data") {
             let getMessage =  response['Message'].split(":");
             if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar(); 
             }          
             else{
-              this.message = getMessage['1'];
+              this.messages = getMessage['1'];
               this.openSnackBar();
-              this.dialogRef.close({action: 1, data: response['Data']});
+              setTimeout(() => {
+                this.dialogRef.close({action: 1, data: response['Data']});
+              }
+              , 3000);               
             }            
           }
           else {         
@@ -216,13 +228,16 @@ export class RoleaddComponent implements OnInit {
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
+            this.messages = getMessage['1'];
             this.openSnackBar(); 
           }          
           else{
-            this.message = getMessage['1'];
+            this.messages = getMessage['1'];
             this.openSnackBar();
-            this.dialogRef.close({action: 1, data: response['Data']});
+            setTimeout(() => {
+              this.dialogRef.close({action: 1, data: response['Data']});
+            }
+            , 3000); 
           }            
         }
         else {         
@@ -263,13 +278,16 @@ export class RoleaddComponent implements OnInit {
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
+            this.messages = getMessage['1'];
             this.openSnackBar(); 
           }          
           else{
-            this.message = getMessage['1'];
+            this.messages = getMessage['1'];
             this.openSnackBar();
-            this.dialogRef.close({action: 1, data: response['Data']});
+            setTimeout(() => {
+              this.dialogRef.close({action: 1, data: response['Data']});
+            }
+            , 3000); 
           }            
         }
         else {         

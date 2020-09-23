@@ -37,4 +37,21 @@ export class RuleaddService {
   }
 
   
+  public viewClientList(): Observable<any> {
+
+    const url = AppComponent.urlPath + 'clientlist';
+    const params = new URLSearchParams(); 
+
+    var RefId = sessionStorage.getItem("RefId");
+    
+    params.set('RefId', RefId);
+        
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
 }

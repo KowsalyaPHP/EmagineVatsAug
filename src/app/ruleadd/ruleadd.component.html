@@ -14,8 +14,7 @@
             <div>
                 <h3>Client List</h3>
                 <ul>
-                    <li *ngFor="let item of ClientList; let i = index"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.Code}}" [(ngModel)]="item.checked" value="{{item.Code}}" />{{item.Description}}</li>
-                    
+                    <li *ngFor="let item of ClientList; let i = index"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.ClientId}}" [(ngModel)]="item.checked" value="{{item.ClientId}}" />{{item.ClientName}}</li>                    
                 </ul>
             </div>
         </div>

@@ -27,7 +27,10 @@ export class UserregComponent implements OnInit {
   userName:any;
   ClientList:[];
   VendorList:[];
-
+  userCategory:any;
+  sessionUserName:any;
+  userCategoryName:any;
+  
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute) {
 
     this.route.params.subscribe(params => {
@@ -53,10 +56,17 @@ export class UserregComponent implements OnInit {
     this.getRuleList();
     this.getClientList();
     this.getVendorList();
+    this.userCategory = sessionStorage.getItem("USERCATEGORY");
+    this.sessionUserName = sessionStorage.getItem("userName"); 
 
-    var userName = sessionStorage.getItem("userName"); 
+    if(this.userCategory != '' && this.userCategory == 'C'){
+      this.userCategoryName = 'Client';
+    }
+    else if(this.userCategory != '' && this.userCategory == 'V'){
+      this.userCategoryName = 'Vendor';
+    }
 
-    if (userName && this.id != 0){           
+    if (this.sessionUserName && this.id != 0){           
       this.viewSingleUser(this.id);
     }
    }
@@ -156,12 +166,13 @@ export class UserregComponent implements OnInit {
       error => console.log("Error Occurd!")
     );
   }
+
   
   getRuleList() {
-    this.SharedServices.getRuleList().subscribe(
+    this.UserregServices.getRuleList().subscribe(
       response => {
         if (response != '') {         
-          this.RuleList = response;
+          this.RuleList = response['Data'];
         }
         else {         
           console.log('something is wrong with Service  Execution');
