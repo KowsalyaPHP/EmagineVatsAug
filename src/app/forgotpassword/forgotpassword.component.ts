@@ -37,8 +37,9 @@ export class ForgotpasswordComponent implements OnInit {
 
   forgotPasswordForm: FormGroup;
   message:any;
+  username:any;
 
-  constructor(private ForgotpasswordServices: ForgotpasswordService,private formBuilderObj: FormBuilder,private routerObj: Router) { 
+  constructor(private ForgotpasswordServices: ForgotpasswordService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) { 
     this.forgotPasswordForm = this.formBuilderObj.group({
       NewPassword: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmNewPassword: ['', [Validators.required, Validators.minLength(6)]]
@@ -61,8 +62,13 @@ export class ForgotpasswordComponent implements OnInit {
     if (this.forgotPasswordForm.invalid) {
       return;
     }
+
+    this.route.params.subscribe(params => {
+      this.username = params['username'];   
+    });
+
     $("#Forgotloader").css("display", "block");
-    this.ForgotpasswordServices.forgotpasswordDetails(formObj).subscribe(
+    this.ForgotpasswordServices.forgotpasswordDetails(formObj,this.username).subscribe(
       response => {
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
@@ -71,7 +77,9 @@ export class ForgotpasswordComponent implements OnInit {
             this.openSnackBar();
             $("#Forgotloader").css("display", "none");
           }         
-          else {                     
+          else {               
+            this.message = getMessage['1'];
+            this.openSnackBar();      
             $("#Forgotloader").css("display", "none");       
             this.routerObj.navigate(["/"]);
           }

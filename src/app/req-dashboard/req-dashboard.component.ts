@@ -242,16 +242,16 @@ export class ReqDashboardComponent implements OnInit {
              item.joinedPerc =  Math.round((item.Joined/item.totalCount) *100);   
              item.nothiredPerc =  Math.round((item.NotHired/item.totalCount) *100);   
             });
+            
+          }    
 
-            setTimeout(function () {             
+          setTimeout(function () {             
                 $(function () {
                   const table: any = $('table');
                   this.dataTable = table.DataTable();
                 });                
               $("#loader").hide();
             }, 1500);
-            
-          }    
             
         } else {
          console.log("something is wrong with Service Execution"); 

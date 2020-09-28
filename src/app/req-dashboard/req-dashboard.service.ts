@@ -17,7 +17,7 @@ export class ReqDashboardService {
     const params = new URLSearchParams();  
     
     var clientId = sessionStorage.getItem("ClientList");
-
+    console.log(clientId)
     params.set('ReqStatus', status);
     params.set('EntityId', clientId); 
     

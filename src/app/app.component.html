@@ -7,7 +7,7 @@
     <div style="text-align:right;width:100%">
       <span *ngIf="isLoggedIn();" class="fill-remaining-space" >
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>card_travel</mat-icon>
+          <i class="fa fa-bars"></i>
         </button>
         <mat-menu #menu="matMenu">
           <a style="color:rgb(65, 64, 63);" [routerLink]="['/req-dashboard/OP']">

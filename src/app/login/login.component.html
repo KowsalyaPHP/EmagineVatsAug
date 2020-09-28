@@ -17,7 +17,7 @@
       [formGroup]="loginForm"
     (submit)='validateLoginDetails(loginForm.value)'>
         <mat-form-field class="example-full-width">
-          <input matInput maxlength="25" placeholder="Email id | Mobile Number | User id" formControlName="username" required>
+          <input matInput maxlength="40" placeholder="Email id | Mobile Number | User id" formControlName="username" required>
           <mat-error *ngFor="let validation of account_validation_messages.username">
             <mat-error class="error-message" *ngIf="loginForm.invalid || loginForm.get('username').hasError(validation.type) && (loginForm.get('username').dirty || loginForm.get('username').touched)">{{validation.message}}</mat-error>
           </mat-error>
@@ -35,7 +35,7 @@
       </form>
      
     </mat-card-content>
-    <!--<p class="no-access" style="text-align: center;color: #0670c4;cursor:pointer;" (click)="callAPI()">Forgot your Password?</p>-->
+    <p class="no-access" style="text-align: center;color: #0670c4;cursor:pointer;" (click)="callAPI()">Forgot your Password?</p>
   </mat-card>
 </div>
 
@@ -49,7 +49,7 @@
       [formGroup]="forgotPasswordForm" (submit)='forgotPasswordFormSubmit(forgotPasswordForm.value)'>
     <mat-dialog-content>
       <mat-form-field class="example-full-width">
-        <input matInput maxlength="25" placeholder="Email id | Mobile Number | User id" formControlName="UserId" required>
+        <input matInput maxlength="40" placeholder="Email id | Mobile Number | User id" formControlName="UserId" required>
         <mat-error *ngFor="let validation of account_validation_messages.UserId">
           <mat-error class="error-message" *ngIf="forgotPasswordForm.invalid || forgotPasswordForm.get('UserId').hasError(validation.type) && (forgotPasswordForm.get('UserId').dirty || forgotPasswordForm.get('UserId').touched)">{{validation.message}}</mat-error>
         </mat-error>

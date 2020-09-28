@@ -61,9 +61,18 @@ export class UserregComponent implements OnInit {
 
     if(this.userCategory != '' && this.userCategory == 'C'){
       this.userCategoryName = 'Client';
+      this.addUserForm.patchValue({           
+        usercategory:this.userCategoryName,
+        clientName:this.sessionUserName
+      }); 
+
     }
     else if(this.userCategory != '' && this.userCategory == 'V'){
       this.userCategoryName = 'Vendor';
+      this.addUserForm.patchValue({           
+        usercategory:this.userCategoryName,
+        vendorName:this.sessionUserName
+      }); 
     }
 
     if (this.sessionUserName && this.id != 0){           

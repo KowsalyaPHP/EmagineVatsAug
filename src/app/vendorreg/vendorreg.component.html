@@ -82,7 +82,7 @@
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="10" matInput required placeholder="Contact Number" formControlName="VendorPhoneNo" class="form-control"/>
+                <input maxlength="10" matInput required placeholder="Mobile Number1" formControlName="VendorPhoneNo" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.VendorPhoneNo">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorPhoneNo').hasError(validation.type) && (addVendorForm.get('VendorPhoneNo').dirty || addVendorForm.get('VendorPhoneNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -90,7 +90,7 @@
         </td>
         <td>            
             <mat-form-field>
-                <input maxlength="10" matInput required placeholder="Mobile Number" formControlName="VendorMobileNo" class="form-control"/>
+                <input maxlength="10" matInput required placeholder="Mobile Number2" formControlName="VendorMobileNo" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.VendorMobileNo">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorMobileNo').hasError(validation.type) && (addVendorForm.get('VendorMobileNo').dirty || addVendorForm.get('VendorMobileNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -120,7 +120,7 @@
 </table>
 </div>
 <div class="whiteframe" style="width: 93%;">
-<h3>Contact Details</h3>     
+<h3>Vendor Organisation  Details</h3>     
 <table  style="width:100%">
     <tr>
         <td>            
