@@ -66,7 +66,9 @@
             <p *ngIf="SubfunctionList == null" style="margin-left: 12%;">No data Available</p>
         </div>
         </div>
-        <div style="float:left;margin-left: 30px;"><p><button mat-button (click)="addRoleMapping()">Save</button></p></div>        
+        <div style="float:left;margin-left: 30px;"><p><button mat-button (click)="addRoleMapping()">Save</button>
+        
+            <button mat-button  (click)="onNoClick()">Cancel</button></p></div>        
      </div>
     </mat-drawer-content>
 

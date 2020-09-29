@@ -20,17 +20,23 @@ export class UserregService {
     //const url = AppComponent.urlPath + 'Addusers';
     const url = AppComponent.urlPath + 'Addusers';
     const params = new URLSearchParams();   
-
+    var usercategory =  sessionStorage.getItem("USERCATEGORY");
     var C_ID = sessionStorage.getItem("uniqueSessionId");
 
-    if(FormObj['clientName'] != '' && FormObj['usercategory'] == 'C'){
-       this.RefId = FormObj['clientName'];
-    }
-    else if(FormObj['vendorName'] != '' && FormObj['usercategory'] == 'V'){
-      this.RefId = FormObj['vendorName'];
+    if(usercategory == 'E'){
+      if(FormObj['clientName'] != '' && FormObj['usercategory'] == 'C'){
+        this.RefId = FormObj['clientName'];
+      }
+      else if(FormObj['vendorName'] != '' && FormObj['usercategory'] == 'V'){
+        this.RefId = FormObj['vendorName'];
+      }
+      else{
+        this.RefId = sessionStorage.getItem("RefId");
+      }
     }
     else{
-       this.RefId = sessionStorage.getItem("RefId");
+      this.RefId = sessionStorage.getItem("RefId");
+      FormObj.usercategory = sessionStorage.getItem("USERCATEGORY");
     }
     
 

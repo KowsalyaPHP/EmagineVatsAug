@@ -45,28 +45,28 @@
         </td>      
         <td>     
             <mat-form-field class="example-full-width">  
-                <input maxlength="80" required matInput placeholder="Door No,Street" formControlName="RegdAddressL1" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.RegdAddressL1">
+                <input maxlength="80" matInput placeholder="Door No,Street" formControlName="RegdAddressL1" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.RegdAddressL1">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('RegdAddressL1').hasError(validation.type) && (addVendorForm.get('RegdAddressL1').dirty || addVendorForm.get('RegdAddressL1').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
              </mat-form-field>                    
         </td>
         <td>            
             <mat-form-field>
-                <input maxlength="40" required matInput placeholder="Area" formControlName="Area" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.Area">
+                <input maxlength="40" matInput placeholder="Area" formControlName="Area" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.Area">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('Area').hasError(validation.type) && (addVendorForm.get('Area').dirty || addVendorForm.get('Area').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>
         <td>            
             <mat-form-field>
-                <select matNativeControl required maxlength="40" placeholder="City" formControlName="City"> 
+                <select matNativeControl maxlength="40" placeholder="City" formControlName="City"> 
                     <option *ngFor="let item of cityLookups" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>  
-                <mat-error *ngFor="let validation of validation_messages.City">
+                <!--<mat-error *ngFor="let validation of validation_messages.City">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('City').hasError(validation.type) && (addVendorForm.get('City').dirty || addVendorForm.get('City').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>  
     </tr>
@@ -74,15 +74,15 @@
                       
         <td>            
             <mat-form-field>
-                <input maxlength="6" required matInput placeholder="PINCODE" formControlName="PINCODE" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.PINCODE">
+                <input maxlength="6" matInput placeholder="PINCODE" formControlName="PINCODE" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.PINCODE">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('PINCODE').hasError(validation.type) && (addVendorForm.get('PINCODE').dirty || addVendorForm.get('PINCODE').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="10" matInput required placeholder="Mobile Number1" formControlName="VendorPhoneNo" class="form-control"/>
+                <input maxlength="10" matInput placeholder="Mobile Number1" formControlName="VendorPhoneNo" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.VendorPhoneNo">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorPhoneNo').hasError(validation.type) && (addVendorForm.get('VendorPhoneNo').dirty || addVendorForm.get('VendorPhoneNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -125,10 +125,10 @@
     <tr>
         <td>            
             <mat-form-field>
-                <input maxlength="40" required matInput placeholder="Main Contact" formControlName="MainContact" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.MainContact">
+                <input maxlength="40" matInput placeholder="Main Contact" formControlName="MainContact" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.MainContact">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('MainContact').hasError(validation.type) && (addVendorForm.get('MainContact').dirty || addVendorForm.get('MainContact').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>                
         <td>            
@@ -156,10 +156,10 @@
     <tr>
         <td>            
             <mat-form-field>
-                <input maxlength="40" required matInput placeholder="Alternate Contact" formControlName="AltContact" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.AltContact">
+                <input maxlength="40" matInput placeholder="Alternate Contact" formControlName="AltContact" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.AltContact">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('AltContact').hasError(validation.type) && (addVendorForm.get('AltContact').dirty || addVendorForm.get('AltContact').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>                
         <td>            
@@ -198,32 +198,32 @@
         
         <td>            
             <mat-form-field>
-                <select matNativeControl required maxlength="80" placeholder="Vendor Category" formControlName="VendorTier"> 
+                <select matNativeControl maxlength="80" placeholder="Vendor Category" formControlName="VendorTier"> 
                     <option *ngFor="let item of LookupCategory" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>  
-                <mat-error *ngFor="let validation of validation_messages.VendorTier">
+                <!--<mat-error *ngFor="let validation of validation_messages.VendorTier">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorTier').hasError(validation.type) && (addVendorForm.get('VendorTier').dirty || addVendorForm.get('VendorTier').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <select matNativeControl required maxlength="80" placeholder="Expertise" formControlName="VendorExpertise"> 
+                <select matNativeControl maxlength="80" placeholder="Expertise" formControlName="VendorExpertise"> 
                     <option *ngFor="let item of LookupExpertise" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select> 
-                <mat-error *ngFor="let validation of validation_messages.VendorExpertise">
+                <!--<mat-error *ngFor="let validation of validation_messages.VendorExpertise">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorExpertise').hasError(validation.type) && (addVendorForm.get('VendorExpertise').dirty || addVendorForm.get('VendorExpertise').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>  
         <td>            
             <mat-form-field>
-                <select matNativeControl required maxlength="80" placeholder="Vendor Type" formControlName="VendorType"> 
+                <select matNativeControl maxlength="80" placeholder="Vendor Type" formControlName="VendorType"> 
                     <option *ngFor="let item of LookupType" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>
-                <mat-error *ngFor="let validation of validation_messages.VendorType">
+                <!--<mat-error *ngFor="let validation of validation_messages.VendorType">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorType').hasError(validation.type) && (addVendorForm.get('VendorType').dirty || addVendorForm.get('VendorType').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>      
         <td>            
@@ -282,12 +282,12 @@
         </td> 
         <td *ngIf="id != 0">            
             <mat-form-field>
-                <select matNativeControl required maxlength="40" placeholder="Vendor Status" formControlName="VendorStatus"> 
+                <select matNativeControl maxlength="40" placeholder="Vendor Status" formControlName="VendorStatus"> 
                     <option *ngFor="let item of VLookupStatus" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>                 
-                <mat-error *ngFor="let validation of validation_messages.VendorStatus">
+                <!--<mat-error *ngFor="let validation of validation_messages.VendorStatus">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorStatus').hasError(validation.type) && (addVendorForm.get('VendorStatus').dirty || addVendorForm.get('VendorStatus').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>     
     </tr>

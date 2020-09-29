@@ -182,15 +182,19 @@
                     </mat-form-field>
                 </td>
             </tr>
+        </table>
+        <table style="width: 100%;">
           <tr><td style="color:#757270f0;padding: 10px 0 0 0;" [ngClass]="{ 'is-invalid': submitted && f.Jobdescription.errors }">Job Description*</td></tr>
             <tr>              
                 <td colspan="4">    
-                  <ejs-richtexteditor class="richtextboxwidth" required #toolsRTE id='alltoolRTE' formControlName="Jobdescription" [toolbarSettings]='tools' ></ejs-richtexteditor>
+                  <ejs-richtexteditor style="word-break: break-all;" required #toolsRTE id='alltoolRTE' formControlName="Jobdescription" [toolbarSettings]='tools' ></ejs-richtexteditor>
                     <div *ngIf="submitted && f.Jobdescription.errors" class="error">             
                         <div *ngIf="f.Jobdescription.errors?.required">Please enter job description</div>
                     </div>            
                 </td>
             </tr>
+        </table>
+        <table>
             <tr>
                 <td colspan="2">
                     <!--<mat-form-field style="width:88.3% !important;">
@@ -223,7 +227,7 @@
             <tr>
                 <td>
                     JD Doc - 
-                       <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" >
+                       <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" ><br>
                        (.doc,.docx,.pdf,.rtf only)              
                        <p *ngIf="attachmentShow != 0 && id > 0" id="FileChange"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadJD(id)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>     
                 </td>

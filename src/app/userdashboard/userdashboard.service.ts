@@ -22,7 +22,7 @@ export class UserdashboardService {
     
     params.set('UserCategory', UserCategory);
     params.set('EntityId',RefId);
-        
+    console.log(params)    
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
         if (data != '')

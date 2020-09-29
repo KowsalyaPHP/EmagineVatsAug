@@ -54,28 +54,28 @@
         </td>      
         <td>     
             <mat-form-field class="example-full-width">  
-                <input maxlength="80" required matInput placeholder="Door No,Street" formControlName="RegdAddressL1" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.RegdAddressL1">
+                <input maxlength="80" matInput placeholder="Door No,Street" formControlName="RegdAddressL1" class="form-control"/>
+              <!--  <mat-error *ngFor="let validation of validation_messages.RegdAddressL1">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('RegdAddressL1').hasError(validation.type) && (addClientForm.get('RegdAddressL1').dirty || addClientForm.get('RegdAddressL1').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
              </mat-form-field>                    
         </td>
         <td>            
             <mat-form-field>
-                <input maxlength="40" required matInput placeholder="Area" formControlName="Area" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.Area">
+                <input maxlength="40" matInput placeholder="Area" formControlName="Area" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.Area">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('Area').hasError(validation.type) && (addClientForm.get('Area').dirty || addClientForm.get('Area').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>
         <td>            
             <mat-form-field>
-                <select matNativeControl required maxlength="40" placeholder="City" formControlName="City"> 
+                <select matNativeControl maxlength="40" placeholder="City" formControlName="City"> 
                     <option *ngFor="let item of cityLookups" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>                  
-                <mat-error *ngFor="let validation of validation_messages.City">
+                <!--<mat-error *ngFor="let validation of validation_messages.City">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('City').hasError(validation.type) && (addClientForm.get('City').dirty || addClientForm.get('City').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>  
     </tr>
@@ -83,15 +83,15 @@
                       
         <td>            
             <mat-form-field>
-                <input maxlength="6" required matInput placeholder="PINCODE" formControlName="PINCODE" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.PINCODE">
+                <input maxlength="6" matInput placeholder="PINCODE" formControlName="PINCODE" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.PINCODE">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('PINCODE').hasError(validation.type) && (addClientForm.get('PINCODE').dirty || addClientForm.get('PINCODE').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <input maxlength="10" matInput required placeholder="Contact Number" formControlName="ClientPhoneNo" class="form-control"/>
+                <input maxlength="10" matInput placeholder="Contact Number" formControlName="ClientPhoneNo" class="form-control"/>
                 <mat-error *ngFor="let validation of validation_messages.ClientPhoneNo">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientPhoneNo').hasError(validation.type) && (addClientForm.get('ClientPhoneNo').dirty || addClientForm.get('ClientPhoneNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
@@ -134,10 +134,10 @@
     <tr>
         <td>            
             <mat-form-field>
-                <input maxlength="40" required matInput placeholder="Main Contact" formControlName="MainContact" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.MainContact">
+                <input maxlength="40" matInput placeholder="Main Contact" formControlName="MainContact" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.MainContact">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('MainContact').hasError(validation.type) && (addClientForm.get('MainContact').dirty || addClientForm.get('MainContact').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>                
         <td>            
@@ -165,10 +165,10 @@
     <tr>
         <td>            
             <mat-form-field>
-                <input maxlength="40" required matInput placeholder="Alternate Contact" formControlName="AltContact" class="form-control"/>
-                <mat-error *ngFor="let validation of validation_messages.AltContact">
+                <input maxlength="40" matInput placeholder="Alternate Contact" formControlName="AltContact" class="form-control"/>
+                <!--<mat-error *ngFor="let validation of validation_messages.AltContact">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('AltContact').hasError(validation.type) && (addClientForm.get('AltContact').dirty || addClientForm.get('AltContact').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>                
         <td>            
@@ -206,22 +206,22 @@
         </td>        -->
         <td>            
             <mat-form-field>
-                <select matNativeControl required maxlength="40" placeholder="Client Category" formControlName="ClientCategory"> 
+                <select matNativeControl maxlength="40" placeholder="Client Category" formControlName="ClientCategory"> 
                     <option *ngFor="let item of LookupCategory" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>  
-                <mat-error *ngFor="let validation of validation_messages.ClientCategory">
+                <!--<mat-error *ngFor="let validation of validation_messages.ClientCategory">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientCategory').hasError(validation.type) && (addClientForm.get('ClientCategory').dirty || addClientForm.get('ClientCategory').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>      
         <td>            
             <mat-form-field>
-                <select matNativeControl required maxlength="40" placeholder="Client Type" formControlName="ClientType"> 
+                <select matNativeControl maxlength="40" placeholder="Client Type" formControlName="ClientType"> 
                     <option *ngFor="let item of LookupType" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>
-                <mat-error *ngFor="let validation of validation_messages.ClientType">
+                <!--<mat-error *ngFor="let validation of validation_messages.ClientType">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('ClientType').hasError(validation.type) && (addClientForm.get('ClientType').dirty || addClientForm.get('ClientType').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>     
        
@@ -232,24 +232,24 @@
         </td>  
         <td>            
             <mat-form-field>
-                <select matNativeControl required placeholder="Account Manager" formControlName="AccountManager"> 
+                <select matNativeControl placeholder="Account Manager" formControlName="AccountManager"> 
                     <option *ngFor="let item of LkupAccountManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>    
-                <mat-error *ngFor="let validation of validation_messages.AccountManager">
+                <!--<mat-error *ngFor="let validation of validation_messages.AccountManager">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('AccountManager').hasError(validation.type) && (addClientForm.get('AccountManager').dirty || addClientForm.get('AccountManager').touched)">{{validation.message}}</mat-error>
-                </mat-error>              
+                </mat-error>  -->            
             </mat-form-field>
         </td>    
     </tr>
     <tr>       
         <td>            
             <mat-form-field>
-                <select matNativeControl required placeholder="Coordinator" formControlName="Coordinator"> 
+                <select matNativeControl placeholder="Coordinator" formControlName="Coordinator"> 
                     <option *ngFor="let item of LkupClient" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>
-                <mat-error *ngFor="let validation of validation_messages.Coordinator">
+                <!--<mat-error *ngFor="let validation of validation_messages.Coordinator">
                     <mat-error class="error-message" *ngIf="addClientForm.invalid || addClientForm.get('Coordinator').hasError(validation.type) && (addClientForm.get('Coordinator').dirty || addClientForm.get('Coordinator').touched)">{{validation.message}}</mat-error>
-                </mat-error>
+                </mat-error>-->
             </mat-form-field>
         </td>   
        <!--<td *ngIf="child == 1">            

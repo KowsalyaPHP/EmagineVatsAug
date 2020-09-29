@@ -522,6 +522,7 @@ export class RequisitionaddComponent implements OnInit {
       response => {
         if (response != '') {         
           this.LkupClient = response;
+          console.log(this.LkupClient)
         }
         else {         
           console.log('something is wrong with Service  Execution');
