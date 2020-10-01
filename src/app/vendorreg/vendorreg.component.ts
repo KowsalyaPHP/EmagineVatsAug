@@ -36,7 +36,8 @@ export class VendorregComponent implements OnInit {
     }); 
 
     this.addVendorForm = this.formBuilderObj.group({     
-      VendorName: ['', [Validators.required]],      
+      VendorName: ['', [Validators.required]], 
+      VendorLastName: ['', [Validators.required]],     
       RegdAddressL1: '',
       Area: '',
       City:'',
@@ -48,15 +49,15 @@ export class VendorregComponent implements OnInit {
       MainContactDesgn:'',
       MainContactNo:['', [Validators.pattern("[0-9]\\d{9}")]],
       MainContactEmailId:['', [Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],
-      AltContact:'',
+      /*AltContact:'',
       AltContactDesgn:'',
       AltContactNo:['', [Validators.pattern("[0-9]\\d{9}")]],
-      AltContactEmailId:['', [Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],               
+      AltContactEmailId:['', [Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],*/               
       VendorGSTNo:'' ,
       VendorLandMark:'',    
-      VendorTier: '',
+      VendorTier: '00',
       VendorExpertise:'' ,
-      VendorType:'' ,
+      VendorType:'VO' ,
       TeamSize:'' ,
       AllowedUserCt:'',
       ConcurrentUserCt:'',
@@ -179,6 +180,7 @@ export class VendorregComponent implements OnInit {
 
               this.addVendorForm.patchValue({
                 VendorName: this.vendorSingle['Data'][0]['VendorName'],
+                VendorLastName:this.vendorSingle['Data'][0]['VendorName'],
                 RegdAddressL1:this.vendorSingle['Data'][0]['RegdAddressL1'],
                 Area:this.vendorSingle['Data'][0]['Area'],
                 City:this.vendorSingle['Data'][0]['CityCode'],
@@ -192,10 +194,10 @@ export class VendorregComponent implements OnInit {
                 MainContactDesgn:this.vendorSingle['Data'][0]['MainContactDesgn'],
                 MainContactNo:this.vendorSingle['Data'][0]['MainContactNo'],
                 MainContactEmailId:this.vendorSingle['Data'][0]['MainContactEmailId'],
-                AltContact:this.vendorSingle['Data'][0]['AltContact'],
+                /*AltContact:this.vendorSingle['Data'][0]['AltContact'],
                 AltContactDesgn:this.vendorSingle['Data'][0]['AltContactDesgn'],
                 AltContactNo:this.vendorSingle['Data'][0]['AltContactNo'],
-                AltContactEmailId:this.vendorSingle['Data'][0]['AltContactEmailId'],                 
+                AltContactEmailId:this.vendorSingle['Data'][0]['AltContactEmailId'],   */              
                 VendorTier:this.vendorSingle['Data'][0]['VendorTierCode'],
                 VendorExpertise:this.vendorSingle['Data'][0]['VendorExpertiseCode'],
                 VendorType:this.vendorSingle['Data'][0]['VendorTypeCode'],
@@ -333,7 +335,10 @@ export class VendorregComponent implements OnInit {
 
   validation_messages = {
     'VendorName': [
-      { type: 'required', message: 'Please enter client name' }      
+      { type: 'required', message: 'Please enter first name' }      
+    ],
+    'VendorLastName': [
+      { type: 'required', message: 'Please enter last name' }      
     ],
     'RegdAddressL1': [
       { type: 'required', message: 'Please enter door no,address' }      
@@ -359,9 +364,9 @@ export class VendorregComponent implements OnInit {
     'MainContact': [
       { type: 'pattern', message: 'Please enter main contact' }
     ],
-    'AltContact': [
+    /*'AltContact': [
       { type: 'pattern', message: 'Please enter alternate contact' }
-    ],
+    ],*/
     'VendorCategory': [
       { type: 'pattern', message: 'Please enter vendor category' }
     ],
@@ -383,12 +388,12 @@ export class VendorregComponent implements OnInit {
     'MainContactEmailId': [
       { type: 'pattern', message: 'Please enter correct main email id' }
     ],
-    'AltContactNo': [
+    /*'AltContactNo': [
       { type: 'pattern', message: 'Please enter correct alternate contact no' }
     ],
     'AltContactEmailId': [
       { type: 'pattern', message: 'Please enter correct alternate mail id' }
-    ]
+    ]*/
   }
 
 }

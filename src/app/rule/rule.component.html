@@ -9,11 +9,11 @@
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
                 <ul>
-                    <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
-                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
-                    <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
-                    <li class="textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
-                    <li class="activeMenu textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/rule']">Rule</a></li>
+                    <li class="textsize" ><a [routerLink]="['/clientreg','0']"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
+                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><a [routerLink]="['/vendorreg','0']"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
+                    <li class="textsize"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                    <li class="textsize"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                    <li class="activeMenu textsize"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
                 </ul>          			
 			</mat-nav-list>
 		</mat-drawer>

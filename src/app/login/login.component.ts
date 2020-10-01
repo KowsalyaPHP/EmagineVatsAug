@@ -133,10 +133,12 @@ forgotPasswordFormSubmit(formObj) {
             sessionStorage.setItem("uniqueSessionId", this.sessionID);            
             sessionStorage.setItem("userName", response['Data']["Userdetail"][0]["USERNAME"]);
             sessionStorage.setItem("RefId", response['Data']["Userdetail"][0]["REFID"]);
+            sessionStorage.setItem("Refname", response['Data']["Userdetail"][0]["REFNAME"]);
             sessionStorage.setItem("USERMOBILENO", response['Data']["Userdetail"][0]["USERMOBILENO"]);
             sessionStorage.setItem("USERCATEGORY", response['Data']["Userdetail"][0]["USERCATEGORY"]);
             sessionStorage.setItem("ClientList", response['Data']["Userdetail"][0]["ClientList"]);
             sessionStorage.setItem("FunctionList", response['Data']["Userdetail"][0]["FList"]);
+            
            // sessionStorage.setItem("userID", formObj.username);
             //sessionStorage.setItem("Menudetails", JSON.stringify(response['Data']["Menudetails"]));
            // sessionStorage.setItem("Roles", response['Data']["Roles"]);       

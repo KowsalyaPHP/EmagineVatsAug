@@ -47,6 +47,7 @@ export class ClientregComponent implements OnInit {
 
     this.addClientForm = this.formBuilderObj.group({
       ClientName: ['', [Validators.required]],
+      clientLastName: ['', [Validators.required]],
       RegdAddressL1: '',
       Area: '',
       City:'',
@@ -58,10 +59,10 @@ export class ClientregComponent implements OnInit {
       MainContactDesgn: '',
       MainContactNo:['', [Validators.pattern("[0-9]\\d{9}")]],
       MainContactEmailId:['', [Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],
-      AltContact: '',
+      /*AltContact: '',
       AltContactDesgn: '',
       AltContactNo: ['', [Validators.pattern("[0-9]\\d{9}")]],
-      AltContactEmailId:['', [Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],
+      AltContactEmailId:['', [Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],*/
       ClientGSTNo:'',
       ClientLandMark:'',    
       ClientCategory:'',
@@ -136,8 +137,10 @@ export class ClientregComponent implements OnInit {
               this.clientname = this.clientSingle['Data'][0]['ClientName'];
                
               $("#ClientName").prop('readonly', true);
+              $("#clientLastName").prop('readonly', true);
               this.addClientForm.patchValue({
                 ClientName: this.clientSingle['Data'][0]['ClientName'],
+                clientLastName:this.clientSingle['Data'][0]['ClientLastName'],
                 RegdAddressL1:this.clientSingle['Data'][0]['RegdAddressL1'],
                 Area:this.clientSingle['Data'][0]['Area'],
                 City:this.clientSingle['Data'][0]['CityCode'],
@@ -149,10 +152,10 @@ export class ClientregComponent implements OnInit {
                 MainContactDesgn:this.clientSingle['Data'][0]['MainContactDesgn'],
                 MainContactNo:this.clientSingle['Data'][0]['MainContactNo'],
                 MainContactEmailId:this.clientSingle['Data'][0]['MainContactEmailId'],
-                AltContact:this.clientSingle['Data'][0]['AltContact'],
+              /*  AltContact:this.clientSingle['Data'][0]['AltContact'],
                 AltContactDesgn:this.clientSingle['Data'][0]['AltContactDesgn'],
                 AltContactNo:this.clientSingle['Data'][0]['AltContactNo'],
-                AltContactEmailId:this.clientSingle['Data'][0]['AltContactEmailId'],
+                AltContactEmailId:this.clientSingle['Data'][0]['AltContactEmailId'],*/
                 ClientGSTNo:this.clientSingle['Data'][0]['ClientGSTNo'],
                 ClientLandMark:this.clientSingle['Data'][0]['ClientLandMark'],
                 ClientCategory:this.clientSingle['Data'][0]['ClientCategoryCode'],
@@ -410,7 +413,10 @@ export class ClientregComponent implements OnInit {
 
   validation_messages = {
     'ClientName': [
-      { type: 'required', message: 'Please enter client name' }      
+      { type: 'required', message: 'Please enter valid first name' }      
+    ],
+    'clientLastName': [
+      { type: 'required', message: 'Please enter valid last name' }      
     ],
     'RegdAddressL1': [
       { type: 'required', message: 'Please enter door no,address' }      
@@ -425,20 +431,20 @@ export class ClientregComponent implements OnInit {
       { type: 'pattern', message: 'Please enter pincode' }      
     ],
     'ClientPhoneNo': [
-      { type: 'pattern', message: 'Please  enter phone number'}
+      { type: 'pattern', message: 'Please  enter valid phone number'}
     ],
     'ClientMobileNo': [
-      { type: 'pattern', message: 'Please enter mobile number' }
+      { type: 'pattern', message: 'Please enter valid mobile number' }
     ],
     'ClientEMAILID': [
-      { type: 'pattern', message: 'Please enter email id' }
+      { type: 'pattern', message: 'Please enter valid email id' }
     ],
     'MainContact': [
       { type: 'pattern', message: 'Please enter main contact' }
     ],
-    'AltContact': [
+    /*'AltContact': [
       { type: 'pattern', message: 'Please enter alternate contact' }
-    ],
+    ],*/
     'ClientCategory': [
       { type: 'required', message: 'Please enter client category' }
     ],
@@ -452,16 +458,16 @@ export class ClientregComponent implements OnInit {
       { type: 'required', message: 'Please select coordinator' }
     ],
     'MainContactNo': [
-      { type: 'pattern', message: 'Please enter correct main contact no ' }
+      { type: 'pattern', message: 'Please enter correct contact number ' }
     ],
     'MainContactEmailId': [
-      { type: 'pattern', message: 'Please enter correct main mail id' }
+      { type: 'pattern', message: 'Please enter correct mail id' }
     ],
-    'AltContactNo': [
+    /*'AltContactNo': [
       { type: 'pattern', message: 'Please enter correct alternate contact no' }
     ],
     'AltContactEmailId': [
       { type: 'pattern', message: 'Please enter correct alternate contact email id' }
-    ]
+    ]*/
   }
 }

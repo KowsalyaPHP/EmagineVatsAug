@@ -22,6 +22,7 @@ constructor(private http: Http) { }
     var C_ID = sessionStorage.getItem("uniqueSessionId");
     
     params.set('VendorName', FormObj.VendorName);
+    params.set('VendorLastName', FormObj.VendorLastName);
     params.set('RegdAddressL1', FormObj.RegdAddressL1);
     params.set('Area', FormObj.Area);
     params.set('City', FormObj.City);
@@ -35,10 +36,10 @@ constructor(private http: Http) { }
     params.set('MainContactDesgn', FormObj.MainContactDesgn);
     params.set('MainContactNo', FormObj.MainContactNo);
     params.set('MainContactEmailId', FormObj.MainContactEmailId);
-    params.set('AltContact', FormObj.AltContact);
+    /*params.set('AltContact', FormObj.AltContact);
     params.set('AltContactDesgn', FormObj.AltContactDesgn);
     params.set('AltContactNo', FormObj.AltContactNo);
-    params.set('AltContactEmailId', FormObj.AltContactEmailId);    
+    params.set('AltContactEmailId', FormObj.AltContactEmailId);    */
     params.set('VENDORTIER', FormObj.VendorTier);
     params.set('VENDOREXPERTISE', FormObj.VendorExpertise);
     params.set('VendorType', FormObj.VendorType);
@@ -123,10 +124,10 @@ constructor(private http: Http) { }
     params.set('MainContactDesgn', FormObj.MainContactDesgn);
     params.set('MainContactNo', FormObj.MainContactNo);
     params.set('MainContactEmailId', FormObj.MainContactEmailId);
-    params.set('AltContact', FormObj.AltContact);
+    /*params.set('AltContact', FormObj.AltContact);
     params.set('AltContactDesgn', FormObj.AltContactDesgn);
     params.set('AltContactNo', FormObj.AltContactNo);
-    params.set('AltContactEmailId', FormObj.AltContactEmailId);
+    params.set('AltContactEmailId', FormObj.AltContactEmailId);*/
     params.set('VendorTier', FormObj.VendorTier);
     params.set('VendorExpertise', FormObj.VendorExpertise);
     params.set('VendorType', FormObj.VendorType);

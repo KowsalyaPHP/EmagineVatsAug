@@ -28,8 +28,10 @@ export class UserregComponent implements OnInit {
   ClientList:[];
   VendorList:[];
   userCategory:any;
-  sessionUserName:any;
+  sessionTypeName:any;
   userCategoryName:any;
+  categoryName:any;
+
   
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute) {
 
@@ -57,25 +59,26 @@ export class UserregComponent implements OnInit {
     this.getClientList();
     this.getVendorList();
     this.userCategory = sessionStorage.getItem("USERCATEGORY");
-    this.sessionUserName = sessionStorage.getItem("userName"); 
+    this.sessionTypeName = sessionStorage.getItem("Refname"); 
 
     if(this.userCategory != '' && this.userCategory == 'C'){
       this.userCategoryName = 'Client';
       this.addUserForm.patchValue({           
         usercategory:this.userCategoryName,
-        clientName:this.sessionUserName
+        clientName:this.sessionTypeName
       }); 
-
+      $("#clientName").prop('readonly', true);
     }
     else if(this.userCategory != '' && this.userCategory == 'V'){
       this.userCategoryName = 'Vendor';
       this.addUserForm.patchValue({           
         usercategory:this.userCategoryName,
-        vendorName:this.sessionUserName
+        vendorName:this.sessionTypeName
       }); 
+      $("#vendorName").prop('readonly', true);
     }
 
-    if (this.sessionUserName && this.id != 0){           
+    if (this.sessionTypeName && this.id != 0){           
       this.viewSingleUser(this.id);
     }
    }
@@ -127,8 +130,20 @@ export class UserregComponent implements OnInit {
             else {                     
               this.userSingle = response;
               this.userName = this.userSingle['Data'][0]['USERNAME'];
+
+              if( this.userSingle['Data'][0]['USERCATEGORY'] == 'C'){
+                this.categoryName = 'Client';                
+              }
+              else if( this.userSingle['Data'][0]['USERCATEGORY'] == 'V'){
+                this.categoryName = 'Vendor';
+              }
+
+              if( this.userSingle['Data'][0]['USERCATEGORY'] == 'E'){
+                this.categoryName = this.userSingle['Data'][0]['USERCATEGORY'];                
+              }
+
               this.addUserForm.patchValue({           
-                usercategory: this.userSingle['Data'][0]['USERCATEGORY'],
+                usercategory: this.categoryName,
                 UserMrMs:this.userSingle['Data'][0]['USERMRMS'],
                 UserName:this.userSingle['Data'][0]['USERNAME'],
                 UserRemarks:this.userSingle['Data'][0]['Remarks'],

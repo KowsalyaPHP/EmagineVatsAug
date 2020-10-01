@@ -6,6 +6,12 @@ import { RoleService } from './role.service';
 import { AnimationStyleMetadata } from '@angular/animations';
 declare var $: any
 
+interface RoleList {
+  RoleId: any;
+  RoleName: string;
+  roleSelected:any;
+}
+
 interface ModuleList {
   ModuleId: any;
   ModuleName: string;
@@ -43,10 +49,10 @@ interface SubFunctionList {
 export class RoleComponent implements OnInit {
 
   public ModuleList: ModuleList[];
+  public RoleList: RoleList[];
   //public FunctionList: FunctionList;
  // public SubfunctionList: SubFunctionList;
   message:any; 
-  RoleList=[];
   SubfunctionList:any;
   FunctionList:any;
   ModuleselectFilter:any;
@@ -59,7 +65,7 @@ export class RoleComponent implements OnInit {
   selectedSubFunction:any;
   RoleId:any;
   array:[];
-  radioSelected?:boolean;
+ // roleSelected?:boolean;
   userCategory:any;
   
   constructor(private routerObj: Router,private RoleServices: RoleService,private route: ActivatedRoute,public dialog: MatDialog) { 
@@ -127,6 +133,15 @@ export class RoleComponent implements OnInit {
             this.routerObj.navigate(["/login"]);           
           }
           else {                     
+          
+            response['Data'].forEach(item => {
+                        
+                if(item['RoleId'] == 1)
+                {
+                  item.roleSelected = "1";
+                }
+                            
+            });          
             this.RoleList = response['Data']; 
           }
         } else {
@@ -141,6 +156,7 @@ export class RoleComponent implements OnInit {
     }
 
     viewList(roleId){
+      
       this.RoleServices.RoleModuleFunctionMappingList(roleId).subscribe(
         response => {
           if (response != "No data") {
@@ -186,6 +202,12 @@ export class RoleComponent implements OnInit {
         });
       }
 
+      openSnackBar() { 
+        var x = document.getElementById("snackbar")
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
+      }
+
       addRoleMapping(){
 
         var confirm = window.confirm('Do you want to add the role details?');
@@ -195,7 +217,8 @@ export class RoleComponent implements OnInit {
             const ModuleId= this.ModuleselectFilter.map(element => element.ModuleId);
             this.selectedModule = ModuleId.join(',');
           
-         
+            this.FunctionMergeList = '';
+
             this.FunctionList.forEach((item,i) => {            
               this.FunctionList[i]['functionGroupList'].forEach((list,j) => {
                 this.FunctionMergeList = this.FunctionMergeList || [];
@@ -207,6 +230,8 @@ export class RoleComponent implements OnInit {
             const FunctionId= this.FunctionselectFilter.map(element => element.FunctionId);
             this.selectedFunction = FunctionId.join(',');
             
+            this.SubFunctionMergeList = '';
+
             this.SubfunctionList.forEach((item,i) => {            
               this.SubfunctionList[i]['subfunctionGroupList'].forEach((list,j) => {
                 this.SubFunctionMergeList = this.SubFunctionMergeList || [];
@@ -224,31 +249,39 @@ export class RoleComponent implements OnInit {
         this.RoleServices.RoleModuleFunctionMapping(this.RoleId,this.selectedModule,this.selectedFunction,this.selectedSubFunction).subscribe(
           response => {
             if (response != "No data") {
-            
-              this.ModuleList = response['Data']['ModuleList'];
-              this.SubfunctionList = response['Data']['SubFunctionList']; 
-              var Functiongroups = response['Data']['FunctionList'].reduce(function(obj,item){
-                obj[item.ModuleName] = obj[item.ModuleName] || [];
-                obj[item.ModuleName].push({ ModuleId: item.ModuleId, FunctionId: item.FunctionId ,FunctionName: item.FunctionName, FunctionSelected:item.FunctionSelected});
-                return obj;
-              }, {});
-            
-             this.FunctionList = Object.keys(Functiongroups).map(function(key){
-                  return {moduleName: key, functionGroupList: Functiongroups[key]};
-              });
-  
+              let getMessage =  response['Message'].split(":");
+              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                this.message = getMessage['1'];
+                this.openSnackBar(); 
+              }
+              else {  
+                this.message = getMessage['1'];
+                this.openSnackBar(); 
+                this.ModuleList = response['Data']['ModuleList'];
+                this.SubfunctionList = response['Data']['SubFunctionList']; 
+                var Functiongroups = response['Data']['FunctionList'].reduce(function(obj,item){
+                  obj[item.ModuleName] = obj[item.ModuleName] || [];
+                  obj[item.ModuleName].push({ ModuleId: item.ModuleId, FunctionId: item.FunctionId ,FunctionName: item.FunctionName, FunctionSelected:item.FunctionSelected});
+                  return obj;
+                }, {});
+              
+                this.FunctionList = Object.keys(Functiongroups).map(function(key){
+                    return {moduleName: key, functionGroupList: Functiongroups[key]};
+                });
+    
+              
+                var SubFunctiongroups = response['Data']['SubFunctionList'].reduce(function(obj,item){
+                  obj[item.FunctionName] = obj[item.FunctionName] || [];
+                  obj[item.FunctionName].push({ FunctionId: item.FunctionId, SubFunctionId: item.SubFunctionId ,SubFunctionName: item.SubFunctionName, SubFunctionSelected:item.SubFunctionSelected});
+                  return obj;
+                }, {});
+              
+              this.SubfunctionList = Object.keys(SubFunctiongroups).map(function(key){
+                    return {SubFunctionName: key, subfunctionGroupList: SubFunctiongroups[key]};
+                });
              
-              var SubFunctiongroups = response['Data']['SubFunctionList'].reduce(function(obj,item){
-                obj[item.FunctionName] = obj[item.FunctionName] || [];
-                obj[item.FunctionName].push({ FunctionId: item.FunctionId, SubFunctionId: item.SubFunctionId ,SubFunctionName: item.SubFunctionName, SubFunctionSelected:item.SubFunctionSelected});
-                return obj;
-              }, {});
-            
-             this.SubfunctionList = Object.keys(SubFunctiongroups).map(function(key){
-                  return {SubFunctionName: key, subfunctionGroupList: SubFunctiongroups[key]};
-              });
-             
-            } else {
+            }
+          } else {
                 console.log("something is wrong with Service Execution");
             }
           });

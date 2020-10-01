@@ -9,11 +9,11 @@
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
                 <ul>
-                    <li class="textsize" ><i class="fa fa-users fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/clientreg','0']">Client</a></li>
-                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg','0']"><br>Vendor</a></li>
-                    <li class="textsize"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/user']">User</a></li>
-                    <li class="activeMenu textsize"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/role']">Role</a></li>
-                    <li class="textsize"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br><a [routerLink]="['/rule']">Rule</a></li>
+                    <li class="textsize" ><a [routerLink]="['/clientreg','0']"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
+                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><a [routerLink]="['/vendorreg','0']"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
+                    <li class="textsize"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                    <li class="activeMenu textsize"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                    <li class="textsize"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
                 </ul>          			
 			</mat-nav-list>
 		</mat-drawer>
@@ -25,7 +25,7 @@
             <h3 class="headerRole">Role <span style="margin-left: 80%;" ><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Role',0,'add')"></i></span></h3>
             <ul style="margin-left: 6%;">
                 <li *ngFor="let item of RoleList; index as i">
-                    <input type="radio" [(ngModel)]="radioSelected" name="role_name" value="{{item.RoleId}}" (change)="getRoleId(item.RoleId)"/>{{item.RoleId}}.{{item.RoleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Role',item.RoleId,item.RoleName)"></i>
+                    <input type="radio" [(ngModel)]="item.roleSelected" id="roleseleted{{i}}" name="role_name" value="{{item.RoleId}}" (change)="getRoleId(item.RoleId)" checked/>{{item.RoleId}}.{{item.RoleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Role',item.RoleId,item.RoleName)"></i>
                 </li>
             </ul>
             <p *ngIf="RoleList == null" style="margin-left: 12%;">No data Available</p>
@@ -68,8 +68,10 @@
         </div>
         <div style="float:left;margin-left: 30px;"><p><button mat-button (click)="addRoleMapping()">Save</button>
         
-            <button mat-button  (click)="onNoClick()">Cancel</button></p></div>        
+            <!--<button mat-button  (click)="onNoClick()">Cancel</button></p></div>   -->     
+        </p>
      </div>
+    </div>
     </mat-drawer-content>
 
 </mat-drawer-container>

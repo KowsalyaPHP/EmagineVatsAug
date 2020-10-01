@@ -22,6 +22,7 @@ export class ClientchildService {
     var C_ID = sessionStorage.getItem("uniqueSessionId");
     
     params.set('ClientName', FormObj.ClientName);
+    params.set('CLIENTLASTNAME', FormObj.clientLastName);
     params.set('RegdAddressL1', FormObj.RegdAddressL1);
     params.set('Area', FormObj.Area);
     params.set('City', FormObj.City);
@@ -33,10 +34,10 @@ export class ClientchildService {
     params.set('MainContactDesgn', FormObj.MainContactDesgn);
     params.set('MainContactNo', FormObj.MainContactNo);
     params.set('MainContactEmailId', FormObj.MainContactEmailId);
-    params.set('AltContact', FormObj.AltContact);
+   /* params.set('AltContact', FormObj.AltContact);
     params.set('AltContactDesgn', FormObj.AltContactDesgn);
     params.set('AltContactNo', FormObj.AltContactNo);
-    params.set('AltContactEmailId', FormObj.AltContactEmailId);
+    params.set('AltContactEmailId', FormObj.AltContactEmailId);*/
     params.set('ClientCategory', FormObj.ClientCategory);
     params.set('ClientType', FormObj.ClientType);
     params.set('AccountManager', FormObj.AccountManager);
@@ -108,6 +109,7 @@ export class ClientchildService {
     var M_ID = sessionStorage.getItem("uniqueSessionId");
 
     params.set('ClientID', ClientId);    
+    params.set('CLIENTLASTNAME', FormObj.clientLastName);
     params.set('RegdAddressL1', FormObj.RegdAddressL1);
     params.set('Area', FormObj.Area);
     params.set('City', FormObj.City);
@@ -119,10 +121,10 @@ export class ClientchildService {
     params.set('MainContactDesgn', FormObj.MainContactDesgn);
     params.set('MainContactNo', FormObj.MainContactNo);
     params.set('MainContactEmailId', FormObj.MainContactEmailId);
-    params.set('AltContact', FormObj.AltContact);
+    /*params.set('AltContact', FormObj.AltContact);
     params.set('AltContactDesgn', FormObj.AltContactDesgn);
     params.set('AltContactNo', FormObj.AltContactNo);
-    params.set('AltContactEmailId', FormObj.AltContactEmailId);
+    params.set('AltContactEmailId', FormObj.AltContactEmailId);*/
     params.set('clientstatus', FormObj.clientstatus);
     params.set('ClientCategory', FormObj.ClientCategory);
     params.set('ClientType', FormObj.ClientType);   

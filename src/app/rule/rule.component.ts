@@ -62,8 +62,8 @@ export class RuleComponent implements OnInit {
             this.openSnackBar(); 
           }          
           else{
-            this.message = getMessage['1'];
-            this.openSnackBar();
+            /*this.message = getMessage['1'];
+            this.openSnackBar();*/
             if(typeof(this.clientSingleList) != 'undefined' || this.clientSingleList != null){
               //this.disable=true;
               response['Data'].forEach(item => {
