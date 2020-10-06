@@ -3,6 +3,7 @@ import { MaterialModule } from './material/material.module';
 import { Router,ActivatedRoute, NavigationStart, NavigationEnd, Event as NavigationEvent ,NavigationCancel, NavigationError} from '@angular/router';
 import { RequisitionaddComponent } from './requisitionadd/requisitionadd.component';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,10 +12,12 @@ import { RequisitionaddComponent } from './requisitionadd/requisitionadd.compone
 export class AppComponent {
   title = 'vats';
   userName='';
- // public static urlPath = "http://bincrm.com/vatsdev/";
- public static urlPath = "http://9fc479ad029e.ngrok.io/";
+  public static urlPath = "http://bincrm.com/vatsdev/";
+  //public static urlPath = "http://ca1025ab5f40.ngrok.io/";
   
-  
+  /*constructor(private router: Router,private route: ActivatedRoute) {
+   // this.getAccessableClientList();
+  }*/
   /*show_menu: any = 'false';
   ReqID:any;
   reqStatus:any;
@@ -39,6 +42,7 @@ export class AppComponent {
     });
 
   }*/
+  
 
   isLoggedIn(){
     var sessionId = sessionStorage.getItem("uniqueSessionId");

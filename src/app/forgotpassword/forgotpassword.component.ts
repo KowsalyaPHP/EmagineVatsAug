@@ -80,8 +80,12 @@ export class ForgotpasswordComponent implements OnInit {
           else {               
             this.message = getMessage['1'];
             this.openSnackBar();      
-            $("#Forgotloader").css("display", "none");       
-            this.routerObj.navigate(["/"]);
+            //$("#Forgotloader").css("display", "none"); 
+            //this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
+            setTimeout(() => {
+              this.routerObj.navigate(["/"]);
+            } 
+              , 3000);  
           }
         } else {
             console.log("something is wrong with Service Execution");

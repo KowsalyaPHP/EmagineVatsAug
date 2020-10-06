@@ -38,7 +38,7 @@ export class ReqDashboardComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.status = params['status']; 
     });
-
+    this.getAccessableClientList();
     this.getReqLists(this.status); 
 
     /*setTimeout(function () {       
@@ -61,6 +61,19 @@ export class ReqDashboardComponent implements OnInit {
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
   }
 
+  getAccessableClientList() {
+    this.SharedServices.getAccessableClientList().subscribe(
+      response => {
+        if (response != '') {            
+          sessionStorage.setItem("ClientList", response["ClientList"]);
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  } 
   
 
   ngOnInit() {

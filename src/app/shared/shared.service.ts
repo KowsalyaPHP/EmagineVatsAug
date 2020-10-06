@@ -170,6 +170,24 @@ export class SharedService {
       });
   }
 
+
+  public getAccessableClientList(): Observable<any> {
+
+    const url = this.urlPath + 'ClientListByUserID';
+    const params = new URLSearchParams();
+   // var ClientList = sessionStorage.getItem("ClientList");
+    var userId = sessionStorage.getItem("uniqueSessionId");
+    params.set('UserId', userId);    
+    
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
   public getAccountManager(): Observable<any> {
 
     const url = this.urlPath + 'lkup';

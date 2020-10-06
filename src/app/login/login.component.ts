@@ -125,6 +125,7 @@ forgotPasswordFormSubmit(formObj) {
             this.openSnackBar(); 
             this.resetErrorForm();
             $("#loader").css("display", "none");
+            this.routerObj.navigate(["/ForgotPassword/",formObj.password]);
           }         
           else {                     
             $("#loader").css("display", "none");
@@ -136,7 +137,7 @@ forgotPasswordFormSubmit(formObj) {
             sessionStorage.setItem("Refname", response['Data']["Userdetail"][0]["REFNAME"]);
             sessionStorage.setItem("USERMOBILENO", response['Data']["Userdetail"][0]["USERMOBILENO"]);
             sessionStorage.setItem("USERCATEGORY", response['Data']["Userdetail"][0]["USERCATEGORY"]);
-            sessionStorage.setItem("ClientList", response['Data']["Userdetail"][0]["ClientList"]);
+           // sessionStorage.setItem("ClientList", response['Data']["Userdetail"][0]["ClientList"]);
             sessionStorage.setItem("FunctionList", response['Data']["Userdetail"][0]["FList"]);
             
            // sessionStorage.setItem("userID", formObj.username);

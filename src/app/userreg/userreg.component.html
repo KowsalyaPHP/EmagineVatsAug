@@ -29,7 +29,7 @@
    
     <table style="width:100%">
         <tr> 
-            <td *ngIf="userCategory == 'E'">
+            <!--<td *ngIf="userCategory == 'E'">
                 <mat-form-field>
                     <select placeholder="User Category" matNativeControl maxlength="40" class="form-control" id="usercategory" name="usercategory" formControlName="usercategory" (change)="userType($event.target.value)">
                         <option value="E">Emagine</option>                  
@@ -51,22 +51,6 @@
                     </mat-error>
                 </mat-form-field>        
             </td> 
-            <td *ngIf="userCategory == 'C' || userCategory == 'V'">
-                <mat-form-field>
-                    <input type="text" id="usercategory" matInput placeholder="User Category"  maxlength="80" formControlName="usercategory" class="form-control"/>
-                </mat-form-field>
-                <!--<p>{{userCategoryName}}</p>  -->        
-            </td> 
-            <td *ngIf="userCategory == 'C'"> 
-                <mat-form-field>
-                    <input type="text" id="clientName" matInput placeholder="Client Name"  maxlength="80" formControlName="clientName" class="form-control"/>
-                </mat-form-field>
-            </td> 
-            <td *ngIf="userCategory == 'V'"> 
-                <mat-form-field>
-                 <input type="text" id="vendorName" matInput placeholder="Vendor Name"  maxlength="80" formControlName="vendorName" class="form-control"/>
-                </mat-form-field> 
-            </td> 
             <td style="display:none;" id="vendorlist" *ngIf="userCategory == 'E'">
                 <mat-form-field>
                     <select matNativeControl maxlength="40" placeholder="Vendor Name" formControlName="vendorName"> 
@@ -76,7 +60,24 @@
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('vendorName').hasError(validation.type) && (addUserForm.get('vendorName').dirty || addUserForm.get('vendorName').touched)">{{validation.message}}</mat-error>
                     </mat-error>
                 </mat-form-field>        
+            </td> -->
+            <td>
+                <mat-form-field>
+                    <input type="text" id="usercategory" matInput placeholder="User Category" readonly maxlength="80" formControlName="usercategory" class="form-control"/>
+                </mat-form-field>
+                <!--<p>{{userCategoryName}}</p>  -->        
             </td> 
+            <td *ngIf="userCategory == 'C'"> 
+                <mat-form-field>
+                    <input type="text" id="clientName" matInput placeholder="Client Name"  maxlength="80" formControlName="clientName" class="form-control" readonly/>
+                </mat-form-field>
+            </td> 
+            <td *ngIf="userCategory == 'V'"> 
+                <mat-form-field>
+                 <input type="text" id="vendorName" matInput placeholder="Vendor Name"  maxlength="80" formControlName="vendorName" class="form-control" readonly/>
+                </mat-form-field> 
+            </td> 
+            
             <td>
                 <mat-form-field>
                     <select placeholder="Prefix" matNativeControl maxlength="40" class="form-control" id="UserMrMs" name="UserMrMs" formControlName="UserMrMs">                  

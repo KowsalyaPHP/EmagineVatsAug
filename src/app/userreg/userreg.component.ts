@@ -77,6 +77,12 @@ export class UserregComponent implements OnInit {
       }); 
       $("#vendorName").prop('readonly', true);
     }
+    else{
+      this.userCategoryName = 'Emagine';
+      this.addUserForm.patchValue({           
+        usercategory:this.userCategoryName
+      }); 
+    }
 
     if (this.sessionTypeName && this.id != 0){           
       this.viewSingleUser(this.id);

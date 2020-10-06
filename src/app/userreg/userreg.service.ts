@@ -23,7 +23,7 @@ export class UserregService {
     var usercategory =  sessionStorage.getItem("USERCATEGORY");
     var C_ID = sessionStorage.getItem("uniqueSessionId");
 
-    if(usercategory == 'E'){
+   /* if(usercategory == 'E'){
       if(FormObj['clientName'] != '' && FormObj['usercategory'] == 'C'){
         this.RefId = FormObj['clientName'];
       }
@@ -37,7 +37,10 @@ export class UserregService {
     else{
       this.RefId = sessionStorage.getItem("RefId");
       FormObj.usercategory = sessionStorage.getItem("USERCATEGORY");
-    }
+    }*/
+
+    this.RefId = sessionStorage.getItem("RefId");
+    FormObj.usercategory = sessionStorage.getItem("USERCATEGORY");
     
 
     params.set('usercategory', FormObj.usercategory);
@@ -125,4 +128,21 @@ export class UserregService {
             return '';
         });
   }
+  public getRuleListbyId(id): Observable<any> {
+   
+    const url = AppComponent.urlPath + 'RuleList';
+   // const url ='http://461e06b1db5d.ngrok.io/RuleList';
+    const params = new URLSearchParams(); 
+   
+    params.set('EntityId', id);
+          
+    return this.http.post(url, params)
+        .map(response => response.json()).map(data => {
+          if (data != '')
+            return data;
+          else
+            return '';
+        });
+  }
+
 }
