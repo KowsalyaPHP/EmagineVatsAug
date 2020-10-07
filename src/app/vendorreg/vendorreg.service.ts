@@ -112,6 +112,7 @@ constructor(private http: Http) { }
 
     params.set('VendorID', VendorId);    
     params.set('RegdAddressL1', FormObj.RegdAddressL1);
+    params.set('VendorLastName', FormObj.VendorLastName);
     params.set('Area', FormObj.Area);
     params.set('City', FormObj.City);
     params.set('PINCODE', FormObj.PINCODE);

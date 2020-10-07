@@ -43,6 +43,7 @@ export class UserregComponent implements OnInit {
       usercategory: ['', [Validators.required]],      
       UserMrMs: '',
       UserName: ['', [Validators.required]],
+      UserLastName:['', [Validators.required]],
       UserRemarks:'',
       UserEmail: ['', [Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],
       UserContactNo:  ['', [Validators.required,Validators.pattern("[0-9]\\d{9}")]],
@@ -145,13 +146,14 @@ export class UserregComponent implements OnInit {
               }
 
               if( this.userSingle['Data'][0]['USERCATEGORY'] == 'E'){
-                this.categoryName = this.userSingle['Data'][0]['USERCATEGORY'];                
+                this.categoryName = 'Emagine';                
               }
 
               this.addUserForm.patchValue({           
                 usercategory: this.categoryName,
                 UserMrMs:this.userSingle['Data'][0]['USERMRMS'],
                 UserName:this.userSingle['Data'][0]['USERNAME'],
+                UserLastName:this.userSingle['Data'][0]['USERLastNAME'],
                 UserRemarks:this.userSingle['Data'][0]['Remarks'],
                 UserEmail:this.userSingle['Data'][0]['USEREMAIL'],
                 UserContactNo:this.userSingle['Data'][0]['USERCONTACTNO'],
@@ -342,6 +344,9 @@ export class UserregComponent implements OnInit {
     ],
     'vendorName': [
       { type: 'required', message: 'Please select vendor name' }      
+    ],
+    'UserLastName': [
+      { type: 'required', message: 'Please enter last name' }      
     ]
   }
 }

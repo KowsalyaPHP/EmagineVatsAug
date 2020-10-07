@@ -37,20 +37,13 @@
     <tr> 
         <td>
             <mat-form-field>
-                <input maxlength="80" required matInput placeholder="First Name" formControlName="VendorName" class="form-control"/>               
+                <input maxlength="80" required matInput placeholder="Vendor Name" id="VendorName" formControlName="VendorName" class="form-control"/>               
                 <mat-error *ngFor="let validation of validation_messages.VendorName">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorName').hasError(validation.type) && (addVendorForm.get('VendorName').dirty || addVendorForm.get('VendorName').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </mat-form-field>        
         </td>  
-        <td>
-            <mat-form-field>
-                <input maxlength="80" required matInput placeholder="Last Name" formControlName="VendorLastName" class="form-control"/>               
-                <mat-error *ngFor="let validation of validation_messages.VendorLastName">
-                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorLastName').hasError(validation.type) && (addVendorForm.get('VendorLastName').dirty || addVendorForm.get('VendorLastName').touched)">{{validation.message}}</mat-error>
-                </mat-error>
-            </mat-form-field>        
-        </td>     
+        
         <td>     
             <mat-form-field class="example-full-width">  
                 <input maxlength="80" matInput placeholder="Door No,Street" formControlName="RegdAddressL1" class="form-control"/>
@@ -67,9 +60,6 @@
                 </mat-error>-->
             </mat-form-field>
         </td>
-        
-    </tr>
-    <tr>
         <td>            
             <mat-form-field>
                 <select matNativeControl maxlength="40" placeholder="City" formControlName="City"> 
@@ -79,7 +69,9 @@
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('City').hasError(validation.type) && (addVendorForm.get('City').dirty || addVendorForm.get('City').touched)">{{validation.message}}</mat-error>
                 </mat-error>-->
             </mat-form-field>
-        </td>                
+        </td>         
+    </tr>
+    <tr>               
         <td>            
             <mat-form-field>
                 <input maxlength="6" matInput placeholder="PINCODE" formControlName="PINCODE" class="form-control"/>
@@ -103,9 +95,7 @@
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorPhoneNo').hasError(validation.type) && (addVendorForm.get('VendorPhoneNo').dirty || addVendorForm.get('VendorPhoneNo').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </mat-form-field>
-        </td>     
-    </tr>
-    <tr>     
+        </td> 
         <td>            
             <mat-form-field>
                 <input maxlength="40" matInput required placeholder="Email Id" formControlName="VendorEMAILID" class="form-control"/>
@@ -113,7 +103,9 @@
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorEMAILID').hasError(validation.type) && (addVendorForm.get('VendorEMAILID').dirty || addVendorForm.get('VendorEMAILID').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </mat-form-field>
-        </td>       
+        </td>      
+    </tr>
+    <tr>   
         <td>            
             <mat-form-field>
                 <input maxlength="80" matInput placeholder="GST Number" formControlName="VendorGSTNo" class="form-control"/>
@@ -133,11 +125,19 @@
     <tr>
         <td>            
             <mat-form-field>
-                <input maxlength="40" matInput placeholder="Name" formControlName="MainContact" class="form-control"/>
+                <input maxlength="40" matInput placeholder="First Name" formControlName="MainContact" class="form-control"/>
                 <!--<mat-error *ngFor="let validation of validation_messages.MainContact">
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('MainContact').hasError(validation.type) && (addVendorForm.get('MainContact').dirty || addVendorForm.get('MainContact').touched)">{{validation.message}}</mat-error>
                 </mat-error>-->
             </mat-form-field>
+        </td>     
+        <td>
+            <mat-form-field>
+                <input maxlength="80" matInput placeholder="Last Name" formControlName="VendorLastName" class="form-control"/>               
+                <!--<mat-error *ngFor="let validation of validation_messages.VendorLastName">
+                    <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('VendorLastName').hasError(validation.type) && (addVendorForm.get('VendorLastName').dirty || addVendorForm.get('VendorLastName').touched)">{{validation.message}}</mat-error>
+                </mat-error>-->
+            </mat-form-field>        
         </td>                
         <td>            
             <mat-form-field>
@@ -152,6 +152,9 @@
                 </mat-error>
             </mat-form-field>
         </td>      
+            
+    </tr>
+    <tr>
         <td>            
             <mat-form-field>
                 <input maxlength="40" matInput placeholder="Email Id" formControlName="MainContactEmailId" class="form-control"/>
@@ -159,7 +162,7 @@
                     <mat-error class="error-message" *ngIf="addVendorForm.invalid || addVendorForm.get('MainContactEmailId').hasError(validation.type) && (addVendorForm.get('MainContactEmailId').dirty || addVendorForm.get('MainContactEmailId').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </mat-form-field>
-        </td>      
+        </td>  
     </tr>
     <!--<tr>
         <td>            

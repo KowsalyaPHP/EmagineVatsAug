@@ -37,7 +37,7 @@ export class VendorregComponent implements OnInit {
 
     this.addVendorForm = this.formBuilderObj.group({     
       VendorName: ['', [Validators.required]], 
-      VendorLastName: ['', [Validators.required]],     
+      VendorLastName: '',     
       RegdAddressL1: '',
       Area: '',
       City:'',
@@ -177,10 +177,10 @@ export class VendorregComponent implements OnInit {
             else {                     
               this.vendorSingle = response;   
               this.vendorname =  this.vendorSingle['Data'][0]['VendorName'];
-
+              $("#VendorName").prop('readonly', true);
               this.addVendorForm.patchValue({
                 VendorName: this.vendorSingle['Data'][0]['VendorName'],
-                VendorLastName:this.vendorSingle['Data'][0]['VendorName'],
+                VendorLastName:this.vendorSingle['Data'][0]['VendorLastName'],
                 RegdAddressL1:this.vendorSingle['Data'][0]['RegdAddressL1'],
                 Area:this.vendorSingle['Data'][0]['Area'],
                 City:this.vendorSingle['Data'][0]['CityCode'],
@@ -257,7 +257,7 @@ export class VendorregComponent implements OnInit {
                 this.openSnackBar();
                 this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
                 setTimeout(() => {
-                  this.routerObj.navigate(['vendorreg/'+response['Data']]);
+                  this.routerObj.navigate(['vendorreg/'+this.id]);
                 }
                 , 4000);
                // this.routerObj.navigate(['vendorreg/0']);

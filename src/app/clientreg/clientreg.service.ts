@@ -22,7 +22,7 @@ export class ClientregService {
     var C_ID = sessionStorage.getItem("uniqueSessionId");
     
     params.set('ClientName', FormObj.ClientName);
-    params.set('CLIENTLASTNAME', FormObj.clientLastName);
+    params.set('ClientLastName', FormObj.clientLastName);
     params.set('RegdAddressL1', FormObj.RegdAddressL1);
     params.set('Area', FormObj.Area);
     params.set('City', FormObj.City);
@@ -110,6 +110,7 @@ export class ClientregService {
 
     params.set('ClientID', ClientId);    
     params.set('RegdAddressL1', FormObj.RegdAddressL1);
+    params.set('ClientLastName', FormObj.clientLastName);
     params.set('Area', FormObj.Area);
     params.set('City', FormObj.City);
     params.set('PINCODE', FormObj.PINCODE);

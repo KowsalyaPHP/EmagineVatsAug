@@ -47,6 +47,7 @@ export class UserregService {
     params.set('RefId', this.RefId);
     params.set('UserMrMs', FormObj.UserMrMs);
     params.set('UserName', FormObj.UserName);
+    params.set('UserLastName', FormObj.UserLastName);    
     params.set('UserRemarks', FormObj.UserRemarks);
     params.set('UserEmail', FormObj.UserEmail);
     params.set('UserContactNo', FormObj.UserContactNo);
@@ -76,6 +77,7 @@ export class UserregService {
     params.set('USERDATARULE', FormObj.userRule);
     params.set('USERMRMS', FormObj.UserMrMs);
     params.set('UserName', FormObj.UserName);
+    params.set('UserLastName', FormObj.UserLastName);  
     params.set('STATUS', FormObj.UserStatus);
     params.set('UserRemarks', FormObj.UserRemarks);
     params.set('UserEmail', FormObj.UserEmail);

@@ -9,7 +9,7 @@ import { AppComponent } from '../app.component'
   providedIn: 'root'
 })
 export class RoleService {
-
+  roleID:any;
   constructor(private http: Http) { }
 
   public getRoleList(): Observable<any> {
@@ -31,7 +31,9 @@ export class RoleService {
     const url = AppComponent.urlPath + 'RoleModuleFunctionMappingList';
     //const url ='http://72758291b1ee.ngrok.io/FunctionList';
     const params = new URLSearchParams();
-    params.set('RoleId', roleId);
+
+  
+    params.set('RoleId',roleId);
     
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
@@ -48,8 +50,14 @@ export class RoleService {
     //const url ='http://af57f880a4b4.ngrok.io/RoleModuleFunctionMapping';
 
     const formData = new FormData(); 
-   
-    formData.append('RoleId', RoleId);
+    
+    if(typeof(RoleId) == 'undefined'){
+      this.roleID = 1;
+    }
+    else{
+      this.roleID  = RoleId;
+    }
+    formData.append('RoleId', this.roleID);
     formData.append('Moduleid', Moduleid);
     formData.append('Functionid',Functionid);
     formData.append('SubFunctionid', SubFunctionid);

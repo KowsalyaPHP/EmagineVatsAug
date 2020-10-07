@@ -88,7 +88,7 @@
             </td> 
             <td>
                 <mat-form-field>
-                    <input placeholder="Name" type="text" id="UserName"  maxlength="80" formControlName="UserName" class="form-control"  required matInput/>  
+                    <input placeholder="First Name" type="text" id="UserName"  maxlength="80" formControlName="UserName" class="form-control"  required matInput/>  
                     <mat-error *ngFor="let validation of validation_messages.UserName">
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('UserName').hasError(validation.type) && (addUserForm.get('UserName').dirty || addUserForm.get('UserName').touched)">{{validation.message}}</mat-error>
                     </mat-error>
@@ -96,9 +96,12 @@
             </td> 
             <td>
                 <mat-form-field>
-                    <input type="text" id="UserRemarks" matInput placeholder="Remarks"  maxlength="80" formControlName="UserRemarks" class="form-control"/>
+                    <input placeholder="Last Name" type="text" id="UserLastName"  maxlength="80" formControlName="UserLastName" class="form-control"  required matInput/>  
+                    <mat-error *ngFor="let validation of validation_messages.UserLastName">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('UserLastName').hasError(validation.type) && (addUserForm.get('UserLastName').dirty || addUserForm.get('UserLastName').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
                 </mat-form-field>        
-            </td>            
+            </td>                       
         </tr>
         <tr>
             <td>
@@ -139,6 +142,11 @@
             </td> 
         </tr>
         <tr>
+            <td>
+                <mat-form-field>
+                    <input type="text" id="UserRemarks" matInput placeholder="Remarks"  maxlength="80" formControlName="UserRemarks" class="form-control"/>
+                </mat-form-field>        
+            </td>  
             <td *ngIf="id != 0;"> 
                 <mat-form-field>
                     <select matNativeControl required maxlength="40" placeholder="User Status" formControlName="UserStatus"> 

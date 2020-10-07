@@ -38,8 +38,15 @@ export class ReqDashboardComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.status = params['status']; 
     });
+
+    
     this.getAccessableClientList();
-    this.getReqLists(this.status); 
+
+    setTimeout(() => {
+      this.getReqLists(this.status);
+      }
+      , 1000);
+     
 
     /*setTimeout(function () {       
       $(function () {

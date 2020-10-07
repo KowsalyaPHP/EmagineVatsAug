@@ -48,7 +48,7 @@ export class ClientchildComponent implements OnInit {
 
     this.addClientForm = this.formBuilderObj.group({
       ClientName: ['', [Validators.required]],
-      clientLastName: ['', [Validators.required]],
+      clientLastName: '',
       RegdAddressL1: '',
       Area: '',
       City:'',
@@ -135,7 +135,7 @@ export class ClientchildComponent implements OnInit {
               this.clientname = this.clientSingle['Data'][0]['ClientName'];
                
               $("#ClientName").prop('readonly', true);
-              $("#clientLastName").prop('readonly', true);
+              //$("#clientLastName").prop('readonly', true);
               this.addClientForm.patchValue({
                 ClientName: this.clientSingle['Data'][0]['ClientName'],
                 clientLastName:this.clientSingle['Data'][0]['ClientLastName'],

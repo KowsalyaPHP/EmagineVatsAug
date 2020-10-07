@@ -33,7 +33,7 @@
         <div class="clientList">
             <h3 style="margin-left: 10px;">Client List</h3>
                 <ul>
-                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.ClientId}}" [(ngModel)]="item.checked" value="{{item.ClientId}}" />{{item.ClientName}}</li>                    
+                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" disabled [ngModelOptions]="{standalone: true}" name="clientList{{item.ClientId}}" [(ngModel)]="item.checked" value="{{item.ClientId}}" />{{item.ClientName}}</li>                    
                 </ul>
                 <p *ngIf="ClientList == null" style="margin-left: 1.5%;">No data Available</p>
         </div>
