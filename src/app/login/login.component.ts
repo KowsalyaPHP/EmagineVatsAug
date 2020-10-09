@@ -125,7 +125,9 @@ forgotPasswordFormSubmit(formObj) {
             this.openSnackBar(); 
             this.resetErrorForm();
             $("#loader").css("display", "none");
-            this.routerObj.navigate(["/ForgotPassword/",formObj.password]);
+            if(response['Data'] == -1){
+              this.routerObj.navigate(["/ForgotPassword/",formObj.password]);
+            }
           }         
           else {                     
             $("#loader").css("display", "none");

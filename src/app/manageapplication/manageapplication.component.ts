@@ -579,7 +579,7 @@ export class ManageapplicationComponent implements OnInit {
 
 
   getStageValuesOnChange(stage){   
-    
+    console.log(stage);
     $("#loader").show();
   
     this.route.params.subscribe(params => {
