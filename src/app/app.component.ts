@@ -12,8 +12,8 @@ import { RequisitionaddComponent } from './requisitionadd/requisitionadd.compone
 export class AppComponent {
   title = 'vats';
   userName='';
-  public static urlPath = "http://bincrm.com/vatsdev/";
- // public static urlPath = "http://ae2ccec3f83f.ngrok.io/";
+ public static urlPath = "http://bincrm.com/vatsdev/";
+//  public static urlPath = "http://54e81f3056e0.ngrok.io/";
   
   /*constructor(private router: Router,private route: ActivatedRoute) {
    // this.getAccessableClientList();

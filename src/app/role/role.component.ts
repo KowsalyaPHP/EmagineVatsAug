@@ -78,6 +78,11 @@ export class RoleComponent implements OnInit {
   ngOnInit() {
   }
 
+  cancelCall(){
+    this.viewRoleList();  
+    this.viewList(1);
+  }
+
   opendialogaddrole(type,id,name) {
   
     const dialogRef = this.dialog.open(RoleaddComponent, {
@@ -155,26 +160,56 @@ export class RoleComponent implements OnInit {
       this.viewList(roleId);
     }
 
+    selectAll(moduleId,SelectedorNot){
+      console.log(SelectedorNot)
+      console.log(moduleId);
+      if(SelectedorNot == true){
+        for (let i = 0; i < this.FunctionList.length; i++) {                
+            for(let j=0; j< this.FunctionList[i]['functionGroupList'].length;j++){
+              if(this.FunctionList[i]['functionGroupList'][j]['ModuleId'] == moduleId){
+                this.FunctionList[i]['functionGroupList'][j]['FunctionSelected'] = true;
+              }
+            }       
+        }
+      }
+      else{
+        for (let i = 0; i < this.FunctionList.length; i++) {                
+          for(let j=0; j< this.FunctionList[i]['functionGroupList'].length;j++){
+            if(this.FunctionList[i]['functionGroupList'][j]['ModuleId'] == moduleId){
+              this.FunctionList[i]['functionGroupList'][j]['FunctionSelected'] = false;
+            }
+          }       
+        }
+      }
+      if(SelectedorNot == true){
+        for (let i = 0; i < this.SubfunctionList.length; i++) {                
+          for(let j=0; j< this.SubfunctionList[i]['subfunctionGroupList'].length;j++){
+            if(this.SubfunctionList[i]['subfunctionGroupList'][j]['ModuleId'] == moduleId){
+              this.SubfunctionList[i]['subfunctionGroupList'][j]['SubFunctionSelected'] = true;
+            }
+          }       
+        }
+      }
+      else{
+        for (let i = 0; i < this.SubfunctionList.length; i++) {                
+          for(let j=0; j< this.SubfunctionList[i]['subfunctionGroupList'].length;j++){
+            if(this.SubfunctionList[i]['subfunctionGroupList'][j]['ModuleId'] == moduleId){
+              this.SubfunctionList[i]['subfunctionGroupList'][j]['SubFunctionSelected'] = false;
+            }
+          }       
+        }
+      }
+    }
+
     viewList(roleId){
-      
+    
       this.RoleServices.RoleModuleFunctionMappingList(roleId).subscribe(
         response => {
           if (response != "No data") {
-                               
-              //this.FunctionList = response['Data']['FunctionList']; 
-            
+         
               this.ModuleList = response['Data']['ModuleList'];
              // this.SubfunctionList = response['Data']['SubFunctionList']; 
-              
-           /*  var FunctionGroupList = [];
-           
-             response['Data']['FunctionList'].forEach(function (a) {
-              FunctionGroupList [a.ModuleName] = FunctionGroupList [a.ModuleName] || [];
-              FunctionGroupList [a.ModuleName].push({ ModuleId: a.ModuleId, FunctionId: a.FunctionId ,FunctionName: a.FunctionName, FunctionSelected:a.FunctionSelected});
-             });
-            // this.FunctionList = FunctionGroupList; 
-             console.log(FunctionGroupList);*/
-
+          
             var Functiongroups = response['Data']['FunctionList'].reduce(function(obj,item){
               obj[item.ModuleName] = obj[item.ModuleName] || [];
               obj[item.ModuleName].push({ ModuleId: item.ModuleId, FunctionId: item.FunctionId ,FunctionName: item.FunctionName, FunctionSelected:item.FunctionSelected});
@@ -182,20 +217,19 @@ export class RoleComponent implements OnInit {
             }, {});
           
            this.FunctionList = Object.keys(Functiongroups).map(function(key){
-                return {moduleName: key, functionGroupList: Functiongroups[key]};
+                return {moduleName: key, moduleid:Functiongroups[key][0]['ModuleId'], functionGroupList: Functiongroups[key]};
             });
-          
-           
+         
             var SubFunctiongroups = response['Data']['SubFunctionList'].reduce(function(obj,item){
               obj[item.FunctionName] = obj[item.FunctionName] || [];
-              obj[item.FunctionName].push({ FunctionId: item.FunctionId, SubFunctionId: item.SubFunctionId ,SubFunctionName: item.SubFunctionName, SubFunctionSelected:item.SubFunctionSelected});
+              obj[item.FunctionName].push({ ModuleId: item.ModuleId,FunctionId: item.FunctionId, SubFunctionId: item.SubFunctionId ,SubFunctionName: item.SubFunctionName, SubFunctionSelected:item.SubFunctionSelected});
               return obj;
             }, {});
           
            this.SubfunctionList = Object.keys(SubFunctiongroups).map(function(key){
-                return {SubFunctionName: key, subfunctionGroupList: SubFunctiongroups[key]};
+                return {SubFunctionName: key, functionid:SubFunctiongroups[key][0]['FunctionId'], subfunctionGroupList: SubFunctiongroups[key]};
             });
-           
+            
           } else {
               console.log("something is wrong with Service Execution");
           }

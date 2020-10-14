@@ -11,6 +11,25 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { OfferService } from './offer.service';
 import { DatePipe } from '@angular/common';
 
+export function salaryValidator(SalaryOffered: string, BillableCTC: string) {
+  return (formGroup: FormGroup) => {
+      const salaryOfferedControl = formGroup.controls[SalaryOffered];
+      const billablectcControl = formGroup.controls[BillableCTC];
+
+      if (billablectcControl.errors && !billablectcControl.errors.ConfirmedValidator) {
+          // return if another validator has already found an error on the matchingControl
+          return;
+      }
+
+      // set error on matchingControl if validation fails
+      if (salaryOfferedControl.value <= billablectcControl.value) {
+        billablectcControl.setErrors({ salaryValidator: true });
+      } else {
+        billablectcControl.setErrors(null);
+      }
+  }
+}
+
 @Component({
   selector: 'app-offer',
   templateUrl: './offer.component.html',
@@ -40,6 +59,8 @@ export class OfferComponent implements OnInit {
       AgencyFee_Mode:['flatrate'],
      // variable: ['', [Validators.required,Validators.max(100), Validators.min(0)]]
       AgencyFees_percent: ''
+    }, { 
+      validator: salaryValidator('SalaryOffered', 'BillableCTC')
     });    
 
     
@@ -179,7 +200,7 @@ export class OfferComponent implements OnInit {
       { type: 'required', message: 'Please enter salary offer' }
     ],
     'BillableCTC': [
-      { type: 'required', message: 'Please enter billablectc' }
+      { type: 'required', message: 'Please enter correct billablectc' }
     ],
     'AgencyFees': [
       { type: 'required', message: 'Please enter agency fees' }

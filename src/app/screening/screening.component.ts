@@ -41,7 +41,7 @@ export class ScreeningComponent implements OnInit {
       PrSalTotal:['', [Validators.max(999999999), Validators.min(0)]],
       ExpSalCurrency:['INR', [Validators.required]],
       ExpSalary:['', [Validators.max(999999999), Validators.min(0)]],
-      ExpHike:['', [Validators.max(99.9), Validators.min(0)]],
+      ExpHike:['', [Validators.max(300), Validators.min(0)]],
       PresentLocation:'',
       PrefLocation:'',
       SalaryComment:'',

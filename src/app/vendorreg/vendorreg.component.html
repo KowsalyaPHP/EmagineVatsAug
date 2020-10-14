@@ -229,7 +229,7 @@
         </td>  
         <td>            
             <mat-form-field>
-                <select matNativeControl maxlength="80" placeholder="Vendor Type" formControlName="VendorType"> 
+                <select matNativeControl maxlength="80" placeholder="Vendor Type" formControlName="VendorType" (change)="vendorType($event.target.value)"> 
                     <option *ngFor="let item of LookupType" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>
                 <!--<mat-error *ngFor="let validation of validation_messages.VendorType">
@@ -285,10 +285,11 @@
         </td> 
         <td>            
             <mat-form-field>
-                <select matNativeControl placeholder="AdminRightsYorN" class="form-control" id="AdminRightsYorN" name="AdminRightsYorN" formControlName="AdminRightsYorN" >
+                <input maxlength="4" matInput id="adminRight" readonly placeholder="AdminRightsYorN" formControlName="AdminRightsYorN" class="form-control"/>
+                <!--<select matNativeControl placeholder="AdminRightsYorN" class="form-control" id="AdminRightsYorN" name="AdminRightsYorN" formControlName="AdminRightsYorN" >
                     <option value='Y' selected>Y</option>
                     <option  value="N">N</option>
-                </select>
+                </select>-->
             </mat-form-field>
         </td> 
         <td *ngIf="id != 0">            
@@ -305,6 +306,7 @@
     <tr>
         <td> 
             <button *ngIf="id != 0; else add" type="submit" mat-button cdkFocusInitial>Update Vendor</button>&nbsp;&nbsp;
+            <a *ngIf="id != 0" [routerLink]="['/vendorreg/0']" (click)="goToMainmenu()" style="margin-left:15px;"><button mat-button>Go to Main Menu</button></a>
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Vendor</button>&nbsp;&nbsp;
                 </ng-template>

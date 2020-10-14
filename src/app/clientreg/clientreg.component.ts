@@ -108,6 +108,11 @@ export class ClientregComponent implements OnInit {
    
   }
 
+  goToMainmenu(){
+    this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
+    //this.routerObj.navigate(['clientreg/0']);
+  }
+
   getId(clientid){  
     this.viewSingleClient(clientid);
   }

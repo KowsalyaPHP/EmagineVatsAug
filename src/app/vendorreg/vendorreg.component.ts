@@ -63,7 +63,7 @@ export class VendorregComponent implements OnInit {
       ConcurrentUserCt:'',
       CommonPoolYorN:'' ,
       OwnPoolPermitYorN:'' ,
-      AdminRightsYorN:'',            
+      AdminRightsYorN:'N',            
       VendorGLCode:'',
       VendorStatus:''
     });  
@@ -85,6 +85,20 @@ export class VendorregComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  
+  goToMainmenu(){
+    this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
+    //this.routerObj.navigate(['clientreg/0']);
+  }
+
+  vendorType(vType){    
+    if(vType == 'VA'){
+      $("#adminRight").val('Y');
+    }
+    else if(vType == 'VO'){
+      $("#adminRight").val('N');
+    }
   }
 
   cityLookup() {

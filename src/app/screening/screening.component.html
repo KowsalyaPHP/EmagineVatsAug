@@ -96,7 +96,7 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input  matInput type="number" min="0" max="99.9" class="exphike" readonly placeholder="Expected Hike %" formControlName="ExpHike">    
+                        <input  matInput type="number" min="0" max="300" class="exphike" readonly placeholder="Expected Hike %" formControlName="ExpHike">    
                         <mat-error class="error-message" *ngIf="screeningForm.get('ExpHike').hasError('max')">The value is greater than the maximum</mat-error>                     
                     </mat-form-field>        
                 </td>

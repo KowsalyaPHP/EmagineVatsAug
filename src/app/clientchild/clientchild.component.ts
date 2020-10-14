@@ -101,6 +101,11 @@ export class ClientchildComponent implements OnInit {
     
    
   }
+  
+  goToMainmenu(){
+    this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
+    //this.routerObj.navigate(['clientreg/0']);
+  }
 
   
   getChild(clientid,getChild){

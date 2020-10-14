@@ -16,10 +16,12 @@ export class ReqDashboardService {
     const url = AppComponent.urlPath + 'reqdashboard';
     const params = new URLSearchParams();  
     
+    var RefId = sessionStorage.getItem("RefId");
     var clientId = sessionStorage.getItem("ClientList");
-    console.log(clientId)
+    
     params.set('ReqStatus', status);
-    params.set('EntityId', clientId); 
+    params.set('EntityId', RefId); 
+    params.set('clientid', clientId); 
     
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {

@@ -61,6 +61,12 @@ export class RuleaddComponent implements OnInit {
     const ClientCode= this.selectedClient.map(element => element.ClientId);
     this.clientCode = ClientCode.join(',');
 
+    if(this.selectedClient.length < 1){
+      this.message = "Please select atleast one client for adding the rule .";
+      this.openSnackBar();
+      return;
+    }
+
     this.RuleaddServices.addRules(formObj,this.clientCode).subscribe(
       response => {  
         if (response != "No data") {

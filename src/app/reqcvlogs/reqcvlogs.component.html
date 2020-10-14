@@ -14,7 +14,9 @@
 
         <mat-drawer-content style="margin-left:20%">
             <div class="content whiteframe" >
-                <p> <b>Req Status Logs:</b> #<a style="color: #0670c4;" [routerLink]="['/requisitionadd',id]"> {{id}} - {{reqTitle}}</a></p>
+                <p> <b>Req Status Logs:</b> #<a style="color: #0670c4;" [routerLink]="['/requisitionadd',id]"> {{id}} - {{reqTitle}}</a><span style="float:right"><a style="color: #000000;" [routerLink]="['/requisitionadd',id]"><i class="material-icons" style="border: 1px solid;border-radius: 50%;margin: -4px 11px;">
+                    chevron_left
+                  </i></a></span> </p>
                  <div style="height:141px;" *ngFor="let item of reqCvLogs">    
                      <div style="float:left"> 
                          <div class="circleGray"><i class="fa fa-check fa-2x checkmark" aria-hidden="true"></i></div>

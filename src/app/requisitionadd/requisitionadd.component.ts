@@ -20,6 +20,37 @@ import { HttpClient, HttpParams, HttpRequest, HttpEvent, HttpEventType, HttpResp
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { saveAs } from 'file-saver';
 
+export function BudgetValidator(minBudget: string, maxBudget: string, minExp: string, maxExp:string) {
+  return (formGroup: FormGroup) => {
+      const minBudgetControl = formGroup.controls[minBudget];
+      const maxBudgetControl = formGroup.controls[maxBudget];
+      const minExpControl = formGroup.controls[minExp];
+      const maxExpControl = formGroup.controls[maxExp];
+
+      if (maxBudgetControl.errors && !maxBudgetControl.errors.BudgetValidator) {
+          // return if another validator has already found an error on the matchingControl
+          return;
+      }
+      if (maxExpControl.errors && !maxExpControl.errors.BudgetValidator) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      // set error on matchingControl if validation fails
+      if (minBudgetControl.value >= maxBudgetControl.value) {
+        maxBudgetControl.setErrors({ BudgetValidator: true });
+      } else {
+        maxBudgetControl.setErrors(null);
+      }
+
+      if (minExpControl.value >= maxExpControl.value) {
+        maxExpControl.setErrors({ BudgetValidator: true });
+    } else {
+      maxExpControl.setErrors(null);
+    }
+  }
+}
+
+
 @Component({
   selector: 'app-requisitionadd',
   templateUrl: './requisitionadd.component.html',
@@ -117,7 +148,10 @@ export class RequisitionaddComponent implements OnInit {
       EACManager:['', [Validators.required]],
       ReqStatus:'',
       ReqStatusRemarks:''
-    });    
+     }, { 
+      validator: BudgetValidator('Budgetminamt', 'Budgetmaxamt','Minexperience', 'Maxexperience')
+    }
+    );    
     // Minexperience:['', [Validators.pattern("\d{1,2}(\.\d{0,4})?")]],
    //Maxexperience:['', [Validators.pattern("\\d+([.]\\d+)?")]],
 
@@ -727,16 +761,16 @@ export class RequisitionaddComponent implements OnInit {
       { type: 'required', message: 'Please select contact person' }
     ],
     'Minexperience': [
-      { type: 'pattern', message: 'Please enter valid minimum experience' }
+      { type: 'min', message: 'Please enter valid minimum experience' }
     ],
     'Maxexperience': [
-      { type: 'pattern', message: 'Please enter valid maximum experience' }
+      { type: 'max', message: 'Please enter valid maximum experience' }
     ],
     'Budgetminamt': [
-      { type: 'pattern', message: 'Please enter valid minimum amount' }
+      { type: 'min', message: 'Please enter valid minimum amount' }
     ],
     'Budgetmaxamt': [
-      { type: 'pattern', message: 'Please enter valid maximum amount' }
+      { type: 'max', message: 'Please enter valid maximum amount' }
     ],
     'Jobdescription': [
       { type: 'required', message: 'Please enter job description' }

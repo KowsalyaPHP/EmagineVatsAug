@@ -276,7 +276,7 @@
     </tr>
     <tr>        
         <td><button *ngIf="id != 0 else add" type="submit" mat-button cdkFocusInitial>Update Client</button>
-            <a *ngIf="id != 0" [routerLink]="['/clientreg/0']" style="margin-left:15px;"><button mat-button>Go to Main Menu</button></a>
+            <a *ngIf="id != 0" [routerLink]="['/clientreg/0']" (click)="goToMainmenu()" style="margin-left:15px;"><button mat-button>Go to Main Menu</button></a>
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Client</button>
             </ng-template> 

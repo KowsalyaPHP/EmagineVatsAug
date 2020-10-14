@@ -115,7 +115,7 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput id="minExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">
+                        <input matInput id="minExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">
                         <mat-error *ngFor="let validation of requisition_validation_messages.Minexperience">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Minexperience').hasError(validation.type) && (addRequisitionForm.get('Minexperience').dirty || addRequisitionForm.get('Minexperience').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -123,7 +123,7 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput id="maxExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
+                        <input matInput id="maxExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
                         <mat-error *ngFor="let validation of requisition_validation_messages.Maxexperience">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Maxexperience').hasError(validation.type) && (addRequisitionForm.get('Maxexperience').dirty || addRequisitionForm.get('Maxexperience').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -155,7 +155,7 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="100000000" placeholder="Min. Budget" formControlName="Budgetminamt">
+                        <input matInput type="number" onKeyPress="if(this.value.length == 10) return false;" min="0" max="100000000" placeholder="Min. Budget" formControlName="Budgetminamt">
                         <mat-error *ngFor="let validation of requisition_validation_messages.Budgetminamt">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Budgetminamt').hasError(validation.type) && (addRequisitionForm.get('Budgetminamt').dirty || addRequisitionForm.get('Budgetminamt').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -163,7 +163,7 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="100000000" placeholder="Max. Budget" formControlName="Budgetmaxamt">
+                        <input matInput type="number" onKeyPress="if(this.value.length == 10) return false;" min="0" max="100000000" placeholder="Max. Budget" formControlName="Budgetmaxamt">
                         <mat-error *ngFor="let validation of requisition_validation_messages.Budgetmaxamt">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Budgetmaxamt').hasError(validation.type) && (addRequisitionForm.get('Budgetmaxamt').dirty || addRequisitionForm.get('Budgetmaxamt').touched)">{{validation.message}}</mat-error>
                         </mat-error>
