@@ -138,20 +138,6 @@ export class SharedService {
       });
   }
 
-  public getHiringManager(): Observable<any> {
-
-    const url = this.urlPath + 'lkup';
-    const params = new URLSearchParams();
- 
-    params.set('lkup', 'ContactPerson');    
-    return this.http.post(url, params)
-      .map(response => response.json()['Data']).map(data => {
-        if (data != '')
-          return data;
-        else
-          return '';
-      });
-  }
 
   public getClient(): Observable<any> {
 
@@ -188,20 +174,6 @@ export class SharedService {
       });
   }
 
-  public getAccountManager(): Observable<any> {
-
-    const url = this.urlPath + 'lkup';
-    const params = new URLSearchParams();
- 
-    params.set('lkup', 'ACCOUNTMANAGER');    
-    return this.http.post(url, params)
-      .map(response => response.json()['Data']).map(data => {
-        if (data != '')
-          return data;
-        else
-          return '';
-      });
-  }
 
   public getNationality(): Observable<any> {
 
@@ -449,6 +421,105 @@ export class SharedService {
  
     params.set('lkup', 'VendorList');    
     return this.http.post(url_city, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  /*public getHiringManager(): Observable<any> {
+
+    const url = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'ContactPerson');    
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getAccountManager(): Observable<any> {
+
+    const url = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'ACCOUNTMANAGER');    
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }*/
+
+  public getHiringManager(): Observable<any> {
+
+    const url = this.urlPath + 'GetDesignations';
+    const params = new URLSearchParams();
+    var RefId = sessionStorage.getItem("RefId");
+
+    params.set('EntityId', RefId);    
+    params.set('Mode', '3');   
+
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getAccountManager(): Observable<any> {
+
+    const url = this.urlPath + 'GetDesignations';
+    const params = new URLSearchParams();
+    var RefId = sessionStorage.getItem("RefId");
+    
+    params.set('EntityId', RefId);    
+    params.set('Mode', '1');    
+
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getDeliveryManager(): Observable<any> {
+
+    const url = this.urlPath + 'GetDesignations';
+    const params = new URLSearchParams();
+    var RefId = sessionStorage.getItem("RefId");
+    
+    params.set('EntityId', RefId);    
+    params.set('Mode', '2');    
+
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+  
+  public getBusinessFunction(): Observable<any> {
+
+    const url = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'businessfunction');    
+    return this.http.post(url, params)
       .map(response => response.json()['Data']).map(data => {
         if (data != '')
           return data;

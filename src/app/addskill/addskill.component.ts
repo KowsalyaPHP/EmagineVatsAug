@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild,Input, Output, EventEmitter , TemplateRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { SharedService } from '../shared/shared.service';
 import {
@@ -9,6 +9,9 @@ import {
 } from "@angular/forms";
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { AddskillService } from './addskill.service';
+import { AddskillcompetencyComponent } from '../addskillcompetency/addskillcompetency.component';
 
 interface SkillSet {
   code: any;
@@ -26,17 +29,21 @@ export class AddskillComponent implements OnInit {
   //skillSets:[];
   term: any;
   skillsetselect:any;
-  constructor(public dialogRef: MatDialogRef<AddskillComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private SharedServices: SharedService) {}
+ 
+  message:any;
 
+  constructor(private AddskillServices: AddskillService,public dialogRef: MatDialogRef<AddskillComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private SharedServices: SharedService,private dialog: MatDialog,private formBuilderObj: FormBuilder) {
+   
+  }
+    
     onNoClick(): void {
       this.dialogRef.close();
     }
 
     ngOnInit() {
-      this.getSkillSets();
-      
+      this.getSkillSets();      
     }
-
+  
     getSkillSets() {
       this.SharedServices.getSkillSet().subscribe(
         response => {
@@ -70,9 +77,51 @@ export class AddskillComponent implements OnInit {
       );
     }
 
+    openDialogaddNewSkill(): void {
+  
+      const dialogRef = this.dialog.open(AddskillcompetencyComponent, {
+        width: '400px',
+        data: {addType: 'skill'}      
+      });
+      
+      dialogRef.afterClosed().subscribe(result => {
+        if(result && result.action === 1) {
+          if(this.data['skillcode']){ 
+            let getSkillCode = this.data['skillcode'].split(";");             
+            result['data'].forEach(item => {
+              for (let i = 0; i < getSkillCode.length; i++) {                  
+                if(getSkillCode[i] == item['Code'])
+                {
+                  item.checked = true;
+                }
+              }               
+            });     
+                    
+            this.skillSets = result['data'];
+          }
+          else{
+            this.skillSets = result['data'];
+          }           
+          console.log(this.skillSets);
+          console.log(result);
+          console.log(this.data['skillcode']);
+
+        } 
+          //this.viewcustomTemplateDetails();
+      });    
+    }
+
     sendCheckedskillset(){
       this.skillsetselect = this.skillSets.filter( (skillSets) => skillSets.checked );
       console.log(this.skillsetselect);
       this.dialogRef.close({action: 1, data: this.skillsetselect, array:this.skillSets});   
     }
+
+    openSnackBar() { 
+      var x = document.getElementById("snackbar")
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
+    }
+
+  
 }

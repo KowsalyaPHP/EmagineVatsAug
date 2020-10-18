@@ -93,7 +93,7 @@ export class VendorregComponent implements OnInit {
   }
 
   vendorType(vType){    
-    if(vType == 'VA'){
+    if(vType == 'V'){
       $("#adminRight").val('Y');
     }
     else if(vType == 'VO'){

@@ -21,18 +21,30 @@ export class ReqDashboardComponent implements OnInit {
   reqList:[];
   assessmentCount:[];
   //icon: string[] = []
- 
-  icon:any;
+  message:any;
+  /*icon:any;
   menu1:any;
   menu2:any;
-  message:any;
+  priority3:any;
+  priority4:any;
   priority1:any;
   priority2:any;
+  low:any
+  low1:any
+  low2:any
+  high:any;
+  high1:any;
+  high2:any;
+  nuetral:any;
+  nuetral1:any;
+  nuetral2:any;*/
   changeIcon:any;
   status:any;
   id:any;
   manageRedirect:boolean=false;
   dataTable: any;
+  clientList:any;
+  
 
   constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar){
     this.route.params.subscribe(params => {
@@ -45,7 +57,7 @@ export class ReqDashboardComponent implements OnInit {
     setTimeout(() => {
       this.getReqLists(this.status);
       }
-      , 1000);
+      , 1500);
      
 
     /*setTimeout(function () {       
@@ -71,7 +83,8 @@ export class ReqDashboardComponent implements OnInit {
   getAccessableClientList() {
     this.SharedServices.getAccessableClientList().subscribe(
       response => {
-        if (response != '') {            
+        if (response != '') {      
+          this.clientList = response["ClientList"];       
           sessionStorage.setItem("ClientList", response["ClientList"]);
         }
         else {         
@@ -166,32 +179,69 @@ export class ReqDashboardComponent implements OnInit {
   }
 
   changePriority(Reqpriority,key){
+    this.route.params.subscribe(params => {
+      this.status = params['status']; 
+    });
+     this.getReqLists(this.status);
+
+  // console.log(Reqpriority);
+  /* this.reqList.forEach(item => {
+    if(Reqpriority == "H"){  
+      item['Reqpriority'] == "H"
+    }
+    if(Reqpriority == "L"){  
+      item['Reqpriority'] == "L"
+    }
+    if(Reqpriority == "N"){  
+      item['Reqpriority'] == "N"
+    }
+    console.log(item['Reqpriority'])   
+   });      
+  
    
-    if(Reqpriority == "H"){            
+    if(Reqpriority == "H"){           
+      this.high = true;
+      this.low = false;
+      this.nuetral = false;
       this.icon  = "arrow_upwards";      
       this.menu1 = "Change to Low";
       this.menu2 = "Change to Neutral";
-      this.priority1 = "L";
-      this.priority2 = "N";
-     }
-     if(Reqpriority == "L"){           
-      this.icon = "arrow_downward";
-      this.menu1 = "Change to High";
-      this.menu2 = "Change to Neutral";
-      this.priority1 = "H";
-      this.priority2 = "N";
-     }
-     if(Reqpriority == "N"){    
-      this.icon = "more_horiz";
-      this.menu1 = "Change to High";
-      this.menu2 = "Change to Low";
-      this.priority1 = "H";
-      this.priority2 = "L";
-     }
-    
-     $("#changeIcon"+key).text(this.icon);
+      this.high1 = "L";
+      this.high2 = "N";
+      
+    /* $("#changeIcon"+key).text(this.icon);
      $("#Menu1"+key).text(this.menu1);
      $("#Menu2"+key).text(this.menu2);
+     }
+     if(Reqpriority == "L"){  
+      this.low = true;
+      this.high = false;  
+      this.nuetral = false;       
+      this.icon = "arrow_downward";
+      this.priority1 = "Change to High";
+      this.priority2 = "Change to Neutral";
+      this.low1 = "H";
+      this.low2 = "N";
+      
+     $("#changeIcon"+key).text(this.icon);
+     $("#Menu1"+key).text(this.priority1);
+     $("#Menu2"+key).text(this.priority2);
+     }
+     if(Reqpriority == "N"){  
+      this.nuetral = true;  
+      this.high = false;
+      this.low = false;
+      this.icon = "more_horiz";
+      this.priority3 = "Change to High";
+      this.priority4 = "Change to Low";
+      this.nuetral1 = "H";
+      this.nuetral2 = "L";
+      
+    /* $("#changeIcon"+key).text(this.icon);
+     $("#Menu1"+key).text(this.priority3);
+     $("#Menu2"+key).text(this.priority4);
+     }
+     */
     
   }
 
@@ -249,9 +299,9 @@ export class ReqDashboardComponent implements OnInit {
           else {                     
            this.reqList = response['Data']; 
                 
-            for (let i = 0; i < response['Data'].length; i++) {            
+           /* for (let i = 0; i < response['Data'].length; i++) {            
               this.changePriority(response['Data'][i]['Reqpriority'],i);
-            }                    
+            }   */                 
             response['Data'].forEach(item => {
              item.totalCount = (item.Sourcing+item.Screening+item.Assessment+item.HRRound+item.Offered+item.Joined+item.NotHired);    
              item.sourcePerc =  Math.round((item.Sourcing/item.totalCount) *100);   
@@ -368,7 +418,7 @@ export class ReqDashboardComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar(); 
                 $("#showprioritymenu"+key).hide();
-                this.changePriority(priority,key);              
+               this.changePriority(priority,key);              
               }   
             }
         }

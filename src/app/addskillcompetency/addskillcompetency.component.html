@@ -1,0 +1,68 @@
+   <!-- <p>You can reset your password here.</p>-->
+   <!-- <form class="form example-form" #formDirectisve="ngForm" role="form" autocomplete="off" id="skillform" novalidate=""
+        [formGroup]="addNewSkillForm" (submit)='addNewSkillFormSubmit(addNewSkillForm.value)'>
+      <mat-dialog-content>
+        <mat-form-field class="example-full-width">
+          <input matInput maxlength="40" placeholder="Add new skill" formControlName="SkillSetTitle" required>
+          <mat-error *ngFor="let validation of account_validation_messages.SkillSetTitle">
+            <mat-error class="error-message" *ngIf="addNewSkillForm.invalid || addNewSkillForm.get('SkillSetTitle').hasError(validation.type) && (addNewSkillForm.get('SkillSetTitle').dirty || addNewSkillForm.get('SkillSetTitle').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </mat-dialog-content>
+      <mat-dialog-actions class="border-top">
+        <button type="submit" mat-raised-button color="accent">Add</button>
+        <button type="button" mat-button matDialogClose>Cancel</button> 
+      </mat-dialog-actions>
+      <p id="loader" style="display:none;text-align: center;"><img class="loading-img" src="assets/img/load.gif" alt="loader">
+    </form>-->
+
+  <div style="margin: 0;">
+      <div id="addskillcompetency">{{message}}</div>
+  </div>
+    
+<div class="dialogContent" *ngIf="showSkillForm">
+    <div>     
+        <h3>Add New Skill</h3>        
+    </div>
+    <form class="form example-form" focusInvalidInput #formDirectisve="ngForm" role="form" autocomplete="off" id="skillform" novalidate=""
+    [formGroup]="addNewSkillForm" (submit)='addNewSkillFormSubmit(addNewSkillForm.value)'>
+    
+        <div mat-dialog-content>
+            <mat-form-field class="example-full-width">
+                <input matInput maxlength="40" placeholder="New skill" formControlName="SkillSetTitle" required>
+                <mat-error *ngFor="let validation of account_validation_messages.SkillSetTitle">
+                  <mat-error class="error-message" *ngIf="addNewSkillForm.invalid || addNewSkillForm.get('SkillSetTitle').hasError(validation.type) && (addNewSkillForm.get('SkillSetTitle').dirty || addNewSkillForm.get('SkillSetTitle').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>            
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button cdkFocusInitial>Add</button>
+            <button mat-button  (click)="onNoClick()" matDialogClose>Cancel</button>
+        </div>
+        <p id="loader" style="display:none;margin-left: -11px;margin-bottom: -22px;"><img class="loading-img" src="assets/img/load.gif" alt="loader">
+    </form>
+</div>
+
+  
+<div class="dialogContent" *ngIf="showCompetencyForm">
+    <div>     
+        <h3>Add New Competency</h3>        
+    </div>
+    <form class="form example-form" focusInvalidInput #formDirectisve="ngForm" role="form" autocomplete="off" id="Competencyform" novalidate=""
+    [formGroup]="addNewCompetencyForm" (submit)='addNewCompetencyFormSubmit(addNewCompetencyForm.value)'>
+    
+        <div mat-dialog-content>
+            <mat-form-field class="example-full-width">
+                <input matInput maxlength="40" placeholder="New Competency" formControlName="CompetencyTitle" required>
+                <mat-error *ngFor="let validation of account_validation_messages.CompetencyTitle">
+                  <mat-error class="error-message" *ngIf="addNewCompetencyForm.invalid || addNewCompetencyForm.get('CompetencyTitle').hasError(validation.type) && (addNewCompetencyForm.get('CompetencyTitle').dirty || addNewCompetencyForm.get('CompetencyTitle').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>            
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button cdkFocusInitial>Add</button>
+            <button mat-button  (click)="onNoClick()" matDialogClose>Cancel</button>
+        </div>
+        <p id="loader" style="display:none;margin-left: -11px;margin-bottom: -22px;"><img class="loading-img" src="assets/img/load.gif" alt="loader">
+    </form>
+</div>

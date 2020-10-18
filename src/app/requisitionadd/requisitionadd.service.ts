@@ -92,6 +92,8 @@ export class RequisitionaddService {
     formData.append('Jdattachment', fileValue);
     formData.append('Hiringmanager', FormObj.Hiringmanager);
     formData.append('EACManager', FormObj.EACManager);
+    formData.append('DeliveryManager', FormObj.DeliveryManager);
+    formData.append('BusinessFunction', FormObj.BusinessFunction);
     formData.append('C_ID', C_ID);
 
     console.log("Usercategory => "+ formData.get('Usercategory'));
@@ -185,6 +187,8 @@ export class RequisitionaddService {
     formData.append('ReqStatus', FormObj.ReqStatus);
     formData.append('M_ID', M_ID);    
     formData.append('ReqStatusRemarks',FormObj.ReqStatusRemarks);
+    formData.append('DeliveryManager', FormObj.DeliveryManager);
+    formData.append('BusinessFunction', FormObj.BusinessFunction);
 
     console.log("RequisitionId => "+ formData.get('RequisitionId'));
     console.log("EntityID => "+ formData.get('EntityID'));

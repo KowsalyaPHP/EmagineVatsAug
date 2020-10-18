@@ -23,14 +23,16 @@
             </button>
           </a>
         </mat-menu>
-        <button mat-icon-button>
+        <button mat-icon-button [matMenuTriggerFor]="menu1" >
           <mat-icon>account_circle</mat-icon>
         </button>
-        <mat-menu>
-          <button mat-menu-item>
-            <mat-icon>account_box</mat-icon>
-            <span>View Profile</span>
-          </button>
+        <mat-menu #menu1="matMenu">
+          <a style="color:rgb(65, 64, 63);" [routerLink]="['/changepassword']">
+            <button mat-menu-item>
+              <i class="fa fa-key" aria-hidden="true"></i>
+              <span>Change Password</span>
+            </button>
+          </a>
           <!--<button mat-menu-item>
             <mat-icon>people_outline</mat-icon>
             <span>Connecting</span>

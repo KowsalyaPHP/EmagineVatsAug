@@ -52,15 +52,19 @@
           <td style="width: 200px;">{{item.ReqTitle}}</td>
           <td class="dropdown" style="padding-left:24px;">
               <a style="color:rgb(190, 32, 32);cursor:pointer;" (click)="priorityMethod(i)">
-                <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'; else low">arrow_upwards</mat-icon>
+               <!--<mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'; else low">arrow_upwards</mat-icon>
                 <ng-template #low>
                   <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'L';else nuetral">arrow_downward</mat-icon>
                 </ng-template>
                 <ng-template #nuetral>
                   <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'N'">more_horiz</mat-icon>
-                </ng-template>
+                </ng-template>-->
+                <!--<mat-icon id="changeIcon{{i}}">{{icon}}</mat-icon>--> 
+                <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'">arrow_upwards</mat-icon>
+                <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'L'">arrow_downward</mat-icon>
+                <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'N'">more_horiz</mat-icon>
               </a> 
-              <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'H'; else lowmenu" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+             <!-- <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'H'; else lowmenu" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
                   <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
                   <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
               </ul>
@@ -75,7 +79,18 @@
                   <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
                   <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
               </ul>
-              </ng-template>
+              </ng-template>--> <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'H'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
+                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
+                </ul>            
+                <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'L'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
+                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
+                </ul>             
+                <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'N'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
+                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
+              </ul>
           </td>   
           <td style="text-align: center;">{{item.Username}}</td>
           <td style="text-align: center;">{{item.Ageing}}d</td>

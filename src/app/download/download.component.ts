@@ -177,8 +177,16 @@ export class DownloadComponent implements OnInit {
 
   getCandidateValue(){    
     this.DownloadServices.getStageValues(this.data['ReqId'],this.data['Stage']).subscribe(
-      response => {
+      response => {       
         if (response != "No data") {  
+          response['Data']['SSAHNGrid'].forEach(item => {
+            for (let i = 0; i < this.data['AppId'].length; i++) {  
+              if(this.data['AppId'][i]['ApplicationId'] == item['ApplicationId'])
+              {
+                item.checked = true;
+              }
+            }               
+          });
           this.StageValueList = response['Data']['SSAHNGrid'];  
         }
       }
@@ -228,6 +236,18 @@ window.open(url);*/
   
     if(this.selectedApplication == ''){ 
       this.message = "Please select atleast one candidate to download tracker.";
+      this.openSnackBar();
+      return; 
+    }
+
+    if(typeof(this.templateId) == 'undefined'){ 
+      this.message = "Please select template to download the resume.";
+      this.openSnackBar();
+      return; 
+    }
+
+    if(this.selectedApplication > 25){ 
+      this.message = "Only 25 CV's can be allow to track at a time.";
       this.openSnackBar();
       return; 
     }

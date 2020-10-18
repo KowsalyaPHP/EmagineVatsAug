@@ -36,17 +36,20 @@ export function BudgetValidator(minBudget: string, maxBudget: string, minExp: st
         return;
       }
       // set error on matchingControl if validation fails
-      if (minBudgetControl.value >= maxBudgetControl.value) {
-        maxBudgetControl.setErrors({ BudgetValidator: true });
-      } else {
-        maxBudgetControl.setErrors(null);
+      if(maxBudgetControl.value != 0 || maxBudgetControl.value != ''){
+        if (minBudgetControl.value >= maxBudgetControl.value) {
+          maxBudgetControl.setErrors({ BudgetValidator: true });
+        } else {
+          maxBudgetControl.setErrors(null);
+        }
       }
-
-      if (minExpControl.value >= maxExpControl.value) {
-        maxExpControl.setErrors({ BudgetValidator: true });
-    } else {
-      maxExpControl.setErrors(null);
-    }
+      if(maxExpControl.value != 0 || maxExpControl.value != ''){
+        if (minExpControl.value >= maxExpControl.value) {
+          maxExpControl.setErrors({ BudgetValidator: true });
+        } else {
+          maxExpControl.setErrors(null);
+        }
+      }
   }
 }
 
@@ -98,6 +101,8 @@ export class RequisitionaddComponent implements OnInit {
   LkupBudgetCurrency:[];
   LkupEmploymentType:[];
   LkupHiringManager:[];
+  LkupDeliveryManager:[];
+  LkupBusinessFunction:[];
   LkupClient:[];
   LkupAccountManager:[];
   showwithCheckedcomp:[];
@@ -130,7 +135,7 @@ export class RequisitionaddComponent implements OnInit {
       Reqtitle: ['', [Validators.required]],
       EmploymentType:['', [Validators.required]],
       ClientId:['', [Validators.required]],
-      Hiringmanager:['', [Validators.required]],
+      Hiringmanager:'',
       Emplocation:['', [Validators.required]],
       Noofposition:['', [Validators.required,Validators.pattern("[0-9]*")]],
       Skillset:'',
@@ -145,9 +150,11 @@ export class RequisitionaddComponent implements OnInit {
       Jobdescription:['', [Validators.required]],
       Competency:'',
       Jdattachment:'',
-      EACManager:['', [Validators.required]],
+      EACManager:'',
       ReqStatus:'',
-      ReqStatusRemarks:''
+      ReqStatusRemarks:'',
+      DeliveryManager:'',
+      BusinessFunction:''
      }, { 
       validator: BudgetValidator('Budgetminamt', 'Budgetmaxamt','Minexperience', 'Maxexperience')
     }
@@ -215,7 +222,9 @@ export class RequisitionaddComponent implements OnInit {
                //Jdattachment:this.requisitionDetails['Data'][0]['JDAttachment'],
                 EACManager:this.requisitionDetails['Data'][0]['EACmanagerCode'],
                 ReqStatus:this.requisitionDetails['Data'][0]['ReqStatus'],
-                ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks']
+                ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks'],
+                DeliveryManager:this.requisitionDetails['Data'][0]['DeliveryManager'],
+                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunction']
               });
              
               if(!this.requisitionDetails['Data'][0]['JDAttachment']){
@@ -439,6 +448,8 @@ export class RequisitionaddComponent implements OnInit {
       this.getlkupBudgetCurrency();
       this.getlkupEmploymenyType();
       this.getlkupHiringManager();
+      this.getlkupDeliveryManager();
+      this.getlkupBusinessFunction();
       this.getlkupClient();
       this.getlkupAccountManager();
       
@@ -542,6 +553,33 @@ export class RequisitionaddComponent implements OnInit {
       response => {
         if (response != '') {         
           this.LkupHiringManager = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }  
+
+  getlkupDeliveryManager() {
+    this.SharedServices.getDeliveryManager().subscribe(
+      response => {
+        if (response != '') {         
+          this.LkupDeliveryManager = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }  
+  getlkupBusinessFunction() {
+    this.SharedServices.getBusinessFunction().subscribe(
+      response => {
+        if (response != '') {         
+          this.LkupBusinessFunction = response;
         }
         else {         
           console.log('something is wrong with Service  Execution');
@@ -741,9 +779,6 @@ export class RequisitionaddComponent implements OnInit {
     'ClientId': [
       { type: 'required', message: 'Please select client' }
     ],
-    'EACManager': [
-      { type: 'required', message: 'Please select account manager' }
-    ],
     'Emplocation': [
       { type: 'required', message: 'Please select location' }
     ],
@@ -757,9 +792,12 @@ export class RequisitionaddComponent implements OnInit {
     'Budgetccy': [
       { type: 'required', message: 'Please select budget currency' }
     ],
-    'Hiringmanager': [
+   /* 'Hiringmanager': [
       { type: 'required', message: 'Please select contact person' }
     ],
+    'EACManager': [
+      { type: 'required', message: 'Please select account manager' }
+    ],*/
     'Minexperience': [
       { type: 'min', message: 'Please enter valid minimum experience' }
     ],

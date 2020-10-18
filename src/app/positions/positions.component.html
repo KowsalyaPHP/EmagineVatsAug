@@ -51,7 +51,7 @@
                         </tbody>
                       </table>
                     
-                      <table style="width:100%">            
+                      <table style="width:100%" *ngIf="reqStatus == 'DR'">            
                         <tr> 
                             <td>
                                 <mat-form-field>
@@ -63,7 +63,7 @@
                             </td>
                             <td><button type="submit" style="width:12%" mat-button (click)="addPosition(inputValue)" cdkFocusInitial>Add</button></td>
                             <td><button type="submit" mat-button (click)="deletePosition(inputValue)" >Delete</button></td>
-                        </tr>
+                        </tr> 
                       </table>
                 
                     </div>

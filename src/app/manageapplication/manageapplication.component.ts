@@ -233,10 +233,26 @@ export class ManageapplicationComponent implements OnInit {
 
   openDialogDownloadTracker(reqId,stage): void {
   
+    this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
+    this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
+    this.selectedCandidateId = this.selectedApplication.map(element => element.CandidateId);
+ console.log(this.selectedApplication)
+    if(this.selectedApplication.length < 1){
+      this.message = "Please select atleast one candidate to track the resume.";
+      this.openSnackBar();
+      return;
+    }
+
+    if(this.selectedApplication.length > 25){
+      this.message = "Only 25 CV's can be allow to track at a time.";
+      this.openSnackBar();
+      return;
+    }
+    
     const dialogRef = this.dialog.open(DownloadComponent, {
       width: '900px',
       height:'900px',
-      data: {ReqId: reqId,Stage:stage}      
+      data: {ReqId: reqId,Stage:stage,AppId: this.selectedApplication}      
     });
     
     dialogRef.afterClosed().subscribe(result => {

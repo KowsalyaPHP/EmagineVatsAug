@@ -93,19 +93,15 @@ export class ChangepasswordComponent implements OnInit {
             $("#loader").css("display", "none");
           }         
           else {                     
-            $("#loader").css("display", "none");
-          
-            this.sessionID = response['Data']["Userdetail"][0]["USERID"]; 
-            sessionStorage.setItem("uniqueSessionId", this.sessionID);            
-            sessionStorage.setItem("userName", response['Data']["Userdetail"][0]["USERNAME"]);
-            sessionStorage.setItem("RefId", response['Data']["Userdetail"][0]["REFID"]);
-            sessionStorage.setItem("USERMOBILENO", response['Data']["Userdetail"][0]["USERMOBILENO"]);
-            sessionStorage.setItem("USERCATEGORY", response['Data']["Userdetail"][0]["USERCATEGORY"]);
-           // sessionStorage.setItem("userID", formObj.username);
-            //sessionStorage.setItem("Menudetails", JSON.stringify(response['Data']["Menudetails"]));
-           // sessionStorage.setItem("Roles", response['Data']["Roles"]);       
-            
-            this.routerObj.navigate(["/req-dashboard/OP"]);
+            $("#loader").css("display", "none");              
+            this.message = getMessage['1'];
+            this.openSnackBar();
+            //this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
+            setTimeout(() => {
+              this.routerObj.navigate(["/req-dashboard/OP"]);
+            }
+            , 3000);
+            //this.routerObj.navigate(["/req-dashboard/OP"]);
           }
         } else {
             console.log("something is wrong with Service Execution");

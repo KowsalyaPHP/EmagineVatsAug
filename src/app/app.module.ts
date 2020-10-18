@@ -57,6 +57,8 @@ import { RoleComponent } from './role/role.component';
 import { RoleaddComponent } from './roleadd/roleadd.component';
 import { RuleComponent } from './rule/rule.component';
 import { RuleaddComponent } from './ruleadd/ruleadd.component';
+import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
+import { AddskillcompetencyComponent } from './addskillcompetency/addskillcompetency.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { RuleaddComponent } from './ruleadd/ruleadd.component';
     RoleComponent,
     RoleaddComponent,
     RuleComponent,
-    RuleaddComponent
+    RuleaddComponent,
+    PasswordchangeComponent,
+    AddskillcompetencyComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +126,7 @@ import { RuleaddComponent } from './ruleadd/ruleadd.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],
   bootstrap: [AppComponent],
-  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent]
+  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent,AddskillcompetencyComponent]
 })
 
 export class AppModule { }

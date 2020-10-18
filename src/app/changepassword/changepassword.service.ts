@@ -20,7 +20,7 @@ export class ChangepasswordService {
 
     var C_ID = sessionStorage.getItem("uniqueSessionId");
     
-    params.set('UserId', 'VS0007AD');    
+    params.set('UserId', C_ID);    
     params.set('OldPassword', FormObj.OldPassword);
     params.set('NewPassword', FormObj.NewPassword);
      
