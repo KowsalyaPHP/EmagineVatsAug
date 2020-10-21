@@ -29,7 +29,7 @@
    
     <table style="width:100%">
         <tr> 
-            <!--<td *ngIf="userCategory == 'E'">
+            <td *ngIf="userCategory == 'E'">
                 <mat-form-field>
                     <select placeholder="User Category" matNativeControl maxlength="40" class="form-control" id="usercategory" name="usercategory" formControlName="usercategory" (change)="userType($event.target.value)">
                         <option value="E">Emagine</option>                  
@@ -41,6 +41,13 @@
                     </mat-error>
                 </mat-form-field>        
             </td> 
+            <td style="display:none;" id="designationlist" *ngIf="userCategory == 'E'">
+                <mat-form-field>
+                    <select matNativeControl maxlength="40" placeholder="Designation" formControlName="Designation"> 
+                        <option *ngFor="let item of DesignationList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select>            
+                </mat-form-field>        
+            </td>
             <td style="display:none;" id="clientlist" *ngIf="userCategory == 'E'">
                 <mat-form-field>
                     <select matNativeControl maxlength="40" placeholder="Client Name" formControlName="clientName"> 
@@ -53,19 +60,18 @@
             </td> 
             <td style="display:none;" id="vendorlist" *ngIf="userCategory == 'E'">
                 <mat-form-field>
-                    <select matNativeControl maxlength="40" placeholder="Vendor Name" formControlName="vendorName"> 
-                        <option *ngFor="let item of VendorList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    <select matNativeControl maxlength="40" placeholder="Vendor Name" formControlName="vendorName" (change)="getRulebyId($event.target.value)"> 
+                        <option *ngFor="let item of VendorList" value="{{item.Code}}" selected >{{item.Description}}</option>                       
                     </select> 
                    <mat-error *ngFor="let validation of validation_messages.vendorName">
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('vendorName').hasError(validation.type) && (addUserForm.get('vendorName').dirty || addUserForm.get('vendorName').touched)">{{validation.message}}</mat-error>
                     </mat-error>
                 </mat-form-field>        
-            </td> -->
-            <td>
+            </td>
+            <td *ngIf="userCategory != 'E'">
                 <mat-form-field>
                     <input type="text" id="usercategory" matInput placeholder="User Category" readonly maxlength="80" formControlName="usercategory" class="form-control"/>
-                </mat-form-field>
-                <!--<p>{{userCategoryName}}</p>  -->        
+                </mat-form-field>                     
             </td> 
             <td *ngIf="userCategory == 'C'"> 
                 <mat-form-field>
@@ -77,6 +83,31 @@
                  <input type="text" id="vendorName" matInput placeholder="Vendor Name"  maxlength="80" formControlName="vendorName" class="form-control" readonly/>
                 </mat-form-field> 
             </td> 
+            <!--<td>
+                <mat-form-field>
+                    <input type="text" id="usercategory" matInput placeholder="User Category" readonly maxlength="80" formControlName="usercategory" class="form-control"/>
+                </mat-form-field>                     
+            </td> 
+            <td style="display:none;" id="designationlist" *ngIf="userCategory == 'E'">
+                <mat-form-field>
+                    <select matNativeControl maxlength="40" placeholder="Designation" formControlName="Designation"> 
+                        <option *ngFor="let item of DesignationList" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                    </select> 
+                   <mat-error *ngFor="let validation of validation_messages.Designation">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('Designation').hasError(validation.type) && (addUserForm.get('vendorName').dirty || addUserForm.get('vendorName').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>        
+            </td>
+            <td *ngIf="userCategory == 'C'"> 
+                <mat-form-field>
+                    <input type="text" id="clientName" matInput placeholder="Client Name"  maxlength="80" formControlName="clientName" class="form-control" readonly/>
+                </mat-form-field>
+            </td> 
+            <td *ngIf="userCategory == 'V'"> 
+                <mat-form-field>
+                 <input type="text" id="vendorName" matInput placeholder="Vendor Name"  maxlength="80" formControlName="vendorName" class="form-control" readonly/>
+                </mat-form-field> 
+            </td> -->
             
             <td>
                 <mat-form-field>
@@ -130,16 +161,39 @@
                     </mat-error>
                 </mat-form-field>        
             </td> 
-            <td>
-                <mat-form-field>
-                    <select matNativeControl required maxlength="40" placeholder="Rule" formControlName="userRule"> 
-                        <option *ngFor="let item of RuleList" value="{{item.DataAccessRuleId}}" selected>{{item.DataAccessRuleName}}</option>                       
+            <td *ngIf="!show">
+                <mat-form-field >                    
+                    <select matNativeControl required maxlength="40"  placeholder="Rule" formControlName="userRule"> 
+                        <option *ngFor="let item of RuleList"  [value]="item.DataAccessRuleId" selected>{{item.DataAccessRuleName}}</option>                       
                     </select> 
                     <mat-error *ngFor="let validation of validation_messages.userRule">
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
                     </mat-error>
                 </mat-form-field>    
             </td> 
+            <td *ngIf="show">
+                <mat-form-field class="field-full-width">
+                    <mat-label>Rule</mat-label>
+                    <mat-select required formControlName="userRule">
+                      <mat-option *ngFor="let item of RuleList1" [value]="item.DataAccessRuleId" selected>
+                        {{item.DataAccessRuleName}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngFor="let validation of validation_messages.userRule">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+            </td>
+            <!--<td *ngIf="show">
+                <mat-form-field>                    
+                    <select matNativeControl required maxlength="40" [(ngModel)]="select" placeholder="Rule" formControlName="userRule"> 
+                        <option *ngFor="let item of RuleList1"  [value]="item.DataAccessRuleId" selected>{{item.DataAccessRuleName}}</option>                       
+                    </select> 
+                    <mat-error *ngFor="let validation of validation_messages.userRule">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>    
+            </td>-->
         </tr>
         <tr>
             <td>

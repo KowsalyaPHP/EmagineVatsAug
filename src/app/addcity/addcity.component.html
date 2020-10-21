@@ -1,0 +1,27 @@
+
+<div style="margin: 0;">
+    <div id="addcity">{{message}}</div>
+</div>
+
+<div class="dialogContent">
+    <div>     
+        <h3>Add New City</h3>        
+    </div>
+    <form class="form example-form" focusInvalidInput #formDirectisve="ngForm" role="form" autocomplete="off" id="Cityform" novalidate=""
+    [formGroup]="addNewCityForm" (submit)='addNewCityFormSubmit(addNewCityForm.value)'>
+    
+        <div mat-dialog-content>
+            <mat-form-field class="example-full-width">
+                <input matInput maxlength="40" placeholder="New City" formControlName="CityName" required>
+                <mat-error *ngFor="let validation of account_validation_messages.CityName">
+                  <mat-error class="error-message" *ngIf="addNewCityForm.invalid || addNewCityForm.get('CityName').hasError(validation.type) && (addNewCityForm.get('CityName').dirty || addNewCityForm.get('CityName').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>            
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button cdkFocusInitial>Add</button>
+            <button mat-button  (click)="onNoClick()" matDialogClose>Cancel</button>
+        </div>
+        <p id="loader" style="display:none;margin-left: -11px;margin-bottom: -22px;"><img class="loading-img" src="assets/img/load.gif" alt="loader">
+    </form>
+</div>

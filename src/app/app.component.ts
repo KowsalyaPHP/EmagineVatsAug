@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { Router,ActivatedRoute, NavigationStart, NavigationEnd, Event as NavigationEvent ,NavigationCancel, NavigationError} from '@angular/router';
-import { RequisitionaddComponent } from './requisitionadd/requisitionadd.component';
-
+import { AboutreleaseComponent } from './aboutrelease/aboutrelease.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -13,36 +13,24 @@ export class AppComponent {
   title = 'vats';
   userName='';
  public static urlPath = "http://bincrm.com/vatsqa/";
- //public static urlPath = "http://2815b2185803.ngrok.io/";
+//public static urlPath = "http://3cc04d816916.ngrok.io/";
   
-  /*constructor(private router: Router,private route: ActivatedRoute) {
+  constructor(private router: Router,private route: ActivatedRoute,private dialog: MatDialog) {
    // this.getAccessableClientList();
-  }*/
-  /*show_menu: any = 'false';
-  ReqID:any;
-  reqStatus:any;
+  }
 
-  constructor(private router: Router,private route: ActivatedRoute) {
-      
-      router.events.subscribe((event: NavigationEvent) => {
-      
-      //Before Navigation
-      if (event instanceof NavigationStart) {
-       
-        if (event.url.includes('requisitionadd') || event.url.includes('position') || event.url.includes('reqcvlog')) {
-          let id=event.url.split("/");
-          this.ReqID = id['2'];      
-          this.show_menu = 'true';            
-        }
-        else {
-          this.show_menu = 'false';                 
-        }
-      }
-
-    });
-
-  }*/
+  openDialogAboutReleasePage(): void {
   
+    const dialogRef = this.dialog.open(AboutreleaseComponent, {
+      width: '400px',
+      data: {addType: 'skill'}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
+  }
 
   isLoggedIn(){
     var sessionId = sessionStorage.getItem("uniqueSessionId");

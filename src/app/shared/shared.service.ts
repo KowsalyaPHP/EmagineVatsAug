@@ -527,4 +527,20 @@ export class SharedService {
           return '';
       });
   }
+
+    
+  public getDesignation(): Observable<any> {
+
+    const url = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'designation');    
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
 }

@@ -223,8 +223,8 @@ export class RequisitionaddComponent implements OnInit {
                 EACManager:this.requisitionDetails['Data'][0]['EACmanagerCode'],
                 ReqStatus:this.requisitionDetails['Data'][0]['ReqStatus'],
                 ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks'],
-                DeliveryManager:this.requisitionDetails['Data'][0]['DeliveryManager'],
-                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunction']
+                DeliveryManager:this.requisitionDetails['Data'][0]['DeliveryManagerCode'],
+                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunctionCode']
               });
              
               if(!this.requisitionDetails['Data'][0]['JDAttachment']){
@@ -452,7 +452,16 @@ export class RequisitionaddComponent implements OnInit {
       this.getlkupBusinessFunction();
       this.getlkupClient();
       this.getlkupAccountManager();
-      
+
+      $(function () {
+        $('input[type="file"]').change(function () {
+             if ($(this).val() != "") {
+                    $(this).css('color', '#333');
+             }else{
+                    $(this).css('color', 'transparent');
+             }
+        });
+      });
      /* $(document).ready(function() {
         $("#minExps, #maxExps").on("keyup", function () {
           var fst=$("#minExps").val();

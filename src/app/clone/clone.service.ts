@@ -53,6 +53,8 @@ export class CloneService {
     formData.append('ReqStatus', 'DR');
     formData.append('M_ID', M_ID);    
     formData.append('ReqStatusRemarks',FormObj.ReqStatusRemarks);
+    formData.append('DeliveryManager', FormObj.DeliveryManager);
+    formData.append('BusinessFunction', FormObj.BusinessFunction);
 
     return this.http.post(url_login, formData)
       .map(response => response.json()).map(data => {

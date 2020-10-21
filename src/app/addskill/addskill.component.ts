@@ -102,9 +102,7 @@ export class AddskillComponent implements OnInit {
           else{
             this.skillSets = result['data'];
           }           
-          console.log(this.skillSets);
-          console.log(result);
-          console.log(this.data['skillcode']);
+        
 
         } 
           //this.viewcustomTemplateDetails();

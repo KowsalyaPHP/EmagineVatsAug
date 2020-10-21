@@ -50,7 +50,7 @@ export class CvuploadService {
     formData.append('C_ID', C_ID);
     formData.append('EduDetails', EduArray);
     formData.append('EmpDetails', EmpArray);
-    formData.append('sourcecategory', 'Self');
+    formData.append('sourcecategory', 'Selfsource');
 console.log(formData);
     return this.http.post(url, formData)
       .map(response => response.json()).map(data => {

@@ -7,6 +7,9 @@ import {
   Validators
 } from "@angular/forms";
 import { UserdashboardService } from './userdashboard.service';
+import { ResetpasswordComponent } from '../resetpassword/resetpassword.component';
+import { MatFormFieldControl, MatFormField, MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatChipInputEvent } from '@angular/material';
+
 declare var $: any
 
 @Component({
@@ -21,7 +24,7 @@ export class UserdashboardComponent implements OnInit {
   dataTable: any;
   userCategory:any;
 
-  constructor(private routerObj: Router,private UserdashboardServices: UserdashboardService) {
+  constructor(private routerObj: Router,private UserdashboardServices: UserdashboardService,public dialog: MatDialog) {
     this.viewUserDetails();
     this.userCategory = sessionStorage.getItem("USERCATEGORY");
    }
@@ -35,6 +38,18 @@ export class UserdashboardComponent implements OnInit {
         $("#loader").hide();
       });      
     }, 1500);  
+  }
+
+  openDialogResetPassword(UserId) {
+  
+    const dialogRef = this.dialog.open(ResetpasswordComponent, {     
+      data: {userId: UserId}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      
+    }) 
+   
   }
 
   actionMethod(i) { 

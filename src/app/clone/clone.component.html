@@ -55,6 +55,39 @@
                     </mat-form-field>
                 </td>                
             </tr>
+            <tr>                
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Contact Person" formControlName="Hiringmanager"> 
+                            <option *ngFor="let item of LkupHiringManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>
+                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
+                        </mat-error>-->                      
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Delivery Manager" formControlName="DeliveryManager"> 
+                            <option *ngFor="let item of LkupDeliveryManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>
+                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
+                        </mat-error>-->                      
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Business Function" formControlName="BusinessFunction"> 
+                            <option *ngFor="let item of LkupBusinessFunction" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>
+                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
+                        </mat-error>-->                      
+                    </mat-form-field> 
+                </td>       
+                     
+            </tr>
         </table>
     </div>
     <div class="whiteframe" style="margin-top: -15px;">
@@ -81,8 +114,8 @@
                     </mat-form-field>            
                 </td>
                 <td colspan="2">                                  
-                    <mat-form-field style="width:88% !important;">                       
-                        <mat-chip-list placeholder="Skill Set" aria-label="Skill selection"> 
+                    <mat-form-field style="width:97% !important;">                       
+                        <mat-chip-list placeholder="Functional Skill" aria-label="Skill selection"> 
                             <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">S</label>  
                           <mat-chip *ngFor="let item of descriptionSkill">
                             {{item}}                           
@@ -101,7 +134,12 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput id="minExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Minimum experience is 0
+                            </ng-template>
+                             <input matInput id="minExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">
+                        </ejs-tooltip>                        
                         <mat-error *ngFor="let validation of requisition_validation_messages.Minexperience">
                             <mat-error class="error-message" *ngIf="cloneRequisitionForm.invalid || cloneRequisitionForm.get('Minexperience').hasError(validation.type) && (cloneRequisitionForm.get('Minexperience').dirty || cloneRequisitionForm.get('Minexperience').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -109,7 +147,12 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput id="maxExps" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Maximum experience is 99.9
+                            </ng-template>
+                            <input matInput id="maxExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
+                        </ejs-tooltip>
                         <mat-error *ngFor="let validation of requisition_validation_messages.Maxexperience">
                             <mat-error class="error-message" *ngIf="cloneRequisitionForm.invalid || cloneRequisitionForm.get('Maxexperience').hasError(validation.type) && (cloneRequisitionForm.get('Maxexperience').dirty || cloneRequisitionForm.get('Maxexperience').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -141,7 +184,13 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="9999999" placeholder="Min. Budget" formControlName="Budgetminamt">
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Minimum budget is 0.
+                            </ng-template>
+                            <input matInput type="number" onKeyPress="if(this.value.length == 10) return false;" min="0" max="100000000" placeholder="Min. Budget" formControlName="Budgetminamt">
+                            
+                        </ejs-tooltip>
                         <mat-error *ngFor="let validation of requisition_validation_messages.Budgetminamt">
                             <mat-error class="error-message" *ngIf="cloneRequisitionForm.invalid || cloneRequisitionForm.get('Budgetminamt').hasError(validation.type) && (cloneRequisitionForm.get('Budgetminamt').dirty || cloneRequisitionForm.get('Budgetminamt').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -149,7 +198,12 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput type="number" onKeyPress="if(this.value.indexOf('.') == 1 || this.value.length == 9) return false;" min="0" max="9999999" placeholder="Max. Budget" formControlName="Budgetmaxamt">
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Maximum budget is 10 Crore.
+                            </ng-template>
+                        <input matInput type="number" onKeyPress="if(this.value.length == 10) return false;" min="0" max="100000000" placeholder="Max. Budget" formControlName="Budgetmaxamt">
+                        </ejs-tooltip>
                         <mat-error *ngFor="let validation of requisition_validation_messages.Budgetmaxamt">
                             <mat-error class="error-message" *ngIf="cloneRequisitionForm.invalid || cloneRequisitionForm.get('Budgetmaxamt').hasError(validation.type) && (cloneRequisitionForm.get('Budgetmaxamt').dirty || cloneRequisitionForm.get('Budgetmaxamt').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -168,16 +222,20 @@
                     </mat-form-field>
                 </td>
             </tr>
-            <tr><td style="color:#757270f0;padding: 10px 0 0 0;" [ngClass]="{ 'is-invalid': submitted && f.Jobdescription.errors }">Job Description*</td></tr>
-            <tr>              
-                <td colspan="4">    
-                  <ejs-richtexteditor class="richtextboxwidth" required #toolsRTE id='alltoolRTE' formControlName="Jobdescription" [toolbarSettings]='tools' ></ejs-richtexteditor>
-                    <div *ngIf="submitted && f.Jobdescription.errors" class="error">             
-                        <div *ngIf="f.Jobdescription.errors?.required">Please enter job description</div>
-                    </div>            
-                </td>
-            </tr>
-            <tr>
+        </table>
+            <table style="width:100%">
+                <tr><td style="color:#757270f0;padding: 10px 0 0 0;" [ngClass]="{ 'is-invalid': submitted && f.Jobdescription.errors }">Job Description*</td></tr>
+                <tr>              
+                    <td colspan="4">    
+                        <ejs-richtexteditor style="word-break: break-all;" required #toolsRTE id='alltoolRTE' formControlName="Jobdescription" [toolbarSettings]='tools' ></ejs-richtexteditor>
+                        <div *ngIf="submitted && f.Jobdescription.errors" class="error">             
+                            <div *ngIf="f.Jobdescription.errors?.required">Please enter job description</div>
+                        </div>            
+                    </td>
+                </tr>
+            </table>
+            <table>
+            <tr style="width:100%">
                 <td colspan="2">
                     <!--<mat-form-field style="width:88.3% !important;">
                         <mat-chip-list #chipList aria-label="Competency selection">
@@ -194,8 +252,8 @@
                         </mat-chip-list>
                         <mat-hint (click)="openDialogCompetency()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Competency</mat-hint>  
                     </mat-form-field>-->
-                    <mat-form-field style="width:88.3% !important;">
-                        <mat-chip-list placeholder="Competency" aria-label="Competency selection">
+                    <mat-form-field style="width:120% !important;">
+                        <mat-chip-list placeholder="Behavioural Competency" aria-label="Competency selection">
                           <label style="visibility:hidden;padding-bottom:7px;margin-left:-9px;">C</label>
                           <mat-chip *ngFor="let item of descriptionCompetency" >
                             {{item}}                            
@@ -205,26 +263,18 @@
                         <mat-hint (click)="openDialogCompetency()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Competency</mat-hint>  
                     </mat-form-field>
                 </td>
-            </tr>
-            <tr>
-                <td>
+                <td style="padding-left:20%;">
                     JD Doc - 
-                       <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" > 
+                       <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" title=" "><br>
                        (.doc,.docx,.pdf,.rtf only)  
                        <p *ngIf="attachmentShow != 0 && id > 0" id="FileChange"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadJD(id)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>   
 
                 </td>
-                <td>
-                    <mat-form-field>
-                        <select matNativeControl required placeholder="Contact Person" formControlName="Hiringmanager"> 
-                            <option *ngFor="let item of LkupHiringManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
-                        </select>
-                        <mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
-                            <mat-error class="error-message" *ngIf="cloneRequisitionForm.invalid || cloneRequisitionForm.get('Hiringmanager').hasError(validation.type) && (cloneRequisitionForm.get('Hiringmanager').dirty || cloneRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
-                        </mat-error>                      
-                    </mat-form-field> 
-                </td>
-             <!--   <td *ngIf="id > 0">
+            </tr>
+            <!--<tr>
+               
+                
+                <td *ngIf="id > 0">
                     <mat-form-field>
                         <select *ngIf="reqcode == 0" (change)="showRemarks($event.target.value)" matNativeControl placeholder="Requisition Status" formControlName="ReqStatus">
                             <option value="OP" selected>Open</option>
@@ -249,8 +299,8 @@
                             <mat-error class="error-message" *ngIf="cloneRequisitionForm.invalid || cloneRequisitionForm.get('ReqStatusRemarks').hasError(validation.type) && (cloneRequisitionForm.get('ReqStatusRemarks').dirty || cloneRequisitionForm.get('ReqStatusRemarks').touched)">{{validation.message}}</mat-error>
                         </mat-error>           
                     </mat-form-field>                    
-                </td>-->
-            </tr>
+                </td>
+            </tr>-->
             <tr>
                 <td > <button *ngIf="id > 0; else add" type="submit" mat-button cdkFocusInitial>Clone Requisition</button>&nbsp;&nbsp;
                     <ng-template #add>

@@ -1,0 +1,19 @@
+<div style="margin: 0;">
+    <div id="aboutrelease">{{message}}</div>
+</div>
+
+<div class="dialogContent">
+    <div>     
+        <h3>Release Details</h3>  
+            
+    </div>
+    <div mat-dialog-content>
+        <div *ngFor = "let item of aboutContent; index as i">
+            <p>{{item.ReleaseTitle}}</p>
+        </div>
+                 
+    </div>
+    <div mat-dialog-actions>        
+        <button mat-button  (click)="onNoClick()" matDialogClose>Close</button>
+    </div>  
+</div>

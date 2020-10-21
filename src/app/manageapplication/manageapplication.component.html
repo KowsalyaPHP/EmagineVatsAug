@@ -127,8 +127,7 @@
           <th>Source Ageing</th>
         </tr>
       </thead>
-      <tbody>  
-        <tr *ngIf="displayNoData" class="odd"><td valign="top" colspan="14" class="dataTables_empty">No records found</td></tr>            
+      <tbody>                   
         <tr  *ngFor="let item of StageValueList; let i = index">                
           <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
           <td class="dropdown">

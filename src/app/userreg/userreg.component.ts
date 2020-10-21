@@ -24,14 +24,16 @@ export class UserregComponent implements OnInit {
   VLookupStatus:[];
   RoleList:[];
   RuleList:[];
+  RuleList1:[];
   userName:any;
   ClientList:[];
   VendorList:[];
+  DesignationList:[];
   userCategory:any;
   sessionTypeName:any;
   userCategoryName:any;
   categoryName:any;
-
+  show=false;
   
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute) {
 
@@ -51,14 +53,16 @@ export class UserregComponent implements OnInit {
       userRule: ['', [Validators.required]],
       UserStatus: '',
       clientName: '',
-      vendorName: ''
+      vendorName: '',
+      Designation:''
     });  
 
     this.getStatusLookup();
     this.getRoleList();
-    this.getRuleList();
+    this.getRulebyId(sessionStorage.getItem("RefId"));
     this.getClientList();
     this.getVendorList();
+    this.getDesignationList();
     this.userCategory = sessionStorage.getItem("USERCATEGORY");
     this.sessionTypeName = sessionStorage.getItem("Refname"); 
 
@@ -101,6 +105,36 @@ export class UserregComponent implements OnInit {
 
   get f() { return this.addUserForm.controls; }
 
+  getRulebyId(EntityId){
+    this.show=true;
+    this.UserregServices.getRuleListbyId(EntityId).subscribe(
+      response => {
+        if (response != '') {         
+          this.RuleList1 = response['Data'];
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+
+ /* getRulebyId1(EntityId){
+    this.show = false;
+    this.UserregServices.getRuleListbyId(EntityId).subscribe(
+      response => {
+        if (response != '') {         
+          this.RuleList = response['Data'];
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }*/
+
   userType(userType){
     
     if(userType == 'C')
@@ -112,16 +146,20 @@ export class UserregComponent implements OnInit {
         variable.updateValueAndValidity();
       }*/
       $("#vendorlist").hide();
-      $("#clientlist").show();          
+      $("#clientlist").show(); 
+      $("#designationlist").hide();         
                
     }
     else if(userType == 'V'){
       $("#clientlist").hide();
       $("#vendorlist").show();
+      $("#designationlist").hide();
     }    
     else{
       $("#vendorlist").hide();
       $("#clientlist").hide();
+      $("#designationlist").show();
+      
     }
   }
   viewSingleUser(userId){
@@ -137,17 +175,22 @@ export class UserregComponent implements OnInit {
             else {                     
               this.userSingle = response;
               this.userName = this.userSingle['Data'][0]['USERNAME'];
+              
+              if(sessionStorage.getItem("USERCATEGORY") != 'E') {
+                if( this.userSingle['Data'][0]['USERCATEGORY'] == 'C'){
+                  this.categoryName = 'Client';                
+                }
+                else if( this.userSingle['Data'][0]['USERCATEGORY'] == 'V'){
+                  this.categoryName = 'Vendor';
+                }
+              } 
+              else{
+                this.categoryName = this.userSingle['Data'][0]['USERCATEGORY'];
+                $("#designationlist").show();
+              }
 
-              if( this.userSingle['Data'][0]['USERCATEGORY'] == 'C'){
-                this.categoryName = 'Client';                
-              }
-              else if( this.userSingle['Data'][0]['USERCATEGORY'] == 'V'){
-                this.categoryName = 'Vendor';
-              }
-
-              if( this.userSingle['Data'][0]['USERCATEGORY'] == 'E'){
-                this.categoryName = 'Emagine';                
-              }
+              //const toSelect = this.RuleList1['Data'].find(c => c.DataAccessRuleId == this.userSingle['Data'][0]['UserDataRule']);
+              this.addUserForm.get('userRule').setValue(this.userSingle['Data'][0]['UserDataRule']);
 
               this.addUserForm.patchValue({           
                 usercategory: this.categoryName,
@@ -158,8 +201,9 @@ export class UserregComponent implements OnInit {
                 UserEmail:this.userSingle['Data'][0]['USEREMAIL'],
                 UserContactNo:this.userSingle['Data'][0]['USERCONTACTNO'],
                 userRole:this.userSingle['Data'][0]['UserRoles'],
-                userRule:this.userSingle['Data'][0]['UserDataRule'],
-                UserStatus:this.userSingle['Data'][0]['STATUSCODE']
+                userRule:this.userSingle['Data'][0]['DataRuleName'],
+                UserStatus:this.userSingle['Data'][0]['STATUSCODE'],
+                Designation:this.userSingle['Data'][0]['DesignationCode']
               }); 
             }    
               
@@ -200,7 +244,7 @@ export class UserregComponent implements OnInit {
   }
 
   
-  getRuleList() {
+  /*getRuleList() {
     this.UserregServices.getRuleList().subscribe(
       response => {
         if (response != '') {         
@@ -212,7 +256,7 @@ export class UserregComponent implements OnInit {
       },
       error => console.log("Error Occurd!")
     );
-  }
+  }*/
 
   
   getClientList() {
@@ -234,6 +278,20 @@ export class UserregComponent implements OnInit {
       response => {
         if (response != '') {         
           this.VendorList = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }
+
+  getDesignationList() {
+    this.SharedServices.getDesignation().subscribe(
+      response => {
+        if (response != '') {         
+          this.DesignationList = response;
         }
         else {         
           console.log('something is wrong with Service  Execution');

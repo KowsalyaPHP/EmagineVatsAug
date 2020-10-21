@@ -1,3 +1,7 @@
+  
+  input[type="file"]{
+    color: transparent;
+  }
   .example-container {
     display: flex;
     flex-direction: column;

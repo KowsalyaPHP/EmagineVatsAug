@@ -51,14 +51,7 @@ export class ReqDashboardComponent implements OnInit {
       this.status = params['status']; 
     });
 
-    
-    this.getAccessableClientList();
-
-    setTimeout(() => {
-      this.getReqLists(this.status);
-      }
-      , 1500);
-     
+  
 
     /*setTimeout(function () {       
       $(function () {
@@ -97,7 +90,14 @@ export class ReqDashboardComponent implements OnInit {
   
 
   ngOnInit() {
-    
+      
+    this.getAccessableClientList();
+
+    setTimeout(() => {
+      this.getReqLists(this.status);
+      }
+      , 1500);
+     
  /*   let time_out = 50;
 
     let reqDBPromise = (new Promise(function(resolve, reject) {

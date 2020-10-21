@@ -11,7 +11,7 @@
               <td>
                  <span style="font-weight: 500;">Attach CV* (.doc,.docx,.pdf,.rtf only)</span><br><br>
                  <input required (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="CV" >                 
-                 <div *ngIf="submitted && f.CV.errors" class="error">             
+                 <div *ngIf="submitted && f.CV.errors" class="error" title=" ">             
                   <div *ngIf="f.CV.errors?.required">Please select file</div>
                  </div>
                </td>

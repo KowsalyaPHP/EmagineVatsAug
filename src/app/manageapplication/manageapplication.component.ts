@@ -454,7 +454,11 @@ export class ManageapplicationComponent implements OnInit {
     this.showjoinoffer = 'false';
     this.shownothired='false';
     this.showall='true';
-        
+     
+    $('#applicationDashboard').DataTable().clear().destroy();
+    $('#joinofferDashboard').DataTable().clear().destroy();
+    $('#nothiredDashboard').DataTable().clear().destroy();
+    
     this.ManageapplicationServices.getStageValues(this.id,stage).subscribe(
       response => {
         if (response != "No data") {  
@@ -466,6 +470,17 @@ export class ManageapplicationComponent implements OnInit {
         }
       }
     );
+
+    $("#loader").hide();
+
+    setTimeout(function () {
+       $(function () {
+         $('#applicationDashboard').DataTable({
+           scrollY: '310px'
+         });    
+         $("#loader").hide();
+       });      
+     }, 1500);   
   }
   
   getSubStageDetails(substage){
@@ -490,6 +505,10 @@ export class ManageapplicationComponent implements OnInit {
     
     $("#manageapplication").show();
     $("#applicationinfo").hide(); 
+
+    $('#applicationDashboard').DataTable().clear().destroy();
+    $('#joinofferDashboard').DataTable().clear().destroy();
+    $('#nothiredDashboard').DataTable().clear().destroy();
 
   /*  $(document).ready(function() { 
        $('select option[value="'+cStage+'"]').prop("selected",true);  
@@ -519,14 +538,14 @@ export class ManageapplicationComponent implements OnInit {
 
       $("#loader").hide();
 
-    /*  setTimeout(function () {
+     setTimeout(function () {
         $(function () {
           $('#applicationDashboard').DataTable({
             scrollY: '310px'
           });    
           $("#loader").hide();
         });      
-      }, 1500);      */
+      }, 1500);      
   }
 
 

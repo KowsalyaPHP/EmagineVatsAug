@@ -69,6 +69,39 @@
                     </mat-form-field>
                 </td>                
             </tr>
+            <tr>                
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Contact Person" formControlName="Hiringmanager"> 
+                            <option *ngFor="let item of LkupHiringManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>
+                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
+                        </mat-error>-->                      
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Delivery Manager" formControlName="DeliveryManager"> 
+                            <option *ngFor="let item of LkupDeliveryManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>
+                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
+                        </mat-error>-->                      
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <select matNativeControl placeholder="Business Function" formControlName="BusinessFunction"> 
+                            <option *ngFor="let item of LkupBusinessFunction" value="{{item.Code}}" selected>{{item.Description}}</option>                       
+                        </select>
+                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
+                        </mat-error>-->                      
+                    </mat-form-field> 
+                </td>       
+                     
+            </tr>
         </table>
     </div>
     <div class="whiteframe" style="margin-top: -15px;width: 93%;">
@@ -115,7 +148,12 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput id="minExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Minimum experience is 0
+                            </ng-template>
+                             <input matInput id="minExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Min. Experience(Yrs)" formControlName="Minexperience">
+                        </ejs-tooltip>
                         <mat-error *ngFor="let validation of requisition_validation_messages.Minexperience">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Minexperience').hasError(validation.type) && (addRequisitionForm.get('Minexperience').dirty || addRequisitionForm.get('Minexperience').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -123,7 +161,12 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput id="maxExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Maximum experience is 99.9
+                            </ng-template>
+                            <input matInput id="maxExps" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9"  placeholder="Max. Experience(Yrs)" formControlName="Maxexperience">
+                        </ejs-tooltip>
                         <mat-error *ngFor="let validation of requisition_validation_messages.Maxexperience">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Maxexperience').hasError(validation.type) && (addRequisitionForm.get('Maxexperience').dirty || addRequisitionForm.get('Maxexperience').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -155,7 +198,13 @@
                 </td>
                 <td>
                     <mat-form-field>
-                        <input matInput type="number" onKeyPress="if(this.value.length == 10) return false;" min="0" max="100000000" placeholder="Min. Budget" formControlName="Budgetminamt">
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Minimum budget is 0.
+                            </ng-template>
+                            <input matInput type="number" onKeyPress="if(this.value.length == 10) return false;" min="0" max="100000000" placeholder="Min. Budget" formControlName="Budgetminamt">
+                            
+                        </ejs-tooltip>
                         <mat-error *ngFor="let validation of requisition_validation_messages.Budgetminamt">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Budgetminamt').hasError(validation.type) && (addRequisitionForm.get('Budgetminamt').dirty || addRequisitionForm.get('Budgetminamt').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -163,7 +212,12 @@
                 </td>
                 <td>
                     <mat-form-field>
+                        <ejs-tooltip  id='tooltip_1'>
+                            <ng-template #content>
+                               Maximum budget is 10 Crore.
+                            </ng-template>
                         <input matInput type="number" onKeyPress="if(this.value.length == 10) return false;" min="0" max="100000000" placeholder="Max. Budget" formControlName="Budgetmaxamt">
+                        </ejs-tooltip>
                         <mat-error *ngFor="let validation of requisition_validation_messages.Budgetmaxamt">
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Budgetmaxamt').hasError(validation.type) && (addRequisitionForm.get('Budgetmaxamt').dirty || addRequisitionForm.get('Budgetmaxamt').touched)">{{validation.message}}</mat-error>
                         </mat-error>
@@ -225,46 +279,11 @@
                 </td>
                 <td style="padding-left:20px;">
                     JD Doc - 
-                       <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" ><br>
+                       <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" title=" "><br>
                        (.doc,.docx,.pdf,.rtf only)              
                        <p *ngIf="attachmentShow != 0 && id > 0" id="FileChange"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadJD(id)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>     
                 </td>
-            </tr>
-            <tr>                
-                <td>
-                    <mat-form-field>
-                        <select matNativeControl placeholder="Contact Person" formControlName="Hiringmanager"> 
-                            <option *ngFor="let item of LkupHiringManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
-                        </select>
-                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
-                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
-                        </mat-error>-->                      
-                    </mat-form-field> 
-                </td>
-                <td>
-                    <mat-form-field>
-                        <select matNativeControl placeholder="Delivery Manager" formControlName="DeliveryManager"> 
-                            <option *ngFor="let item of LkupDeliveryManager" value="{{item.Code}}" selected>{{item.Description}}</option>                       
-                        </select>
-                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
-                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
-                        </mat-error>-->                      
-                    </mat-form-field> 
-                </td>
-                <td>
-                    <mat-form-field>
-                        <select matNativeControl placeholder="Business Function" formControlName="BusinessFunction"> 
-                            <option *ngFor="let item of LkupBusinessFunction" value="{{item.Code}}" selected>{{item.Description}}</option>                       
-                        </select>
-                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.Hiringmanager">
-                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('Hiringmanager').hasError(validation.type) && (addRequisitionForm.get('Hiringmanager').dirty || addRequisitionForm.get('Hiringmanager').touched)">{{validation.message}}</mat-error>
-                        </mat-error>-->                      
-                    </mat-form-field> 
-                </td>       
-                <td>
-
-                </td>        
-            </tr>
+            </tr>           
             <tr>
                 <td *ngIf="id > 0">
                     <mat-form-field>

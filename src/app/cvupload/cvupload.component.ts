@@ -78,6 +78,17 @@ export class CvuploadComponent implements OnInit {
       this.EmpArray.push(this.EmpValue); 
     
       this.getlkupNationality();  
+
+      $(function () {
+        $('input[type="file"]').change(function () {
+             if ($(this).val() != "") {
+                    $(this).css('color', '#333');
+             }else{
+                    $(this).css('color', 'transparent');
+             }
+        });
+      });
+      
     /*  $(function(){
         $('#filladdress').click(function(){
           if($("#filladdress").is(':checked'))

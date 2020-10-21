@@ -18,6 +18,39 @@ import { CloneService } from './clone.service';
 import { SharedService } from '../shared/shared.service';
 import { saveAs } from 'file-saver';
 
+export function BudgetValidator(minBudget: string, maxBudget: string, minExp: string, maxExp:string) {
+  return (formGroup: FormGroup) => {
+      const minBudgetControl = formGroup.controls[minBudget];
+      const maxBudgetControl = formGroup.controls[maxBudget];
+      const minExpControl = formGroup.controls[minExp];
+      const maxExpControl = formGroup.controls[maxExp];
+
+      if (maxBudgetControl.errors && !maxBudgetControl.errors.BudgetValidator) {
+          // return if another validator has already found an error on the matchingControl
+          return;
+      }
+      if (maxExpControl.errors && !maxExpControl.errors.BudgetValidator) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      // set error on matchingControl if validation fails
+      if(maxBudgetControl.value != 0 || maxBudgetControl.value != ''){
+        if (minBudgetControl.value >= maxBudgetControl.value) {
+          maxBudgetControl.setErrors({ BudgetValidator: true });
+        } else {
+          maxBudgetControl.setErrors(null);
+        }
+      }
+      if(maxExpControl.value != 0 || maxExpControl.value != ''){
+        if (minExpControl.value >= maxExpControl.value) {
+          maxExpControl.setErrors({ BudgetValidator: true });
+        } else {
+          maxExpControl.setErrors(null);
+        }
+      }
+  }
+}
+
 @Component({
   selector: 'app-clone',
   templateUrl: './clone.component.html',
@@ -64,6 +97,8 @@ export class CloneComponent implements OnInit {
   LkupBudgetCurrency:[];
   LkupEmploymentType:[];
   LkupHiringManager:[];
+  LkupDeliveryManager:[];
+  LkupBusinessFunction:[];
   LkupClient:[];
   LkupAccountManager:[];
   showwithCheckedcomp:[];
@@ -103,7 +138,11 @@ export class CloneComponent implements OnInit {
       Jdattachment:'',
       EACManager:['', [Validators.required]],
       ReqStatus:'',
-      ReqStatusRemarks:''      
+      ReqStatusRemarks:'', 
+      DeliveryManager:'',
+      BusinessFunction:''     
+    }, { 
+      validator: BudgetValidator('Budgetminamt', 'Budgetmaxamt','Minexperience', 'Maxexperience')
     });    
     
     var userId = sessionStorage.getItem("uniqueSessionId");    
@@ -146,12 +185,12 @@ export class CloneComponent implements OnInit {
               else{
                 this.descriptionCompetency = '';
               }
-
+            
               this.cloneRequisitionForm.patchValue({
                 Reqtitle: this.requisitionDetails['Data'][0]['Reqtitle'],
                 EmploymentType:this.requisitionDetails['Data'][0]['EmploymentTypecode'],
                 ClientId:this.requisitionDetails['Data'][0]['ClientId'],
-                Hiringmanager:this.requisitionDetails['Data'][0]['EACmanagerCode'],
+                Hiringmanager:this.requisitionDetails['Data'][0]['ContactPersonCode'],
                 Emplocation:this.requisitionDetails['Data'][0]['EmpLocationcode'],
                 Noofposition:this.requisitionDetails['Data'][0]['NoOfPosition'],
                // Skillset:this.requisitionDetails['Data'][0]['Skillset'],
@@ -168,7 +207,9 @@ export class CloneComponent implements OnInit {
                 //Jdattachment:this.requisitionDetails['Data'][0]['JAttachment'],
                 EACManager:this.requisitionDetails['Data'][0]['EACmanagerCode'],
                 ReqStatus:this.requisitionDetails['Data'][0]['ReqStatus'],
-                ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks']
+                ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks'],
+                DeliveryManager:this.requisitionDetails['Data'][0]['DeliveryManagerCode'],
+                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunctionCode']
               });
              
               if(!this.requisitionDetails['Data'][0]['JDAttachment']){
@@ -344,12 +385,20 @@ export class CloneComponent implements OnInit {
       this.getlkupBudgetType();
       this.getlkupBudgetCurrency();
       this.getlkupEmploymenyType();
-      this.getlkupHiringManager();
+      this.getlkupHiringManager();      
+      this.getlkupDeliveryManager();
+      this.getlkupBusinessFunction();
       this.getlkupClient();
       this.getlkupAccountManager();
       
-      $("#minExp").keyup(function(){
-
+      $(function () {
+        $('input[type="file"]').change(function () {
+             if ($(this).val() != "") {
+                    $(this).css('color', '#333');
+             }else{
+                    $(this).css('color', 'transparent');
+             }
+        });
       });
 
     /*  this.filteredOptions = this.cloneRequisitionForm.get('ClientId').valueChanges
@@ -430,6 +479,34 @@ export class CloneComponent implements OnInit {
     );
   }  
 
+  getlkupDeliveryManager() {
+    this.SharedServices.getDeliveryManager().subscribe(
+      response => {
+        if (response != '') {         
+          this.LkupDeliveryManager = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }  
+
+  getlkupBusinessFunction() {
+    this.SharedServices.getBusinessFunction().subscribe(
+      response => {
+        if (response != '') {         
+          this.LkupBusinessFunction = response;
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+  }  
+
   getlkupClient() {
     this.SharedServices.getClient().subscribe(
       response => {
@@ -488,23 +565,24 @@ export class CloneComponent implements OnInit {
           const CompetencyCode= this.selectCompetency.map(element => element.Code);
           this.selCompCode = CompetencyCode.join(';'); 
         }
-        else{
-         this.selCompCode = '';
+        else if(this.requisitionDetails){
+          this.selCompCode = this.requisitionDetails['Data'][0]['Competencycode'];   
         }
+        
         if(this.selectSkillset){ 
           const SkillsetCode= this.selectSkillset.map(element => element.Code);
           this.selSkillCode = SkillsetCode.join(';');  
         }
-        else{
-         this.selSkillCode = '';
-        }
+        else if(this.requisitionDetails){
+          this.selSkillCode = this.requisitionDetails['Data'][0]['SkillSetcode'];   
+        }        
         if(this.selectEducation){ 
           const EducationCode= this.selectEducation.map(element => element.Code);
           this.selEduCode = EducationCode.join(';');
         }
-        else{
-         this.selEduCode = '';
-        }
+        else if(this.requisitionDetails){
+          this.selEduCode = this.requisitionDetails['Data'][0]['EduQlfncode'];   
+        } 
 
         this.CloneServices.cloneRequisitions(formObj,this.fileList,this.selCompCode,this.selSkillCode,this.selEduCode,this.id).subscribe(
           response => {  
@@ -585,16 +663,16 @@ export class CloneComponent implements OnInit {
       { type: 'required', message: 'Please select contact person' }
     ],
     'Minexperience': [
-      { type: 'pattern', message: 'Please enter valid minimum experience' }
+      { type: 'min', message: 'Please enter valid minimum experience' }
     ],
     'Maxexperience': [
-      { type: 'pattern', message: 'Please enter valid maximum experience' }
+      { type: 'max', message: 'Please enter valid maximum experience' }
     ],
     'Budgetminamt': [
-      { type: 'pattern', message: 'Please enter valid minimum amount' }
+      { type: 'min', message: 'Please enter valid minimum amount' }
     ],
     'Budgetmaxamt': [
-      { type: 'pattern', message: 'Please enter valid maximum amount' }
+      { type: 'max', message: 'Please enter valid maximum amount' }
     ],
     'Jobdescription': [
       { type: 'required', message: 'Please enter job description' }

@@ -45,16 +45,25 @@
   </div>
   
   <p>You can reset your password here.</p>
-  <form class="form example-form" #formDirectisve="ngForm" role="form" autocomplete="off" id="formLogin" novalidate=""
+  <form class="form example-form" #formDirectisve="ngForm" focusInvalidInput role="form" autocomplete="off" id="formLogin" novalidate=""
       [formGroup]="forgotPasswordForm" (submit)='forgotPasswordFormSubmit(forgotPasswordForm.value)'>
-    <mat-dialog-content>
+      
+      <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+          <input matInput maxlength="40" placeholder="Email id | Mobile Number | User id" formControlName="UserId" required>
+          <mat-error *ngFor="let validation of account_validation_messages.UserId">
+            <mat-error class="error-message" *ngIf="forgotPasswordForm.invalid || forgotPasswordForm.get('UserId').hasError(validation.type) && (forgotPasswordForm.get('UserId').dirty || forgotPasswordForm.get('UserId').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>            
+    </div>
+  <!--  <mat-dialog-content>
       <mat-form-field class="example-full-width">
         <input matInput maxlength="40" placeholder="Email id | Mobile Number | User id" formControlName="UserId" required>
         <mat-error *ngFor="let validation of account_validation_messages.UserId">
           <mat-error class="error-message" *ngIf="forgotPasswordForm.invalid || forgotPasswordForm.get('UserId').hasError(validation.type) && (forgotPasswordForm.get('UserId').dirty || forgotPasswordForm.get('UserId').touched)">{{validation.message}}</mat-error>
         </mat-error>
       </mat-form-field>
-    </mat-dialog-content>
+    </mat-dialog-content>-->
     <mat-dialog-actions class="border-top">
       <button type="button" mat-button matDialogClose>Cancel</button>
       <button type="submit" mat-raised-button color="accent">Send Password</button>
@@ -68,6 +77,24 @@
       <button mat-button matDialogClose="yes">Yes</button>
   </mat-dialog-actions>-->
 </ng-template>
+<!--
+<form class="form example-form" focusInvalidInput #formDirectisve="ngForm" role="form" autocomplete="off" id="skillform" novalidate=""
+    [formGroup]="addNewSkillForm" (submit)='addNewSkillFormSubmit(addNewSkillForm.value)'>
+    
+        <div mat-dialog-content>
+            <mat-form-field class="example-full-width">
+                <input matInput maxlength="40" placeholder="New skill" formControlName="SkillSetTitle" required>
+                <mat-error *ngFor="let validation of account_validation_messages.SkillSetTitle">
+                  <mat-error class="error-message" *ngIf="addNewSkillForm.invalid || addNewSkillForm.get('SkillSetTitle').hasError(validation.type) && (addNewSkillForm.get('SkillSetTitle').dirty || addNewSkillForm.get('SkillSetTitle').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>            
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button cdkFocusInitial>Add</button>
+            <button mat-button  (click)="onNoClick()" matDialogClose>Cancel</button>
+        </div>
+        <p id="loader" style="display:none;margin-left: -11px;margin-bottom: -22px;"><img class="loading-img" src="assets/img/load.gif" alt="loader">
+    </form>-->
 <!--<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
   <mat-card class="box">

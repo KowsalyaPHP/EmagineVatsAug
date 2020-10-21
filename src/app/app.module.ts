@@ -59,6 +59,10 @@ import { RuleComponent } from './rule/rule.component';
 import { RuleaddComponent } from './ruleadd/ruleadd.component';
 import { PasswordchangeComponent } from './passwordchange/passwordchange.component';
 import { AddskillcompetencyComponent } from './addskillcompetency/addskillcompetency.component';
+import { AboutreleaseComponent } from './aboutrelease/aboutrelease.component';
+import { AddcityComponent } from './addcity/addcity.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+
 
 @NgModule({
   declarations: [
@@ -104,7 +108,11 @@ import { AddskillcompetencyComponent } from './addskillcompetency/addskillcompet
     RuleComponent,
     RuleaddComponent,
     PasswordchangeComponent,
-    AddskillcompetencyComponent
+    AddskillcompetencyComponent,
+    AboutreleaseComponent,
+    AddcityComponent,
+    ResetpasswordComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -126,7 +134,7 @@ import { AddskillcompetencyComponent } from './addskillcompetency/addskillcompet
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],
   bootstrap: [AppComponent],
-  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent,AddskillcompetencyComponent]
+  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent,AddskillcompetencyComponent,AddcityComponent,AboutreleaseComponent,ResetpasswordComponent]
 })
 
 export class AppModule { }

@@ -8,6 +8,8 @@ import {
 } from "@angular/forms";
 import { ClientregService } from './clientreg.service';
 import { SharedService } from '../shared/shared.service';
+import { AddcityComponent } from '../addcity/addcity.component';
+import { MatDialog } from '@angular/material';
 declare var $: any
 
 @Component({
@@ -39,7 +41,7 @@ export class ClientregComponent implements OnInit {
   getChildType:any;
   userCategory:any;
 
-  constructor(private ClientregServices: ClientregService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) {
+  constructor(private ClientregServices: ClientregService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private dialog: MatDialog) {
     
     this.route.params.subscribe(params => {
       this.id = params['id'] 
@@ -106,6 +108,19 @@ export class ClientregComponent implements OnInit {
   ngOnInit() {
     
    
+  }
+
+  openDialogaddNewCity(): void {
+  
+    const dialogRef = this.dialog.open(AddcityComponent, {
+      width: '400px',
+      data: {addType: 'skill'}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
   }
 
   goToMainmenu(){

@@ -39,7 +39,8 @@
                             <th>Email Id</th>
                             <th>Contact Number</th>                  
                             <th>Roles</th>
-                            <th>Rules</th>        
+                            <th>Rules</th>  
+                            <th style="background-image: none;color:transparent">reset</th>      
                         </tr>       
                     </thead>
                     <tbody>          
@@ -57,7 +58,15 @@
                             <td>{{item.UserEmail}}</td>
                             <td>{{item.UserContactno}}</td>
                             <td>{{item.UserRoles}}</td>
-                            <td>{{item.UserDataRule}}</td>            
+                            <td>{{item.UserDataRule}}</td>    
+                            <td>
+                                <ejs-tooltip  id='tooltip_1'>
+                                    <ng-template #content>
+                                        Reset Password
+                                    </ng-template>
+                                    <a (click)="openDialogResetPassword(item.UserId)"><i style="color: #333;cursor:pointer;" class="fa fa-key" aria-hidden="true"></i></a>
+                                </ejs-tooltip>
+                            </td>        
                         </tr>
                     </tbody>  
                 </table>

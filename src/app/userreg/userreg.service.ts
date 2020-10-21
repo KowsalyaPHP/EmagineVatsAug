@@ -23,7 +23,7 @@ export class UserregService {
     var usercategory =  sessionStorage.getItem("USERCATEGORY");
     var C_ID = sessionStorage.getItem("uniqueSessionId");
 
-   /* if(usercategory == 'E'){
+   if(usercategory == 'E'){
       if(FormObj['clientName'] != '' && FormObj['usercategory'] == 'C'){
         this.RefId = FormObj['clientName'];
       }
@@ -37,14 +37,15 @@ export class UserregService {
     else{
       this.RefId = sessionStorage.getItem("RefId");
       FormObj.usercategory = sessionStorage.getItem("USERCATEGORY");
-    }*/
+    }
 
-    this.RefId = sessionStorage.getItem("RefId");
-    FormObj.usercategory = sessionStorage.getItem("USERCATEGORY");
+  /*  this.RefId = sessionStorage.getItem("RefId");
+    FormObj.usercategory = sessionStorage.getItem("USERCATEGORY");*/
     
 
     params.set('usercategory', FormObj.usercategory);
     params.set('RefId', this.RefId);
+    params.set('Designation', FormObj.Designation);
     params.set('UserMrMs', FormObj.UserMrMs);
     params.set('UserName', FormObj.UserName);
     params.set('UserLastName', FormObj.UserLastName);    
@@ -76,6 +77,7 @@ export class UserregService {
     params.set('USERROLES', FormObj.userRole);    
     params.set('USERDATARULE', FormObj.userRule);
     params.set('USERMRMS', FormObj.UserMrMs);
+    params.set('Designation', FormObj.Designation);
     params.set('UserName', FormObj.UserName);
     params.set('UserLastName', FormObj.UserLastName);  
     params.set('STATUS', FormObj.UserStatus);
