@@ -8,6 +8,8 @@ import {
 } from "@angular/forms";
 import { UserregService } from './userreg.service';
 import { SharedService } from '../shared/shared.service';
+import { AddcityComponent } from '../addcity/addcity.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-userreg',
@@ -35,7 +37,7 @@ export class UserregComponent implements OnInit {
   categoryName:any;
   show=false;
   
-  constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute) {
+  constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute,private dialog: MatDialog) {
 
     this.route.params.subscribe(params => {
       this.id = params['id'];     
@@ -373,6 +375,18 @@ export class UserregComponent implements OnInit {
     }
   }
     
+}
+openDialogaddNewCity(): void {
+  
+  const dialogRef = this.dialog.open(AddcityComponent, {
+    width: '400px',
+    data: {addType: 'skill'}      
+  });
+  
+  dialogRef.afterClosed().subscribe(result => {
+    if(result && result.action === 1) {
+    } 
+  });    
 }
 
   validation_messages = {

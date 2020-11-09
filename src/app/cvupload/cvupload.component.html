@@ -25,10 +25,10 @@
                   </mat-error>      
                   </mat-form-field></td>
                   <td><mat-form-field class="example-full-width">
-                    <input matInput required placeholder="Last Name" maxlength="40" formControlName="Candidate_LN">
-                    <mat-error *ngFor="let validation of cv_validation_messages.Candidate_LN">
+                    <input matInput placeholder="Last Name" maxlength="40" formControlName="Candidate_LN">
+                   <!-- <mat-error *ngFor="let validation of cv_validation_messages.Candidate_LN">
                       <mat-error class="error-message" *ngIf="CVUploadForm.invalid || CVUploadForm.get('Candidate_LN').hasError(validation.type) && (CVUploadForm.get('Candidate_LN').dirty || CVUploadForm.get('Candidate_LN').touched)">{{validation.message}}</mat-error>
-                  </mat-error>      
+                  </mat-error>    -->  
                   </mat-form-field></td>
               </tr>
               <tr>
@@ -49,13 +49,13 @@
                   <td>
                     <mat-form-field class="example-full-width">
                       <mat-label>Date of Birth(18 yrs min)</mat-label>
-                      <input matInput required [max]="maxDate" [matDatepicker]="picker" readonly formControlName="DateofBirth">
+                      <input matInput [max]="maxDate" [matDatepicker]="picker" readonly formControlName="DateofBirth">
                       <mat-datepicker-toggle matSuffix [for]="picker">                        
                       </mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
-                      <mat-error *ngFor="let validation of cv_validation_messages.DateofBirth">
+                      <!--<mat-error *ngFor="let validation of cv_validation_messages.DateofBirth">
                         <mat-error class="error-message" *ngIf="CVUploadForm.invalid || CVUploadForm.get('DateofBirth').hasError(validation.type) && (CVUploadForm.get('DateofBirth').dirty || CVUploadForm.get('DateofBirth').touched)">{{validation.message}}</mat-error>
-                    </mat-error> 
+                    </mat-error> -->
                     </mat-form-field>
                     
                   </td>

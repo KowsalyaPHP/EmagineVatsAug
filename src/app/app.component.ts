@@ -12,14 +12,17 @@ import { MatDialog } from '@angular/material';
 export class AppComponent {
   title = 'vats';
   userName='';
- public static urlPath = "http://bincrm.com/vatsqa/";
-//public static urlPath = "http://3cc04d816916.ngrok.io/";
+
+ //public static urlPath = "https://api.emaginerock.com/";
+
+// public static urlPath = "http://bincrm.com/vatsdev/";
+public static urlPath = "http://1276fcbde526.ngrok.io/";
   
   constructor(private router: Router,private route: ActivatedRoute,private dialog: MatDialog) {
    // this.getAccessableClientList();
   }
 
-  openDialogAboutReleasePage(): void {
+  openDialogAboutReleasePage(): void { 
   
     const dialogRef = this.dialog.open(AboutreleaseComponent, {
       width: '400px',

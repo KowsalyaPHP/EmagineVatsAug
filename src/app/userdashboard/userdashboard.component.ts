@@ -9,7 +9,7 @@ import {
 import { UserdashboardService } from './userdashboard.service';
 import { ResetpasswordComponent } from '../resetpassword/resetpassword.component';
 import { MatFormFieldControl, MatFormField, MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatChipInputEvent } from '@angular/material';
-
+import { AddcityComponent } from '../addcity/addcity.component';
 declare var $: any
 
 @Component({
@@ -105,5 +105,16 @@ export class UserdashboardComponent implements OnInit {
     );  
   }
 
-
+  openDialogaddNewCity(): void {
+  
+    const dialogRef = this.dialog.open(AddcityComponent, {
+      width: '400px',
+      data: {addType: 'skill'}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
+  }
 }

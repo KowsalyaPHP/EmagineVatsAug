@@ -9,11 +9,11 @@ import { DatePipe } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class CvuploadService {
+export class CvuploadvatsService {
 
   constructor(private http: Http,private datePipe : DatePipe) { }
 
-  public CVUpload(FormObj,file,ReqID,EmpArray,EduArray): Observable<any> {
+  public CVUpload(FormObj,file,ReqID,EmpArray,EduArray,vendorId): Observable<any> {
 
     const url = AppComponent.urlPath + 'CVUpload';
     const params = new URLSearchParams();   
@@ -21,20 +21,13 @@ export class CvuploadService {
     var RefId = sessionStorage.getItem("RefId");
     var C_ID = sessionStorage.getItem("uniqueSessionId");
 
-    if(file) {
-      var fileValue: File = file[0];
-    }
-    else{
-      var fileValue: File  = null;
-    } 
-    
-    //const fileValue: File = file[0];
+    const fileValue: File = file[0];
     const formData = new FormData(); 
     const date = this.datePipe.transform(FormObj.DateofBirth, 'MM/dd/yyyy');
 
-    formData.append('EntityID', RefId);
+    formData.append('EntityID', 'Emagine');
     formData.append('RequisitionId', ReqID);
-    formData.append('UserId',C_ID);
+    formData.append('UserId',vendorId);
     formData.append('CV', fileValue);
     formData.append('Candidate_FN', FormObj.Candidate_FN);
     formData.append('Candidate_LN', FormObj.Candidate_LN);
@@ -57,7 +50,7 @@ export class CvuploadService {
     formData.append('C_ID', C_ID);
     formData.append('EduDetails', EduArray);
     formData.append('EmpDetails', EmpArray);
-    formData.append('sourcecategory', 'Selfsource');
+    formData.append('sourcecategory', 'Vendor');
 console.log(formData);
     return this.http.post(url, formData)
       .map(response => response.json()).map(data => {

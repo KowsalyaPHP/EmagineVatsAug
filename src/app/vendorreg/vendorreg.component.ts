@@ -8,6 +8,8 @@ import {
 } from "@angular/forms";
 import { VendorregService } from './vendorreg.service';
 import { SharedService } from '../shared/shared.service';
+import { AddcityComponent } from '../addcity/addcity.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-vendorreg',
@@ -29,7 +31,7 @@ export class VendorregComponent implements OnInit {
   vendorList:[];
   vendorname:any;
   
-  constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private VendorregServices: VendorregService,private SharedServices: SharedService,private route: ActivatedRoute) { 
+  constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private VendorregServices: VendorregService,private SharedServices: SharedService,private route: ActivatedRoute,private dialog: MatDialog) { 
     
     this.route.params.subscribe(params => {
       this.id = params['id'];     
@@ -92,6 +94,18 @@ export class VendorregComponent implements OnInit {
     //this.routerObj.navigate(['clientreg/0']);
   }
 
+  openDialogaddNewCity(): void {
+  
+    const dialogRef = this.dialog.open(AddcityComponent, {
+      width: '400px',
+      data: {addType: 'skill'}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
+  }
   vendorType(vType){    
     if(vType == 'V'){
       $("#adminRight").val('Y');

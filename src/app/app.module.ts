@@ -62,6 +62,8 @@ import { AddskillcompetencyComponent } from './addskillcompetency/addskillcompet
 import { AboutreleaseComponent } from './aboutrelease/aboutrelease.component';
 import { AddcityComponent } from './addcity/addcity.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { CvuploadvatsComponent } from './cvuploadvats/cvuploadvats.component';
+import { JobdescriptionComponent } from './jobdescription/jobdescription.component';
 
 
 @NgModule({
@@ -112,6 +114,8 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
     AboutreleaseComponent,
     AddcityComponent,
     ResetpasswordComponent,
+    CvuploadvatsComponent,
+    JobdescriptionComponent,
     
   ],
   imports: [

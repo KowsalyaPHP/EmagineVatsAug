@@ -1,0 +1,12 @@
+<mat-card>
+    <div *ngFor="let item of requisitionDetails; let i = index">
+        <h3>{{item.Reqtitle}}</h3>
+        <p>ID: {{item.RequisitionId}} | Exp: {{item.MinExperience}} - {{item.MaxExperience}} | Loc: {{item.EmpLocation}} </p>
+        <hr>
+        <h3 style="text-decoration:underline">Job Description</h3>
+        <!-- <div id="description">{{item.JobDescription}}</div> -->
+        <div id="descriptionshow" [innerHtml]="item.JobDescription"></div>
+    </div>
+    <a [routerLink]="['/cvuploadvats/',id,vendorId]"><button mat-button>Submit</button></a>
+</mat-card>
+

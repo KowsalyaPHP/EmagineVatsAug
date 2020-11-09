@@ -4,6 +4,7 @@ import { MatFormFieldControl, MatFormField, MatDialog, MatDialogRef, MAT_DIALOG_
 import { RuleaddComponent } from '../ruleadd/ruleadd.component';
 import { RuleService } from './rule.service';
 import { SharedService } from '../shared/shared.service';
+import { AddcityComponent } from '../addcity/addcity.component';
 declare var $: any
 
 @Component({
@@ -44,6 +45,19 @@ export class RuleComponent implements OnInit {
       }
     }); 
    
+  }
+
+  openDialogaddNewCity(): void {
+  
+    const dialogRef = this.dialog.open(AddcityComponent, {
+      width: '400px',
+      data: {addType: 'skill'}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
   }
 
   openSnackBar() { 

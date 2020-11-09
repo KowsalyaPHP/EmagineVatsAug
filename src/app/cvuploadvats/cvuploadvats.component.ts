@@ -10,14 +10,15 @@ import {
 import { ToastrService } from 'ngx-toastr';  
 import { EduGrid,EmpGrid } from '../grid.model';
 import { SharedService } from '../shared/shared.service';
-import { CvuploadService } from './cvupload.service';
+import { CvuploadvatsService } from './cvuploadvats.service';
 
 @Component({
-  selector: 'app-cvupload',
-  templateUrl: './cvupload.component.html',
-  styleUrls: ['./cvupload.component.css']
+  selector: 'app-cvuploadvats',
+  templateUrl: './cvuploadvats.component.html',
+  styleUrls: ['./cvuploadvats.component.css']
 })
-export class CvuploadComponent implements OnInit {
+
+export class CvuploadvatsComponent implements OnInit {
 
   CVUploadForm: FormGroup;
   public EduArray: Array<EduGrid> = [];  
@@ -32,8 +33,9 @@ export class CvuploadComponent implements OnInit {
   id:any;
   submitted = false;  
   maxDate: any;
+  vendorId:any;
 
-  constructor(private CvuploadServices: CvuploadService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private toastr: ToastrService) {
+  constructor(private CvuploadvatsServices: CvuploadvatsService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private toastr: ToastrService) {
 
     this.CVUploadForm = this.formBuilderObj.group({
       CV:['', [Validators.required]], 
@@ -65,8 +67,15 @@ export class CvuploadComponent implements OnInit {
       Role: ''
     });    
 
+    this.route.params.subscribe(params => {
+      this.id = params['id'],
+      this.vendorId = params['uid'];
+    });
+
    }
-  
+  close(){
+    window.close();
+  }
   ngOnInit(): void {  
     var date = new Date();
     this.maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
@@ -219,10 +228,11 @@ export class CvuploadComponent implements OnInit {
     this.passEmp = JSON.stringify(this.EmpArray);
     
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['id'],
+      this.vendorId = params['uid'];
     });
 
-    this.CvuploadServices.CVUpload(formObj,this.fileList,this.id,this.passEmp,this.passEdu).subscribe(
+    this.CvuploadvatsServices.CVUpload(formObj,this.fileList,this.id,this.passEmp,this.passEdu,this.vendorId).subscribe(
       response => {  
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
@@ -233,7 +243,11 @@ export class CvuploadComponent implements OnInit {
           else{
             this.message = getMessage['1'];
             this.openSnackBar();
-            this.routerObj.navigate(['manage/',this.id,'SO']);
+            setTimeout(() => {
+              this.routerObj.navigate(['jobdescription/',this.id,this.vendorId]);
+            }
+            , 3000);   
+           
           }            
         }
         else {         
@@ -248,15 +262,11 @@ export class CvuploadComponent implements OnInit {
     'CV': [
       { type: 'required', message: 'Please select file' }      
     ],
-    'Candidate_LN': [
-      { type: 'required', message: 'Please enter last name' }
-    ],
-   /* 'DateofBirth': [
-      { type: 'pattern', message: 'Please enter date of birth' }
-    ]*/
-
     'Candidate_FN': [
       { type: 'required', message: 'Please enter first name' }      
+    ],
+    'Candidate_LN': [
+      { type: 'required', message: 'Please enter last name' }
     ],
     'EMailId': [
       { type: 'required', message: 'Please enter valid email id' }
@@ -264,6 +274,9 @@ export class CvuploadComponent implements OnInit {
     'MobileNo': [
       { type: 'pattern', message: 'Please enter valid phone number' }
       
-    ]
+    ]/*,
+    'DateofBirth': [
+      { type: 'pattern', message: 'Please enter date of birth' }
+    ]*/
   }
 }

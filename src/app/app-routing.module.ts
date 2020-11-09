@@ -34,6 +34,8 @@ import { TemplateComponent } from './template/template.component';
 import { DownloadComponent } from './download/download.component';
 import { RoleComponent } from './role/role.component';
 import { RuleComponent } from './rule/rule.component';
+import { CvuploadvatsComponent } from './cvuploadvats/cvuploadvats.component';
+import { JobdescriptionComponent } from './jobdescription/jobdescription.component';
 
 const routes: Routes = [
 {
@@ -171,7 +173,16 @@ const routes: Routes = [
 {
   path: "rule",
   component: RuleComponent
+},
+{
+  path: "cvuploadvats/:id/:uid",
+  component: CvuploadvatsComponent
+},
+{
+  path:"jobdescription/:id/:uid",
+  component: JobdescriptionComponent
 }
+
 ];
 
 @NgModule({

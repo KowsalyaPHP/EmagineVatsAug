@@ -26,7 +26,7 @@ export class ResetpasswordComponent implements OnInit {
 
   
   openSnackBar() { 
-    var x = document.getElementById("addskillcompetency")
+    var x = document.getElementById("resetsnackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
   }
@@ -44,8 +44,14 @@ export class ResetpasswordComponent implements OnInit {
             $("#loader").css("display", "none");
           }         
           else {                     
-            $("#loader").css("display", "none");       
-            this.dialogRef.close({action: 1}); 
+            $("#loader").css("display", "none");   
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+            setTimeout(() => {
+              this.dialogRef.close({action: 1}); 
+            }
+            , 3000);     
+            
           }
         } else {
             console.log("something is wrong with Service Execution");

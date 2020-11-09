@@ -4,6 +4,7 @@ import { MatFormFieldControl, MatFormField, MatDialog, MatDialogRef, MAT_DIALOG_
 import { RoleaddComponent } from '../roleadd/roleadd.component';
 import { RoleService } from './role.service';
 import { AnimationStyleMetadata } from '@angular/animations';
+import { AddcityComponent } from '../addcity/addcity.component';
 declare var $: any
 
 interface RoleList {
@@ -127,6 +128,19 @@ export class RoleComponent implements OnInit {
       }
     }); 
    
+  }
+
+  openDialogaddNewCity(): void {
+  
+    const dialogRef = this.dialog.open(AddcityComponent, {
+      width: '400px',
+      data: {addType: 'skill'}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
   }
 
   viewRoleList(){

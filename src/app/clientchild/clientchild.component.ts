@@ -8,6 +8,8 @@ import {
 } from "@angular/forms";
 import { ClientchildService } from './clientchild.service';
 import { SharedService } from '../shared/shared.service';
+import { AddcityComponent } from '../addcity/addcity.component';
+import { MatDialog } from '@angular/material';
 declare var $: any
 
 @Component({
@@ -38,7 +40,7 @@ export class ClientchildComponent implements OnInit {
   type:any;
   getChildType:any;
 
- constructor(private ClientchildServices: ClientchildService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute) {
+ constructor(private ClientchildServices: ClientchildService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private dialog: MatDialog) {
     
     this.route.params.subscribe(params => {
       this.id = params['id'],
@@ -113,6 +115,19 @@ export class ClientchildComponent implements OnInit {
     this.viewSingleClient(clientid);
     //this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
    // this.routerObj.navigate(['clientreg/'+clientid+'/1']);
+  }
+
+  openDialogaddNewCity(): void {
+  
+    const dialogRef = this.dialog.open(AddcityComponent, {
+      width: '400px',
+      data: {addType: 'skill'}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
   }
 
   childlist(clientid){

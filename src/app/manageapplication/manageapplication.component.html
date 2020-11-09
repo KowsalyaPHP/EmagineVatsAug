@@ -112,15 +112,15 @@
           <th style="background-image: none;height: 25px;width: 20px;"></th>
           <th>CV</th>
           <th>Name</th>
-          <th>Vendor</th>
+          <th>Src.Cat</th>
+          <th>Owner</th>
           <th>Exp</th>
           <th>Email Id</th>
           <th>Mobile No.</th>
           <th>Expected CTC</th>
           <th>Current CTC</th>
           <th>NP</th>
-          <th>C.Loc</th>
-          <th>Owner</th>
+          <th>C.Loc</th>         
           <th>Step Owner</th>
           <th>Date</th>
           <th>Ageing</th>
@@ -148,7 +148,8 @@
                <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li>
               </ul>
           </td>        
-          <td>{{item.VendorName}}</td>         
+          <td>{{item.Source_category}}</td> 
+          <td style="width: 8vw;">{{item.EACManager}}</td>        
           <td id="changeExpervalue{{i}}">{{item.RelevantExperienceYYMM}}</td>
           <td>{{item.EMailId}}</td>
           <td>{{item.MobileNo}}</td>
@@ -156,7 +157,7 @@
           <td id="changePrevalue{{i}}">{{item.PrSalaryTotal}}</td>
           <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
           <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
-          <td style="width: 8vw;">{{item.EACManager}}</td>
+          
           <td style="width: 8vw;">{{item.Step_Owner}}</td>
           <td style="width: 8vw;">{{item.Date}}</td>
           <td>{{item.Ageing}}d</td>         
