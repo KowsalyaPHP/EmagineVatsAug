@@ -1,0 +1,43 @@
+
+<div style="margin: 0;">
+    <div id="Cvsnackbar">{{message}}</div>
+  </div>
+  <form class="form" role="form" focusInvalidInput autocomplete="off" id="Clientform" novalidate=""
+[formGroup]="CvCopyTransferForm">
+<h3>Move CV's to which requisition?</h3>
+  <table style="width:100%">
+    <tr> 
+        <td>
+            <mat-form-field style="width: 70%;margin-bottom: 15px;">
+                <input maxlength="80" required matInput placeholder="Requisition Id"  id="NewRequisitionId" formControlName="NewRequisitionId" class="form-control"/>               
+                <mat-error *ngFor="let validation of validation_messages.NewRequisitionId">
+                    <mat-error class="error-message" *ngIf="CvCopyTransferForm.invalid || CvCopyTransferForm.get('NewRequisitionId').hasError(validation.type) && (CvCopyTransferForm.get('NewRequisitionId').dirty || CvCopyTransferForm.get('NewRequisitionId').touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>        
+        </td>     
+    </tr>
+  </table>
+<!--<table #dataTable class="display" id="CVTransferCopyDashboard" style="width:100%;">
+    <thead>
+      <tr>
+        <th style="background-image: none;height: 25px;width: 20px;"></th>
+        <th>RequisitionId</th>
+        <th>ReqTitle</th>
+        <th>Clientname</th>
+        <th>Positions</th>
+      </tr>
+    </thead>
+    <tbody>                   
+      <tr *ngFor="let item of requisitionList; let i = index"> 
+        <td style="width:20px;"><input type="checkbox"  name="requisitionList{{item.RequisitionId}}" [checked]="requisitionList[i].checked" [(ngModel)]="requisitionList[i].checked" value="{{item.RequisitionId}}"></td> 
+        <td>{{item.RequisitionId}}</td> 
+        <td style="width: 8vw;">{{item.ReqTitle}}</td>        
+        <td id="changeExpervalue{{i}}">{{item.Clientname}}</td>
+        <td>{{item.Positions}}</td>   
+      </tr>        
+    </tbody>          
+  </table>-->
+<button type="submit" mat-button cdkFocusInitial (click)="CVCopyToAnotherReq(CvCopyTransferForm.getRawValue());">Copy</button>&nbsp;&nbsp;
+<button type="submit" mat-button (click)="CVTransferToAnotherReq(CvCopyTransferForm.getRawValue());">Transfer</button>&nbsp;&nbsp;
+<button type="submit" mat-button matDialogClose>Close</button>
+</form>

@@ -36,6 +36,7 @@ import { RoleComponent } from './role/role.component';
 import { RuleComponent } from './rule/rule.component';
 import { CvuploadvatsComponent } from './cvuploadvats/cvuploadvats.component';
 import { JobdescriptionComponent } from './jobdescription/jobdescription.component';
+import { LandingpageComponent } from './landingpage/landingpage.component';
 
 const routes: Routes = [
 {
@@ -83,7 +84,7 @@ const routes: Routes = [
   component: UnpublishComponent
 },
 {
-  path: "cvupload/:id",
+  path: "cvupload/:id/:cid",
   component: CvuploadComponent
 },
 {
@@ -181,8 +182,11 @@ const routes: Routes = [
 {
   path:"jobdescription/:id/:uid",
   component: JobdescriptionComponent
+},
+{
+  path: "landingpage",
+  component: LandingpageComponent
 }
-
 ];
 
 @NgModule({

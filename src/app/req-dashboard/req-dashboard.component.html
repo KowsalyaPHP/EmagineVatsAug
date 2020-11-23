@@ -43,7 +43,7 @@
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/publish',item.RequistionId]">Publish Requisition</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/unpublish',item.RequistionId]">Unpublish Requisition</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/manage',item.RequistionId,'SO']">Manage Candidate</a></li>
-                  <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/cvupload',item.RequistionId]">Upload CV</a></li>
+                  <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/cvupload',item.RequistionId,'0']">Upload CV</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/clone',item.RequistionId]">Clone Requisition</a></li>
                   <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequistionId)"><a>View JD</a></li>
                 </ul>

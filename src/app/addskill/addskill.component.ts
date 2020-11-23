@@ -111,7 +111,6 @@ export class AddskillComponent implements OnInit {
 
     sendCheckedskillset(){
       this.skillsetselect = this.skillSets.filter( (skillSets) => skillSets.checked );
-      console.log(this.skillsetselect);
       this.dialogRef.close({action: 1, data: this.skillsetselect, array:this.skillSets});   
     }
 

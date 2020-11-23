@@ -13,13 +13,15 @@ export class AppComponent {
   title = 'vats';
   userName='';
 
- //public static urlPath = "https://api.emaginerock.com/";
+ public static urlPath = "https://api.emaginerock.com/";
+ //public static urlPath = "https://devapi.emaginerock.com/";
+ //public static urlPath = "http://bincrm.com/vatsdev/";
+ //public static urlPath = "http://bd8b9875e493.ngrok.io/";
 
-// public static urlPath = "http://bincrm.com/vatsdev/";
-public static urlPath = "http://1276fcbde526.ngrok.io/";
-  
+ myArray:any;
   constructor(private router: Router,private route: ActivatedRoute,private dialog: MatDialog) {
-   // this.getAccessableClientList();
+    var userName = sessionStorage.getItem("FunctionList");
+    this.myArray = userName.split(',');
   }
 
   openDialogAboutReleasePage(): void { 

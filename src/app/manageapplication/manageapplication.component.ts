@@ -13,6 +13,7 @@ import {DocviewjdComponent} from '../docviewjd/docviewjd.component'
 import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.component';
 import { DownloadComponent } from '../download/download.component';
 import { TemplateComponent } from '../template/template.component';
+import { CvtransferComponent } from '../cvtransfer/cvtransfer.component';
 declare var $: any
 
 interface Applicationlist {
@@ -62,6 +63,7 @@ export class ManageapplicationComponent implements OnInit {
   attachment:any;
   clicked = 0;
   displayNoData =  false;
+  selectedId:any;
 
   constructor(private routerObj: Router,private ManageapplicationServices: ManageapplicationService,private route: ActivatedRoute,public dialog: MatDialog,private datePipe : DatePipe) { 
     
@@ -236,7 +238,7 @@ export class ManageapplicationComponent implements OnInit {
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
     this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
     this.selectedCandidateId = this.selectedApplication.map(element => element.CandidateId);
- console.log(this.selectedApplication)
+ 
     if(this.selectedApplication.length < 1){
       this.message = "Please select atleast one candidate to track the resume.";
       this.openSnackBar();
@@ -257,6 +259,36 @@ export class ManageapplicationComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
 
+    });    
+  }
+  
+  openDialogCvTransfer(reqId): void {
+  
+    this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
+   
+    this.selectedId = this.selectedApplication.map(({ CandidateId, ApplicationId }) => ({CandidateId, ApplicationId}));
+  
+    if(this.selectedApplication.length < 1){
+      this.message = "Please select atleast one candidate to copy or transfer the cv.";
+      this.openSnackBar();
+      return;
+    }
+
+    const dialogRef = this.dialog.open(CvtransferComponent, {
+      width: '500px',
+      height: '220px',
+      data: {ReqId: reqId,selectId:this.selectedId}      
+    });
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];  
+      this.currentstage = params['stage'];    
+    });
+
+    dialogRef.afterClosed().subscribe(result => {  
+      if(result && result.action === 1) {
+        this.getStageValuesOnChange(this.currentstage);
+      }
     });    
   }
 
@@ -1135,6 +1167,21 @@ export class ManageapplicationComponent implements OnInit {
     saveAs(file);
   }
 
+  downloadJD(reqId) {
+
+    this.ManageapplicationServices.downloadJDLink(reqId).subscribe(
+      response => {
+        if (response != '') {         
+          this.downLoadFile(response);      
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+    
+  }
   updatenotHiredStage(updatestage,appId,CandId){
 
    this.route.params.subscribe(params => {

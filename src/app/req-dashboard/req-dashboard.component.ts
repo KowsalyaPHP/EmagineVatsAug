@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import {DocviewjdComponent} from '../docviewjd/docviewjd.component'
 import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.component';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-req-dashboard',
@@ -72,6 +73,32 @@ export class ReqDashboardComponent implements OnInit {
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
   }
+
+  downLoadFile(data: any) {    
+    let contenType = data.headers.get("content-type");
+    let contdisp = data.headers.get("content-disposition").split("=");
+    let fileName = contdisp[1].trim();
+    let blob = new Blob([data._body], {  type: contenType });  
+    let file = new File([blob], fileName, { type: contenType});
+    saveAs(file);
+  }
+
+ /* downloadJD(reqId) {
+
+    this.ReqDashboardServices.downloadJDLink(reqId).subscribe(
+      response => {
+        if (response != '') {         
+          this.downLoadFile(response);      
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+    
+  }*/
+
 
   getAccessableClientList() {
     this.SharedServices.getAccessableClientList().subscribe(

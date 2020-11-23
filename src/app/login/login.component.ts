@@ -146,7 +146,8 @@ forgotPasswordFormSubmit(formObj) {
             //sessionStorage.setItem("Menudetails", JSON.stringify(response['Data']["Menudetails"]));
            // sessionStorage.setItem("Roles", response['Data']["Roles"]);       
             
-            this.routerObj.navigate(["/req-dashboard/OP"]);
+           //this.routerObj.navigate(["/req-dashboard/OP"]);
+           this.routerObj.navigate(["/landingpage"]);
           }
         } else {
             console.log("something is wrong with Service Execution");

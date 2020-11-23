@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
@@ -66,5 +66,70 @@ console.log(formData);
         else
           return '';
       });
+  }
+
+  public viewCV(candId): Observable<any> {
+    
+    const url = AppComponent.urlPath + 'ViewCVUpload';
+    const params = new URLSearchParams();   
+   
+    params.set('CandidateId',candId);
+    
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public UpdateCV(candId,FormObj): Observable<any> {
+    
+    const url = AppComponent.urlPath + 'UpdateCV';
+    const params = new URLSearchParams();   
+   
+    params.set('CandidateId',candId);
+    params.set('Candidate_FN',FormObj.Candidate_FN);
+    params.set('Candidate_LN',FormObj.Candidate_LN);
+    params.set('EMailId',FormObj.EMailId);
+    params.set('MobileNo',FormObj.MobileNo);
+
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public downloadCVLink(reqId,candidateId,applicationId): Observable<any> {
+    
+    const url_get = AppComponent.urlPath + 'DownloadFile';
+    const params = new URLSearchParams();   
+
+    let RefId = sessionStorage.getItem("RefId");
+
+    console.log('Entityid - ' + RefId);
+    console.log('reqId - ' + reqId);
+    console.log('candidateId - ' + candidateId);
+    console.log('applicationId - ' + applicationId);
+
+
+    params.set('Entityid', RefId);
+    params.set('RequisitionId', reqId);
+    params.set('CandidateId', candidateId);
+    params.set('ApplicationId', applicationId);
+    
+    console.log(params);
+    
+    return this.http.post(url_get, params, { responseType: ResponseContentType.Blob }).map(data => {
+    
+     return data;
+   
+     
+   });
+
   }
 }

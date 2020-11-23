@@ -265,3 +265,13 @@ ul#submenu li {
     opacity: 1;
   }
 }
+.dateellipes{
+  display: inline-block;
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis; 
+}
+.e-tooltip-wrap{
+  left:1080px !important;
+}

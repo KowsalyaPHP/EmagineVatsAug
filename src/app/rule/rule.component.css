@@ -57,3 +57,19 @@ li.selected {
   background: #6d7278;
   color:#ffffff !important;
 }
+
+#rulesnackbar {
+  visibility: hidden;    
+  border-radius: 4px; 
+  box-sizing: border-box;
+  padding: 14px 16px; 
+  position: fixed; 
+  transform-origin: center;
+  z-index: 9999999;
+  top: 30px; 
+  color: #ffffff;
+  background: #323232;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  left: 50%;
+  transform: translate(-50%, 0);
+}

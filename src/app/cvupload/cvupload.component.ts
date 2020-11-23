@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EduGrid,EmpGrid } from '../grid.model';
 import { SharedService } from '../shared/shared.service';
 import { CvuploadService } from './cvupload.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-cvupload',
@@ -30,13 +31,16 @@ export class CvuploadComponent implements OnInit {
   fileList:FileList;
   message:any;
   id:any;
+  cid:any;
   submitted = false;  
   maxDate: any;
+  CvView:[];
+  attachment:any;
 
   constructor(private CvuploadServices: CvuploadService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private toastr: ToastrService) {
 
     this.CVUploadForm = this.formBuilderObj.group({
-      CV:['', [Validators.required]], 
+      CV:'', 
       Candidate_FN: ['', [Validators.required]],
       Candidate_LN:['', [Validators.required]],
       EMailId:['', [Validators.required,Validators.pattern("[a-z A-Z,0-9,.,_]+@[a-z A-Z]+[.]+[a-z A-Z,.]+")]],
@@ -65,7 +69,77 @@ export class CvuploadComponent implements OnInit {
       Role: ''
     });    
 
+    this.route.params.subscribe(params => {
+      this.id = params['id'],
+      this.cid = params['cid'];
+    });
+
+    if(this.cid != 0){
+      this.ViewCV(this.cid);
+    }
+    
    }
+
+  ViewCV(cId){
+    
+    this.CvuploadServices.viewCV(cId).subscribe(
+      response =>  { 
+          if (response != "No data") {          
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+              this.message = getMessage['1'];
+              this.openSnackBar(); 
+            }
+            else {                     
+              this.CvView = response['Data'];      
+
+              let getFileName =  this.CvView['CVLink'].split("#$#");
+              this.attachment = getFileName['1'];
+              
+              $("#DateofBirth").prop('readonly', true);
+              $("#Gender").prop('readonly', true);
+              $("#WorkAuthorization").prop('readonly', true);
+              $("#Nationality").prop('readonly', true);
+              $("#PassportNo").prop('readonly', true);
+              $("#Pr_AddressL1").prop('readonly', true);
+              $("#Pr_AddressL2").prop('readonly', true);
+              $("#Pr_AddressL3").prop('readonly', true);
+              $("#Pr_AddressL4").prop('readonly', true);
+              $("#Perm_AddressL1").prop('readonly', true);
+              $("#Perm_AddressL2").prop('readonly', true);
+              $("#Perm_AddressL3").prop('readonly', true);
+              $("#Perm_AddressL4").prop('readonly', true);
+
+              this.CVUploadForm.patchValue({
+                  Candidate_FN: this.CvView['Candidate_FN'],
+                  Candidate_LN:this.CvView['Candidate_LN'],
+                  EMailId:this.CvView['EMailId'],
+                  MobileNo:this.CvView['MobileNo'],
+                  DateofBirth:this.CvView['DateofBirth'],
+                  Gender:this.CvView['Gender'],
+                  WorkAuthorization:this.CvView['WorkAuthorization'],
+                  Nationality:this.CvView['Nationality'],
+                  PassportNo:this.CvView['PassportNo'],
+                  Pr_AddressL1:this.CvView['Pr_AddressL1'],
+                  Pr_AddressL2:this.CvView['Pr_AddressL2'],
+                  Pr_AddressL3:this.CvView['Pr_AddressL3'],
+                  Pr_AddressL4:this.CvView['Pr_AddressL4'],
+                  Perm_AddressL1:this.CvView['Perm_AddressL1'],
+                  Perm_AddressL2:this.CvView['Perm_AddressL2'],
+                  Perm_AddressL3:this.CvView['Perm_AddressL3'],
+                  Perm_AddressL4:this.CvView['Perm_AddressL4']                  
+              }); 
+              this.EduArray = this.CvView['Edulist'];
+              this.EmpArray = this.CvView['Emplist'];
+            }    
+              
+          } else {
+          console.log("something is wrong with Service Execution"); 
+          }
+        },
+        error => console.log(error)      
+      );
+  }
   
   ngOnInit(): void {  
     var date = new Date();
@@ -110,6 +184,31 @@ export class CvuploadComponent implements OnInit {
         });
     });*/
   }  
+  downLoadFile(data: any) {    
+    console.log(data.headers);  
+    let contenType = data.headers.get("content-type");
+    let contdisp = data.headers.get("content-disposition").split("=");
+    let fileName = contdisp[1].trim();
+    let blob = new Blob([data._body], {  type: contenType });  
+    let file = new File([blob], fileName, { type: contenType});
+    saveAs(file);
+  }
+
+  downloadCV(reqId,CandId,AppId) {
+
+    this.CvuploadServices.downloadCVLink(reqId,CandId,AppId).subscribe(
+      response => {
+        if (response != '') {         
+          this.downLoadFile(response);      
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+    
+  }
 
   fillAddress(){
     if($("#filladdress").is(':checked'))
@@ -219,29 +318,74 @@ export class CvuploadComponent implements OnInit {
     this.passEmp = JSON.stringify(this.EmpArray);
     
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['id'],
+      this.cid = params['cid'];
     });
+    
+    var userName = sessionStorage.getItem("userName");
+    var userId = sessionStorage.getItem("uniqueSessionId");
+    
 
-    this.CvuploadServices.CVUpload(formObj,this.fileList,this.id,this.passEmp,this.passEdu).subscribe(
-      response => {  
-        if (response != "No data") {
-          let getMessage =  response['Message'].split(":");
-          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
-            this.openSnackBar(); 
-          }          
-          else{
-            this.message = getMessage['1'];
-            this.openSnackBar();
-            this.routerObj.navigate(['manage/',this.id,'SO']);
-          }            
+    if (userId && this.cid != 0){   
+      
+      var confirm = window.confirm('Do you want to update the cv details?');
+      if (confirm == true) {    
+
+        this.CvuploadServices.UpdateCV(this.cid,formObj).subscribe(
+          response => {  
+            if (response != "No data") {
+              let getMessage =  response['Message'].split(":");
+              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                this.message = getMessage['1'];
+                this.openSnackBar(); 
+              }          
+              else{
+                this.message = getMessage['1'];
+                this.openSnackBar();
+                setTimeout(() => {
+                  this.routerObj.navigate(['manage/',this.id,'SO']);
+                  }
+                  , 3000);
+              }            
+            }
+            else {         
+              console.log('something is wrong with Service Execution');
+            }        
+          },
+          error => console.log("Error Occurd!")
+        ); 
+      }
+    }
+    else{
+      var confirm = window.confirm('Do you want to add this cv details?');
+      
+      if (confirm == true) {      
+          this.CvuploadServices.CVUpload(formObj,this.fileList,this.id,this.passEmp,this.passEdu).subscribe(
+            response => {  
+              if (response != "No data") {
+                let getMessage =  response['Message'].split(":");
+                if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                  this.message = getMessage['1'];
+                  this.openSnackBar(); 
+                }          
+                else{
+                  this.message = getMessage['1'];
+                  this.openSnackBar();
+                  setTimeout(() => {
+                    this.routerObj.navigate(['manage/',this.id,'SO']);
+                    }
+                    , 3000);
+                }            
+              }
+              else {         
+                console.log('something is wrong with Service Execution');
+              }        
+            },
+            error => console.log("Error Occurd!")
+          ); 
         }
-        else {         
-          console.log('something is wrong with Service Execution');
-        }        
-      },
-      error => console.log("Error Occurd!")
-    );  
+    }
+     
   }
 
   cv_validation_messages = {

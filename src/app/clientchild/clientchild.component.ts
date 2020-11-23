@@ -39,7 +39,8 @@ export class ClientchildComponent implements OnInit {
   clientId:any;
   type:any;
   getChildType:any;
-
+  term: any;
+  
  constructor(private ClientchildServices: ClientchildService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private dialog: MatDialog) {
     
     this.route.params.subscribe(params => {

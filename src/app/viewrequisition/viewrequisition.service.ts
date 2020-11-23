@@ -31,17 +31,11 @@ export class ViewrequisitionService {
   
   public downloadJDLink(reqId): Observable<any> {
     
-    const url_get = AppComponent.urlPath + 'DownloadJD';
+    const url_get = AppComponent.urlPath + 'DownloadJDPDF';
     const params = new URLSearchParams();   
 
-    //const url_get = "http://d9799659.ngrok.io/DownloadFile";
-
-    
     let RefId = sessionStorage.getItem("RefId");
 
-    console.log('Entityid - ' + RefId);
-    console.log('reqId - ' + reqId);
-    
     params.set('Entityid', RefId);
     params.set('RequisitionId', reqId);
     

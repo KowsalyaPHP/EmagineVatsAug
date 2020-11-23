@@ -30,6 +30,7 @@ export class VendorregComponent implements OnInit {
   vendorSingle:[];
   vendorList:[];
   vendorname:any;
+  term: any;
   
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private VendorregServices: VendorregService,private SharedServices: SharedService,private route: ActivatedRoute,private dialog: MatDialog) { 
     

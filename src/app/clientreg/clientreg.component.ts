@@ -40,7 +40,8 @@ export class ClientregComponent implements OnInit {
   type:any;
   getChildType:any;
   userCategory:any;
-
+  term: any;
+  
   constructor(private ClientregServices: ClientregService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private dialog: MatDialog) {
     
     this.route.params.subscribe(params => {

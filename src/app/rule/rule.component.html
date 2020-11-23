@@ -1,6 +1,6 @@
-<div style="margin: 0;">
-    <div id="snackbar">{{message}}</div>
-</div>
+<!--<div style="margin: 0;">
+    <div id="rulesnackbar">{{message}}</div>
+</div>-->
 
 <div fxLayout="row" >
    
@@ -23,21 +23,22 @@
     <div class="whiteframe" style="width: 93%;float:left;">
         <h3 style="text-align: center;">Rule <span (click)="opendialogaddrule()" style="font-size: 11px;color: #0670c4;text-decoration: underline;cursor:pointer;">+New Rule</span></h3>
         
-        <div style="float: left;width: 20%;background: #f4efef;height: 500px;">           
+        <div style="float: left;width: 20%;background: #f4efef;height: 500px;overflow-y: scroll;">           
             <!--<h3 class="headerRole">{{userName}}</h3>-->
             <h3 style="margin-left: 10px;">Rule List</h3>
-            <ul *ngIf="RuleList != []">
+            <ul>
                 <li class="rule" *ngFor="let item of RuleList; let i = index" id="ruleList{{i}}"><a style="color:#000000;cursor:pointer;" (click)="viewSingleRuleList(item.DataAccessRuleId,i)">{{item.DataAccessRuleName}}</a></li>
             </ul>
-            <p *ngIf="RuleList == null" style="margin-left: 5%;">No data Available</p>
+            <!--<p *ngIf="RuleList == null" style="margin-left: 5%;">No data Available</p>-->
         </div>       
         <div class="clientList">
             <h3 style="margin-left: 10px;">Client List</h3>
                 <ul>
-                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" disabled [ngModelOptions]="{standalone: true}" name="clientList{{item.ClientId}}" [(ngModel)]="item.checked" value="{{item.ClientId}}" />{{item.ClientName}}</li>                    
+                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.ClientId}}" [(ngModel)]="item.checked" value="{{item.ClientId}}" />{{item.ClientName}}</li>                    
                 </ul>
                 <p *ngIf="ClientList == null" style="margin-left: 1.5%;">No data Available</p>
         </div>
+        <button mat-button (click)="checkedClientUpdate()" cdkFocusInitial style="margin-left: 24.5%; margin-top: 3%;" >Update</button>
     </div>
    </mat-drawer-content>
 

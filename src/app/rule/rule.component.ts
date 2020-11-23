@@ -7,6 +7,12 @@ import { SharedService } from '../shared/shared.service';
 import { AddcityComponent } from '../addcity/addcity.component';
 declare var $: any
 
+interface ClientList {
+  ClientId: any;
+  ClientName: string;
+  checked?: boolean;
+}
+
 @Component({
   selector: 'app-rule',
   templateUrl: './rule.component.html',
@@ -14,13 +20,16 @@ declare var $: any
 })
 export class RuleComponent implements OnInit {
 
-  RuleList:[];
+  RuleList:[]; 
+  public ClientList: ClientList[];
   userName:any;
   message:any;
   clientSingleList:any;
-  ClientList:[];
   userCategory:any;
-
+  clientSelect:any;
+  clientCode:any;
+  singleruleId:any;
+  
   constructor(private routerObj: Router,private RuleServices: RuleService,private route: ActivatedRoute,public dialog: MatDialog,private SharedServices: SharedService) { 
      this.userName = sessionStorage.getItem("userName");
      this.userCategory = sessionStorage.getItem("USERCATEGORY");
@@ -61,9 +70,54 @@ export class RuleComponent implements OnInit {
   }
 
   openSnackBar() { 
-    var x = document.getElementById("snackbar")
+    var x = document.getElementById("rulesnackbar")
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
+  }
+
+  checkedClientUpdate(){
+      this.clientSelect = this.ClientList.filter( (ClientList) => ClientList.checked );
+      const ClientId= this.clientSelect.map(element => element.ClientId);
+      this.clientCode = ClientId.join(',');  
+
+      this.RuleServices.updateClientList(this.clientCode,this.singleruleId).subscribe(
+        response => {
+          if (response != '') {   
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+              this.message = getMessage['1'];
+              this.openSnackBar(); 
+            }          
+            else{
+              this.message = getMessage['1'];
+              this.openSnackBar();
+              /*if(typeof(this.clientSingleList) != 'undefined' || this.clientSingleList != null){
+                //this.disable=true;
+                response['Data'].forEach(item => {
+                  for (let i = 0; i < this.clientSingleList.length; i++) {  
+                                   
+                    if(this.clientSingleList[i] == item['ClientId'])
+                    {
+                      item.checked = true;
+                    }
+                  }               
+                });*/
+    
+                this.ClientList = response['Data'];
+              }
+              
+              //this.routerObj.navigate(['vendorreg/0']);
+                           
+          
+           // this.ClientList = response;
+          }
+          else {         
+            console.log('something is wrong with Service  Execution');
+          }
+        },
+        error => console.log("Error Occurd!")
+      );
+     // this.dialogRef.close({action: 1, data: this.skillsetselect, array:this.skillSets});
   }
 
   getClientList() {
@@ -82,7 +136,7 @@ export class RuleComponent implements OnInit {
               //this.disable=true;
               response['Data'].forEach(item => {
                 for (let i = 0; i < this.clientSingleList.length; i++) {  
-                  console.log('eee'+this.clientSingleList);                
+                                 
                   if(this.clientSingleList[i] == item['ClientId'])
                   {
                     item.checked = true;
@@ -108,6 +162,9 @@ export class RuleComponent implements OnInit {
 
   viewSingleRuleList(ruleId,index){
     $('#ruleList'+index).removeClass('selected');
+
+    this.singleruleId = ruleId;
+
     this.RuleServices.viewSingleRuleList(ruleId).subscribe(
       response =>  { 
           if (response != "No data") {          

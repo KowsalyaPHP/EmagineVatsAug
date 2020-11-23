@@ -24,8 +24,13 @@
    <mat-drawer-content style="margin-left:20%;">
     
         <div style="float: left;" class="adminList">
-            <ul>         
-                <li *ngFor="let item of clientList"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId]" (click)=getId(item.MId) (mouseover)="childlist(item.MId)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
+            
+            <mat-form-field style="margin:10px;">
+                <mat-icon matSuffix class="searchIcon">search</mat-icon>
+                <input matInput type="search" placeholder="Search Client" [(ngModel)]="term" class="search-input">
+            </mat-form-field>
+            <ul style="margin-top:-10px;">         
+                <li *ngFor="let item of clientList| filterclient:term ;"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId]" (click)=getId(item.MId) (mouseover)="childlist(item.MId)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
                     <ul *ngIf="item.MId == clientId && item.Sc != 0" class="childList">
                         <li *ngFor="let item of childList" style="padding-left: 25px;"> - <a [routerLink]="['/child',item.SId,1]">{{item.SName}}</a></li>
                     </ul>               

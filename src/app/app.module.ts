@@ -64,6 +64,12 @@ import { AddcityComponent } from './addcity/addcity.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { CvuploadvatsComponent } from './cvuploadvats/cvuploadvats.component';
 import { JobdescriptionComponent } from './jobdescription/jobdescription.component';
+import { CvtransferComponent } from './cvtransfer/cvtransfer.component';
+import { FilterclientPipe } from './clientreg/filterclient.pipe';
+import { FiltervendorPipe } from './vendorreg/filtervendor.pipe';
+import { LandingpageComponent } from './landingpage/landingpage.component';
+import { FilterchildPipe } from './clientchild/filterchild.pipe';
+import { FiltersubchildPipe } from './clientchild/filtersubchild.pipe';
 
 
 @NgModule({
@@ -116,6 +122,12 @@ import { JobdescriptionComponent } from './jobdescription/jobdescription.compone
     ResetpasswordComponent,
     CvuploadvatsComponent,
     JobdescriptionComponent,
+    CvtransferComponent,
+    FilterclientPipe,
+    FiltervendorPipe,
+    LandingpageComponent,
+    FilterchildPipe,
+    FiltersubchildPipe,
     
   ],
   imports: [
@@ -138,7 +150,7 @@ import { JobdescriptionComponent } from './jobdescription/jobdescription.compone
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],
   bootstrap: [AppComponent],
-  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent,AddskillcompetencyComponent,AddcityComponent,AboutreleaseComponent,ResetpasswordComponent]
+  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent,AddskillcompetencyComponent,AddcityComponent,AboutreleaseComponent,ResetpasswordComponent,CvtransferComponent]
 })
 
 export class AppModule { }

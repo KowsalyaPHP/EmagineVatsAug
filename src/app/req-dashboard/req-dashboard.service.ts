@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { AppComponent } from '../app.component';
@@ -67,5 +67,23 @@ export class ReqDashboardService {
         else
           return 'No Data';
       });
+  }
+
+  public downloadJDLink(reqId): Observable<any> {
+    
+    const url_get = AppComponent.urlPath + 'DownloadJDPDF';
+    const params = new URLSearchParams();   
+
+    let RefId = sessionStorage.getItem("RefId");
+
+    params.set('Entityid', RefId);
+    params.set('RequisitionId', reqId);
+    
+    console.log(params);
+    
+    return this.http.post(url_get, params, { responseType: ResponseContentType.Blob }).map(data => {   
+      return data;     
+    });
+    
   }
 }
