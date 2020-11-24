@@ -22,7 +22,7 @@ export class LandingpageComponent implements OnInit {
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private dialog: MatDialog) { 
     var userName = sessionStorage.getItem("FunctionList");
     this.myArray = userName.split(',');
-    this.reload();
+    //this.reload();
   }
 
 

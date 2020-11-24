@@ -209,7 +209,7 @@
             <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
                <!-- <li> <a [routerLink]="['/requisitionadd',item.RequistionId]">Application Info</a></li>     -->
-               <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Edit CV</a></li>  
+               <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>       
                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>   
@@ -286,7 +286,17 @@
           <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
           <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
           <td>{{item.Step_Owner}}</td>
-          <td style="width: 8vw;" >{{item.Date}}</td>
+          <td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>
+                
+                  <table>
+                    <tr><td >{{item.Date}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Date}}
+            </ejs-tooltip>
+          </td>
           <td style="width: 8vw;" >{{item.Ageing}}d</td> 
           <td>{{item.SourceAgeing}}d</td>        
           <td>{{item.RejectionReason}}</td>    

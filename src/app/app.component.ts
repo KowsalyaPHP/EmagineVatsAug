@@ -18,10 +18,14 @@ export class AppComponent {
  //public static urlPath = "http://bincrm.com/vatsdev/";
  //public static urlPath = "http://bd8b9875e493.ngrok.io/";
 
- myArray:any;
+  myArray:any;
+  funclist:any;
+
   constructor(private router: Router,private route: ActivatedRoute,private dialog: MatDialog) {
-    var userName = sessionStorage.getItem("FunctionList");
-    this.myArray = userName.split(',');
+  /*  this.funclist = sessionStorage.getItem("FunctionList");
+    console.log(typeof(sessionStorage.getItem("FunctionList")))
+   if(typeof(this.funclist) != 'object')
+    this.myArray = this.funclist.split(',');*/
   }
 
   openDialogAboutReleasePage(): void { 

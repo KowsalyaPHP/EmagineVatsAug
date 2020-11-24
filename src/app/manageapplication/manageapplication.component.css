@@ -272,6 +272,3 @@ ul#submenu li {
   overflow: hidden !important;
   text-overflow: ellipsis; 
 }
-.e-tooltip-wrap{
-  left:1080px !important;
-}
