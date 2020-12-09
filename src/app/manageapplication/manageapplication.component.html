@@ -9,32 +9,37 @@
       <div class="out">
         
       </div>
-      <div *ngIf="item.NotHired >= 0" class="circleRed" (click)="currentstage != 'NH' ? openDialogNotHired('NH') : false">
+      <div *ngIf="item.CR >= 0" class="circleRed" (click)="currentstage != 'CR' ? openDialogNotHired('CR') : false">
         <img style="margin: 0 0.7vw;" width="50%" height="50%" src="assets/img/nothired.png">
-        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.NotHired}}</h4>
-        <span style="margin-left: -9px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'NH'}">Not Hired</span>
+        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.CR}}</h4>
+        <span style="margin-left: -12px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'CR'}">Client Reject</span>
+      </div> 
+      <div *ngIf="item.IR >= 0" class="circleRed" style="left:17%" (click)="currentstage != 'IR' ? openDialogNotHired('IR') : false">
+        <img style="margin: 0 0.7vw;" width="50%" height="50%" src="assets/img/nothired.png">
+        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.IR}}</h4>
+        <span style="margin-left: -18px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'IR'}">Internal Reject</span>
       </div> 
       <div *ngIf="item.Sourcing >= 0" class="circleBlue"   (click)="updateStage('SO','Sourcing')">
         <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/search.png">
         <h4 class="h3style">{{item.Sourcing}}</h4>
         <span style="margin-left: -8px;" [ngClass]="{'blinking': currentstage == 'SO'}">Sourcing</span>
       </div> 
-      <div *ngIf="item.Screening >= 0" class="circleOrange" style="left:33%" (click)="updateStage('SC','Screening')">
+      <div *ngIf="item.Screening >= 0" class="circleOrange" style="left:41%" (click)="updateStage('SC','Screening')">
         <img  style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/screening.png">
         <h4 class="h3style">{{item.Screening}}</h4>
         <span style="margin-left: -12px;" [ngClass]="{'blinking': currentstage == 'SC'}">Screening</span>
       </div> 
-      <div *ngIf="item.Assessment >= 0" class="circleOrange" style="left:47%" (click)="updateStage('AS','Assessment')">
+      <div *ngIf="item.Assessment >= 0" class="circleOrange" style="left:53%" (click)="updateStage('AS','Assessment')">
         <img  style="margin:0 0.6vw;" width="58%" height="58%" src="assets/img/assessment.png">
         <h4 class="h3style">{{item.Assessment}}</h4>
         <span style="margin-left: -14px;" [ngClass]="{'blinking': currentstage == 'AS'}">Assessment</span>
       </div> 
-      <div *ngIf="item.HRRound >= 0" class="circleGreen" style="left:61%" (click)="updateStage('HR','HR Round')">
+      <div *ngIf="item.HRRound >= 0" class="circleGreen" style="left:65%" (click)="updateStage('HR','HR Round')">
         <img  style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/hrround.png">
         <h4 class="h3style">{{item.HRRound}}</h4>
         <span style="margin-left: -8px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'HR'}">HR Round</span>
       </div> 
-      <div *ngIf="item.Offered >= 0" class="circleGreen" style="left:75%" (click)="updateStage('OF','Offered')">
+      <div *ngIf="item.Offered >= 0" class="circleGreen" style="left:77%" (click)="updateStage('OF','Offered')">
         <img style="margin: 0 0.6vw;" width="58%" height="58%" src="assets/img/hire.png">
         <h4 class="h3style">{{item.Offered}}</h4>
         <span style="margin-left: -2px;" [ngClass]="{'blinking': currentstage == 'OF'}">Offered</span>
@@ -79,13 +84,15 @@
   </div>
 <div id="manageapplication" style="margin-top: 110px;">
   <mat-card-title style="text-align: center;">Manage Candidate -  <select id="stages" (change)="getStageValuesOnChange($event.target.value)">
+      <option value="All">All</option>
       <option value="SO">Sourcing</option>
       <option value="SC">Screening</option>
       <option value="AS">Assessment</option>
       <option value="HR">HR Round</option>
       <option value="OF">Offered</option>
       <option value="JO">Joined</option>
-      <option value="NH">Not Hired</option>
+      <option value="CR">Client Reject</option>
+      <option value="IR">Internal Reject</option>
     </select><img id="loader" style="vertical-align: bottom;margin-left: 10px;" src="assets/img/loader.gif"/>
   </mat-card-title>
   <p style="margin:0;text-align:center;" *ngFor="let item of requisitionDetails; let i = index">
@@ -105,64 +112,216 @@
     </div>
     <!--<a class="templatetracker" style="margin-left: 71%;cursor:pointer;" *ngIf="currentstage == 'AS' || currentstage == 'SC'" (click)="openDialogTemplate();">Template</a>-->    
     <a class="templatetracker" style="margin-left: 70%;cursor:pointer;" *ngIf="currentstage == 'AS' || currentstage == 'SC'" (click)="currentstage != 'AS' ? openDialogDownloadTracker(id,'SC') : openDialogDownloadTracker(id,'AS')">Tracker</a>
-    <a class="templatetracker" style="margin-left: 75%;cursor:pointer;" *ngIf="currentstage != 'JO'" (click)="openDialogCvTransfer(id)">CV Movement</a>
+    <a class="templatetracker" style="margin-left: 75%;cursor:pointer;" *ngIf="currentstage == 'SO' || currentstage == 'SC' || currentstage == 'AS' || currentstage == 'HR' || currentstage == 'OF' || currentstage == 'IR' || currentstage == 'CR'" (click)="openDialogCvTransfer(id)">CV Movement</a>
     <!--Assessment CV Submit Round 2 Round 3 Round 4 -->
     <table *ngIf="showall == 'true'"  #dataTable class="display" id="applicationDashboard" style="width:100%;">
       <thead>
         <tr> 
-          <th style="background-image: none;height: 25px;width: 20px;"></th>
-          <th>Name</th>
-          <th>Src.Cat</th>
-          <th>Owner</th>
-          <th>Exp</th>
-          <th>Email Id</th>
-          <th>Mobile No.</th>
-          <th>Exp. CTC</th>
-          <th>Cur. CTC</th>
-          <th>NP</th>
-          <th>C.Loc</th>         
-          <th>Step Owner</th>
-          <th style="width:65px;">Date</th>
-          <th>Step Ageing</th>
-          <th>Src. to Step Ageing</th>
+          <th style="background-image: none;height: 25px;width: 7px !important;"></th>
+          <th style="width: 100px;">
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>                
+                  <table>
+                    <tr><td>Name</td></tr>                
+                  </table>
+              </ng-template>
+              Name
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Source Category</td></tr>                
+                  </table>
+              </ng-template>
+              Src.Cat
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Owner</td></tr>                
+                  </table>
+              </ng-template>
+              Owner
+            </ejs-tooltip>
+          </th>               
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Experience</td></tr>                
+                  </table>
+              </ng-template>
+              Exp
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Email Id</td></tr>                
+                  </table>
+              </ng-template>
+              Email Id
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Mobile Number</td></tr>                
+                  </table>
+              </ng-template>
+              M.No.
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Expected CTC</td></tr>                
+                  </table>
+              </ng-template>
+              Exp.CTC
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Current CTC</td></tr>                
+                  </table>
+              </ng-template>
+              Cur.CTC
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Notice Period</td></tr>                
+                  </table>
+              </ng-template>
+              NP
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Current Location</td></tr>                
+                  </table>
+              </ng-template>
+              C.Loc
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Step Owner</td></tr>                
+                  </table>
+              </ng-template>
+              SO
+            </ejs-tooltip>
+          </th>
+         <!-- <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Date</td></tr>                
+                  </table>
+              </ng-template>
+              Date
+            </ejs-tooltip>
+          </th>-->
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Step Ageing</td></tr>                
+                  </table>
+              </ng-template>
+              SA
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Source to Step Ageing</td></tr>                
+                  </table>
+              </ng-template>
+              SSA
+            </ejs-tooltip>
+          </th>          
         </tr>
       </thead>
       <tbody>                   
-        <tr  *ngFor="let item of StageValueList; let i = index">                
-          <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
+        <tr  *ngFor="let item of StageValueList; let i = index" style="height: 20px;">                
+          <td style="width:7px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
           <!--<td class="dropdown">
             <img src="assets/img/file.png" (click)="FileMethod(i)">
             <ul class="dropdown-menu" id="filemenu{{i}}">
               <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View File</a></li>
               <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download File</a></li>              
             </ul>
-          </td>-->
-          <td style="width: 7vw;"  class="dropdown">
-            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" id="candidateName{{i}}" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
-            <ul class="dropdown-menu" id="showmenu{{i}}">
-                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
-                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>
-                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
-                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
-                <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Movement to Substage</a></li>
+          </td>-->         
+          <td class="dropdown">           
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" id="candidateName{{i}}" (click)="actionMethod(i)">
+              <ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>
+                      <tr><td>{{item.Candidate_FN}}</td></tr>                
+                    </table>
+                </ng-template>
+                {{item.Candidate_FN}}
+              </ejs-tooltip>
+            </a> 
+            <ul class="dropdown-menu sub-menu" id="showmenu{{i}} aaa" style="white-space: inherit;">
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
-                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download File</a></li>
+                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
+                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>  
+                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li> 
+                <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Movement to Substage</a></li>
+                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li> 
+                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li>
                 <!--<li (click)="openDialogCvTransfer(id,item.CandidateId,item.ApplicationId)"><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" style="cursor:pointer;">CV Movement</a></li>-->
                <!-- <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li> -->
                <!--<li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li>-->
               </ul>
           </td>        
           <td>{{item.Source_category}}</td> 
-          <td style="width: 8vw;">{{item.EACManager}}</td>        
+          <td>{{item.EACManager}}</td>        
           <td id="changeExpervalue{{i}}">{{item.RelevantExperienceYYMM}}</td>
-          <td>{{item.EMailId}}</td>
+          <td class="emailoverflow">
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.EMailId}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.EMailId}}
+            </ejs-tooltip></td>
           <td>{{item.MobileNo}}</td>
           <td id="changeExpvalue{{i}}">{{item.ExpectedSalary}}</td>            
           <td id="changePrevalue{{i}}">{{item.PrSalaryTotal}}</td>
           <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
           <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>          
-          <td style="width: 8vw;">{{item.Step_Owner}}</td>
           <td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>                
+                  <table>
+                    <tr><td >{{item.Step_Owner}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Step_Owner}}
+            </ejs-tooltip>
+          </td>
+          <!--<td class="dateellipes">
             <ejs-tooltip  id='tooltip_1' >
               <ng-template #content>
                 
@@ -172,10 +331,18 @@
               </ng-template>
               {{item.Date}}
             </ejs-tooltip>
-          </td>
+          </td>-->
                
           <!--<td class="dateellipes">{{item.Date}}</td>-->
-          <td>{{item.Ageing}}d</td>         
+          <td><ejs-tooltip  id='tooltip_1' >
+            <ng-template #content>
+              
+                <table>
+                  <tr><td >{{item.Date}}</td></tr>                
+                </table>
+            </ng-template>
+            {{item.Ageing}}d
+          </ejs-tooltip></td>         
           <td>{{item.SourceAgeing}}d</td>         
         </tr>        
       </tbody>      
@@ -184,7 +351,7 @@
     <table *ngIf="showjoinoffer == 'true'" #dataTable class="display" id="joinofferDashboard" style="width:100%;">
       <thead>
         <tr>
-          <th style="background-image: none;height: 25px;width: 20px;"></th>
+          <th style="background-image: none;height: 25px;width: 7px;"></th>
           <th>Name</th>
           <th>Joining Date</th>
           <th>Salary Offered</th>
@@ -197,7 +364,7 @@
       </thead>
       <tbody>          
         <tr *ngFor="let item of StageValueList; let i = index">        
-          <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
+          <td style="width:7px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
           <!--<td class="dropdown">
             <img src="assets/img/file.png" (click)="FileMethod(i)">
             <ul class="dropdown-menu" id="filemenu{{i}}">
@@ -206,14 +373,21 @@
             </ul>
           </td>-->
           <td style="width: 100px;" class="dropdown">
-            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)"><ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.Candidate_FN}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Candidate_FN}}
+            </ejs-tooltip></a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
-               <!-- <li> <a [routerLink]="['/requisitionadd',item.RequistionId]">Application Info</a></li>     -->
+               <!-- <li> <a [routerLink]="['/requisitionadd',item.RequistionId]">Candidate Summary</a></li>     -->
+               <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
-               <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>       
+               <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>       
                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>   
-               <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
               <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li>           
                 <!--<li (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>--> 
                 <!--<li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li>-->                   
@@ -225,68 +399,231 @@
           <td id="changeBillvalue{{i}}">{{item.BillableCTC}}</td>
           <td id="changeFeevalue{{i}}">{{item.AgencyFees}}</td>
           <td id="changeGstvalue{{i}}">{{item.GSTYesNo}}</td>            
-          <td id="changeRemvalue{{i}}">{{item.Remarks}}</td>          
+          <td id="changeRemvalue{{i}}" class="emailoverflow">
+            <ejs-tooltip  id='tooltip_1'>
+            <ng-template #content>
+                <table>
+                  <tr><td>{{item.Remarks}}</td></tr>                
+                </table>
+            </ng-template>
+            {{item.Remarks}}
+          </ejs-tooltip></td>          
           <td id="changeRemvalue{{i}}">{{item.Step_Owner}}</td>          
         </tr>        
         </tbody>
         
     </table>
+    
     <table *ngIf="shownothired == 'true'"  #dataTable class="display" id="nothiredDashboard" style="width:100%;">
       <thead>
         <tr>
-          <th style="background-image: none;height: 25px;width: 20px;"></th>          
-          <th>Name</th>
-          <th>Src.Cat</th>
-          <th>Owner</th>
-          <th>Exp</th>
-          <th>Email Id</th>
-          <th>Mobile No.</th>
-          <th>Exp. CTC</th>
-          <th>Cur. CTC</th>
-          <th>NP</th>
-          <th>C.Loc</th>          
-          <th>Step Owner</th>
-          <th>Date</th>
-          <th>Step Ageing</th>
-          <th>Src. to Step Ageing</th>
-          <th>Reject Reason</th>
+          <th style="background-image: none;height: 25px;width: 7px;"></th>          
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>                
+                  <table>
+                    <tr><td>Name</td></tr>                
+                  </table>
+              </ng-template>
+              Name
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Source Category</td></tr>                
+                  </table>
+              </ng-template>
+              Src.Cat
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Owner</td></tr>                
+                  </table>
+              </ng-template>
+              Owner
+            </ejs-tooltip>
+          </th>               
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Experience</td></tr>                
+                  </table>
+              </ng-template>
+              Exp
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Email Id</td></tr>                
+                  </table>
+              </ng-template>
+              Email Id
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Mobile Number</td></tr>                
+                  </table>
+              </ng-template>
+              M.No.
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Expected CTC</td></tr>                
+                  </table>
+              </ng-template>
+              Exp.CTC
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Current CTC</td></tr>                
+                  </table>
+              </ng-template>
+              Cur.CTC
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Notice Period</td></tr>                
+                  </table>
+              </ng-template>
+              NP
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Current Location</td></tr>                
+                  </table>
+              </ng-template>
+              C.Loc
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Step Owner</td></tr>                
+                  </table>
+              </ng-template>
+              SO
+            </ejs-tooltip>
+          </th>
+         <!-- <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Date</td></tr>                
+                  </table>
+              </ng-template>
+              Date
+            </ejs-tooltip>
+          </th>-->
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Step Ageing</td></tr>                
+                  </table>
+              </ng-template>
+              SA
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Source to Step Ageing</td></tr>                
+                  </table>
+              </ng-template>
+              SSA
+            </ejs-tooltip>
+          </th> 
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Reject Reason</td></tr>                
+                  </table>
+              </ng-template>
+              RR
+            </ejs-tooltip>
+          </th>
         </tr>
       </thead>
       <tbody>          
         <tr *ngFor="let item of StageValueList; let i = index">                
-          <td style="width:20px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
+          <td style="width:7px;"><input type="checkbox"  name="StageValueList{{item.ApplicationId}}" [checked]="StageValueList[i].checked" [(ngModel)]="StageValueList[i].checked" value="{{item.ApplicationId}}"></td>
          <!-- <td class="dropdown">
             <img src="assets/img/file.png" (click)="FileMethod(i)">
             <ul class="dropdown-menu" id="filemenu{{i}}">
               <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View File</a></li>
               <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download File</a></li>                         
             </ul>
-          </td>-->
+          </td>-->          
           <td style="width: 7vw;" class="dropdown">
-            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.Candidate_FN}}</a> 
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)"><ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.Candidate_FN}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Candidate_FN}}
+            </ejs-tooltip></a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
-                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
-                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Application Info</a></li>                
-                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
-                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>             
-                <!--<li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>-->
-                <!--<li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li> -->
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
-                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li> 
-                <li (click)="updateNothiredBackwardMovement('NH',item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Back to Previous Stage</a></li> 
-              </ul>
+                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>                
+                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>                
+                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li>                 
+            </ul>
           </td>        
           <td>{{item.Source_category}}</td> 
-          <td style="width: 8vw;">{{item.EACManager}}</td>      
-          <td >{{item.RelevantExperienceYYMM}}</td>
-          <td >{{item.EMailId}}</td>
+          <td>{{item.EACManager}}</td>      
+          <td>{{item.RelevantExperienceYYMM}}</td>
+          <td class="emailoverflow">
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.EMailId}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.EMailId}}
+            </ejs-tooltip></td>
           <td>{{item.MobileNo}}</td>
           <td id="changeExpvalue{{i}}">{{item.ExpectedSalary}}</td>            
           <td id="changePrevalue{{i}}">{{item.PrSalaryTotal}}</td>
           <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
           <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
-          <td>{{item.Step_Owner}}</td>
           <td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>                
+                  <table>
+                    <tr><td >{{item.Step_Owner}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Step_Owner}}
+            </ejs-tooltip>
+          </td>
+          <!--<td class="dateellipes">
             <ejs-tooltip  id='tooltip_1' >
               <ng-template #content>
                 
@@ -296,10 +633,317 @@
               </ng-template>
               {{item.Date}}
             </ejs-tooltip>
+          </td>-->
+               
+          <!--<td class="dateellipes">{{item.Date}}</td>-->
+          <td><ejs-tooltip  id='tooltip_1' >
+            <ng-template #content>
+              
+                <table>
+                  <tr><td >{{item.Date}}</td></tr>                
+                </table>
+            </ng-template>
+            {{item.Ageing}}d
+          </ejs-tooltip></td>         
+          <!--<td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>
+                
+                  <table>
+                    <tr><td >{{item.Date}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Date}}
+            </ejs-tooltip>
+          </td>-->         
+          <td>{{item.SourceAgeing}}d</td> 
+          <td style="font-size:8px !important;">
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.RejectionReason}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.RejectionReason}}
+            </ejs-tooltip></td>   
+        </tr>        
+        </tbody>
+    </table>
+    <table *ngIf="showalldashboard == 'true'"  #dataTable class="display" id="allDashboard" style="width:100%;">
+      <thead>
+        <tr>         
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>                
+                  <table>
+                    <tr><td>Current Stage</td></tr>                
+                  </table>
+              </ng-template>
+              CS
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>                
+                  <table>
+                    <tr><td>Name</td></tr>                
+                  </table>
+              </ng-template>
+              Name
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Source Category</td></tr>                
+                  </table>
+              </ng-template>
+              Src.Cat
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Owner</td></tr>                
+                  </table>
+              </ng-template>
+              Owner
+            </ejs-tooltip>
+          </th>               
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Experience</td></tr>                
+                  </table>
+              </ng-template>
+              Exp
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Email Id</td></tr>                
+                  </table>
+              </ng-template>
+              Email Id
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Mobile Number</td></tr>                
+                  </table>
+              </ng-template>
+              M.No.
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Expected CTC</td></tr>                
+                  </table>
+              </ng-template>
+              Exp.CTC
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Current CTC</td></tr>                
+                  </table>
+              </ng-template>
+              Cur.CTC
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Notice Period</td></tr>                
+                  </table>
+              </ng-template>
+              NP
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Current Location</td></tr>                
+                  </table>
+              </ng-template>
+              C.Loc
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Step Owner</td></tr>                
+                  </table>
+              </ng-template>
+              SO
+            </ejs-tooltip>
+          </th>
+         <!-- <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Date</td></tr>                
+                  </table>
+              </ng-template>
+              Date
+            </ejs-tooltip>
+          </th>-->
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Step Ageing</td></tr>                
+                  </table>
+              </ng-template>
+              SA
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Source to Step Ageing</td></tr>                
+                  </table>
+              </ng-template>
+              SSA
+            </ejs-tooltip>
+          </th> 
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Reject Reason</td></tr>                
+                  </table>
+              </ng-template>
+              RR
+            </ejs-tooltip>
+          </th>
+        </tr>
+      </thead>
+      <tbody>          
+        <tr *ngFor="let item of StageValueList; let i = index">
+         <!-- <td class="dropdown">
+            <img src="assets/img/file.png" (click)="FileMethod(i)">
+            <ul class="dropdown-menu" id="filemenu{{i}}">
+              <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View File</a></li>
+              <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download File</a></li>                         
+            </ul>
+          </td>-->
+          <td>
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.Currentstage}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Currentstage_CV}}
+            </ejs-tooltip>
           </td>
-          <td style="width: 8vw;" >{{item.Ageing}}d</td> 
-          <td>{{item.SourceAgeing}}d</td>        
-          <td>{{item.RejectionReason}}</td>    
+          <td style="width: 7vw;" class="dropdown">
+            <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)"><ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.Candidate_FN}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Candidate_FN}}
+            </ejs-tooltip></a> 
+            <ul class="dropdown-menu" id="showmenu{{i}}">
+                <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
+                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
+                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
+                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>  
+                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>  
+                <!--<li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>-->
+                <!--<li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li> -->
+                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li> 
+                <li (click)="updateNothiredBackwardMovement('NH',item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Back to Previous Stage</a></li> 
+              </ul>
+          </td>        
+          <td>{{item.Source_category}}</td> 
+          <td>{{item.EACManager}}</td>      
+          <td>{{item.RelevantExperienceYYMM}}</td>
+          <td class="emailoverflow">
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.EMailId}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.EMailId}}
+            </ejs-tooltip></td>
+          <td>{{item.MobileNo}}</td>
+          <td id="changeExpvalue{{i}}">{{item.ExpectedSalary}}</td>            
+          <td id="changePrevalue{{i}}">{{item.PrSalaryTotal}}</td>
+          <td id="changeNPvalue{{i}}">{{item.NoticePeriod}}</td>
+          <td id="changeLocvalue{{i}}">{{item.PrLocation}}</td>
+          <td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>                
+                  <table>
+                    <tr><td >{{item.Step_Owner}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Step_Owner}}
+            </ejs-tooltip>
+          </td>
+          <!--<td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>
+                
+                  <table>
+                    <tr><td >{{item.Date}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Date}}
+            </ejs-tooltip>
+          </td>-->
+               
+          <!--<td class="dateellipes">{{item.Date}}</td>-->
+          <td><ejs-tooltip  id='tooltip_1' >
+            <ng-template #content>
+              
+                <table>
+                  <tr><td >{{item.Date}}</td></tr>                
+                </table>
+            </ng-template>
+            {{item.Ageing}}d
+          </ejs-tooltip></td>         
+          <!--<td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>
+                
+                  <table>
+                    <tr><td >{{item.Date}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.Date}}
+            </ejs-tooltip>
+          </td>-->         
+          <td>{{item.SourceAgeing}}d</td> 
+          <td >
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>
+                    <tr><td>{{item.RejectionReason}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.RejectionReason}}
+            </ejs-tooltip></td>   
         </tr>        
         </tbody>
     </table>

@@ -121,7 +121,7 @@ export class CloneComponent implements OnInit {
       Reqtitle: ['', [Validators.required]],
       EmploymentType:['', [Validators.required]],
       ClientId:['', [Validators.required]],
-      Hiringmanager:['', [Validators.required]],
+      Hiringmanager:'',
       Emplocation:['', [Validators.required]],
       Noofposition:['', [Validators.required,Validators.pattern("[0-9]*")]],
       Skillset:'',
@@ -133,14 +133,15 @@ export class CloneComponent implements OnInit {
       BudgetType:['', [Validators.required]],
       Budgetccy:['', [Validators.required]],
       Eduqlfn:'',
-      Jobdescription:'',
+      Jobdescription:['', [Validators.required]],
       Competency:'',
       Jdattachment:'',
-      EACManager:['', [Validators.required]],
+      EACManager:'',
       ReqStatus:'',
       ReqStatusRemarks:'', 
       DeliveryManager:'',
-      BusinessFunction:''     
+      BusinessFunction:'',
+      JDVideoLink: ''           
     }, { 
       validator: BudgetValidator('Budgetminamt', 'Budgetmaxamt','Minexperience', 'Maxexperience')
     });    
@@ -209,7 +210,8 @@ export class CloneComponent implements OnInit {
                 ReqStatus:this.requisitionDetails['Data'][0]['ReqStatus'],
                 ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks'],
                 DeliveryManager:this.requisitionDetails['Data'][0]['DeliveryManagerCode'],
-                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunctionCode']
+                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunctionCode'],
+                JDVideoLink:this.requisitionDetails['Data'][0]['JDVideoLink']
               });
              
               if(!this.requisitionDetails['Data'][0]['JDAttachment']){

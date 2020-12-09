@@ -94,6 +94,7 @@ export class RequisitionaddService {
     formData.append('EACManager', FormObj.EACManager);
     formData.append('DeliveryManager', FormObj.DeliveryManager);
     formData.append('BusinessFunction', FormObj.BusinessFunction);
+    formData.append('JDVideoLink', FormObj.JDVideoLink);    
     formData.append('C_ID', C_ID);
 
     console.log("Usercategory => "+ formData.get('Usercategory'));
@@ -189,7 +190,8 @@ export class RequisitionaddService {
     formData.append('ReqStatusRemarks',FormObj.ReqStatusRemarks);
     formData.append('DeliveryManager', FormObj.DeliveryManager);
     formData.append('BusinessFunction', FormObj.BusinessFunction);
-
+    formData.append('JDVideoLink', FormObj.JDVideoLink);    
+    
     console.log("RequisitionId => "+ formData.get('RequisitionId'));
     console.log("EntityID => "+ formData.get('EntityID'));
     console.log("ClientId => "+ formData.get('ClientId'));

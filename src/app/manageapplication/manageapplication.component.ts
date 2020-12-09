@@ -53,6 +53,7 @@ export class ManageapplicationComponent implements OnInit {
   showall='true';
   shownothired='false';
   showjoinoffer= 'false';
+  showalldashboard= 'false';
   currentstage:any;
   public positionLength:any;
   date:any;
@@ -64,6 +65,7 @@ export class ManageapplicationComponent implements OnInit {
   clicked = 0;
   displayNoData =  false;
   selectedId:any;
+  currentStageString =  false;
 
   constructor(private routerObj: Router,private ManageapplicationServices: ManageapplicationService,private route: ActivatedRoute,public dialog: MatDialog,private datePipe : DatePipe) { 
     
@@ -71,16 +73,15 @@ export class ManageapplicationComponent implements OnInit {
       this.id = params['id'];  
       this.currentstage = params['stage'];    
     });
-
+  
     this.getDetails(this.id,this.currentstage);
-
   }
 
   ngOnInit() {
     setTimeout(function () {
       $(function () {
         $('#applicationDashboard').DataTable({
-          scrollY: '310px'
+          scrollY: '360px'
         });    
         $("#loader").hide();
       });      
@@ -88,7 +89,7 @@ export class ManageapplicationComponent implements OnInit {
     setTimeout(function () {
       $(function () {
         $('#joinofferDashboard').DataTable({
-          scrollY: '310px'
+          scrollY: '360px'
         });               
       });      
       $("#loader").hide();
@@ -96,7 +97,16 @@ export class ManageapplicationComponent implements OnInit {
     setTimeout(function () {
       $(function () {
         $('#nothiredDashboard').DataTable({
-          scrollY: '310px'
+          scrollY: '360px'
+          
+        });               
+      });      
+      $("#loader").hide();
+    }, 1500);  
+    setTimeout(function () {
+      $(function () {
+        $('#allDashboard').DataTable({
+          scrollY: '360px'
           
         });               
       });      
@@ -147,9 +157,13 @@ export class ManageapplicationComponent implements OnInit {
                 {
                   response['Data'][i]['Currentstage_CV'] = 'Joined';
                 }
-                else if(response['Data'][i]['Currentstage_CV'] == 'NH')
+                else if(response['Data'][i]['Currentstage_CV'] == 'CR')
                 {
-                  response['Data'][i]['Currentstage_CV'] = 'Not Hired';
+                  response['Data'][i]['Currentstage_CV'] = 'Client reject';
+                }
+                else if(response['Data'][i]['Currentstage_CV'] == 'IR')
+                {
+                  response['Data'][i]['Currentstage_CV'] = 'Internal reject';
                 }
               }               
             });
@@ -194,9 +208,13 @@ export class ManageapplicationComponent implements OnInit {
                 {
                   response['Data'][i]['CV_Stage'] = 'Joined';
                 }
-                else if(response['Data'][i]['CV_Stage'] == 'NH')
+                else if(response['Data'][i]['CV_Stage'] == 'CR')
                 {
-                  response['Data'][i]['CV_Stage'] = 'Not Hired';
+                  response['Data'][i]['CV_Stage'] = 'Client reject';
+                }
+                else if(response['Data'][i]['CV_Stage'] == 'IR')
+                {
+                  response['Data'][i]['CV_Stage'] = 'Internal reject';
                 }
               }               
             });
@@ -423,15 +441,32 @@ export class ManageapplicationComponent implements OnInit {
       this.currentstage = params['stage'];    
     });
 
+    
     if(this.selectedApplication.length < 1){
       this.message = "Please select atleast one candidate to move.";
       this.openSnackBar();
       return;
     }
+    if(this.currentstage != 'IR'){
+      if(stage == 'CR' && this.currentstage != 'AS' && this.currentstage != 'HR' && this.currentstage != 'JO' && this.currentstage != 'OF')
+      {
+        this.message = "CV from sourcing and screening can only be moved to Internal rejection.";
+        this.openSnackBar();
+        return;
+      }   
+    }
+    if(this.currentstage != 'CR'){
+      if(stage == 'IR' && this.currentstage !='SC' && this.currentstage !='SO')
+      {
+        this.message = "We can move the candidate to client rejection only from this stage.";
+        this.openSnackBar();
+        return;
+      }
+    }
 
     const dialogRef = this.dialog.open(NothiredComponent, {
       width: '900px',
-      data: {selectedValue:this.selectedApplication,requisitionId:this.id}      
+      data: {selectedValue:this.selectedApplication,requisitionId:this.id,CStage:stage}      
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -463,13 +498,16 @@ export class ManageapplicationComponent implements OnInit {
   }
   
   actionMethod(i) { 
+    $(".dropdown-menu").hide("fast");
     $("#showmenu"+i).show();
+    
     $(document).on("click", function(event){
       var $trigger = $(".dropdown");
       if($trigger !== event.target && !$trigger.has(event.target).length){
-          $(".dropdown-menu").slideUp("fast");
+          $(".dropdown-menu").hide("fast");
       }            
    });
+   
   }
   FileMethod(i) { 
     $("#filemenu"+i).show();
@@ -490,25 +528,28 @@ export class ManageapplicationComponent implements OnInit {
     $('#applicationDashboard').DataTable().clear().destroy();
     $('#joinofferDashboard').DataTable().clear().destroy();
     $('#nothiredDashboard').DataTable().clear().destroy();
+    $('#allDashboard').DataTable().clear().destroy();
     
     this.ManageapplicationServices.getStageValues(this.id,stage).subscribe(
       response => {
         if (response != "No data") {  
           this.clicked = 0;          
+         
           this.StageValueList = response['Data']['SSAHNGrid'];     
           this.StageValueCount = response['Data']['StageCount'];  
           this.SubStageValueCount =  response['Data']['SubStageCount'];
           this.requisitionDetails = response['Data']['RequisitionDetail']; 
-        }
+
+         
       }
-    );
+    });
 
     $("#loader").hide();
 
     setTimeout(function () {
        $(function () {
          $('#applicationDashboard').DataTable({
-           scrollY: '310px'
+           scrollY: '360px'
          });    
          $("#loader").hide();
        });      
@@ -539,6 +580,7 @@ export class ManageapplicationComponent implements OnInit {
     $("#applicationinfo").hide(); 
 
     $('#applicationDashboard').DataTable().clear().destroy();
+    $('#allDashboard').DataTable().clear().destroy();
     $('#joinofferDashboard').DataTable().clear().destroy();
     $('#nothiredDashboard').DataTable().clear().destroy();
 
@@ -549,6 +591,7 @@ export class ManageapplicationComponent implements OnInit {
       this.showall='true';
       this.shownothired='false';
       this.showjoinoffer ='false';
+      this.showalldashboard ='false';
 
       this.ManageapplicationServices.getSubStageValues(this.id,substage).subscribe(
         response => {
@@ -573,7 +616,7 @@ export class ManageapplicationComponent implements OnInit {
      setTimeout(function () {
         $(function () {
           $('#applicationDashboard').DataTable({
-            scrollY: '310px'
+            scrollY: '360px'
           });    
           $("#loader").hide();
         });      
@@ -598,6 +641,7 @@ export class ManageapplicationComponent implements OnInit {
       this.showall='false';
       this.shownothired='false';
       this.showjoinoffer ='true';
+      this.showalldashboard='false';
 
       this.ManageapplicationServices.getOffandJoinValues(id,currentstage).subscribe(
         response => {
@@ -610,17 +654,112 @@ export class ManageapplicationComponent implements OnInit {
         }
       ); 
     }    
-   else if(currentstage == "NH"){
+   else if((currentstage == "CR") || (currentstage == "IR")){
       this.showall='false';
       this.shownothired='true';
       this.showjoinoffer ='false';
+      this.showalldashboard='false';
+
       this.ManageapplicationServices.getStageValues(id,currentstage).subscribe(
         response => {
           if (response != "No data") {  
+            response['Data']['SSAHNGrid'].forEach(item => {
+              for (let i = 0; i < response['Data']['SSAHNGrid'].length; i++) {                            
+                if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Sourcing';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SC')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Screening';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'AS')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Assessment';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'HR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'HR Round';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'OF')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Offered';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'JO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Joined';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'CR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Client reject';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'IR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Internal reject';
+                }
+              }       
+          });
             this.StageValueList = response['Data']['SSAHNGrid'];     
             this.StageValueCount = response['Data']['StageCount'];  
             this.SubStageValueCount =  response['Data']['SubStageCount'];
-            this.requisitionDetails = response['Data']['RequisitionDetail'];  
+            this.requisitionDetails = response['Data']['RequisitionDetail'];
+          
+          }
+        }
+      );
+ 
+    }   
+
+    else if(currentstage == "All"){
+      this.showall='false';
+      this.shownothired='false';
+      this.showjoinoffer ='false';
+      this.showalldashboard='true';
+
+      this.ManageapplicationServices.getStageValues(id,currentstage).subscribe(
+        response => {
+          if (response != "No data") {  
+            response['Data']['SSAHNGrid'].forEach(item => {
+              for (let i = 0; i < response['Data']['SSAHNGrid'].length; i++) {                            
+                if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Sourcing';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SC')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Screening';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'AS')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Assessment';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'HR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'HR Round';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'OF')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Offered';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'JO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Joined';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'CR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Client reject';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'IR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Internal reject';
+                }
+              }       
+          });
+            this.StageValueList = response['Data']['SSAHNGrid'];     
+            this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
+            this.requisitionDetails = response['Data']['RequisitionDetail'];
+          
           }
         }
       );
@@ -630,6 +769,8 @@ export class ManageapplicationComponent implements OnInit {
       this.showjoinoffer = 'false';
       this.shownothired='false';
       this.showall='true';
+      this.showalldashboard='false';
+
       this.ManageapplicationServices.getStageValues(id,currentstage).subscribe(
         response => {
           if (response != "No data") {  
@@ -646,13 +787,20 @@ export class ManageapplicationComponent implements OnInit {
 
 
   getStageValuesOnChange(stage){   
-    console.log(stage);
+    
     $("#loader").show();
   
     this.route.params.subscribe(params => {
       this.id = params['id'];  
       this.currentstage = params['stage'];    
     });
+
+    if(stage == 'All'){
+      this.currentStageString = true;
+    }
+    else{
+      this.currentStageString = false;
+    }
 
     this.routerObj.navigate(['manage/',this.id,stage]);
 
@@ -663,11 +811,14 @@ export class ManageapplicationComponent implements OnInit {
     $('#applicationDashboard').DataTable().clear().destroy();
     $('#joinofferDashboard').DataTable().clear().destroy();
     $('#nothiredDashboard').DataTable().clear().destroy();
+    $('#allDashboard').DataTable().clear().destroy();
 
     if((stage == "OF") || (stage == "JO")){
       this.showall='false';
       this.shownothired='false';
       this.showjoinoffer ='true';
+      this.showalldashboard='false';
+
       this.ManageapplicationServices.getOffandJoinValues(this.id,stage).subscribe(
         response => {
           if (response != "No data") {  
@@ -681,38 +832,142 @@ export class ManageapplicationComponent implements OnInit {
       setTimeout(function () {
         $(function () {
           $('#joinofferDashboard').DataTable({
-            scrollY: '310px'
+            scrollY: '360px'
           }); 
         });      
         $("#loader").hide();
       }, 1500);    
     }    
-   else if(stage == "NH"){
+   else if((stage == "CR") || (stage == "IR")){    
       this.showall='false';
       this.shownothired='true';
       this.showjoinoffer ='false';
+      this.showalldashboard='false';
+
       this.ManageapplicationServices.getStageValues(this.id,stage).subscribe(
         response => {
           if (response != "No data") {  
+            response['Data']['SSAHNGrid'].forEach(item => {
+              for (let i = 0; i < response['Data']['SSAHNGrid'].length; i++) {  
+                           
+                if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Sourcing';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SC')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Screening';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'AS')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Assessment';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'HR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'HR Round';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'OF')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Offered';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'JO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Joined';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'CR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Client reject';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'IR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Internal reject';
+                }
+              }       
+          });
             this.StageValueList = response['Data']['SSAHNGrid'];     
             this.StageValueCount = response['Data']['StageCount'];  
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
+            
           }
         }
       );
       setTimeout(function () {
         $(function () {
           $('#nothiredDashboard').DataTable({
-            scrollY: '310px'
+            scrollY: '360px'
           });               
         });      
         $("#loader").hide();
       }, 1500);   
     }   
+    else if(stage == "All"){    
+      this.showall='false';
+      this.shownothired='false';
+      this.showjoinoffer ='false';
+      this.showalldashboard='true';
+
+      this.ManageapplicationServices.getStageValues(this.id,stage).subscribe(
+        response => {
+          if (response != "No data") {  
+            response['Data']['SSAHNGrid'].forEach(item => {
+              for (let i = 0; i < response['Data']['SSAHNGrid'].length; i++) {  
+                           
+                if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Sourcing';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'SC')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Screening';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'AS')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Assessment';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'HR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'HR Round';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'OF')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Offered';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'JO')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Joined';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'CR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Client reject';
+                }
+                else if(response['Data']['SSAHNGrid'][i]['Currentstage_CV'] == 'IR')
+                {
+                  response['Data']['SSAHNGrid'][i]['Currentstage'] = 'Internal reject';
+                }
+              }       
+          });
+            this.StageValueList = response['Data']['SSAHNGrid'];     
+            this.StageValueCount = response['Data']['StageCount'];  
+            this.requisitionDetails = response['Data']['RequisitionDetail'];  
+            
+          }
+        }
+      );
+      setTimeout(function () {
+        $(function () {
+          $('#allDashboard').DataTable({
+            scrollY: '360px'
+          });               
+        });      
+        $("#loader").hide();
+      }, 1500);   
+    }  
     else{
       this.showjoinoffer = 'false';
       this.shownothired='false';
       this.showall='true';
+      this.showalldashboard='false';
+
       this.clicked = 0;
       this.ManageapplicationServices.getStageValues(this.id,stage).subscribe(
         response => {
@@ -727,7 +982,7 @@ export class ManageapplicationComponent implements OnInit {
       setTimeout(function () {
         $(function () {
           $('#applicationDashboard').DataTable({
-            scrollY: '310px'
+            scrollY: '360px'
           });           
         });   
         $("#loader").hide();   
@@ -968,13 +1223,13 @@ export class ManageapplicationComponent implements OnInit {
     {
       if(this.currentstage == 'SO' && updatestage !='SC')
       {
-        this.message = "In Forward Movement, CV from Sourcing can only be moved to Screening and Not Hired.";
+        this.message = "In Forward Movement, CV from Sourcing can only be moved to Screening and Internal reject.";
         this.openSnackBar();
         return;   
       }
       else if(this.currentstage == 'SC' && updatestage !='AS')
       {
-        this.message = "In Forward Movement, CV from Screening can only be moved to Assessment and Not Hired.";
+        this.message = "In Forward Movement, CV from Screening can only be moved to Assessment and Internal reject.";
         this.openSnackBar();
         return;
       }
@@ -987,24 +1242,24 @@ export class ManageapplicationComponent implements OnInit {
       }*/
       else if(this.currentstage == 'AS' && updatestage !='HR')
       {
-        this.message = "In Forward Movement, CV from Assessment can only be moved to HR Round and Not Hired.";
+        this.message = "In Forward Movement, CV from Assessment can only be moved to HR Round and Client reject.";
         this.openSnackBar();
         return;
       }
       else if(this.currentstage == 'HR' && updatestage !='OF')
       {
-        this.message = "In Forward Movement, CV from HR Round can only be moved to Offered and Not Hired.";
+        this.message = "In Forward Movement, CV from HR Round can only be moved to Offered and Client reject.";
         this.openSnackBar();
         return;
       }
       else if(this.currentstage == 'OF' && updatestage !='JO')
       {
-        this.message = "In Forward Movement, CV from Offered can only be moved to Joined and Not Hired.";
+        this.message = "In Forward Movement, CV from Offered can only be moved to Joined and Client reject.";
         this.openSnackBar();
         return;
       }
-      else if(this.currentstage == 'NH'){
-        this.message = "In Forward Movement, CV from Not Hired cannot be moved to any other stage.";
+      else if(this.currentstage == 'CR' || this.currentstage == 'IR'){
+        this.message = "In Forward Movement, CV from Reject stage cannot be moved to any other stage.";
         this.openSnackBar();
         return;
       }
@@ -1083,8 +1338,8 @@ export class ManageapplicationComponent implements OnInit {
   }
   else{
 
-    if(this.selectedApplication.length > 1) {
-      this.message = "In Backward Movement, Only one candidate can be moved to this stage at a time.";
+    if(this.selectedApplication.length > 25) {
+      this.message = "In Backward Movement, Only 25 candidate can be moved to this stage at a time.";
       this.openSnackBar();
       return;
     }
@@ -1107,23 +1362,26 @@ export class ManageapplicationComponent implements OnInit {
       this.openSnackBar();
       return;   
     }
-    else if(this.currentstage == 'OF' && (updatestage == 'SO' || updatestage == 'SC' || updatestage == 'JO' || updatestage == 'NH' ))
+    else if(this.currentstage == 'OF' && (updatestage == 'SO' || updatestage == 'SC' || updatestage == 'JO' || updatestage == 'CR' || updatestage == 'IR' ))
     {
       console.log(updatestage);
       this.message = "In Backward Movement, CV from Offered can only be moved to Assessment and HR Round.";
       this.openSnackBar();
       return;   
     }
-    else if(this.currentstage == 'JO' && updatestage !='NH')
+    else if(this.currentstage == 'JO' && (updatestage !='CR' || updatestage !='IR'))
     {
-      this.message = "In Backward Movement, CV from Joined can only be moved to Not Hired.";
+      this.message = "In Backward Movement, CV from Joined can only be moved to reject stage.";
       this.openSnackBar();
       return;   
     }
 
+    //this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
+   
+    this.selectedId = this.selectedApplication.map(({ CandidateId, ApplicationId }) => ({CandidateId, ApplicationId}));
  
 
-    this.ManageapplicationServices.updateBackwardStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
+    this.ManageapplicationServices.updateBulkBackwardStagetoStage(this.id,updatestage,this.currentstage,this.selectedId).subscribe(
       response => {
         if (response != "No data") {  
           let getMessage =  response['Message'].split(":");

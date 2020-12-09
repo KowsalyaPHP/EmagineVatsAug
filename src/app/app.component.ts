@@ -13,10 +13,10 @@ export class AppComponent {
   title = 'vats';
   userName='';
 
- public static urlPath = "https://api.emaginerock.com/";
+ //public static urlPath = "https://api.emaginerock.com/";
  //public static urlPath = "https://devapi.emaginerock.com/";
- //public static urlPath = "http://bincrm.com/vatsdev/";
- //public static urlPath = "http://bd8b9875e493.ngrok.io/";
+ //public static urlPath = "http://bincrm.com/vatsqa/";
+ public static urlPath = "http://8d0cc76378da.ngrok.io/";
 
   myArray:any;
   funclist:any;

@@ -133,6 +133,46 @@ export class ManageapplicationService {
           return 'No Data';
       });
   }
+
+  public updateBulkBackwardStagetoStage(ReqId,tostage,fromstage,selectId): Observable<any> {
+
+    const url = AppComponent.urlPath + 'BulkBackwardMovement';
+
+    const params = new URLSearchParams();  
+    var RefId = sessionStorage.getItem("RefId");
+    var C_ID = sessionStorage.getItem("uniqueSessionId");
+
+    if(fromstage == 'OF'){
+      var toStage = tostage;
+    }
+    else{
+      var toStage = null;
+    }
+       
+   /* params.set('EntityId', RefId);
+    params.set('RequisitionId', ReqId);
+    params.set('CurrentStage', fromstage);
+    params.set('ToStage', toStage);
+    params.set('C_ID', C_ID);    
+    params.append('CandidateData', JSON.stringify(selectId));*/
+     
+    const formData = new FormData();
+    
+    formData.append('EntityId', RefId);
+    formData.append('RequisitionId', ReqId);
+    formData.append('CurrentStage', fromstage);
+    formData.append('ToStage', toStage);
+    formData.append('C_ID', C_ID)
+    formData.append('CandidateData', JSON.stringify(selectId))
+
+    return this.http.post(url, formData)    
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
+  }
   
   public checkOfferPosition(ReqId): Observable<any> {
 

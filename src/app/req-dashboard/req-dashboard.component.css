@@ -93,3 +93,46 @@ ul li ul.dropdown-menu li{
     border-right: 8px solid transparent;
     border-top: 8px solid #434a54;
 }
+
+.dateellipes{   
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  display:inline-block;
+  padding-top: 7px;
+}
+
+.clientellipes{
+  white-space: nowrap; 
+  width: 100px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  display:inline-block;
+  padding-top: 7px;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+  height: 20px;
+}
+  ul.summarycount {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+    
+  }
+  table.dataTable.no-footer
+  {
+    border-bottom: none;
+  }
+
+  li.summarycount {
+    float: left;
+    
+  }
+  ul li.summarycount{
+    width: 0%;
+  }
+
+ 

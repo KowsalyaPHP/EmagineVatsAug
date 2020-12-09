@@ -55,7 +55,8 @@ export class CloneService {
     formData.append('ReqStatusRemarks',FormObj.ReqStatusRemarks);
     formData.append('DeliveryManager', FormObj.DeliveryManager);
     formData.append('BusinessFunction', FormObj.BusinessFunction);
-
+    formData.append('JDVideoLink', FormObj.JDVideoLink);
+    
     return this.http.post(url_login, formData)
       .map(response => response.json()).map(data => {
         if (data != '')

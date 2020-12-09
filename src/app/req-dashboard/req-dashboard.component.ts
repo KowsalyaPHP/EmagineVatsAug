@@ -45,7 +45,7 @@ export class ReqDashboardComponent implements OnInit {
   manageRedirect:boolean=false;
   dataTable: any;
   clientList:any;
-  
+  summaryCount:any;
 
   constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar){
     this.route.params.subscribe(params => {
@@ -186,11 +186,12 @@ export class ReqDashboardComponent implements OnInit {
   }
 
   actionMethod(i) { 
+    $(".dropdown-menu").hide("fast");
     $("#showmenu"+i).show();
     $(document).on("click", function(event){
       var $trigger = $(".dropdown");
       if($trigger !== event.target && !$trigger.has(event.target).length){
-          $(".dropdown-menu").slideUp("fast");
+          $(".dropdown-menu").hide("fast");
       }            
    });
   }
@@ -324,22 +325,25 @@ export class ReqDashboardComponent implements OnInit {
             this.openSnackBar(); 
           }
           else {                     
-           this.reqList = response['Data']; 
-                
+           
            /* for (let i = 0; i < response['Data'].length; i++) {            
               this.changePriority(response['Data'][i]['Reqpriority'],i);
             }   */                 
-            response['Data'].forEach(item => {
-             item.totalCount = (item.Sourcing+item.Screening+item.Assessment+item.HRRound+item.Offered+item.Joined+item.NotHired);    
+            response['Data']['RequisitionDetail'].forEach(item => {
+             item.totalCount = (item.Sourcing+item.Screening+item.Assessment+item.HRRound+item.Offered+item.Joined+item.CR+item.IR);    
              item.sourcePerc =  Math.round((item.Sourcing/item.totalCount) *100);   
              item.screeningPerc =  Math.round((item.Screening/item.totalCount) *100);   
              item.assessmentPerc =  Math.round((item.Assessment/item.totalCount) *100);   
              item.hrPerc =  Math.round((item.HRRound/item.totalCount) *100);   
              item.offeredPerc =  Math.round((item.Offered/item.totalCount) *100);   
              item.joinedPerc =  Math.round((item.Joined/item.totalCount) *100);   
-             item.nothiredPerc =  Math.round((item.NotHired/item.totalCount) *100);   
+             item.CRPerc =  Math.round((item.CR/item.totalCount) *100);   
+             item.IRPerc =  Math.round((item.IR/item.totalCount) *100);   
             });
-            
+
+            this.reqList = response['Data']['RequisitionDetail']; 
+            this.summaryCount = response['Data']['SummeryCount'];  
+            console.log(this.summaryCount)           
           }    
 
           setTimeout(function () {             
@@ -383,20 +387,24 @@ export class ReqDashboardComponent implements OnInit {
           }
           else {                  
               
-            this.reqList = response['Data'];          
-            for (let i = 0; i < response['Data'].length; i++) {            
-              this.changePriority(response['Data'][i]['Reqpriority'],i);
+                 
+            for (let i = 0; i < response['Data']['RequisitionDetail'].length; i++) {            
+              this.changePriority(response['Data']['RequisitionDetail'][i]['Reqpriority'],i);
             }    
-            response['Data'].forEach(item => {
-              item.totalCount = (item.Sourcing+item.Screening+item.Assessment+item.HRRound+item.Offered+item.Joined+item.NotHired);    
+            response['Data']['RequisitionDetail'].forEach(item => {
+              item.totalCount = (item.Sourcing+item.Screening+item.Assessment+item.HRRound+item.Offered+item.Joined+item.CR+item.IR);    
               item.sourcePerc =  Math.round((item.Sourcing/item.totalCount) *100);   
               item.screeningPerc =  Math.round((item.Screening/item.totalCount) *100);   
               item.assessmentPerc =  Math.round((item.Assessment/item.totalCount) *100);   
               item.hrPerc =  Math.round((item.HRRound/item.totalCount) *100);   
               item.offeredPerc =  Math.round((item.Offered/item.totalCount) *100);   
-              item.joinedPerc =  Math.round((item.Joined/item.totalCount) *100);   
-              item.nothiredPerc =  Math.round((item.NotHired/item.totalCount) *100);   
+              item.joinedPerc =  Math.round((item.Joined/item.totalCount) *100);
+              item.CRPerc =  Math.round((item.CR/item.totalCount) *100);   
+              item.IRPerc =  Math.round((item.IR/item.totalCount) *100);      
              });                
+
+             this.reqList = response['Data']['RequisitionDetail'];
+             this.summaryCount = response['Data']['SummeryCount'];      
           }          
           
           setTimeout(function () {             

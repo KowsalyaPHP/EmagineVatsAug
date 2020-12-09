@@ -277,12 +277,20 @@
                         <mat-hint (click)="openDialogCompetency()" style="color:#0670c4;cursor: pointer;font-size: 12px;">Add Competency</mat-hint>  
                     </mat-form-field>
                 </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput placeholder="JD Video Link" formControlName="JDVideoLink">
+                        <!--<mat-error *ngFor="let validation of requisition_validation_messages.JDVideoLink">
+                            <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('JDVideoLink').hasError(validation.type) && (addRequisitionForm.get('JDVideoLink').dirty || addRequisitionForm.get('JDVideoLink').touched)">{{validation.message}}</mat-error>
+                        </mat-error>-->
+                    </mat-form-field>
+                </td>
                 <td style="padding-left:20px;">
                     JD Doc - 
                        <input placeholder="JD Doc" (change)="fileChange($event)" accept=".doc,.docx,.pdf,.rtf" type="file" formControlName="Jdattachment" title=" "><br>
                        (.doc,.docx,.pdf,.rtf only)              
                        <p *ngIf="attachmentShow != 0 && id > 0" id="FileChange"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadJD(id)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>     
-                </td>
+                </td>               
             </tr>           
             <tr>
                 <td *ngIf="id > 0">

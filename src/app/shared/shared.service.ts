@@ -190,12 +190,27 @@ export class SharedService {
       });
   }
 
-  public getLkupNotHiredReason(): Observable<any> {
+  public getLkupClientRejectReason(): Observable<any> {
 
     const url = this.urlPath + 'lkup';
     const params = new URLSearchParams();
  
-    params.set('lkup', 'RejectionReason');    
+    params.set('lkup', 'CR');    
+    return this.http.post(url, params)
+      .map(response => response.json()['Data']).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public getLkupInternalRejectReason(): Observable<any> {
+
+    const url = this.urlPath + 'lkup';
+    const params = new URLSearchParams();
+ 
+    params.set('lkup', 'IR');    
     return this.http.post(url, params)
       .map(response => response.json()['Data']).map(data => {
         if (data != '')

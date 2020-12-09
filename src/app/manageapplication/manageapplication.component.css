@@ -11,7 +11,7 @@
   border-radius: 50%;
   width:  3Vw;
   height: 6vh;
-  left: 19%;
+  left: 29%;
   position: absolute;
   background-color: rgb(65, 101, 218);
   padding: 1%;
@@ -72,7 +72,7 @@
     display:none;
   }
   
-  
+
 .statuscolor{
   color:#0670c4;
 }
@@ -112,6 +112,7 @@ ul li ul.dropdown-menu{
   position: absolute;
   z-index: 999;
   left: 0;
+  white-space: inherit;
 }
 
 li.dropdown {
@@ -271,4 +272,26 @@ ul#submenu li {
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis; 
+  padding-top: 10px;
+}
+.emailoverflow {
+  display: inline-block;
+  width: 80px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  padding-top: 10px;
+  
+}
+.rejectoverflow {
+  display: inline-block;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  padding-top: 10px;
+ 
+}
+table.dataTable tbody th, table.dataTable tbody td {
+  height: 25px;
 }

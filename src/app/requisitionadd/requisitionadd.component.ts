@@ -154,7 +154,8 @@ export class RequisitionaddComponent implements OnInit {
       ReqStatus:'',
       ReqStatusRemarks:'',
       DeliveryManager:'',
-      BusinessFunction:''
+      BusinessFunction:'',
+      JDVideoLink: ''
      }, { 
       validator: BudgetValidator('Budgetminamt', 'Budgetmaxamt','Minexperience', 'Maxexperience')
     }
@@ -224,7 +225,8 @@ export class RequisitionaddComponent implements OnInit {
                 ReqStatus:this.requisitionDetails['Data'][0]['ReqStatus'],
                 ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks'],
                 DeliveryManager:this.requisitionDetails['Data'][0]['DeliveryManagerCode'],
-                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunctionCode']
+                BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunctionCode'],
+                JDVideoLink:this.requisitionDetails['Data'][0]['JDVideoLink']
               });
              
               if(!this.requisitionDetails['Data'][0]['JDAttachment']){

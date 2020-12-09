@@ -15,23 +15,157 @@
       <table #dataTable class="display table table-borderless table-hover"  id="reqList" style="width:100%;">        
         <thead>
             <tr>
-                <th>Req Id</th>
-                <th>Account Manager</th>
-                <th>Delivery Manager</th>
-                <th>Client</th>
-                <th style="width: 200px;">Job Title</th>
-                <th >Priority</th>
-                <th style="text-align: center;background-position-x: 33px;width: 83px;"><mat-icon>perm_identity</mat-icon></th>
-                <th style="text-align: center;background-position-x: 11px;"><mat-icon>hourglass_empty</mat-icon></th>
-                <th style="text-align: center;border-right:1px solid #000000;background-position-x: 33px;width: 83px;"><mat-icon>insert_chart_outlined</mat-icon></th>
-                
-                <th style="background-image: none;">S</th>
-                <th style="background-image: none;">S</th>
-                <th style="background-image: none;">A</th>
-                <th style="background-image: none;">H</th>
-                <th style="background-image: none;">O</th>            
-                <th style="background-image: none;">J</th>            
-                <th style="background-image: none;">N</th>            
+              <th>
+                <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Requistion Id</td></tr>                
+                      </table>
+                  </ng-template>
+                  Req Id
+                </ejs-tooltip>
+              </th>
+              <th>
+                <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Requisition Title</td></tr>                
+                      </table>
+                  </ng-template>
+                  Job Title
+                </ejs-tooltip>
+              </th>
+              <th style="width:60px">
+                <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Account Manager</td></tr>                
+                      </table>
+                  </ng-template>
+                  AM
+                </ejs-tooltip>
+              </th>
+              <th style="width:50px">
+                <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Delivery Manager</td></tr>                
+                      </table>
+                  </ng-template>
+                  DM
+                </ejs-tooltip>
+              </th>
+              <th >
+                <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Client</td></tr>                
+                      </table>
+                  </ng-template>
+                  Client
+                </ejs-tooltip>
+              </th>
+              <th>
+                <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Priority</td></tr>                
+                      </table>
+                  </ng-template>
+                  Priority
+                </ejs-tooltip>
+                </th>                   
+                <th style="text-align: center;background-position-x: 7px;"> 
+                  <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                    <ng-template #content>
+                        <table>
+                          <tr><td>Co-ordinator</td></tr>                
+                        </table>
+                    </ng-template>
+                    <mat-icon>perm_identity</mat-icon>
+                  </ejs-tooltip>
+                </th>
+                <th style="text-align: center;background-position-x: 7px;">
+                  <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                    <ng-template #content>
+                        <table>
+                          <tr><td>Ageing</td></tr>                
+                        </table>
+                    </ng-template>
+                    <mat-icon>hourglass_empty</mat-icon>
+                  </ejs-tooltip></th>
+                <th style="text-align: center;border-right:1px solid #000000;background-position-x: 7px;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Positions</td></tr>                
+                      </table>
+                  </ng-template>
+                  <mat-icon>insert_chart_outlined</mat-icon>
+                </ejs-tooltip></th>                
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Sourcing</td></tr>                
+                      </table>
+                  </ng-template>
+                  S
+                </ejs-tooltip></th>
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Screening</td></tr>                
+                      </table>
+                  </ng-template>
+                  S
+                </ejs-tooltip></th>
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Assessment</td></tr>                
+                      </table>
+                  </ng-template>
+                  A
+                </ejs-tooltip></th>
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>HR Round</td></tr>                
+                      </table>
+                  </ng-template>
+                  H
+                </ejs-tooltip></th>
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Offered</td></tr>                
+                      </table>
+                  </ng-template>
+                 O
+                </ejs-tooltip></th>            
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Joined</td></tr>                
+                      </table>
+                  </ng-template>
+                  J
+                </ejs-tooltip></th>            
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Client Reject</td></tr>                
+                      </table>
+                  </ng-template>
+                 CR
+                </ejs-tooltip></th>            
+                <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Internal Reject</td></tr>                
+                      </table>
+                  </ng-template>
+                  IR
+                </ejs-tooltip></th>            
             </tr>       
         </thead>
         <tbody>          
@@ -48,10 +182,31 @@
                   <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequistionId)"><a>View JD</a></li>
                 </ul>
           </td>     
+          <td class="dateellipes">
+            <ejs-tooltip  id='tooltip_1' >
+              <ng-template #content>
+                
+                  <table>
+                    <tr><td >{{item.ReqTitle}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.ReqTitle}}
+            </ejs-tooltip>
+          </td>          
           <td>{{item.EACManager}}</td>
           <td>{{item.DeliveryManager}}</td>
-          <td>{{item.Clientname}}</td>
-          <td style="width: 200px;">{{item.ReqTitle}}</td>
+          <td class="clientellipes">
+
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>                   
+                    <tr><td> {{item.Clientname}}</td></tr>
+                  </table>
+              </ng-template>
+              {{item.Clientname}}
+              </ejs-tooltip>
+          </td>
+          
           <td class="dropdown" style="padding-left:24px;">
               <a style="color:rgb(190, 32, 32);cursor:pointer;" (click)="priorityMethod(i)">
                <!--<mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'; else low">arrow_upwards</mat-icon>
@@ -97,7 +252,7 @@
           <td style="text-align: center;">{{item.Username}}</td>
           <td style="text-align: center;">{{item.Ageing}}d</td>
           <td style="border-right:1px solid #000000;text-align: center;">{{item.Positions}}</td>
-          <td><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
               <ng-template #content>
                   <table>
                     <tr><td style="padding-bottom: 10px;">Sourcing :</td> <td style="padding-bottom: 10px;">{{item.Sourcing}} ({{item.sourcePerc}}%)</td></tr>
@@ -111,7 +266,7 @@
               </ng-template>  
           </td>
 
-          <td><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
                   <tr><td style="padding-bottom: 10px;">Screening :</td> <td style="padding-bottom: 10px;">{{item.Screening}} ({{item.screeningPerc}}%)</td></tr>
@@ -125,7 +280,7 @@
             </ng-template>  
           </td>
 
-          <td><a class="statuscolor" (mouseenter) ="getAssessmentCount(item.RequistionId)" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" (mouseenter) ="getAssessmentCount(item.RequistionId)" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table *ngFor="let count of assessmentCount; let i = index">
                   <tr *ngIf="count.AssesmentCount >= 0"><td style="padding-bottom: 10px;">CV Submitted :</td> <td style="padding-bottom: 10px;">{{count.AssesmentCount}} ({{item.assessmentPerc}}%)</td></tr>
@@ -144,7 +299,7 @@
             </ng-template>  
           </td>
           
-          <td><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
                   <tr><td style="padding-bottom: 10px;">HR Round :</td> <td style="padding-bottom: 10px;">{{item.HRRound}} ({{item.hrPerc}}%)</td></tr>
@@ -159,7 +314,7 @@
           </td>
 
              
-          <td><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
                   <tr><td style="padding-bottom: 10px;">Offered :</td> <td style="padding-bottom: 10px;">{{item.Offered}} ({{item.offeredPerc}}%)</td></tr>
@@ -173,7 +328,7 @@
             </ng-template>  
           </td>
 
-          <td><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'JO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'JO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
                   <tr><td style="padding-bottom: 10px;">Joined :</td> <td style="padding-bottom: 10px;">{{item.Joined}} ({{item.joinedPerc}}%)</td></tr>
@@ -187,20 +342,38 @@
             </ng-template>  
           </td>
 
-          <td><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'CR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
-                  <tr><td style="padding-bottom: 10px;">NotHired :</td> <td style="padding-bottom: 10px;">{{item.NotHired}} ({{item.nothiredPerc}}%)</td></tr>
+                  <tr><td style="padding-bottom: 10px;">Client Reject:</td> <td style="padding-bottom: 10px;">{{item.CR}} ({{item.CRPerc}}%)</td></tr>
                   <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
                 </table>
             </ng-template>
-            {{item.NotHired}}
+            {{item.CR}}
             </ejs-tooltip> </a>
             <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] ">{{item.NotHired}}</a>
+              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] ">{{item.CR}}</a>
             </ng-template>  
           </td>
+
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'IR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+            <ng-template #content>
+                <table>
+                  <tr><td style="padding-bottom: 10px;">Internal Reject:</td> <td style="padding-bottom: 10px;">{{item.IR}} ({{item.IRPerc}}%)</td></tr>
+                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                </table>
+            </ng-template>
+            {{item.IR}}
+            </ejs-tooltip> </a>
+            <ng-template #noTooltip>
+              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] ">{{item.IR}}</a>
+            </ng-template>  
+          </td>
+        </tr>      
+        </tbody>       
+        <tr style="height:40px;">
+          <td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Positions}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Sourcing}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Screening}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Assessment}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.HRRound}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Offered}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Joined}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.CR}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.IR}}</td>
         </tr>
-        </tbody>
-      </table>
+      </table>     
+      
 </div>

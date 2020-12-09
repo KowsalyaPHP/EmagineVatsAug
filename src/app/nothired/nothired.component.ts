@@ -82,18 +82,34 @@ export class NothiredComponent implements OnInit {
     if (this.notHiredForm.invalid) {
       return;
     }
-    this.SharedServices.getLkupNotHiredReason().subscribe(
-      response => {
-        if (response != '') {         
-          this.LkupNotHiredReason = response;
-        }
-        else {         
-          console.log('something is wrong with Service  Execution');
-        }
-      },
-      error => console.log("Error Occurd!")
-    );
+    if(this.data['CStage'] == "CR"){
+      this.SharedServices.getLkupClientRejectReason().subscribe(
+        response => {
+          if (response != '') {         
+            this.LkupNotHiredReason = response;
+          }
+          else {         
+            console.log('something is wrong with Service  Execution');
+          }
+        },
+        error => console.log("Error Occurd!")
+      );
+    }
+    else{
+      this.SharedServices.getLkupInternalRejectReason().subscribe(
+        response => {
+          if (response != '') {         
+            this.LkupNotHiredReason = response;
+          }
+          else {         
+            console.log('something is wrong with Service  Execution');
+          }
+        },
+        error => console.log("Error Occurd!")
+      );
+    }
   }  
+
   addNothiredReason(formObj){
 
     if (this.notHiredForm.invalid) {
@@ -104,7 +120,7 @@ export class NothiredComponent implements OnInit {
       response => {
         if (response != '') {         
         //  this.LkupNotHiredReason = response;
-        this.dialogRef.close({action:1,stage: 'NH'}); 
+        this.dialogRef.close({action:1,stage: this.data['CStage']}); 
         }
         else {         
           console.log('something is wrong with Service  Execution');

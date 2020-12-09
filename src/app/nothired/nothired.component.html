@@ -2,11 +2,11 @@
 <form class="form" role="form" focusInvalidInput autocomplete="off" id="formnothired" novalidate=""
 [formGroup]="notHiredForm" (submit)='addNothiredReason(notHiredForm.value)'>
 <div class="whiteframe" style="margin: 0;">
-<h3>Not Hired</h3> 
-<p style="color:#ef2407">You are moving the following - CV's to Not Hired</p>      
+<h3>Rejection</h3> 
+<p style="color:#ef2407">You are moving the following - CV's to Rejection List</p>      
     <table formArrayName="NotHiredDetails"  style="width:100%">       
 
-        <tr><th>Name</th><th>Not Hired Reason</th><th>Remarks</th></tr>
+        <tr><th>Name</th><th>Rejection Reason</th><th>Remarks</th></tr>
         
         <tr formGroupName={{i}}  *ngFor="let cd of getControls(notHiredForm, 'NotHiredDetails');let i=index;">  
             <td >  
@@ -14,7 +14,7 @@
             </td>  
             <td>
                 <mat-form-field>
-                    <select matNativeControl placeholder="Not Hired Reason" required formControlName="Reason">
+                    <select matNativeControl placeholder="Rejection Reason" required formControlName="Reason">
                         <option *ngFor="let item of LkupNotHiredReason" value="{{item.Code}}" selected>{{item.Description}}</option> 
                     </select>     
                     <mat-error *ngIf="notHiredForm.invalid">
