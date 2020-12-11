@@ -247,7 +247,7 @@
                 <ul style="margin:  -11px 0px 0px 10px;" *ngIf="item.Reqpriority == 'N'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
                   <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
                   <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
-              </ul>              
+              </ul>
           </td>   
           <td style="text-align: center;">{{item.Username}}</td>
           <td style="text-align: center;">{{item.Ageing}}d</td>
@@ -280,7 +280,7 @@
             </ng-template>  
           </td>
 
-          <td class="sum" style="text-align:center"><a class="statuscolor" (mouseenter) ="getAssessmentCount(item.RequistionId)" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" (mouseenter) ="getAssessmentCount(item.RequistionId)" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table *ngFor="let count of assessmentCount; let i = index">
                   <tr *ngIf="count.AssesmentCount >= 0"><td style="padding-bottom: 10px;">CV Submitted :</td> <td style="padding-bottom: 10px;">{{count.AssesmentCount}} ({{item.assessmentPerc}}%)</td></tr>
@@ -299,7 +299,7 @@
             </ng-template>  
           </td>
           
-          <td class="sum" style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
                   <tr><td style="padding-bottom: 10px;">HR Round :</td> <td style="padding-bottom: 10px;">{{item.HRRound}} ({{item.hrPerc}}%)</td></tr>
@@ -314,7 +314,7 @@
           </td>
 
              
-          <td class="sum" style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+          <td style="text-align:center"><a class="statuscolor" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
                   <tr><td style="padding-bottom: 10px;">Offered :</td> <td style="padding-bottom: 10px;">{{item.Offered}} ({{item.offeredPerc}}%)</td></tr>
@@ -370,24 +370,10 @@
             </ng-template>  
           </td>
         </tr>      
-        </tbody> 
-        <tfoot *ngIf="reqList && reqList.length > 0">
-          <tr>
-              <td style="text-align: center;" colspan="8"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-              <td style="text-align: center;"></td>
-          </tr>
-      </tfoot>      
-        <!-- <tr style="height:40px;">
+        </tbody>       
+        <tr style="height:40px;">
           <td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Positions}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Sourcing}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Screening}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Assessment}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.HRRound}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Offered}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Joined}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.CR}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.IR}}</td>
-        </tr> -->
+        </tr>
       </table>     
       
 </div>

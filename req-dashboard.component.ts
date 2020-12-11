@@ -186,23 +186,22 @@ export class ReqDashboardComponent implements OnInit {
   }
 
   actionMethod(i) { 
-    $(".dropdown-menu").fadeOut("fast");
+    $(".dropdown-menu").hide("fast");
     $("#showmenu"+i).show();
     $(document).on("click", function(event){
       var $trigger = $(".dropdown");
       if($trigger !== event.target && !$trigger.has(event.target).length){
-          $(".dropdown-menu").fadeOut("fast");
+          $(".dropdown-menu").hide("fast");
       }            
    });
   }
   
   priorityMethod(i) { 
-     $(".dropdown-menu").fadeOut("fast");
     $("#showprioritymenu"+i).show();
     $(document).on("click", function(event){
       var $trigger = $(".dropdown");
       if($trigger !== event.target && !$trigger.has(event.target).length){
-          $(".dropdown-menu").fadeOut("fast");
+          $(".dropdown-menu").slideUp("fast");
       }            
    });
   }
@@ -211,7 +210,7 @@ export class ReqDashboardComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.status = params['status']; 
     });
-    // this.getReqLists(this.status);
+     this.getReqLists(this.status);
 
   // console.log(Reqpriority);
   /* this.reqList.forEach(item => {
@@ -322,10 +321,8 @@ export class ReqDashboardComponent implements OnInit {
         if (response != "No data") {          
           let getMessage =  response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.reqList = [];
             this.message = getMessage['1'];
             this.openSnackBar(); 
-            this.reqDashboardDataTable();
           }
           else {                     
            
@@ -347,8 +344,16 @@ export class ReqDashboardComponent implements OnInit {
             this.reqList = response['Data']['RequisitionDetail']; 
             this.summaryCount = response['Data']['SummeryCount'];  
             console.log(this.summaryCount)           
-            this.reqDashboardDataTable();  
           }    
+
+          setTimeout(function () {             
+                $(function () {
+                  const table: any = $('table');
+                  this.dataTable = table.DataTable();
+                });                
+              $("#loader").hide();
+            }, 1500);
+            
         } else {
          console.log("something is wrong with Service Execution"); 
         }
@@ -356,88 +361,6 @@ export class ReqDashboardComponent implements OnInit {
       error => console.log(error)      
     );
   
-  }
-
-  reqDashboardDataTable(){
-    $('#reqList').DataTable().clear().destroy();
-    setTimeout(function () {
-      $(function () {
-        const table: any = $('#reqList');
-        // table.DataTable().clear().destroy();
-        this.dataTable = table.DataTable({
-          "footerCallback": function (row, data, start, end, display) {
-            var api = this.api(), data;
-
-            // Remove the formatting to get integer data for summation
-            var intVal = function (i) {
-              let val = "0";
-              if (typeof i === 'string') {
-                val = i.trim();
-                let htmlObj = $(i);
-                let length = htmlObj.length;
-
-                for (var k = 0; k < length; k++) {
-                  let ele = htmlObj[k];
-                  if (ele) {
-                    if (ele.classList && ele.classList.contains("statuscolor")) {
-                      val = ele.innerText.trim();
-                      break;
-                    }
-                  }
-                }
-                return parseInt(val) * 1;
-              }
-              else {
-                return i;
-              }
-              // return typeof i === 'string' ?
-              //     i.replace(/[\$,]/g, '')*1 :
-              //     typeof i === 'number' ?
-              //         i : 0;
-            };
-
-            let cols = [8, 9, 10, 11, 12, 13, 14, 15, 16];
-            // Total over all pages
-            cols.forEach(function (col) {
-              let total = api
-                .column(col)
-                .data()
-                .reduce(function (a, b) {
-                  return intVal(a) + intVal(b);
-                }, 0);
-
-              // Total over this page
-              let pageTotal = api
-                .column(col, { page: 'current' })
-                .data()
-                .reduce(function (a, b) {
-                  return intVal(a) + intVal(b);
-                }, 0);
-
-              // Update footer
-              let searchVal = $('.dataTables_filter input').val();
-              if (searchVal) {
-                $(api.column(col).footer()).html(
-                  pageTotal
-                );
-              } else {
-                $(api.column(col).footer()).html(
-                  total
-                );
-              }
-            });
-
-
-
-          }
-        });
-        // let dt = this.dataTable;
-        // dt.on( 'search.dt', function (e) {
-        //   console.log( $('.dataTables_filter input').val());
-        // });
-      });
-      $("#loader").hide();
-    }, 100);
   }
 
   getReqListsOnChange(status) { 
@@ -455,14 +378,12 @@ export class ReqDashboardComponent implements OnInit {
     this.routerObj.navigate(['req-dashboard/',status]);
     this.ReqDashboardServices.getReqList(status).subscribe(
       response => {
-        // $('#reqList').DataTable().clear().destroy();
+        $('#reqList').DataTable().clear().destroy();
         if (response != "No data") {          
           let getMessage =  response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
             this.message = getMessage['1'];
-            this.openSnackBar();
-            this.reqDashboardDataTable(); 
-            this.reqList = [];
+            this.openSnackBar(); 
           }
           else {                  
               
@@ -483,17 +404,16 @@ export class ReqDashboardComponent implements OnInit {
              });                
 
              this.reqList = response['Data']['RequisitionDetail'];
-             this.summaryCount = response['Data']['SummeryCount'];  
-             this.reqDashboardDataTable();    
+             this.summaryCount = response['Data']['SummeryCount'];      
           }          
           
-          // setTimeout(function () {             
-          //   $(function () {
-          //     const table: any = $('table');
-          //     this.dataTable = table.DataTable();
-          //   });                
-          // $("#loader").hide();
-          // }, 1500); 
+          setTimeout(function () {             
+            $(function () {
+              const table: any = $('table');
+              this.dataTable = table.DataTable();
+            });                
+          $("#loader").hide();
+          }, 1500); 
 
           /*setTimeout(function () {
             $(function () {
@@ -533,8 +453,7 @@ export class ReqDashboardComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar(); 
                 $("#showprioritymenu"+key).hide();
-               this.changePriority(priority,key);  
-               this.getReqLists(this.status);            
+               this.changePriority(priority,key);              
               }   
             }
         }

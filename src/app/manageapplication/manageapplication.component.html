@@ -11,12 +11,12 @@
       </div>
       <div *ngIf="item.CR >= 0" class="circleRed" (click)="currentstage != 'CR' ? openDialogNotHired('CR') : false">
         <img style="margin: 0 0.7vw;" width="50%" height="50%" src="assets/img/nothired.png">
-        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.CR}}</h4>
+        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.CR}}({{item.CRPercentage}})%</h4>
         <span style="margin-left: -12px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'CR'}">Client Reject</span>
       </div> 
       <div *ngIf="item.IR >= 0" class="circleRed" style="left:17%" (click)="currentstage != 'IR' ? openDialogNotHired('IR') : false">
         <img style="margin: 0 0.7vw;" width="50%" height="50%" src="assets/img/nothired.png">
-        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.IR}}</h4>
+        <h4 class="h3style" style="margin-top: 0.4vw;">{{item.IR}}({{item.IRPercentage}})%</h4>
         <span style="margin-left: -18px;white-space: nowrap;" [ngClass]="{'blinking': currentstage == 'IR'}">Internal Reject</span>
       </div> 
       <div *ngIf="item.Sourcing >= 0" class="circleBlue"   (click)="updateStage('SO','Sourcing')">
@@ -281,13 +281,13 @@
                 {{item.Candidate_FN}}
               </ejs-tooltip>
             </a> 
-            <ul class="dropdown-menu sub-menu" id="showmenu{{i}} aaa" style="white-space: inherit;">
+            <ul class="dropdown-menu" id="showmenu{{i}}" style="white-space: inherit;">
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
                 <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
                 <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>  
                 <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li> 
                 <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Movement to Substage</a></li>
-                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li> 
+                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>
                 <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li>
                 <!--<li (click)="openDialogCvTransfer(id,item.CandidateId,item.ApplicationId)"><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" style="cursor:pointer;">CV Movement</a></li>-->
                <!-- <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li> -->
@@ -590,11 +590,17 @@
               {{item.Candidate_FN}}
             </ejs-tooltip></a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
-                <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
-                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>                
-                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>                
-                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li>                 
+              <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
+              <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
+              <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
+              <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>  
+              <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>  
+              <!--<li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>-->
+              <!--<li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li> -->
+              <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li> 
+              <li (click)="updateNothiredBackwardMovement('NH',item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Back to Previous Stage</a></li> 
             </ul>
+            
           </td>        
           <td>{{item.Source_category}}</td> 
           <td>{{item.EACManager}}</td>      
@@ -862,16 +868,11 @@
               </ng-template>
               {{item.Candidate_FN}}
             </ejs-tooltip></a> 
-            <ul class="dropdown-menu" id="showmenu{{i}}">
+              <ul class="dropdown-menu" id="showmenu{{i}}">
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">View CV</a></li>
-                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>
-                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;">Screening Form</a></li>    
-                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;">Offer Form</a></li>  
-                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>  
-                <!--<li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN)"><a style="cursor:pointer;">Movement to Substage</a></li>-->
-                <!--<li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li> -->
-                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li> 
-                <li (click)="updateNothiredBackwardMovement('NH',item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Back to Previous Stage</a></li> 
+                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;">Edit CV</a></li>                
+                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Candidate Summary</a></li>                
+                <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;">Download CV</a></li>                 
               </ul>
           </td>        
           <td>{{item.Source_category}}</td> 

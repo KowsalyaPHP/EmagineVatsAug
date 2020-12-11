@@ -498,23 +498,25 @@ export class ManageapplicationComponent implements OnInit {
   }
   
   actionMethod(i) { 
-    $(".dropdown-menu").hide("fast");
+    $(".dropdown-menu").fadeOut("fast");
+   // $(".dropdown-menu").hide("fast");
     $("#showmenu"+i).show();
     
     $(document).on("click", function(event){
       var $trigger = $(".dropdown");
       if($trigger !== event.target && !$trigger.has(event.target).length){
-          $(".dropdown-menu").hide("fast");
+        $(".dropdown-menu").fadeOut("fast");
       }            
    });
    
   }
   FileMethod(i) { 
+    $(".dropdown-menu").fadeOut("fast");
     $("#filemenu"+i).show();
     $(document).on("click", function(event){
       var $trigger = $(".dropdown");
       if($trigger !== event.target && !$trigger.has(event.target).length){
-          $(".dropdown-menu").slideUp("fast");
+        $(".dropdown-menu").fadeOut("fast");
       }            
    });
   }
