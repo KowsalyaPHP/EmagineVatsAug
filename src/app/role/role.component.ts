@@ -68,6 +68,8 @@ export class RoleComponent implements OnInit {
   array:[];
  // roleSelected?:boolean;
   userCategory:any;
+  functionList:any;
+  funclist:any;
   
   constructor(private routerObj: Router,private RoleServices: RoleService,private route: ActivatedRoute,public dialog: MatDialog) { 
 
@@ -77,6 +79,9 @@ export class RoleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(','); 
   }
 
   cancelCall(){

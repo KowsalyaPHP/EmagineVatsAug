@@ -36,6 +36,8 @@ export class UserregComponent implements OnInit {
   userCategoryName:any;
   categoryName:any;
   show=false;
+  functionList:any;
+  funclist:any;
   
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute,private dialog: MatDialog) {
 
@@ -97,6 +99,9 @@ export class UserregComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(','); 
   }
 
   openSnackBar() { 

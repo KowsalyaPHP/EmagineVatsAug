@@ -40,7 +40,9 @@ export class ClientchildComponent implements OnInit {
   type:any;
   getChildType:any;
   term: any;
-  
+  functionList:any;
+  funclist:any;
+
  constructor(private ClientchildServices: ClientchildService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private dialog: MatDialog) {
     
     this.route.params.subscribe(params => {
@@ -101,8 +103,9 @@ export class ClientchildComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-   
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(',');    
   }
   
   goToMainmenu(){

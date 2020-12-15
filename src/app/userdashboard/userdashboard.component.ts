@@ -23,13 +23,19 @@ export class UserdashboardComponent implements OnInit {
   userList:[];
   dataTable: any;
   userCategory:any;
-
+  functionList:any;
+  funclist:any;
+  
   constructor(private routerObj: Router,private UserdashboardServices: UserdashboardService,public dialog: MatDialog) {
     this.viewUserDetails();
     this.userCategory = sessionStorage.getItem("USERCATEGORY");
    }
 
   ngOnInit() {
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(','); 
+
     setTimeout(function () {
       $(function () {
         $('#userDashboard').DataTable({

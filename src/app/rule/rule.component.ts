@@ -29,7 +29,9 @@ export class RuleComponent implements OnInit {
   clientSelect:any;
   clientCode:any;
   singleruleId:any;
-  
+  functionList:any;
+  funclist:any;
+
   constructor(private routerObj: Router,private RuleServices: RuleService,private route: ActivatedRoute,public dialog: MatDialog,private SharedServices: SharedService) { 
      this.userName = sessionStorage.getItem("userName");
      this.userCategory = sessionStorage.getItem("USERCATEGORY");
@@ -38,6 +40,9 @@ export class RuleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(','); 
   }
 
   opendialogaddrule() {
@@ -175,7 +180,7 @@ export class RuleComponent implements OnInit {
             }
             else {                  
               this.clientSingleList = response['Data'][0]['ClientId'].split(",");
-              console.log(this.clientSingleList);
+             
               this.getClientList();
               this.viewRuleList();
               setTimeout(() => {               

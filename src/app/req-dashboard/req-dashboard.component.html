@@ -11,7 +11,7 @@
     <div style="margin: 0;">
       <div id="snackbar">{{message}}</div>
     </div>
-    <a class="newitem" [routerLink]="['/requisitionadd/0']">+New</a>  
+    <a class="newitem" [routerLink]="['/requisitionadd/0']" *ngIf="functionList.includes('200')">+New</a>  
       <table #dataTable class="display table table-borderless table-hover"  id="reqList" style="width:100%;">        
         <thead>
             <tr>
@@ -173,11 +173,11 @@
           <td class="dropdown">
               <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.RequistionId}}</a> 
               <ul class="dropdown-menu" id="showmenu{{i}}">
-                  <li> <a [routerLink]="['/requisitionadd',item.RequistionId]">Edit Requisition</a></li>
+                  <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',item.RequistionId]" >Edit Requisition</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/publish',item.RequistionId]">Publish Requisition</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/unpublish',item.RequistionId]">Unpublish Requisition</a></li>
-                  <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/manage',item.RequistionId,'SO']">Manage Candidate</a></li>
-                  <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/cvupload',item.RequistionId,'0']">Upload CV</a></li>
+                  <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('204')"> <a [routerLink]="['/manage',item.RequistionId,'SO']">Manage Candidate</a></li>
+                  <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('203')"> <a [routerLink]="['/cvupload',item.RequistionId,'0']">Upload CV</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/clone',item.RequistionId]">Clone Requisition</a></li>
                   <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequistionId)"><a>View JD</a></li>
                 </ul>

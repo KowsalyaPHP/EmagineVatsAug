@@ -30,8 +30,10 @@ export class VendorregComponent implements OnInit {
   vendorSingle:[];
   vendorList:[];
   vendorname:any;
-  term: any;
-  
+  term: any;  
+  functionList:any;
+  funclist:any;
+
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private VendorregServices: VendorregService,private SharedServices: SharedService,private route: ActivatedRoute,private dialog: MatDialog) { 
     
     this.route.params.subscribe(params => {
@@ -88,6 +90,9 @@ export class VendorregComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(','); 
   }
   
   goToMainmenu(){

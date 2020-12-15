@@ -41,6 +41,8 @@ export class ClientregComponent implements OnInit {
   getChildType:any;
   userCategory:any;
   term: any;
+  functionList:any;
+  funclist:any;
   
   constructor(private ClientregServices: ClientregService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private dialog: MatDialog) {
     
@@ -107,8 +109,9 @@ export class ClientregComponent implements OnInit {
    
 
   ngOnInit() {
-    
-   
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(',');    
   }
 
   openDialogaddNewCity(): void {

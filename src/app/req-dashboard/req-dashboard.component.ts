@@ -46,6 +46,8 @@ export class ReqDashboardComponent implements OnInit {
   dataTable: any;
   clientList:any;
   summaryCount:any;
+  functionList:any;
+  funclist:any;
 
   constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar){
     this.route.params.subscribe(params => {
@@ -117,7 +119,11 @@ export class ReqDashboardComponent implements OnInit {
   
 
   ngOnInit() {
-      
+    
+    this.funclist = sessionStorage.getItem("FunctionList");      
+    if(typeof(this.funclist) != 'object')
+    this.functionList = this.funclist.split(',');
+    
     this.getAccessableClientList();
 
     setTimeout(() => {

@@ -10,13 +10,13 @@
           <i class="fa fa-bars"></i>
         </button>
         <mat-menu #menu="matMenu">
-          <a style="color:rgb(65, 64, 63);" [routerLink]="['/req-dashboard/OP']">
+          <a style="color:rgb(65, 64, 63);" *ngIf="functionList.includes('2')"  [routerLink]="['/req-dashboard/OP']">
             <button mat-menu-item>
               <!-- <mat-icon>dialpad *ngIf="myArray.includes('2')"</mat-icon>-->
               <span>Requisition dashboard</span>
             </button>
           </a>
-          <a style="color:rgb(65, 64, 63);" [routerLink]="['/clientreg/0']">
+          <a style="color:rgb(65, 64, 63);" *ngIf="functionList.includes('1')" [routerLink]="['/clientreg/0']">
             <button mat-menu-item>
               <!-- <mat-icon>dialpad</mat-icon>-->
               <span>Admin Settings</span>

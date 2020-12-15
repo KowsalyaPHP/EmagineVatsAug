@@ -18,10 +18,10 @@ declare var $: any
   styleUrls: ['./landingpage.component.css']
 })
 export class LandingpageComponent implements OnInit {
-  myArray:any;
+ functionList:any;
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private dialog: MatDialog) { 
     var userName = sessionStorage.getItem("FunctionList");
-    this.myArray = userName.split(',');
+    this.functionList = userName.split(',');
     //this.reload();
   }
 

@@ -13,19 +13,26 @@ export class AppComponent {
   title = 'vats';
   userName='';
 
- public static urlPath = "https://api.emaginerock.com/";
- //public static urlPath = "https://devapi.emaginerock.com/";
+ //public static urlPath = "https://api.emaginerock.com/";
+ public static urlPath = "https://devapi.emaginerock.com/";
  //public static urlPath = "http://bincrm.com/vatsqa/";
  //public static urlPath = "http://91116151e6ae.ngrok.io/";
 
-  myArray:any;
+  functionList:any;
   funclist:any;
 
   constructor(private router: Router,private route: ActivatedRoute,private dialog: MatDialog) {
-  /*  this.funclist = sessionStorage.getItem("FunctionList");
-    console.log(typeof(sessionStorage.getItem("FunctionList")))
-   if(typeof(this.funclist) != 'object')
-    this.myArray = this.funclist.split(',');*/
+
+    router.events.subscribe((event: NavigationEvent) => {
+
+      //Before Navigation
+      if (event instanceof NavigationStart) {
+        this.funclist = sessionStorage.getItem("FunctionList");      
+        if(typeof(this.funclist) != 'object')
+        this.functionList = this.funclist.split(',');   
+      }
+
+    });
   }
 
   openDialogAboutReleasePage(): void { 
