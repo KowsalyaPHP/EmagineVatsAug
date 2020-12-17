@@ -28,7 +28,7 @@
     "@syncfusion/ej2-angular-richtexteditor": "^17.4.40",
     "angular-datatables": "^8.0.0",
     "angular-material": "^1.1.21",
-    "datatables.net": "^1.10.20",
+    "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.20",
     "file-saver": "^2.0.2",
     "hammerjs": "^2.0.8",
