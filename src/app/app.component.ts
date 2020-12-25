@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { Router,ActivatedRoute, NavigationStart, NavigationEnd, Event as NavigationEvent ,NavigationCancel, NavigationError} from '@angular/router';
 import { AboutreleaseComponent } from './aboutrelease/aboutrelease.component';
+import { SearchComponent } from './search/search.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -15,8 +16,8 @@ export class AppComponent {
 
  //public static urlPath = "https://api.emaginerock.com/";
  public static urlPath = "https://devapi.emaginerock.com/";
- //public static urlPath = "http://bincrm.com/vatsqa/";
- //public static urlPath = "http://91116151e6ae.ngrok.io/";
+ //public static urlPath = "http://bincrm.com/vatsdev/";
+ //public static urlPath = "http://82b29cfb309b.ngrok.io/";
 
   functionList:any;
   funclist:any;
@@ -47,6 +48,20 @@ export class AppComponent {
       } 
     });    
   }
+
+  openDialogSearch(): void { 
+  
+    const dialogRef = this.dialog.open(SearchComponent, {
+      width: '1000px',
+      height: '1000px'        
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result.action === 1) {
+      } 
+    });    
+  }
+
 
   isLoggedIn(){
     var sessionId = sessionStorage.getItem("uniqueSessionId");

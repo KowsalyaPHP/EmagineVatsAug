@@ -66,6 +66,7 @@ export class ManageapplicationComponent implements OnInit {
   displayNoData =  false;
   selectedId:any;
   currentStageString =  false;
+  currentString:any;
 
   constructor(private routerObj: Router,private ManageapplicationServices: ManageapplicationService,private route: ActivatedRoute,public dialog: MatDialog,private datePipe : DatePipe) { 
     
@@ -251,6 +252,21 @@ export class ManageapplicationComponent implements OnInit {
     
   }
 
+  source(reqId,CandId,AppId) {
+
+    this.ManageapplicationServices.source(reqId,CandId,AppId).subscribe(
+      response => {
+        if (response != '') {         
+          console.log(response)    
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+    
+  }
   openDialogDownloadTracker(reqId,stage): void {
   
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
@@ -1220,7 +1236,38 @@ export class ManageapplicationComponent implements OnInit {
     else{
       this.movement = 'forward';
     }
-    console.log(this.movement)
+    if(this.currentstage == 'SO')
+      {
+        this.currentString = 'Sourcing';
+      }
+      else if(this.currentstage == 'SC')
+      {
+        this.currentString = 'Screening';
+      }
+      else if(this.currentstage == 'AS')
+      {
+        this.currentString = 'Assessment';
+      }
+      else if(this.currentstage == 'HR')
+      {
+        this.currentString = 'HR Round';
+      }
+      else if(this.currentstage == 'OF')
+      {
+        this.currentString = 'Offered';
+      }
+      else if(this.currentstage == 'JO')
+      {
+        this.currentString = 'Joined';
+      }
+      else if(this.currentstage == 'CR')
+      {
+        this.currentString = 'Client reject';
+      }
+      else if(this.currentstage == 'IR')
+      {
+        this.currentString = 'Internal reject';
+      }
     if(this.movement == 'forward')
     {
       if(this.currentstage == 'SO' && updatestage !='SC')
@@ -1278,64 +1325,73 @@ export class ManageapplicationComponent implements OnInit {
         return;
       }
 
+      
    if(updatestage != 'OF')
    {
-    this.ManageapplicationServices.updateStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
-        response => {
-          if (response != "No data") {  
-            let getMessage =  response['Message'].split(":");
-            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-              this.message = getMessage['1'];
-              this.openSnackBar(); 
-            }
-            else {             
-              if (getMessage['0'] == "200") {  
+    var confirm = window.confirm('Do you want to move cv from '+this.currentString+' to '+updatestagestring+'?');
+    if (confirm == true) {    
+
+      this.ManageapplicationServices.updateStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
+          response => {
+            if (response != "No data") {  
+              let getMessage =  response['Message'].split(":");
+              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
                 this.message = getMessage['1'];
-                this.openSnackBar();        
-              //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
-                this.getStageValuesOnChange(updatestage);
-               // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
-              }   
-            }             
+                this.openSnackBar(); 
+              }
+              else {             
+                if (getMessage['0'] == "200") {  
+                  this.message = getMessage['1'];
+                  this.openSnackBar();        
+                //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
+                  this.getStageValuesOnChange(updatestage);
+                // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
+                }   
+              }             
+            }
           }
-        }
-      ); 
+        ); 
+      }
     }
     else if(updatestage == 'OF'){
-      this.ManageapplicationServices.checkOfferPosition(this.id).subscribe(
-        response => {
-          if (response != "No data") {  
-            this.positionLength = response['Data'];          
-            if(this.positionLength  == 0){
-              this.message = "There are no open positions available for this candidate.Please add additional position(s) to upload CV ";
-              this.openSnackBar();
-              return;
-            }
-            else{
-              this.ManageapplicationServices.updateStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
-                response => {
-                  if (response != "No data") {  
-                    let getMessage =  response['Message'].split(":");
-                    if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-                      this.message = getMessage['1'];
-                      this.openSnackBar(); 
-                    }
-                    else {             
-                      if (getMessage['0'] == "200") {  
+      var confirm = window.confirm('Do you want to move cv from '+this.currentString+' to '+updatestagestring+'?');
+      if (confirm == true) {    
+  
+        this.ManageapplicationServices.checkOfferPosition(this.id).subscribe(
+          response => {
+            if (response != "No data") {  
+              this.positionLength = response['Data'];          
+              if(this.positionLength  == 0){
+                this.message = "There are no open positions available for this candidate.Please add additional position(s) to upload CV ";
+                this.openSnackBar();
+                return;
+              }
+              else{
+                this.ManageapplicationServices.updateStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
+                  response => {
+                    if (response != "No data") {  
+                      let getMessage =  response['Message'].split(":");
+                      if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
                         this.message = getMessage['1'];
-                        this.openSnackBar();  
-                        //$('select option[value="'+updatestage+'"]').prop("selected",true);               
-                        this.getStageValuesOnChange(updatestage);
-                        //$('select option[value="'+updatestage+'"]').attr("selected",true);                             
-                      }   
-                    }             
+                        this.openSnackBar(); 
+                      }
+                      else {             
+                        if (getMessage['0'] == "200") {  
+                          this.message = getMessage['1'];
+                          this.openSnackBar();  
+                          //$('select option[value="'+updatestage+'"]').prop("selected",true);               
+                          this.getStageValuesOnChange(updatestage);
+                          //$('select option[value="'+updatestage+'"]').attr("selected",true);                             
+                        }   
+                      }             
+                    }
                   }
-                }
-              ); 
+                ); 
+              }
             }
           }
-        }
-      ); 
+        ); 
+      }
     }
   }
   else{
@@ -1381,28 +1437,31 @@ export class ManageapplicationComponent implements OnInit {
     //this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
    
     this.selectedId = this.selectedApplication.map(({ CandidateId, ApplicationId }) => ({CandidateId, ApplicationId}));
- 
+   
+    var confirm = window.confirm('Do you want to move cv from '+this.currentString+' to '+updatestagestring+'?');
+    if (confirm == true) {   
 
-    this.ManageapplicationServices.updateBulkBackwardStagetoStage(this.id,updatestage,this.currentstage,this.selectedId).subscribe(
-      response => {
-        if (response != "No data") {  
-          let getMessage =  response['Message'].split(":");
-          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
-            this.openSnackBar(); 
-          }
-          else {             
-            if (getMessage['0'] == "200") {  
+      this.ManageapplicationServices.updateBulkBackwardStagetoStage(this.id,updatestage,this.currentstage,this.selectedId).subscribe(
+        response => {
+          if (response != "No data") {  
+            let getMessage =  response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
               this.message = getMessage['1'];
-              this.openSnackBar();        
-            //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
-              this.getStageValuesOnChange(updatestage);
-             // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
-            }   
-          }             
+              this.openSnackBar(); 
+            }
+            else {             
+              if (getMessage['0'] == "200") {  
+                this.message = getMessage['1'];
+                this.openSnackBar();        
+              //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
+                this.getStageValuesOnChange(updatestage);
+              // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
+              }   
+            }             
+          }
         }
-      }
-    ); 
+      ); 
+    }
   }
 
   }

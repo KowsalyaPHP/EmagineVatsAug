@@ -52,8 +52,13 @@
             <span>Logout</span>
           </button>-->
         </mat-menu>
+        
+    
       </span>
       <span class="fill-remaining-space">{{userName}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <button mat-icon-button style="font-size: 18px;" (click)="openDialogSearch();">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
       <span class="fill-remaining-space" *ngIf="isLoggedIn(); else showLogin;"><img src="assets/img/logoutwht.png" style="vertical-align: middle;">&nbsp;&nbsp;<a [routerLink]="['/logout']"><span>Logout</span></a>&nbsp;</span>
       <ng-template #showLogin>
         <span class="fill-remaining-space"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>&nbsp;&nbsp;<a [routerLink]="['/']"><span>Login</span></a></span>

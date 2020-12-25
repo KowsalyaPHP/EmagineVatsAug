@@ -21,10 +21,11 @@
 
 #listModule{
     width: 150px;
-    height: 88px;
+    height: 110px;
     background-color: #0670c4;
     float: left;
     margin: 35px 60px 0 60px;
     text-align: center;
-    padding-top: 65px;
+    padding-top: 35px;
+    border-radius: 10px;
 }

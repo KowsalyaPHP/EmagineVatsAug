@@ -76,10 +76,6 @@ const routes: Routes = [
   component: CloneComponent
 },
 {
-  path: "publish/:id",
-  component: PublishComponent
-},
-{
   path: "unpublish/:id",
   component: UnpublishComponent
 },

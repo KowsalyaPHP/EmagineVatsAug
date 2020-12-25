@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import {DocviewjdComponent} from '../docviewjd/docviewjd.component'
 import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.component';
+import { PublishresourceComponent } from '../publishresource/publishresource.component';
 import { saveAs } from 'file-saver';
 
 @Component({
@@ -190,7 +191,18 @@ export class ReqDashboardComponent implements OnInit {
 
     });    
   }
+  openDialogPublish(reqId): void {
+  
+    const dialogRef = this.dialog.open(PublishresourceComponent, {
+      width: '700px',
+      height:'700px',
+      data: {ReqId: reqId}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
 
+    });    
+  }
   actionMethod(i) { 
     $(".dropdown-menu").fadeOut("fast");
     $("#showmenu"+i).show();

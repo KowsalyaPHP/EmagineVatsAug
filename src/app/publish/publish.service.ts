@@ -56,10 +56,11 @@ export class PublishService {
     const params = new URLSearchParams();  
     var RefId = sessionStorage.getItem("RefId");
     var C_ID = sessionStorage.getItem("uniqueSessionId");
-
+    
     params.set('EntityID', RefId);
     params.set('RequisitionId', reqId);
     params.set('PublishvendorId', allVendorId);
+    params.set('PublishCategory', "PP");
     params.set('C_Id', C_ID);   
 
     return this.http.post(url, params)
@@ -70,4 +71,24 @@ export class PublishService {
           return 'No Data';
       });
   }
+  public reqUnPublish(reqId): Observable<any> {
+
+    const url = AppComponent.urlPath + 'ReqUnPublish';
+
+    const params = new URLSearchParams();  
+    var RefId = sessionStorage.getItem("RefId");
+       
+    params.set('EntityID', RefId);
+    params.set('RequisitionId', reqId);
+  
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
+  }
+  
+
 }

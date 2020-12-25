@@ -1,0 +1,23 @@
+ul{
+    list-style: none;
+    margin-left: -43px;
+}
+li{
+    padding: 7px;
+    float:left;
+}
+.mat-form-field{
+    width: 90% !important;
+}
+.mat-button, .mat-raised-button{
+    background-color:#0670c4;
+    color:#ffffff;
+}
+.dateellipes{   
+    white-space: nowrap; 
+    width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    display:inline-block;
+    padding-top: 7px;
+  }

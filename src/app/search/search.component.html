@@ -1,0 +1,184 @@
+<div class="dialogContent" style="margin-bottom: 30px;">
+    <div>
+        <h3 style="border-bottom: 1px dotted;padding-bottom: 12px;"><i class="fa fa-search" aria-hidden="true"></i> Search Applications</h3>
+        
+        <ul>
+            <li>
+                <input type="radio" [(ngModel)]="searchSelected" name="Name" value="Name" (change)="changeTextBox('Name')" checked/>
+                <label>First Name</label>
+            </li>
+            <li>
+                <input type="radio" [(ngModel)]="searchSelected" name="MobileNo" value="MobileNo" (change)="changeTextBox('MobileNo')" checked/>
+                <label>Mobile Number</label>
+            </li>
+            <li>
+                <input type="radio" [(ngModel)]="searchSelected" name="EmailId" value="EmailId" (change)="changeTextBox('EmailId')" checked/>
+                <label>Email Id</label>
+            </li>
+            <li>
+                <input type="radio" [(ngModel)]="searchSelected" name="Candidateid" value="Candidateid" (change)="changeTextBox('Candidateid')" checked/>
+                <label>Candidate Id</label>
+            </li>
+            <li>
+                <input type="radio" [(ngModel)]="searchSelected" name="ApplicationId" value="ApplicationId" (change)="changeTextBox('ApplicationId')" checked/>
+                <label>Application Id</label>
+            </li>
+        </ul>
+    </div>
+    <br>
+    <div style="margin-top: 25px;margin-left: 9px;width: 50%;">
+        <form class="form" role="form" focusInvalidInput autocomplete="off" id="formModule" novalidate=""
+        [formGroup]="searchForm" (submit)='getSearchValue(searchForm.getRawValue())'>
+            <div mat-dialog-content>
+                <mat-form-field *ngIf="showName">
+                    <input placeholder="First Name" type="text" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
+                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                        <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
+                    </mat-error>  -->            
+                </mat-form-field> 
+                <mat-form-field *ngIf="showMobileNo">
+                    <input placeholder="Mobile Number" type="number" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
+                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                        <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
+                    </mat-error>  -->            
+                </mat-form-field> 
+                <mat-form-field *ngIf="showEmailId">
+                    <input placeholder="Email Id" type="text" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
+                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                        <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
+                    </mat-error>  -->            
+                </mat-form-field> 
+                <mat-form-field *ngIf="showCandidateId">
+                    <input placeholder="Candidate Id" type="number" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
+                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                        <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
+                    </mat-error>  -->            
+                </mat-form-field> 
+                <mat-form-field *ngIf="showApplicationId">
+                    <input placeholder="Application Id" type="number" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
+                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                        <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
+                    </mat-error>  -->            
+                </mat-form-field> 
+            </div>
+            <div mat-dialog-actions>
+                <button  type="submit" mat-button cdkFocusInitial>Search</button> 
+                <button mat-button  (click)="onNoClick()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table #dataTable class="display table table-borderless table-hover"  id="SearchList" style="width:100%;">        
+    <thead>
+        <tr>
+          <th style="width:7%">
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Requistion Id</td></tr>                
+                  </table>
+              </ng-template>
+              Req. Id
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Requisition Title</td></tr>                
+                  </table>
+              </ng-template>
+              Req. Title
+            </ejs-tooltip>
+          </th>
+          <th style="width:60px">
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Requisition Status</td></tr>                
+                  </table>
+              </ng-template>
+              Req.Status
+            </ejs-tooltip>
+          </th>
+          <th style="width:50px">
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Application Id</td></tr>                
+                  </table>
+              </ng-template>
+              App. Id
+            </ejs-tooltip>
+          </th>
+          <th >
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Candidate Id</td></tr>                
+                  </table>
+              </ng-template>
+              Cand. Id
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Candidate Name</td></tr>                
+                  </table>
+              </ng-template>
+              Cand. Name
+            </ejs-tooltip>
+            </th>                   
+            <th> 
+              <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                <ng-template #content>
+                    <table>
+                      <tr><td>Current Stage</td></tr>                
+                    </table>
+                </ng-template>
+                Cur. Stage
+              </ejs-tooltip>
+            </th>     
+        </tr>       
+    </thead>
+    <tbody>          
+        <tr *ngFor="let item of SearchList; let i = index" >  
+            <td class="dropdown">
+                {{item.RequisitionId}}
+            </td>     
+            <td class="dateellipes">
+                <ejs-tooltip id='tooltip_1' >
+                <ng-template #content>
+                    <table>
+                        <tr><td>{{item.RequisitionTitle}}</td></tr>                
+                    </table>
+                </ng-template>
+                {{item.RequisitionTitle}}
+                </ejs-tooltip>
+            </td>          
+            <td>{{item.RequisitionStatusString}}</td>
+            <td>{{item.ApplicationId}}</td>
+            <td>{{item.CandidateId}}</td>
+            <td>{{item.CandidateName}}</td>
+            <td>{{item.CurrentStageString}}</td>
+        </tr>      
+    </tbody> 
+    <!--<tfoot *ngIf="reqList && reqList.length > 0">
+      <tr>
+          <td style="text-align: center;" colspan="8"></td>
+          <td style="text-align: center;"></td>
+          <td ></td>
+          <td ></td>
+          <td></td>
+          <td ></td>
+          <td ></td>
+          <td ></td>
+          <td ></td>
+          <td ></td>
+      </tr>
+  </tfoot> -->     
+
+  </table>    

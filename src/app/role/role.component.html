@@ -45,7 +45,7 @@
                     <b>{{item.moduleid}}.{{item.moduleName}}</b>
                     <ul>
                         <li *ngFor="let list of item['functionGroupList']">
-                            <input type="checkbox" disabled name="FunctionList{{list.FunctionId}}" [(ngModel)]="list.FunctionSelected" value="{{list.FunctionId}}"/>{{list.FunctionId}}.{{list.FunctionName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Function',list.FunctionId,list.FunctionName)"></i>
+                            <input type="checkbox" name="FunctionList{{list.FunctionId}}" [(ngModel)]="list.FunctionSelected" value="{{list.FunctionId}}"/>{{list.FunctionId}}.{{list.FunctionName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Function',list.FunctionId,list.FunctionName)"></i>
                         </li>
                     </ul>
                 </li>

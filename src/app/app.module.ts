@@ -70,6 +70,8 @@ import { FiltervendorPipe } from './vendorreg/filtervendor.pipe';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { FilterchildPipe } from './clientchild/filterchild.pipe';
 import { FiltersubchildPipe } from './clientchild/filtersubchild.pipe';
+import { PublishresourceComponent } from './publishresource/publishresource.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -128,6 +130,8 @@ import { FiltersubchildPipe } from './clientchild/filtersubchild.pipe';
     LandingpageComponent,
     FilterchildPipe,
     FiltersubchildPipe,
+    PublishresourceComponent,
+    SearchComponent,
     
   ],
   imports: [
@@ -150,7 +154,7 @@ import { FiltersubchildPipe } from './clientchild/filtersubchild.pipe';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],
   bootstrap: [AppComponent],
-  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent,AddskillcompetencyComponent,AddcityComponent,AboutreleaseComponent,ResetpasswordComponent,CvtransferComponent]
+  entryComponents: [DocviewComponent,DocviewjdComponent,RoleaddComponent,RuleaddComponent,AddskillcompetencyComponent,AddcityComponent,AboutreleaseComponent,ResetpasswordComponent,CvtransferComponent,PublishresourceComponent,SearchComponent,PublishComponent]
 })
 
 export class AppModule { }

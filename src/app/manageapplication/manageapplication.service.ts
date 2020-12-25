@@ -191,6 +191,30 @@ export class ManageapplicationService {
           return 'No Data';
       });
   }  
+
+    
+  public source(ReqId,candid,appid): Observable<any> {
+
+    const url = AppComponent.urlPath + 'AssignToSourcer';
+    const params = new URLSearchParams();  
+    var RefId = sessionStorage.getItem("RefId");
+    var C_ID = sessionStorage.getItem("uniqueSessionId");
+
+    params.set('EntityId', RefId);
+    params.set('RequisitionId', ReqId);
+    params.set('CandidateId', candid);
+    params.set('ApplicationId', appid);
+    params.set('UserId', C_ID);
+    
+    
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
+  }  
             
   public getPrimaryInfo(reqId,candidateId,applicationId): Observable<any> {
 

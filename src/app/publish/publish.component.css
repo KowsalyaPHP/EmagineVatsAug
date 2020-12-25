@@ -1,7 +1,7 @@
 .publishTableOne {    
     border-collapse: collapse;
     margin: auto;
-    width: 50%;
+    width: 60%;
 }
 .publishTableOne th {
     text-align: left;
@@ -22,3 +22,21 @@ a{
     color: #0670c4 !important;
     cursor: pointer;
 }
+li{
+    margin-right:10px;
+    margin-bottom:10px;
+    text-align: left;
+}
+
+
+.box {
+    border:1px solid;
+    border-radius: 7px;
+    float: left;
+    margin: 2%;
+    height: 50%;
+  }
+  ul {
+    column-count: 4;
+    list-style-type: none;
+  }
