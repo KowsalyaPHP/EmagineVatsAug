@@ -191,12 +191,12 @@ export class ReqDashboardComponent implements OnInit {
 
     });    
   }
-  openDialogPublish(reqId): void {
-  
+  openDialogPublish(reqId,ReqTitle): void {
+    $(".dropdown-menu").hide();
     const dialogRef = this.dialog.open(PublishresourceComponent, {
       width: '700px',
       height:'700px',
-      data: {ReqId: reqId}      
+      data: {ReqId: reqId,reqTitle: ReqTitle}      
     });
     
     dialogRef.afterClosed().subscribe(result => {

@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  publishUrl: "https://dev.emaginerock.com/jobdescription/"
 };

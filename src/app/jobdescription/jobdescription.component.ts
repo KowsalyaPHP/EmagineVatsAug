@@ -24,6 +24,7 @@ export class JobdescriptionComponent implements OnInit {
   requisitionDetails:[]; 
   id:any;
   vendorId:any;
+  show:boolean=false;
 
   constructor(private JobdescriptionServices: JobdescriptionService,private route: ActivatedRoute) {
     this.showJobDescription();
@@ -40,19 +41,43 @@ export class JobdescriptionComponent implements OnInit {
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3800);
   }
 
-
-  showJobDescription(){
+  checkPublishorNot(){
     this.route.params.subscribe(params => {
       this.id = params['id'],
       this.vendorId = params['uid'] ;  
     });
-    this.JobdescriptionServices.getRequisitionDetails(this.id).subscribe(
+    this.JobdescriptionServices.checkPublishorNot(this.id,this.vendorId).subscribe(
       response => {
         if (response != "No data") {
           let getMessage =  response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
             this.message = getMessage['1'];
             this.openSnackBar(); 
+          }          
+          else{
+            //this.checkReponse = response['Data'];
+          } 
+        } else {
+            console.log("something is wrong with Service Execution");
+        }
+      });
+    }
+  
+
+  showJobDescription(){
+    this.route.params.subscribe(params => {
+      this.id = params['id'],
+      this.vendorId = params['uid'] ;  
+    });
+    this.JobdescriptionServices.getRequisitionDetails(this.id,this.vendorId).subscribe(
+      response => {
+        if (response != "No data") {
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            //this.openSnackBar(); 
+            this.show = true;
+
           }          
           else{
             this.requisitionDetails = response['Data'];

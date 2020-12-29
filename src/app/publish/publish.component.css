@@ -1,42 +1,64 @@
-.publishTableOne {    
+.publishTableOne {
     border-collapse: collapse;
     margin: auto;
     width: 60%;
 }
+
 .publishTableOne th {
     text-align: left;
     background-color: #dedddd;
     color: #121212;
 }
+
 .publishTableOne td, .publishTableOne th {
     border: 1px solid #cac7c7;
-    padding: 18px 10px;
+    padding: 7px 10px;
 }
-.Tabletwo{
-    margin-top:20px;
+
+.Tabletwo {
+    margin-top: 20px;
 }
-ul{
+
+ul {
     list-style: none;
 }
-a{
+
+a {
     color: #0670c4 !important;
     cursor: pointer;
 }
-li{
-    margin-right:10px;
-    margin-bottom:10px;
+
+li {
+    margin-right: 10px;
+    margin-bottom: 10px;
     text-align: left;
 }
 
-
 .box {
-    border:1px solid;
+    border: 1px solid;
     border-radius: 7px;
     float: left;
     margin: 2%;
     height: 50%;
-  }
-  ul {
+}
+
+ul {
     column-count: 4;
     list-style-type: none;
-  }
+}
+
+.ul-category {
+    column-count: auto;
+}
+
+input[type="checkbox" i] {
+    cursor: pointer;
+}
+.tiTleellipes{
+    white-space: nowrap;
+    width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: text-bottom;
+}

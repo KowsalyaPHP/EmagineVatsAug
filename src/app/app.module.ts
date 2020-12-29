@@ -72,7 +72,7 @@ import { FilterchildPipe } from './clientchild/filterchild.pipe';
 import { FiltersubchildPipe } from './clientchild/filtersubchild.pipe';
 import { PublishresourceComponent } from './publishresource/publishresource.component';
 import { SearchComponent } from './search/search.component';
-
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -149,7 +149,8 @@ import { SearchComponent } from './search/search.component';
     ToastrModule.forRoot(),
     FlexLayoutModule,
     NgxDocViewerModule,
-    TooltipModule
+    TooltipModule, 
+    ClipboardModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],

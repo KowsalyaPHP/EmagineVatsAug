@@ -5,7 +5,7 @@
         <ul>
             <li>
                 <input type="radio" [(ngModel)]="searchSelected" name="Name" value="Name" (change)="changeTextBox('Name')" checked/>
-                <label>First Name</label>
+                <label>Name</label>
             </li>
             <li>
                 <input type="radio" [(ngModel)]="searchSelected" name="MobileNo" value="MobileNo" (change)="changeTextBox('MobileNo')" checked/>
@@ -29,36 +29,36 @@
     <div style="margin-top: 25px;margin-left: 9px;width: 50%;">
         <form class="form" role="form" focusInvalidInput autocomplete="off" id="formModule" novalidate=""
         [formGroup]="searchForm" (submit)='getSearchValue(searchForm.getRawValue())'>
-            <div mat-dialog-content>
+            <div mat-dialog-content style="float: left;width: 65%;margin-top: 14px;">
                 <mat-form-field *ngIf="showName">
-                    <input placeholder="First Name" type="text" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
-                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                    <input placeholder="Name" type="text" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
+                    <mat-error *ngFor="let validation of validation_messages.SearchData">
                         <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
-                    </mat-error>  -->            
+                    </mat-error>              
                 </mat-form-field> 
                 <mat-form-field *ngIf="showMobileNo">
                     <input placeholder="Mobile Number" type="number" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
-                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                    <mat-error *ngFor="let validation of validation_messages.SearchData">
                         <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
-                    </mat-error>  -->            
+                    </mat-error>            
                 </mat-form-field> 
                 <mat-form-field *ngIf="showEmailId">
-                    <input placeholder="Email Id" type="text" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
-                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                    <input placeholder="Email Id" type="email" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
+                    <mat-error *ngFor="let validation of validation_messages.SearchData">
                         <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
-                    </mat-error>  -->            
+                    </mat-error>              
                 </mat-form-field> 
                 <mat-form-field *ngIf="showCandidateId">
                     <input placeholder="Candidate Id" type="number" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
-                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                    <mat-error *ngFor="let validation of validation_messages.SearchData">
                         <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
-                    </mat-error>  -->            
+                    </mat-error>            
                 </mat-form-field> 
                 <mat-form-field *ngIf="showApplicationId">
                     <input placeholder="Application Id" type="number" id="SearchData"  maxlength="80" formControlName="SearchData" class="form-control"  required matInput/>  
-                    <!--<mat-error *ngFor="let validation of validation_messages.SearchData">
+                    <mat-error *ngFor="let validation of validation_messages.SearchData">
                         <mat-error class="error-message" *ngIf="searchForm.invalid || searchForm.get('SearchData').hasError(validation.type) && (searchForm.get('SearchData').dirty || searchForm.get('SearchData').touched)">{{validation.message}}</mat-error>
-                    </mat-error>  -->            
+                    </mat-error>            
                 </mat-form-field> 
             </div>
             <div mat-dialog-actions>
@@ -79,7 +79,7 @@
                     <tr><td>Requistion Id</td></tr>                
                   </table>
               </ng-template>
-              Req. Id
+              Req.Id
             </ejs-tooltip>
           </th>
           <th>

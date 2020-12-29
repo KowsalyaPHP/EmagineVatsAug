@@ -1,20 +1,55 @@
-<h3 style="border-bottom: 1px dotted;padding-bottom: 12px;"><i class="fas fa-newspaper"></i> Publish<span style="font-size: 13px;font-weight: normal;color: #0670c4 !important;float: right;text-decoration: underline;cursor:pointer;"><table style="padding:0px !important;"><tr style="padding:0px !important;"><td style="padding-top: 0px;padding-right: 20px;" (click)="openDialogpublish();">Primary Source</td><td>Staffing Partner</td></tr></table></span></h3>
+<!--<h3 style="border-bottom: 1px dotted;padding-bottom: 12px;"><i class="fas fa-newspaper"></i> Publish<span
+        style="font-size: 13px;font-weight: normal;color: #0670c4 !important;float: right;text-decoration: underline;cursor:pointer;">
+        <table style="padding:0px !important;">
+            <tr style="padding:0px !important;">
+                <td style="padding-top: 0px;padding-right: 20px;font-weight: bold;">Primary Source</td>
+                <td (click)="openDialogpublish();">Staffing Partner</td>
+            </tr>
+        </table>
+    </span></h3>
+    <h4>ReqId - #{{data.ReqId}} - {{data.reqTitle}}</h4>-->
+<h3><i class="fas fa-newspaper"></i> Publish</h3>
+<h4 style="border-bottom: 1px dotted;padding-bottom: 12px;">ReqId - #{{data.ReqId}} - <div  class="tiTleellipes"><ejs-tooltip  id='tooltip_1' >
+    <ng-template #content>
+        <table>
+          <tr><td >{{data.reqTitle}}</td></tr>                
+        </table>
+    </ng-template>
+    {{data.reqTitle}}
+  </ejs-tooltip></div>
+  <span
+    style="font-size: 13px;font-weight: normal;color: #0670c4 !important;float: right;text-decoration: underline;cursor:pointer;">
+    <table style="padding:0px !important;">
+        <tr style="padding:0px !important;">
+            <td style="padding-top: 0px;padding-right: 20px;font-weight: bold;">Primary Source</td>
+            <td (click)="openDialogpublish();">Staffing Partner</td>
+        </tr>
+    </table>
+</span></h4>
 <div class="box-set" style="margin-left:60px;">
     <!--<h3 mat-dialog-title>Publish<span style="font-size: 13px;font-weight: normal;color: #0670c4 !important;float: right;text-decoration: underline;cursor:pointer;"><table style="padding:0px !important;"><tr style="padding:0px !important;"><td style="padding:0px !important;" (click)="openDialogpublish();">Primary Source</td><td>Staffing Partner</td></tr></table></span></h3>-->
-   
+
     <figure class="box" *ngFor="let item of publishChildlist;index as i">
-        <h3 style="margin-left:7px;">{{item.SourceName}}</h3>
-        <hr>  
-            <ul style="background: none;margin-left:7px;">
-                <li *ngFor="let list of item['ChildGroupList'];index as j" class="dropdown" style="line-height:25px;">
-                    <span style="color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(list.ResourceId)">{{list.ResourceName}} <i class="fas fa-caret-square-down"></i></span>
-                    <ul class="dropdown-menu" id="option{{list.ResourceId}}">
-                        <li *ngFor="let option of list['optionGroupList']">
-                            <a style="cursor:pointer;" >{{option.OptionsName}}</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <h4 style="margin: 12px 8px;">{{item.SourceName}}</h4>
+        <hr>
+        <ul style="background: none;margin-left:8px;">
+            <li *ngFor="let list of item['ChildGroupList'];index as j" class="dropdown" style="line-height:25px;">
+                <span style="color: #0670c4 !important;cursor:pointer;"
+                    (click)="actionMethod(list.ResourceId)">{{list.ResourceName}} <i
+                        class="fas fa-caret-square-down"></i></span>
+                <ul class="dropdown-menu" id="option{{list.ResourceId}}">
+                    <li *ngFor="let option of list['optionGroupList']">
+                        <a *ngIf="option.OptionsId == 1" (click)="closeMenu()" ngxClipboard
+                            (cbOnSuccess)="copied($event)" [cbContent]="publishUrl + data['ReqId'] + '/' + option.ResourceId"
+                            style="cursor:pointer;">{{option.OptionsName}}</a>
+                        <a *ngIf="option.OptionsId == 2" (click)="closeMenu()"
+                            href="{{getOpenLink(option.ResourceName, option.ResourceId)}}" target="_blank"
+                            style="cursor:pointer;">{{option.OptionsName}}</a>
+                        <!-- <a *ngIf="option.OptionsId == 3" style="cursor:pointer;" >{{option.OptionsName}}</a> -->
+                    </li>
+                </ul>
+            </li>
+        </ul>
         <!--<ul class="dropdown-menu">
             <li *ngFor="let list of item['ChildGroupList']">
                 {{list.ResourceName}
@@ -26,7 +61,7 @@
                     <li> <a (click)="closeMenu()" ngxClipboard (cbOnSuccess)="copied($event)" [cbContent]="requisitionPublishUrl"><i class="far fa-copy"></i> Copy</a></li>
                 </ul>
         </ul>-->
-        
+
     </figure>
-    
-  </div>
+
+</div>

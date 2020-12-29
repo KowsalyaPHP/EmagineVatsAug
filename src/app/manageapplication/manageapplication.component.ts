@@ -1008,6 +1008,33 @@ export class ManageapplicationComponent implements OnInit {
     }
   }
 
+  moveCandidate(stage){
+    if((this.currentstage == "OF") || (this.currentstage == "JO")){ 
+      this.ManageapplicationServices.getOffandJoinValues(this.id,this.currentstage).subscribe(
+        response => {
+          if (response != "No data") {  
+            this.StageValueList = response['Data']['SSAHNGrid'];     
+            this.StageValueCount = response['Data']['StageCount'];  
+            this.SubStageValueCount =  response['Data']['SubStageCount'];
+            this.requisitionDetails = response['Data']['RequisitionDetail'];  
+          }
+        }
+      );
+    }
+  else{
+    this.ManageapplicationServices.getStageValues(this.id,this.currentstage).subscribe(
+      response => {
+        if (response != "No data") {  
+          this.StageValueList = response['Data']['SSAHNGrid'];     
+          this.StageValueCount = response['Data']['StageCount'];  
+          this.SubStageValueCount =  response['Data']['SubStageCount'];
+          this.requisitionDetails = response['Data']['RequisitionDetail'];  
+        }
+      }
+    );
+  }
+}
+
   
   /*updateStage(updatestage,updatestagestring){
 
@@ -1161,12 +1188,13 @@ export class ManageapplicationComponent implements OnInit {
           else {             
             if (getMessage['0'] == "200") {  
               this.message = getMessage['1'];
-              this.openSnackBar();      
-              this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
+              this.openSnackBar();    
+              this.moveCandidate(updatestage);  
+              /*this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
               setTimeout(() => {
                 this.routerObj.navigate(['manage/'+this.id+'/'+response['Data']]);
               }
-              , 2000);  
+              , 2000);  */
             //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
              // this.getStageValuesOnChange(updatestage);
              // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
@@ -1328,7 +1356,7 @@ export class ManageapplicationComponent implements OnInit {
       
    if(updatestage != 'OF')
    {
-    var confirm = window.confirm('Do you want to move cv from '+this.currentString+' to '+updatestagestring+'?');
+    var confirm = window.confirm("Do you want to move CV's from "+this.currentString+" to "+updatestagestring+"?");
     if (confirm == true) {    
 
       this.ManageapplicationServices.updateStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
@@ -1344,7 +1372,7 @@ export class ManageapplicationComponent implements OnInit {
                   this.message = getMessage['1'];
                   this.openSnackBar();        
                 //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
-                  this.getStageValuesOnChange(updatestage);
+                  this.moveCandidate(updatestage);
                 // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
                 }   
               }             
@@ -1354,7 +1382,7 @@ export class ManageapplicationComponent implements OnInit {
       }
     }
     else if(updatestage == 'OF'){
-      var confirm = window.confirm('Do you want to move cv from '+this.currentString+' to '+updatestagestring+'?');
+      var confirm = window.confirm("Do you want to move CV's from "+this.currentString+" to "+updatestagestring+"?");
       if (confirm == true) {    
   
         this.ManageapplicationServices.checkOfferPosition(this.id).subscribe(
@@ -1380,7 +1408,7 @@ export class ManageapplicationComponent implements OnInit {
                           this.message = getMessage['1'];
                           this.openSnackBar();  
                           //$('select option[value="'+updatestage+'"]').prop("selected",true);               
-                          this.getStageValuesOnChange(updatestage);
+                          this.moveCandidate(updatestage);
                           //$('select option[value="'+updatestage+'"]').attr("selected",true);                             
                         }   
                       }             
@@ -1438,7 +1466,7 @@ export class ManageapplicationComponent implements OnInit {
    
     this.selectedId = this.selectedApplication.map(({ CandidateId, ApplicationId }) => ({CandidateId, ApplicationId}));
    
-    var confirm = window.confirm('Do you want to move cv from '+this.currentString+' to '+updatestagestring+'?');
+    var confirm = window.confirm("Do you want to move CV's from "+this.currentString+" to "+updatestagestring+"?");
     if (confirm == true) {   
 
       this.ManageapplicationServices.updateBulkBackwardStagetoStage(this.id,updatestage,this.currentstage,this.selectedId).subscribe(
@@ -1454,7 +1482,7 @@ export class ManageapplicationComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();        
               //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
-                this.getStageValuesOnChange(updatestage);
+                this.moveCandidate(updatestage);
               // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
               }   
             }             
@@ -1521,7 +1549,7 @@ export class ManageapplicationComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();
                 //$('select option[value="'+updatestage+'"]').prop("selected",true); 
-                this.getStageValuesOnChange(updatestage);
+                this.moveCandidate(updatestage);
                // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
               }   
             }             

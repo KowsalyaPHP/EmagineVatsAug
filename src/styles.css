@@ -17,6 +17,7 @@ body {
     height: auto;
     background-color: #ffffff;
     padding:10px;
+    border-radius: 10px;
 }
 a{
     text-decoration: none;
