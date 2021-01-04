@@ -482,6 +482,7 @@ export class ManageapplicationComponent implements OnInit {
 
     const dialogRef = this.dialog.open(NothiredComponent, {
       width: '900px',
+      height: '900px',
       data: {selectedValue:this.selectedApplication,requisitionId:this.id,CStage:stage}      
     });
 

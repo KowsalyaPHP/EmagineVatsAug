@@ -42,7 +42,7 @@ export class PublishresourceComponent implements OnInit {
   }
 
   openDialogpublish(): void {
-
+    this.dialogRef.close();
     const dialogRef = this.dialog.open(PublishComponent, {
       width: '1500px',
       height: '900px',

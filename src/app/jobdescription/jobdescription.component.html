@@ -1,4 +1,4 @@
-<mat-card *ngIf="show">
+<mat-card *ngIf="!show">
     <div *ngFor="let item of requisitionDetails; let i = index">
         <h3>{{item.Reqtitle}}</h3>
         <p>ID: {{item.RequisitionId}} | Exp: {{item.MinExperience}} - {{item.MaxExperience}} | Loc: {{item.EmpLocation}} </p>
@@ -10,6 +10,6 @@
     <a [routerLink]="['/cvuploadvats/',id,vendorId]"><button mat-button>Submit</button></a>
 </mat-card>
 
-<mat-card>
-    <div *ngIf="show">{{message}}</div>
+<mat-card style="padding: 120px 0px;text-align: center;margin: 150px;" *ngIf="show">
+    <div >{{message}}</div>
 </mat-card>

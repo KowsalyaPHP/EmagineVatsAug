@@ -81,6 +81,7 @@ export class JobdescriptionComponent implements OnInit {
           }          
           else{
             this.requisitionDetails = response['Data'];
+            this.show = false;
           } 
         } else {
             console.log("something is wrong with Service Execution");

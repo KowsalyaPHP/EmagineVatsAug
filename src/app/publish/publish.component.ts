@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { PublishService } from './publish.service';
 import { MatFormFieldControl, MatFormField, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { SharedService } from '../shared/shared.service';
+import { PublishresourceComponent } from '../publishresource/publishresource.component';
 declare var $: any
 
 interface Vendor {
@@ -35,16 +36,16 @@ export class PublishComponent implements OnInit {
   goldVendorId: any;
   platinumVendorId: any;
   allVendorId: string = '';
-  message: any;
+  message1: any;
   selectVendor: boolean = false;
   selectedAll: boolean = false;
   selectedBronze: boolean = false;
   selectedSilver: boolean = false;
   selectedGold: boolean = false;
   selectedPlatinum: boolean = false;
+  searchText: any;
 
-
-  constructor(private PublishServices: PublishService, public dialogRef: MatDialogRef<PublishComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private routerObj: Router, private route: ActivatedRoute) {
+  constructor(private PublishServices: PublishService, public dialogRef: MatDialogRef<PublishComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, private routerObj: Router, private route: ActivatedRoute) {
     this.getAllVendorLists();
   }
 
@@ -341,9 +342,23 @@ export class PublishComponent implements OnInit {
     }
   }
   openSnackBar() {
-    var x = document.getElementById("snackbar")
+    var x = document.getElementById("publishsnackbar")
     x.className = "show";
     setTimeout(function () { x.className = x.className.replace("show", ""); }, 3800);
+  }
+
+  openDialogPublish(reqId,ReqTitle): void {
+    $(".dropdown-menu").hide();
+    this.dialogRef.close();
+    const dialogRef = this.dialog.open(PublishresourceComponent, {
+      width: '700px',
+      height:'700px',
+      data: {ReqId: reqId,reqTitle: ReqTitle}      
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+
+    });    
   }
 
 
@@ -353,7 +368,7 @@ export class PublishComponent implements OnInit {
     this.silverCategory = this.allvendorSilver.filter(element => element.P_Status);
     this.goldCategory = this.allvendorGold.filter(element => element.P_Status);
     this.platinumCategory = this.allvendorPlatinum.filter(element => element.P_Status);
-    console.log(this.silverCategory)
+    
     this.bronzeVendorId = this.bronzeCategory.map(element => element.VendorId);
     this.silverVendorId = this.silverCategory.map(element => element.VendorId);
     this.goldVendorId = this.goldCategory.map(element => element.VendorId);
@@ -377,13 +392,14 @@ export class PublishComponent implements OnInit {
         if (response != '') {
           let getMessage = response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {
-            this.message = getMessage['1'];
+            this.message1 = getMessage['1'];
             this.openSnackBar();
           }
           else {
-            this.message = getMessage['1'];
+            this.message1 = getMessage['1'];
             this.openSnackBar();
-            this.routerObj.navigate(["/req-dashboard"]);
+            console.log(this.message1)
+            //this.routerObj.navigate(["/req-dashboard"]);
           }
           // this.allVendorList = response['Data'];
         }
@@ -400,11 +416,11 @@ export class PublishComponent implements OnInit {
         if (response != '') {
           let getMessage = response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {
-            this.message = getMessage['1'];
+            this.message1 = getMessage['1'];
             this.openSnackBar();
           }
           else {
-            this.message = getMessage['1'];
+            this.message1 = getMessage['1'];
             this.openSnackBar();
             //this.routerObj.navigate(["/req-dashboard"]);           
           }

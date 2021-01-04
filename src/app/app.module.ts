@@ -73,6 +73,7 @@ import { FiltersubchildPipe } from './clientchild/filtersubchild.pipe';
 import { PublishresourceComponent } from './publishresource/publishresource.component';
 import { SearchComponent } from './search/search.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { FilterpublishPipe } from './publish/filterpublish.pipe';
 
 @NgModule({
   declarations: [
@@ -132,6 +133,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     FiltersubchildPipe,
     PublishresourceComponent,
     SearchComponent,
+    FilterpublishPipe,
     
   ],
   imports: [
