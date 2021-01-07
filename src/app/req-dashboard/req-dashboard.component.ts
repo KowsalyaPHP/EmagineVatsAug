@@ -12,6 +12,7 @@ import {DocviewjdComponent} from '../docviewjd/docviewjd.component'
 import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.component';
 import { PublishresourceComponent } from '../publishresource/publishresource.component';
 import { saveAs } from 'file-saver';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-req-dashboard',
@@ -50,7 +51,7 @@ export class ReqDashboardComponent implements OnInit {
   functionList:any;
   funclist:any;
 
-  constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar){
+  constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar, private dataService: DataService){
     this.route.params.subscribe(params => {
       this.status = params['status']; 
     });
@@ -132,6 +133,11 @@ export class ReqDashboardComponent implements OnInit {
       }
       , 1500);
      
+      this.dataService.getReloadReqDashboardFlag.subscribe(flag=>{
+        if(flag == true){
+          this.getReqLists(this.status);
+        }
+      });
  /*   let time_out = 50;
 
     let reqDBPromise = (new Promise(function(resolve, reject) {
@@ -191,12 +197,12 @@ export class ReqDashboardComponent implements OnInit {
 
     });    
   }
-  openDialogPublish(reqId,ReqTitle): void {
+  openDialogPublish(reqId,ReqTitle,publishStatus): void {
     $(".dropdown-menu").hide();
     const dialogRef = this.dialog.open(PublishresourceComponent, {
       width: '700px',
       height:'700px',
-      data: {ReqId: reqId,reqTitle: ReqTitle}      
+      data: {ReqId: reqId,reqTitle: ReqTitle,publishStatus: publishStatus}      
     });
     
     dialogRef.afterClosed().subscribe(result => {
@@ -362,9 +368,29 @@ export class ReqDashboardComponent implements OnInit {
              item.IRPerc =  Math.round((item.IR/item.totalCount) *100);   
             });
 
+           
+
+            response['Data']['RequisitionDetail'].forEach(item => {
+              for (let i = 0; i < response['Data']['RequisitionDetail'].length; i++) {                  
+                if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'P')
+                {
+                  response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'Published';
+                }
+                else if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'YP')
+                {
+                  response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'Yet to be published';
+                }
+                else if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'UP')
+                {
+                  response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'UnPublished';
+                }               
+              }            
+            });
+
             this.reqList = response['Data']['RequisitionDetail']; 
-            this.summaryCount = response['Data']['SummeryCount'];  
-            console.log(this.summaryCount)           
+            
+            this.summaryCount = response['Data']['SummeryCount'];
+
             this.reqDashboardDataTable();  
           }    
         } else {
@@ -414,7 +440,7 @@ export class ReqDashboardComponent implements OnInit {
               //         i : 0;
             };
 
-            let cols = [8, 9, 10, 11, 12, 13, 14, 15, 16];
+            let cols = [9, 10, 11, 12, 13, 14, 15, 16, 17];
             // Total over all pages
             cols.forEach(function (col) {
               let total = api
@@ -498,7 +524,24 @@ export class ReqDashboardComponent implements OnInit {
               item.joinedPerc =  Math.round((item.Joined/item.totalCount) *100);
               item.CRPerc =  Math.round((item.CR/item.totalCount) *100);   
               item.IRPerc =  Math.round((item.IR/item.totalCount) *100);      
-             });                
+             });        
+
+             response['Data']['RequisitionDetail'].forEach(item => {
+              for (let i = 0; i < response['Data']['RequisitionDetail'].length; i++) {                  
+                  if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'P')
+                  {
+                    response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'Published';
+                  }
+                  else if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'YP')
+                  {
+                    response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'Yet to be published';
+                  }
+                  else if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'UP')
+                  {
+                    response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'UnPublished';
+                  }               
+                }            
+              });
 
              this.reqList = response['Data']['RequisitionDetail'];
              this.summaryCount = response['Data']['SummeryCount'];  

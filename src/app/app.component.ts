@@ -15,9 +15,9 @@ export class AppComponent {
   userName='';
 
  //public static urlPath = "https://api.emaginerock.com/";
- //public static urlPath = "https://devapi.emaginerock.com/";
- public static urlPath = "http://bincrm.com/vatsdev/";
- //public static urlPath = "http://24168f12edfd.ngrok.io/";
+ public static urlPath = "https://devapi.emaginerock.com/";
+ //public static urlPath = "http://bincrm.com/vatsdev/";
+ //public static urlPath = "http://e934088d4c4b.ngrok.io/";
 
   functionList:any;
   funclist:any;
@@ -52,7 +52,7 @@ export class AppComponent {
   openDialogSearch(): void { 
   
     const dialogRef = this.dialog.open(SearchComponent, {
-      width: '1000px',
+      width: '1500px',
       height: '1000px'        
     });
     

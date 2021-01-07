@@ -1,15 +1,13 @@
 <div style="margin: 0;">
     <div id="publishsnackbar">{{message1}}</div>
 </div>
-<h3><i class="fas fa-newspaper"></i> Publish  <mat-form-field style="margin-top: -18px;font-size: small;float: right;">
-    <mat-icon matSuffix class="searchIcon">search</mat-icon>
-    <input matInput type="search" placeholder="Search Vendor" [(ngModel)]="searchText" class="search-input">
-</mat-form-field></h3>
+<h3><i class="fas fa-newspaper"></i> Publish  <span style="float:right;cursor:pointer;"><mat-icon (click)="onNoClick()">clear</mat-icon></span></h3>
 <h4 style="border-bottom: 1px dotted;padding-bottom: 12px;">ReqId - #{{data.ReqId}} - <div  class="tiTleellipes"><ejs-tooltip  id='tooltip_1' >
     <ng-template #content>
         <table>
           <tr><td >{{data.reqTitle}}</td></tr>                
         </table>
+
     </ng-template>
     {{data.reqTitle}}
   </ejs-tooltip></div>
@@ -95,13 +93,10 @@
                     <li style="float:left;"><input type="checkbox" [(ngModel)]="selectedPlatinum"
                             (change)="changeCategory('Platinum',selectedPlatinum)" id="PlatinumAll">Platinum</li>
                 </ul>
-                <div style="margin-left: 77%;">
-                    <span style="vertical-align: middle;">
-                        <i class="fas fa-newspaper"></i>
-                    </span> <span><a (click)="addPublish();">Publish</a></span> &nbsp;&nbsp;<span><a
-                            (click)="unPublish();">UnPublish All</a></span> &nbsp;&nbsp;<span style="vertical-align: middle;">
-                        <mat-icon>clear</mat-icon>
-                    </span> <span> <a (click)="onNoClick()">Close</a></span>
+                <div style="float: right;">
+                    <span><a (click)="addPublish();">Publish</a></span> &nbsp;&nbsp;<span><a
+                            (click)="unPublish();" *ngIf="data.publishStatus == 'P'">UnPublish All</a></span> &nbsp;&nbsp;<span style="vertical-align: middle;">                       
+                    </span> 
                 </div>
                 <!--  <span></span><input type="checkbox" (click)="checkallBronzevendor();" id="BronzeAll">All<span><input type="checkbox" (click)="checkallBronzevendor();" id="BronzeAll">Bronze</span> <span><input type="checkbox" (click)="checkallSilvervendor();" id="SilverAll">Silver</span><span><input type="checkbox" (click)="checkallGoldvendor();" id="GoldAll">Gold</span><span><input type="checkbox" (click)="checkallPlatinumvendor();" id="PlatinumAll">Platinum</span> -->
             </td>
@@ -111,10 +106,13 @@
         <tr style="vertical-align: top;">
             <td>
                 
-                <h3>Bronze
+                <h3>Bronze <mat-form-field style="margin-top: -18px;font-size: small;float: right;">
+                    <mat-icon matSuffix class="searchIcon">search</mat-icon>
+                    <input matInput type="search" placeholder="Search Vendor" [(ngModel)]="searchText" class="search-input">
+                </mat-form-field>
                 
                 </h3>
-                <ul>
+                <ul style="display:inline-block;">
                     <li *ngFor="let item of allvendorBronze| filterpublish:searchText ; index as i"> <input type="checkbox"
                             name="allvendorBronze{{item.VendorId}}" [(ngModel)]="item.P_Status"
                             value="{{item.VendorId}}" (change)="changeItem('Bronze')" />{{item.VendorName}}</li>

@@ -5,6 +5,8 @@ import { PublishService } from './publish.service';
 import { MatFormFieldControl, MatFormField, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { SharedService } from '../shared/shared.service';
 import { PublishresourceComponent } from '../publishresource/publishresource.component';
+import { ReqDashboardService } from '../req-dashboard/req-dashboard.service';
+import { DataService } from '../services/data.service';
 declare var $: any
 
 interface Vendor {
@@ -44,8 +46,12 @@ export class PublishComponent implements OnInit {
   selectedGold: boolean = false;
   selectedPlatinum: boolean = false;
   searchText: any;
-
-  constructor(private PublishServices: PublishService, public dialogRef: MatDialogRef<PublishComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, private routerObj: Router, private route: ActivatedRoute) {
+  summaryCount:any;
+  reqList:[];
+  message:any;
+  manageRedirect:boolean=false;
+  
+  constructor(private PublishServices: PublishService,private ReqDashboardServices: ReqDashboardService, public dialogRef: MatDialogRef<PublishComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, private routerObj: Router, private route: ActivatedRoute, private dataService: DataService) {
     this.getAllVendorLists();
   }
 
@@ -357,8 +363,171 @@ export class PublishComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(result => {
-
+      this.dataService.changeReloadReqDashboard(true);
     });    
+  }
+
+  getReqLists(status) { 
+
+    $("#loader").show();
+
+    var cStage = status;
+      
+    $(document).ready(function() { 
+      $('select option[value="'+cStage+'"]').attr("selected",true);  
+    });
+       
+    if(status == 'OP')
+    this.manageRedirect=true;
+    else
+    this.manageRedirect=false;
+
+    //$('select option[value="'+status+'"]').attr("selected",true);
+   // this.routerObj.navigate(['req-dashboard/',status]);
+   // const myNumber = Observable.interval(1000);
+ 
+    this.ReqDashboardServices.getReqList(status).subscribe(
+      response => {   
+            
+        if (response != "No data") {          
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.reqList = [];
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+            this.reqDashboardDataTable();
+          }
+          else {                     
+           
+           /* for (let i = 0; i < response['Data'].length; i++) {            
+              this.changePriority(response['Data'][i]['Reqpriority'],i);
+            }   */                 
+            response['Data']['RequisitionDetail'].forEach(item => {
+             item.totalCount = (item.Sourcing+item.Screening+item.Assessment+item.HRRound+item.Offered+item.Joined+item.CR+item.IR);    
+             item.sourcePerc =  Math.round((item.Sourcing/item.totalCount) *100);   
+             item.screeningPerc =  Math.round((item.Screening/item.totalCount) *100);   
+             item.assessmentPerc =  Math.round((item.Assessment/item.totalCount) *100);   
+             item.hrPerc =  Math.round((item.HRRound/item.totalCount) *100);   
+             item.offeredPerc =  Math.round((item.Offered/item.totalCount) *100);   
+             item.joinedPerc =  Math.round((item.Joined/item.totalCount) *100);   
+             item.CRPerc =  Math.round((item.CR/item.totalCount) *100);   
+             item.IRPerc =  Math.round((item.IR/item.totalCount) *100);   
+            });
+
+           
+
+            response['Data']['RequisitionDetail'].forEach(item => {
+              for (let i = 0; i < response['Data']['RequisitionDetail'].length; i++) {                  
+                if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'P')
+                {
+                  response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'Published';
+                }
+                else if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'YP')
+                {
+                  response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'Yet to be published';
+                }
+                else if(response['Data']['RequisitionDetail'][i]['PublishStatus'] == 'UP')
+                {
+                  response['Data']['RequisitionDetail'][i]['PublishStatusString'] = 'UnPublished';
+                }               
+              }            
+            });
+
+            this.reqList = response['Data']['RequisitionDetail']; 
+            
+            this.summaryCount = response['Data']['SummeryCount'];
+
+            this.reqDashboardDataTable();  
+          }    
+        } else {
+         console.log("something is wrong with Service Execution"); 
+        }
+      },
+      error => console.log(error)      
+    );
+  
+  }
+
+  reqDashboardDataTable(){
+    $('#reqList').DataTable().clear().destroy();
+    setTimeout(function () {
+      $(function () {
+        const table: any = $('#reqList');
+        // table.DataTable().clear().destroy();
+        this.dataTable = table.DataTable({
+          "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(), data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+              let val = "0";
+              if (typeof i === 'string') {
+                val = i.trim();
+                let htmlObj = $(i);
+                let length = htmlObj.length;
+
+                for (var k = 0; k < length; k++) {
+                  let ele = htmlObj[k];
+                  if (ele) {
+                    if (ele.classList && ele.classList.contains("statuscolor")) {
+                      val = ele.innerText.trim();
+                      break;
+                    }
+                  }
+                }
+                return parseInt(val) * 1;
+              }
+              else {
+                return i;
+              }
+              // return typeof i === 'string' ?
+              //     i.replace(/[\$,]/g, '')*1 :
+              //     typeof i === 'number' ?
+              //         i : 0;
+            };
+
+            let cols = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+            // Total over all pages
+            cols.forEach(function (col) {
+              let total = api
+                .column(col)
+                .data()
+                .reduce(function (a, b) {
+                  return intVal(a) + intVal(b);
+                }, 0);
+
+              // Total over this page
+              let pageTotal = api
+                .column(col, { page: 'current' })
+                .data()
+                .reduce(function (a, b) {
+                  return intVal(a) + intVal(b);
+                }, 0);
+
+              // Update footer
+              let searchVal = $('.dataTables_filter input').val();
+              if (searchVal) {
+                $(api.column(col).footer()).html(
+                  pageTotal
+                );
+              } else {
+                $(api.column(col).footer()).html(
+                  total
+                );
+              }
+            });
+
+
+
+          }
+        });
+        // let dt = this.dataTable;
+        // dt.on( 'search.dt', function (e) {
+        //   console.log( $('.dataTables_filter input').val());
+        // });
+      });
+      $("#loader").hide();
+    }, 100);
   }
 
 
@@ -387,6 +556,12 @@ export class PublishComponent implements OnInit {
       this.allVendorId += this.platinumVendorId.join(',') + ',';
     }
 
+    if(this.allVendorId == ""){
+      this.message1 = "Please select atleast one vendor to publish";
+      this.openSnackBar();
+      return;
+    }
+
     this.PublishServices.reqAddPublish(this.data['ReqId'], this.allVendorId).subscribe(
       response => {
         if (response != '') {
@@ -398,7 +573,7 @@ export class PublishComponent implements OnInit {
           else {
             this.message1 = getMessage['1'];
             this.openSnackBar();
-            console.log(this.message1)
+          
             //this.routerObj.navigate(["/req-dashboard"]);
           }
           // this.allVendorList = response['Data'];

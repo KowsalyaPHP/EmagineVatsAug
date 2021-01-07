@@ -62,6 +62,16 @@
                   DM
                 </ejs-tooltip>
               </th>
+              <th style="width:50px">
+                <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                  <ng-template #content>
+                      <table>
+                        <tr><td>Publish Status</td></tr>                
+                      </table>
+                  </ng-template>
+                  PS
+                </ejs-tooltip>
+              </th>
               <th >
                 <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
                   <ng-template #content>
@@ -156,7 +166,7 @@
                       </table>
                   </ng-template>
                   J
-                </ejs-tooltip></th>            
+               </ejs-tooltip></th>            
                 <th style="background-image: none;"><ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
                   <ng-template #content>
                       <table>
@@ -181,7 +191,7 @@
               <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.RequistionId}}</a> 
               <ul class="dropdown-menu" id="showmenu{{i}}">
                   <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',item.RequistionId]" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Edit Requisition</a></li>
-                  <li style="cursor:pointer;" *ngIf="item.Reqstatus == 'OP'" (click)="openDialogPublish(item.RequistionId,item.ReqTitle)"> <a> <i class="fas fa-newspaper"></i>&nbsp;&nbsp;Publish Requisition</a></li>
+                  <li style="cursor:pointer;" *ngIf="item.Reqstatus == 'OP'" (click)="openDialogPublish(item.RequistionId,item.ReqTitle,item.PublishStatus)"> <a> <i class="fas fa-newspaper"></i>&nbsp;&nbsp;Publish Requisition</a></li>
                   <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('204')"> <a [routerLink]="['/manage',item.RequistionId,'SO']"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Manage Candidate</a></li>
                   <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('203')"> <a [routerLink]="['/cvupload',item.RequistionId,'0']"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;Upload CV</a></li>
                   <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/clone',item.RequistionId]"><i class="fas fa-clone"></i>&nbsp;&nbsp;Clone Requisition</a></li>
@@ -201,6 +211,14 @@
           </td>          
           <td>{{item.EACManager}}</td>
           <td>{{item.DeliveryManager}}</td>
+          <td> <ejs-tooltip  id='tooltip_1'>
+            <ng-template #content>
+                <table>                   
+                  <tr><td> {{item.PublishStatusString}}</td></tr>
+                </table>
+            </ng-template>
+            {{item.PublishStatus}}
+            </ejs-tooltip></td>
           <td class="clientellipes">
 
             <ejs-tooltip  id='tooltip_1'>
@@ -212,6 +230,18 @@
               {{item.Clientname}}
               </ejs-tooltip>
           </td>
+          
+         <!-- <td class="clientellipes">
+
+            <ejs-tooltip  id='tooltip_1'>
+              <ng-template #content>
+                  <table>                   
+                    <tr><td> {{item.PublishStatusString}}</td></tr>
+                  </table>
+              </ng-template>
+              {{item.PublishStatus}}
+              </ejs-tooltip>
+          </td>-->
           
           <td class="dropdown" style="padding-left:24px;">
               <a style="color:rgb(190, 32, 32);cursor:pointer;" (click)="priorityMethod(i)">
@@ -379,7 +409,7 @@
         </tbody> 
         <tfoot *ngIf="reqList && reqList.length > 0">
           <tr>
-              <td style="text-align: center;" colspan="8"></td>
+              <td style="text-align: center;" colspan="9"></td>
               <td style="text-align: center;"></td>
               <td ></td>
               <td ></td>

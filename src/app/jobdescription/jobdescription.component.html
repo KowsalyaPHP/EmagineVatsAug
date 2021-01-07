@@ -10,6 +10,7 @@
     <a [routerLink]="['/cvuploadvats/',id,vendorId]"><button mat-button>Submit</button></a>
 </mat-card>
 
-<mat-card style="padding: 120px 0px;text-align: center;margin: 150px;" *ngIf="show">
-    <div >{{message}}</div>
+<mat-card style="padding: 40px 20px 250px 25px;font-size: 14px;font-weight: 600;" *ngIf="show">
+    <div style="margin-bottom:50px;">{{message}}</div>
+    <button mat-button cdkFocusInitial (click)="close();">Close</button>
 </mat-card>

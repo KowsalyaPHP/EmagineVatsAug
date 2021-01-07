@@ -254,10 +254,24 @@ export class ManageapplicationComponent implements OnInit {
 
   source(reqId,CandId,AppId) {
 
+    this.route.params.subscribe(params => {
+      this.id = params['id'];  
+      this.currentstage = params['stage'];    
+    });
+
     this.ManageapplicationServices.source(reqId,CandId,AppId).subscribe(
       response => {
         if (response != '') {         
-          console.log(response)    
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+          }
+          else{
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+            this.moveCandidate(this.currentstage);
+          }
         }
         else {         
           console.log('something is wrong with Service  Execution');

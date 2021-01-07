@@ -8,7 +8,7 @@ import {
 } from "@angular/forms";
 import { SearchService } from './search.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-search',
@@ -27,6 +27,11 @@ export class SearchComponent implements OnInit {
   checkData="Name";
   searchSelected: any;
   submitted: boolean = false;
+  primaryinfoDetails:any;
+  attachment:any;
+  showSearchData: boolean = true;
+  showApplicationInfo: boolean = false;
+
   constructor(private routerObj: Router, private SearchServices: SearchService, private formBuilderObj: FormBuilder, private route: ActivatedRoute, public dialogRef: MatDialogRef<SearchComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.searchForm = this.formBuilderObj.group({
@@ -34,6 +39,8 @@ export class SearchComponent implements OnInit {
     });
 
     this.searchSelected = 'Name';
+  //  $("#searchapplication").show();
+    //$("#applicationinfo").hide();
   }
 
   ngOnInit() {
@@ -46,6 +53,7 @@ export class SearchComponent implements OnInit {
     }, 1500);
   }
 
+  
   changeTextBox(val) {
     this.checkData = val;
     this.showName = false;
@@ -78,6 +86,17 @@ export class SearchComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
+  /*actionMethod(i) { 
+    $(".dropdown-menu").fadeOut("fast");
+    $("#showmenu"+i).show();
+    $(document).on("click", function(event){
+      var $trigger = $(".dropdown");
+      if($trigger !== event.target && !$trigger.has(event.target).length){
+          $(".dropdown-menu").fadeOut("fast");
+      }            
+   });
+  }*/
 
   getSearchValue(formObj) {
 
@@ -146,6 +165,104 @@ export class SearchComponent implements OnInit {
         }
       });
   }
+
+  backManageApplication(){
+    setTimeout(function () {
+      $(function () {
+        $('#SearchList').DataTable({
+        });
+      });
+      $("#loader").hide();
+    }, 1500);
+    this.showSearchData = true;
+    this.showApplicationInfo=false;
+  }
+
+  downloadCV(reqId,CandId,AppId) {
+
+    this.SearchServices.downloadCVLink(reqId,CandId,AppId).subscribe(
+      response => {
+        if (response != '') {         
+          this.downLoadFile(response);      
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+    
+  }
+
+  downLoadFile(data: any) {    
+    let contenType = data.headers.get("content-type");
+    let contdisp = data.headers.get("content-disposition").split("=");
+    let fileName = contdisp[1].trim();
+    let blob = new Blob([data._body], {  type: contenType });  
+    let file = new File([blob], fileName, { type: contenType});
+    saveAs(file);
+  }
+
+  getApplicationInfos(reqId,candidateId,applicationId) {
+
+    this.SearchServices.getPrimaryInfo(reqId,candidateId,applicationId).subscribe(
+      response => {
+        if (response != '') {         
+
+          this.showSearchData = false;
+          this.showApplicationInfo=true;
+
+          $("#searchapplication").hide();
+          //$("#applicationinfo").css("display", "block")
+          $("#applicationinfo").show();     
+          response['Data'].forEach(item => {
+            for (let i = 0; i < response['Data'].length; i++) {                  
+              if(response['Data'][i]['Currentstage_CV'] == 'SO')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'Sourcing';
+              }
+              else if(response['Data'][i]['Currentstage_CV'] == 'SC')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'Screening';
+              }
+              else if(response['Data'][i]['Currentstage_CV'] == 'AS')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'Assessment';
+              }
+              else if(response['Data'][i]['Currentstage_CV'] == 'HR')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'HR Round';
+              }
+              else if(response['Data'][i]['Currentstage_CV'] == 'OF')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'Offered';
+              }
+              else if(response['Data'][i]['Currentstage_CV'] == 'JO')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'Joined';
+              }
+              else if(response['Data'][i]['Currentstage_CV'] == 'CR')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'Client reject';
+              }
+              else if(response['Data'][i]['Currentstage_CV'] == 'IR')
+              {
+                response['Data'][i]['Currentstage_CV'] = 'Internal reject';
+              }
+            }               
+          });
+
+          this.primaryinfoDetails = response['Data']; 
+          let getFileName =  this.primaryinfoDetails[0]['CvLink'].split("#$#");
+          this.attachment = getFileName['1'];
+        }
+        else {         
+          console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+} 
 
   validation_messages = {
     'SearchData': [

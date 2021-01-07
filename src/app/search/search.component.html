@@ -1,4 +1,5 @@
-<div class="dialogContent" style="margin-bottom: 30px;">
+<div id="searchapplication" *ngIf="showSearchData">
+<div class="dialogContent"style="margin-bottom: 30px;">
     <div>
         <h3 style="border-bottom: 1px dotted;padding-bottom: 12px;"><i class="fa fa-search" aria-hidden="true"></i> Search Applications</h3>
         
@@ -76,6 +77,36 @@
             <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
               <ng-template #content>
                   <table>
+                    <tr><td>Candidate Id</td></tr>                
+                  </table>
+              </ng-template>
+              Cand.Id
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Candidate Name</td></tr>                
+                  </table>
+              </ng-template>
+              Cand.Name
+            </ejs-tooltip>
+            </th>   
+            <th style="width:50px">
+              <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+                <ng-template #content>
+                    <table>
+                      <tr><td>Application Id</td></tr>                
+                    </table>
+                </ng-template>
+                App.Id
+              </ejs-tooltip>
+            </th> 
+          <th style="width:7%">
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
                     <tr><td>Requistion Id</td></tr>                
                   </table>
               </ng-template>
@@ -89,9 +120,30 @@
                     <tr><td>Requisition Title</td></tr>                
                   </table>
               </ng-template>
-              Req. Title
+              Req.Title
             </ejs-tooltip>
           </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Mobile Number</td></tr>                
+                  </table>
+              </ng-template>
+              M.No
+            </ejs-tooltip>
+          </th>
+          <th>
+            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
+              <ng-template #content>
+                  <table>
+                    <tr><td>Email Id</td></tr>                
+                  </table>
+              </ng-template>
+              Email Id
+            </ejs-tooltip>
+          </th>
+         
           <th style="width:60px">
             <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
               <ng-template #content>
@@ -102,36 +154,7 @@
               Req.Status
             </ejs-tooltip>
           </th>
-          <th style="width:50px">
-            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
-              <ng-template #content>
-                  <table>
-                    <tr><td>Application Id</td></tr>                
-                  </table>
-              </ng-template>
-              App. Id
-            </ejs-tooltip>
-          </th>
-          <th >
-            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
-              <ng-template #content>
-                  <table>
-                    <tr><td>Candidate Id</td></tr>                
-                  </table>
-              </ng-template>
-              Cand. Id
-            </ejs-tooltip>
-          </th>
-          <th>
-            <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
-              <ng-template #content>
-                  <table>
-                    <tr><td>Candidate Name</td></tr>                
-                  </table>
-              </ng-template>
-              Cand. Name
-            </ejs-tooltip>
-            </th>                   
+                
             <th> 
               <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
                 <ng-template #content>
@@ -139,16 +162,27 @@
                       <tr><td>Current Stage</td></tr>                
                     </table>
                 </ng-template>
-                Cur. Stage
+                Cur.Stage
               </ejs-tooltip>
             </th>     
         </tr>       
     </thead>
     <tbody>          
-        <tr *ngFor="let item of SearchList; let i = index" >  
+        <tr *ngFor="let item of SearchList; let i = index" >       
+            <!--<td class="dropdown">
+                <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.CandidateId}}</a> 
+                <ul class="dropdown-menu" id="showmenu{{i}}">
+                    <li> <a (click)="getApplicationInfos(item.RequisitionId,item.CandidateId,item.ApplicationId)" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Candidate Summary</a></li>
+              </ul>
+            </td>-->     
+            <td>
+              <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="getApplicationInfos(item.RequisitionId,item.CandidateId,item.ApplicationId)">{{item.CandidateId}}</a> 
+          </td>
+            <td>{{item.CandidateName}}</td> 
+            <td>{{item.ApplicationId}}</td>
             <td class="dropdown">
                 {{item.RequisitionId}}
-            </td>     
+            </td>                 
             <td class="dateellipes">
                 <ejs-tooltip id='tooltip_1' >
                 <ng-template #content>
@@ -158,11 +192,19 @@
                 </ng-template>
                 {{item.RequisitionTitle}}
                 </ejs-tooltip>
-            </td>          
+            </td>                
+            <td>{{item.MobileNo}}</td>
+            <td class="dateellipes">
+              <ejs-tooltip id='tooltip_1' >
+              <ng-template #content>
+                  <table>
+                      <tr><td>{{item.EmailId}}</td></tr>                
+                  </table>
+              </ng-template>
+              {{item.EmailId}}
+              </ejs-tooltip>
+          </td>          
             <td>{{item.RequisitionStatusString}}</td>
-            <td>{{item.ApplicationId}}</td>
-            <td>{{item.CandidateId}}</td>
-            <td>{{item.CandidateName}}</td>
             <td>{{item.CurrentStageString}}</td>
         </tr>      
     </tbody> 
@@ -182,3 +224,84 @@
   </tfoot> -->     
 
   </table>    
+</div>
+
+  <div id="applicationinfo" *ngIf="showApplicationInfo">
+    <h3>Candidate Summary</h3>
+    <a style="cursor: pointer;color: #61605f;" (click)="backManageApplication()"><i class="material-icons" style="float: right;border: 1px solid;border-radius: 50%;margin: 10px 11px;">
+      chevron_left
+    </i></a>
+ 
+          <div id="primary" style="width:600px;" class="example-large-box mat-elevation-z4" *ngFor = "let item of primaryinfoDetails">
+          <div> <p>{{item.CandidateName}}</p>
+          <p> {{item.CurrentDesignation}} , {{item.CurrentCompanyName}}</p></div><hr>
+            <ul  style="float: left;margin-right: 75px;">
+              <li style="padding-left: 80px;">
+                <b>Contact Information</b>
+              </li>
+              <li style="padding-left: 50px;">
+                <i class="material-icons icon" style="vertical-align: middle;color:#699dfc;">
+                  phone
+                  </i>&nbsp;&nbsp;&nbsp;{{item.MobileNo}}
+              </li>
+              <li style="padding-left: 50px;">
+                <i class="material-icons icon" style="vertical-align: middle;color:#699dfc;">
+                  mail_outline
+                  </i>&nbsp;&nbsp;&nbsp;{{item.EMailId}}
+              </li>
+              <li style="padding-left: 56px;">
+                <img src="assets/img/birthday.png">&nbsp;&nbsp;&nbsp;&nbsp;{{item.DateofBirth| date: 'dd MMM yyyy'}}
+              </li>
+              <li style="padding-left: 51px;">
+                <i class="material-icons icon" style="color:#699dfc;">
+                  place
+                  </i>&nbsp;&nbsp;&nbsp;{{item.AddresslLine1}},{{item.AddresslLine2}},{{item.AddresslLine3}},{{item.AddresslLine4}}
+              </li>
+              <li style="padding-left: 56px;">
+                <img src="assets/img/id.png">&nbsp;&nbsp;&nbsp;{{item.CandidateId}}
+              </li>
+            </ul> 
+            <ul style="float: left;">
+              <li style="padding-left: 32px;">
+              <b>Source Information</b>
+              </li>
+              <li>
+                <img src="assets/img/id.png">&nbsp;&nbsp;&nbsp;{{item.ApplicationId}}
+              </li>
+              <li>
+                <img src="assets/img/person.png">&nbsp;&nbsp;&nbsp;{{item.VendorName}}
+              </li>
+              <li>
+                <img src="assets/img/stage.png">&nbsp;&nbsp;&nbsp;{{item.Currentstage_CV}}
+              </li>
+              <li>
+                <img src="assets/img/date.png">&nbsp;&nbsp;&nbsp;{{item.Currentstage_CV_Date}}
+              </li>           
+          </ul> <br>
+          <p style="padding-left: 45px;"><b>CV Link</b></p>     
+          <p style="padding-left: 7px;"><a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><img style="vertical-align: middle;" src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>  
+          </div>
+ 
+        <!--<mat-tab>
+          <ng-template mat-tab-label>
+            <i class="material-icons" style="font-size: 33px;">rss_feed</i>                  
+          </ng-template>
+          <div class="example-large-box mat-elevation-z4" >
+            
+            <div *ngFor = "let item of primaryinfoDetails"> <p>{{item.CandidateName}}</p>
+              <p> {{item.CurrentDesignation}} , {{item.CurrentCompanyName}}</p></div><hr style="margin-bottom: 30px;">
+            <div style="height:111px;" *ngFor="let item of cvlogDetails">    
+              <div style="float:left"> 
+              <div class="circleGray"><i class="fa fa-check fa-2x checkmark" aria-hidden="true"></i></div>
+              <div class="line"></div>
+            </div>
+                <div class="rect">        
+                  <label>
+                    CV Stage: {{item.CV_Stage}},  Moved on: {{item.CV_Stage_Date}},  Moved by: {{item.VendorName}}
+                  </label>
+                </div>             
+            </div>            
+          </div>
+        </mat-tab>-->
+   
+  </div>

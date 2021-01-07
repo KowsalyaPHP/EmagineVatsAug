@@ -62,7 +62,10 @@ export class JobdescriptionComponent implements OnInit {
         }
       });
     }
-  
+    
+    close(){
+      window.close();
+    }
 
   showJobDescription(){
     this.route.params.subscribe(params => {

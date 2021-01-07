@@ -30,4 +30,42 @@ export class SearchService {
           return '';
       });
   }
+
+  public getPrimaryInfo(reqId,candidateId,applicationId): Observable<any> {
+
+    const url_get = AppComponent.urlPath + 'PrimaryInfo';
+    const params = new URLSearchParams();   
+
+    var RefId = sessionStorage.getItem("RefId");
+
+    params.set('RequisitionId', reqId);
+    params.set('Entityid', RefId);
+    params.set('CandidateId', candidateId);
+    params.set('ApplicationId', applicationId);
+
+    return this.http.post(url_get, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      });
+  }
+
+  public downloadCVLink(reqId,candidateId,applicationId): Observable<any> {
+    
+    const url_get = AppComponent.urlPath + 'DownloadFile';
+    const params = new URLSearchParams(); 
+
+    let RefId = sessionStorage.getItem("RefId");
+
+    params.set('Entityid', RefId);
+    params.set('RequisitionId', reqId);
+    params.set('CandidateId', candidateId);
+    params.set('ApplicationId', applicationId);
+    
+    return this.http.post(url_get, params, { responseType: ResponseContentType.Blob }).map(data => {
+      return data;
+    });
+  }
 }
