@@ -106,7 +106,7 @@
         <tr style="vertical-align: top;">
             <td>
                 
-                <h3>Bronze <mat-form-field style="margin-top: -18px;font-size: small;float: right;">
+                <h3>Bronze <span style="font-size:13px;">({{checkedBronze}})</span> <mat-form-field style="margin-top: -18px;font-size: small;float: right;">
                     <mat-icon matSuffix class="searchIcon">search</mat-icon>
                     <input matInput type="search" placeholder="Search Vendor" [(ngModel)]="searchText" class="search-input">
                 </mat-form-field>
@@ -124,7 +124,7 @@
         </tr>
         <tr style="height:auto;">
             <td>
-                <h3>Silver
+                <h3>Silver <span style="font-size:13px;">({{checkedSilver}})</span>
                     <!--<mat-form-field style="margin:10px;">
                         <mat-icon matSuffix class="searchIcon">search</mat-icon>
                         <input matInput type="search" placeholder="Silver Vendor" [(ngModel)]="searchText" class="search-input">
@@ -139,7 +139,7 @@
         </tr>
         <tr style=" height:auto;">
             <td>
-                <h3>Gold
+                <h3>Gold <span style="font-size:13px;">({{checkedGold}})</span>
                    <!-- <mat-form-field style="margin:10px;">
                         <mat-icon matSuffix class="searchIcon">search</mat-icon>
                         <input matInput type="search" placeholder="Gold Vendor" [(ngModel)]="searchText" class="search-input">
@@ -154,7 +154,7 @@
         </tr>
         <tr style=" height:auto;">
             <td>
-                <h3>Platinum
+                <h3>Platinum <span style="font-size:13px;">({{checkedPlatinum}})</span>
                     <!--<mat-form-field style="margin:10px;">
                         <mat-icon matSuffix class="searchIcon">search</mat-icon>
                         <input matInput type="search" placeholder="Platinum Vendor" [(ngModel)]="searchText" class="search-input">

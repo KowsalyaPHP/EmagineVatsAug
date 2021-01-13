@@ -5,36 +5,37 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { AppComponent } from '../app.component';
 import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CvuploadService {
 
-  constructor(private http: Http,private datePipe : DatePipe) { }
+  constructor(private http: Http, private datePipe: DatePipe) { }
 
-  public CVUpload(FormObj,file,ReqID,EmpArray,EduArray): Observable<any> {
+  public CVUpload(FormObj, file, ReqID, EmpArray, EduArray): Observable<any> {
 
     const url = AppComponent.urlPath + 'CVUpload';
-    const params = new URLSearchParams();   
+    const params = new URLSearchParams();
 
     var RefId = sessionStorage.getItem("RefId");
     var C_ID = sessionStorage.getItem("uniqueSessionId");
 
-    if(file) {
+    if (file) {
       var fileValue: File = file[0];
     }
-    else{
-      var fileValue: File  = null;
-    } 
-    
+    else {
+      var fileValue: File = null;
+    }
+
     //const fileValue: File = file[0];
-    const formData = new FormData(); 
+    const formData = new FormData();
     const date = this.datePipe.transform(FormObj.DateofBirth, 'MM/dd/yyyy');
 
     formData.append('EntityID', RefId);
     formData.append('RequisitionId', ReqID);
-    formData.append('UserId',C_ID);
+    formData.append('UserId', C_ID);
     formData.append('CV', fileValue);
     formData.append('Candidate_FN', FormObj.Candidate_FN);
     formData.append('Candidate_LN', FormObj.Candidate_LN);
@@ -58,7 +59,7 @@ export class CvuploadService {
     formData.append('EduDetails', EduArray);
     formData.append('EmpDetails', EmpArray);
     formData.append('sourcecategory', 'Selfsource');
-console.log(formData);
+    console.log(formData);
     return this.http.post(url, formData)
       .map(response => response.json()).map(data => {
         if (data != '')
@@ -68,13 +69,65 @@ console.log(formData);
       });
   }
 
+
+  public CVParser(file): Observable<any> {
+
+    const url = environment.affindaUrl + 'documents/';
+
+    if (file) {
+      var fileValue: File = file[0];
+    }
+    else {
+      var fileValue: File = null;
+    }
+
+    //const fileValue: File = file[0];
+    const formData = new FormData();
+    formData.append('file_name', fileValue.name);
+    // let fext = fileValue.name.split('.').pop();
+    let fext = "pdf";
+    formData.append(fext, fileValue);
+    console.log(formData);
+    let headers = {
+      Authorization: environment.affindaToken
+    };
+    // return;
+    return this.http.post(url, formData, { headers: <any>headers })
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      },
+        error => {
+        });
+  }
+
+  public getCVDetail(identifier): Observable<any> {
+
+    const url = environment.affindaUrl + 'documents/' + identifier + '/';
+    let headers = {
+      Authorization: environment.affindaToken
+    };
+    return this.http.get(url, { headers: <any>headers })
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      },
+        error => {
+        });
+    // return;
+  }
+
   public viewCV(candId): Observable<any> {
-    
+
     const url = AppComponent.urlPath + 'ViewCVUpload';
-    const params = new URLSearchParams();   
-   
-    params.set('CandidateId',candId);
-    
+    const params = new URLSearchParams();
+
+    params.set('CandidateId', candId);
+
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
         if (data != '')
@@ -84,16 +137,16 @@ console.log(formData);
       });
   }
 
-  public UpdateCV(candId,FormObj): Observable<any> {
-    
+  public UpdateCV(candId, FormObj): Observable<any> {
+
     const url = AppComponent.urlPath + 'UpdateCV';
-    const params = new URLSearchParams();   
-   
-    params.set('CandidateId',candId);
-    params.set('Candidate_FN',FormObj.Candidate_FN);
-    params.set('Candidate_LN',FormObj.Candidate_LN);
-    params.set('EMailId',FormObj.EMailId);
-    params.set('MobileNo',FormObj.MobileNo);
+    const params = new URLSearchParams();
+
+    params.set('CandidateId', candId);
+    params.set('Candidate_FN', FormObj.Candidate_FN);
+    params.set('Candidate_LN', FormObj.Candidate_LN);
+    params.set('EMailId', FormObj.EMailId);
+    params.set('MobileNo', FormObj.MobileNo);
 
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
@@ -104,10 +157,10 @@ console.log(formData);
       });
   }
 
-  public downloadCVLink(reqId,candidateId,applicationId): Observable<any> {
-    
+  public downloadCVLink(reqId, candidateId, applicationId): Observable<any> {
+
     const url_get = AppComponent.urlPath + 'DownloadFile';
-    const params = new URLSearchParams();   
+    const params = new URLSearchParams();
 
     let RefId = sessionStorage.getItem("RefId");
 
@@ -121,15 +174,15 @@ console.log(formData);
     params.set('RequisitionId', reqId);
     params.set('CandidateId', candidateId);
     params.set('ApplicationId', applicationId);
-    
+
     console.log(params);
-    
+
     return this.http.post(url_get, params, { responseType: ResponseContentType.Blob }).map(data => {
-    
-     return data;
-   
-     
-   });
+
+      return data;
+
+
+    });
 
   }
 }

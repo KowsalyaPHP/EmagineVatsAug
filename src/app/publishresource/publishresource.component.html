@@ -42,7 +42,7 @@
                     <li *ngFor="let option of list['optionGroupList']">
                         <a *ngIf="option.OptionsId == 1" (click)="closeMenu()" ngxClipboard
                             (cbOnSuccess)="copied($event)" [cbContent]="publishUrl + data['ReqId'] + '/' + option.ResourceId"
-                            style="cursor:pointer;">{{option.OptionsName}}</a>
+                            style="cursor:pointer;">{{option.OptionsName}}</a>.
                         <a *ngIf="option.OptionsId == 2" (click)="closeMenu()"
                             href="{{getOpenLink(option.ResourceName, option.ResourceId)}}" target="_blank"
                             style="cursor:pointer;">{{option.OptionsName}}</a>

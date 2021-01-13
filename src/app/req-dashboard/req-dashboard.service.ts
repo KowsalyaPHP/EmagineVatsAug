@@ -31,7 +31,24 @@ export class ReqDashboardService {
           return 'No Data';
       });
   }
+  public getDrillDownValue(reqId): Observable<any> {
 
+    const url = AppComponent.urlPath + 'DrillDownData';
+    const params = new URLSearchParams();  
+    
+    var RefId = sessionStorage.getItem("RefId");
+        
+    params.set('RequisitionId', reqId);
+    params.set('EntityId', RefId);
+    
+    return this.http.post(url, params)
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
+  }
   public getAssessmentcount(reqId): Observable<any> {
 
     const url = AppComponent.urlPath + 'Assesmentcount';

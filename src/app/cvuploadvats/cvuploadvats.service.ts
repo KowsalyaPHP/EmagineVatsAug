@@ -5,29 +5,30 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { AppComponent } from '../app.component';
 import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CvuploadvatsService {
 
-  constructor(private http: Http,private datePipe : DatePipe) { }
+  constructor(private http: Http, private datePipe: DatePipe) { }
 
-  public CVUpload(FormObj,file,ReqID,EmpArray,EduArray,vendorId): Observable<any> {
+  public CVUpload(FormObj, file, ReqID, EmpArray, EduArray, vendorId): Observable<any> {
 
     const url = AppComponent.urlPath + 'CVUpload';
-    const params = new URLSearchParams();   
+    const params = new URLSearchParams();
 
     var RefId = sessionStorage.getItem("RefId");
     var C_ID = sessionStorage.getItem("uniqueSessionId");
 
     const fileValue: File = file[0];
-    const formData = new FormData(); 
+    const formData = new FormData();
     const date = this.datePipe.transform(FormObj.DateofBirth, 'MM/dd/yyyy');
 
     formData.append('EntityID', 'Emagine');
     formData.append('RequisitionId', ReqID);
-    formData.append('UserId',vendorId);
+    formData.append('UserId', vendorId);
     formData.append('CV', fileValue);
     formData.append('Candidate_FN', FormObj.Candidate_FN);
     formData.append('Candidate_LN', FormObj.Candidate_LN);
@@ -51,7 +52,7 @@ export class CvuploadvatsService {
     formData.append('EduDetails', EduArray);
     formData.append('EmpDetails', EmpArray);
     formData.append('sourcecategory', 'Vendor');
-console.log(formData);
+    console.log(formData);
     return this.http.post(url, formData)
       .map(response => response.json()).map(data => {
         if (data != '')
@@ -59,5 +60,54 @@ console.log(formData);
         else
           return '';
       });
+  }
+
+  public CVParser(file): Observable<any> {
+    const url = environment.affindaUrl + 'documents/';
+
+    if (file) {
+      var fileValue: File = file[0];
+    }
+    else {
+      var fileValue: File = null;
+    }
+
+    //const fileValue: File = file[0];
+    const formData = new FormData();
+    formData.append('file_name', fileValue.name);
+    // let fext = fileValue.name.split('.').pop();
+    let fext = "pdf";
+    formData.append(fext, fileValue);
+    console.log(formData);
+    let headers = {
+      Authorization: environment.affindaToken
+    };
+    // return;
+    return this.http.post(url, formData, { headers: <any>headers })
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      },
+        error => {
+        });
+  }
+
+  public getCVDetail(identifier): Observable<any> {
+    const url = environment.affindaUrl + 'documents/' + identifier + '/';
+    let headers = {
+      Authorization: environment.affindaToken
+    };
+    return this.http.get(url, { headers: <any>headers })
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      },
+        error => {
+        });
+    // return;
   }
 }

@@ -138,4 +138,10 @@ table.dataTable tbody th, table.dataTable tbody td {
     width: 0%;
   }
 
- 
+ .subRow{
+   display: none;
+ }
+ .aligndata{
+  vertical-align: top;
+  padding-top:7px;
+ }

@@ -23,6 +23,7 @@ export class ReqDashboardComponent implements OnInit {
 
   reqList:[];
   assessmentCount:[];
+  collapsed1:boolean=false;
   //icon: string[] = []
   message:any;
   /*icon:any;
@@ -50,6 +51,8 @@ export class ReqDashboardComponent implements OnInit {
   summaryCount:any;
   functionList:any;
   funclist:any;
+  subRowReqId;
+  drilldownvalue:[];
 
   constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar, private dataService: DataService){
     this.route.params.subscribe(params => {
@@ -400,6 +403,71 @@ export class ReqDashboardComponent implements OnInit {
       error => console.log(error)      
     );
   
+  }
+
+  getDrillDownValue(reqId){
+   
+    this.ReqDashboardServices.getDrillDownValue(reqId).subscribe(
+      response => {   
+            
+        if (response != "No data") {          
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+          }
+          else {                     
+           this.drilldownvalue = response['Data']; 
+          }    
+            
+        } else {
+         console.log("something is wrong with Service Execution"); 
+        }
+      },
+      error => console.log(error)      
+    );
+   }
+  
+  showSubRow(reqId){
+   
+    if(this.subRowReqId){
+      if(reqId == this.subRowReqId){
+        $('#subRow'+reqId).hide();
+        this.subRowReqId = null;
+      }
+      else{
+        $('#subRow'+this.subRowReqId).hide();
+        $('#subRow'+reqId).show();
+        this.subRowReqId = reqId;
+      }
+    }
+    else {
+      $('#subRow'+reqId).show();
+      this.subRowReqId = reqId;
+    }
+    
+     this.ReqDashboardServices.getDrillDownValue(reqId).subscribe(
+      response => {   
+        console.log(response)
+        if (response != "No data") {  
+          this.drilldownvalue = response['Data']; 
+          console.log(this.drilldownvalue)        
+         /* let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+          }
+          else {                     
+           this.drilldownvalue = response['Data']; 
+           console.log(this.drilldownvalue)
+          }    
+            */
+        } else {
+         console.log("something is wrong with Service Execution"); 
+        }
+      },
+      error => console.log(error)      
+    );
   }
 
   reqDashboardDataTable(){

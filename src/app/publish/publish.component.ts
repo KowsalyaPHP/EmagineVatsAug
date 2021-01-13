@@ -50,6 +50,10 @@ export class PublishComponent implements OnInit {
   reqList:[];
   message:any;
   manageRedirect:boolean=false;
+  checkedBronze:any;
+  checkedSilver:any;
+  checkedGold:any;
+  checkedPlatinum:any;
   
   constructor(private PublishServices: PublishService,private ReqDashboardServices: ReqDashboardService, public dialogRef: MatDialogRef<PublishComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, private routerObj: Router, private route: ActivatedRoute, private dataService: DataService) {
     this.getAllVendorLists();
@@ -216,51 +220,12 @@ export class PublishComponent implements OnInit {
     }
 
     this.selectedAll = this.selectedBronze && this.selectedSilver && this.selectedGold && this.selectedPlatinum ? true : false;
-    /*if(SelectedorNot == true){
-      for (let i = 0; i < this.FunctionList.length; i++) {                
-          for(let j=0; j< this.FunctionList[i]['functionGroupList'].length;j++){
-            if(this.FunctionList[i]['functionGroupList'][j]['ModuleId'] == moduleId){
-              this.FunctionList[i]['functionGroupList'][j]['FunctionSelected'] = true;
-            }
-          }       
-      }
-    }
-    else{
-      for (let i = 0; i < this.FunctionList.length; i++) {                
-        for(let j=0; j< this.FunctionList[i]['functionGroupList'].length;j++){
-          if(this.FunctionList[i]['functionGroupList'][j]['ModuleId'] == moduleId){
-            this.FunctionList[i]['functionGroupList'][j]['FunctionSelected'] = false;
-          }
-        }       
-      }
-    }*/
-    /* else{
-       for (let i = 0; i < this.FunctionList.length; i++) {                
-         for(let j=0; j< this.FunctionList[i]['functionGroupList'].length;j++){
-           if(this.FunctionList[i]['functionGroupList'][j]['ModuleId'] == moduleId){
-             this.FunctionList[i]['functionGroupList'][j]['FunctionSelected'] = false;
-           }
-         }       
-       }
-     }
-     if(SelectedorNot == true){
-       for (let i = 0; i < this.SubfunctionList.length; i++) {                
-         for(let j=0; j< this.SubfunctionList[i]['subfunctionGroupList'].length;j++){
-           if(this.SubfunctionList[i]['subfunctionGroupList'][j]['ModuleId'] == moduleId){
-             this.SubfunctionList[i]['subfunctionGroupList'][j]['SubFunctionSelected'] = true;
-           }
-         }       
-       }
-     }
-     else{
-       for (let i = 0; i < this.SubfunctionList.length; i++) {                
-         for(let j=0; j< this.SubfunctionList[i]['subfunctionGroupList'].length;j++){
-           if(this.SubfunctionList[i]['subfunctionGroupList'][j]['ModuleId'] == moduleId){
-             this.SubfunctionList[i]['subfunctionGroupList'][j]['SubFunctionSelected'] = false;
-           }
-         }       
-       }
-     }*/
+
+    this.checkedBronze = this.allvendorBronze.filter(f => f.P_Status == true).length;
+    this.checkedSilver = this.allvendorSilver.filter(f => f.P_Status == true).length;
+    this.checkedGold = this.allvendorGold.filter(f => f.P_Status == true).length;
+    this.checkedPlatinum = this.allvendorPlatinum.filter(f => f.P_Status == true).length;
+    
   }
 
   changeItem(category) {
@@ -305,6 +270,11 @@ export class PublishComponent implements OnInit {
       }
     }
 
+   
+    this.checkedBronze = this.allvendorBronze.filter(f => f.P_Status == true).length;
+    this.checkedSilver = this.allvendorSilver.filter(f => f.P_Status == true).length;
+    this.checkedGold = this.allvendorGold.filter(f => f.P_Status == true).length;
+    this.checkedPlatinum = this.allvendorPlatinum.filter(f => f.P_Status == true).length;
 
     let allItems = [];
     allItems = this.allvendorBronze.filter(f => f.P_Status == false);
