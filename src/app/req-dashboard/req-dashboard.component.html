@@ -186,243 +186,343 @@
                 </ejs-tooltip></th>            
             </tr>       
         </thead>
-        <tbody>          
-        <tr *ngFor="let item of reqList; let i = index" >  
-          <td class="dropdown">
-              <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.RequistionId}} </a> 
-              <ul class="dropdown-menu" id="showmenu{{i}}">
-                  <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',item.RequistionId]" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Edit Requisition</a></li>
-                  <li style="cursor:pointer;" *ngIf="item.Reqstatus == 'OP'" (click)="openDialogPublish(item.RequistionId,item.ReqTitle,item.PublishStatus)"> <a> <i class="fas fa-newspaper"></i>&nbsp;&nbsp;Publish Requisition</a></li>
-                  <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('204')"> <a [routerLink]="['/manage',item.RequistionId,'SO']"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Manage Candidate</a></li>
-                  <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('203')"> <a [routerLink]="['/cvupload',item.RequistionId,'0']"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;Upload CV</a></li>
-                  <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/clone',item.RequistionId]"><i class="fas fa-clone"></i>&nbsp;&nbsp;Clone Requisition</a></li>
-                  <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequistionId)"><a><i class="fas fa-file"></i>&nbsp;&nbsp;View JD</a></li>
-                </ul>
-                <a (click)="showSubRow(item.RequistionId)" style="color: rgb(72, 72, 236);cursor:pointer;"><i
-                class="fas fa-caret-square-down" ></i></a>
-                <div id="subRow{{item.RequistionId}}" class="subRow">
-                  <ul *ngFor="let list of drilldownvalue; let i = index">ll
-                    <li style="float:left;">{{list.SourceCategory}}</li>
-                    <li style="float:left;">{{list.Sourcing}}</li>
-                    <li style="float:left;">{{list.Screening}}</li>
-                    <li style="float:left;">{{list.Assessment}}</li>
-                    <li style="float:left;">{{list.HRRound}}</li>
-                    <li style="float:left;">{{list.Offered}}</li>
-                    <li style="float:left;">{{list.Joined}}</li>
-                    <li style="float:left;">{{list.CR}}</li>
-                    <li style="float:left;">{{list.IR}}</li>
-                  </ul>
-                </div>
-          </td>   
-          <td class="dateellipes">
-            <ejs-tooltip  id='tooltip_1' >
-              <ng-template #content>
-                
-                  <table>
-                    <tr><td >{{item.ReqTitle}}</td></tr>                
-                  </table>
-              </ng-template>
-              {{item.ReqTitle}}
-            </ejs-tooltip>
-          </td>          
-          <td class="aligndata">{{item.EACManager}}</td>
-          <td class="aligndata">{{item.DeliveryManager}}</td>
-          <td class="aligndata"> <ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table>                   
-                  <tr><td> {{item.PublishStatusString}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.PublishStatus}}
-            </ejs-tooltip></td>
-          <td class="clientellipes">
+        <tbody>  
+          <ng-container  *ngFor="let item of reqList; let i = index">              
+            <tr >  
+              <td class="dropdown">
+                  <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.RequistionId}}</a> 
+                  <ul class="dropdown-menu" id="showmenu{{i}}">
+                      <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',item.RequistionId]" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Edit Requisition</a></li>
+                      <li style="cursor:pointer;" *ngIf="item.Reqstatus == 'OP'" (click)="openDialogPublish(item.RequistionId,item.ReqTitle,item.PublishStatus)"> <a> <i class="fas fa-newspaper"></i>&nbsp;&nbsp;Publish Requisition</a></li>
+                      <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('204')"> <a [routerLink]="['/manage',item.RequistionId,'SO']"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Manage Candidate</a></li>
+                      <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('203')"> <a [routerLink]="['/cvupload',item.RequistionId,'0']"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;Upload CV</a></li>
+                      <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/clone',item.RequistionId]"><i class="fas fa-clone"></i>&nbsp;&nbsp;Clone Requisition</a></li>
+                      <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequistionId)"><a><i class="fas fa-file"></i>&nbsp;&nbsp;View JD</a></li>
+                    </ul>
+                    <!--<a class="statuscolor aligndata"><ejs-tooltip  id='tooltip_1'>
+                      <ng-template #content>
+                      <table style="border-collapse: collapse;">
+                        <thead>
+                          <tr>
+                            <td style="width: 150px;"></td>
+                            <td style="width: 65px;">S</td>
+                            <td style="width: 65px;">S</td>
+                            <td style="width: 65px;">A</td>
+                            <td style="width: 65px;">H</td>
+                            <td style="width: 65px;">O</td>
+                            <td style="width: 65px;">J</td>
+                            <td style="width: 65px;">CR</td>
+                            <td style="width: 65px;">IR</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let list of drilldownvalue; let i = index">
+                            <td>{{list.SourceCategory}}</td>
+                            <td>{{list.Sourcing}}</td>
+                            <td>{{list.Screening}}</td>
+                            <td>{{list.Assessment}}</td>
+                            <td>{{list.HRRound}}</td>
+                            <td>{{list.Offered}}</td>
+                            <td>{{list.Joined}}</td>
+                            <td>{{list.CR}}</td>
+                            <td>{{list.IR}}</td>
+                          </tr>
+                          
+                        </tbody>
+                        <tfoot >
+                          <tr>
+                            <td style="border-top: 1px solid #cdcdd0;">Total</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{sourcetotal}}</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{screeningtotal}}</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{assessmenttotal}}</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{hrtotal}}</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{offeredtotal}}</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{joinedtotal}}</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{CRtotal}}</td>
+                            <td style="border-top: 1px solid #cdcdd0;">{{IRtotal}}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                      </ng-template><i class="fas fa-caret-square-down" (mouseenter)="showSubRow(item.RequistionId)" style="margin-top: -13px;float: left;margin-left: 38px;"></i>-->
+                      <!--<ng-template #content>
+                        <div class="subRow-row" *ngFor="let list of drilldownvalue; let i = index">
 
-            <ejs-tooltip  id='tooltip_1'>
-              <ng-template #content>
-                  <table>                   
-                    <tr><td> {{item.Clientname}}</td></tr>
-                  </table>
-              </ng-template>
-              {{item.Clientname}}
-              </ejs-tooltip>
-          </td>
-          
-         <!-- <td class="clientellipes">
+                          <div class="subRow-cell">{{list.SourceCategory}}</div>
+                          <div class="subRow-cell">{{list.Sourcing}}</div>
+                          <div class="subRow-cell">{{list.Screening}}</div>
+                          <div class="subRow-cell">{{list.Assessment}}</div>
+                          <div class="subRow-cell">{{list.HRRound}}</div>
+                          <div class="subRow-cell">{{list.Offered}}</div>
+                          <div class="subRow-cell">{{list.Joined}}</div>
+                          <div class="subRow-cell">{{list.CR}}</div>
+                          <div class="subRow-cell">{{list.IR}}</div>
+                        </div>
+                          <table>
+                            <tr><td style="padding-bottom: 10px;">Screening :</td> <td style="padding-bottom: 10px;">{{item.Screening}} ({{item.screeningPerc}}%)</td></tr>
+                            <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                          </table>
+                      </ng-template>-->
+                    
+                    <!--</ejs-tooltip> </a>-->
+                    <i class="fas fa-caret-square-down statuscolor" (mouseenter)="showSubRow(item.RequistionId,i)" style="margin-top: -13px;float: left;margin-left: 38px;"></i>
 
-            <ejs-tooltip  id='tooltip_1'>
-              <ng-template #content>
-                  <table>                   
-                    <tr><td> {{item.PublishStatusString}}</td></tr>
-                  </table>
-              </ng-template>
-              {{item.PublishStatus}}
-              </ejs-tooltip>
-          </td>-->
-          
-          <td class="dropdown aligndata" style="padding-left:24px;">
-              <a style="color:rgb(190, 32, 32);cursor:pointer;" (click)="priorityMethod(i)">
-               <!--<mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'; else low">arrow_upwards</mat-icon>
-                <ng-template #low>
-                  <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'L';else nuetral">arrow_downward</mat-icon>
+                    <!--<a id="showsubrow-control" (click)="showSubRow(item.RequistionId)"  style="color: rgb(72, 72, 236);cursor:pointer;"><i
+                    class="fas fa-caret-square-down" ></i></a>
+                    <div id="subRow{{item.RequistionId}}" class="subRow">
+                      <ul *ngFor="let list of drilldownvalue; let i = index">ll
+                        <li style="float:left;">{{list.SourceCategory}}</li>
+                        <li style="float:left;">{{list.Sourcing}}</li>
+                        <li style="float:left;">{{list.Screening}}</li>
+                        <li style="float:left;">{{list.Assessment}}</li>
+                        <li style="float:left;">{{list.HRRound}}</li>
+                        <li style="float:left;">{{list.Offered}}</li>
+                        <li style="float:left;">{{list.Joined}}</li>
+                        <li style="float:left;">{{list.CR}}</li>
+                        <li style="float:left;">{{list.IR}}</li>
+                      </ul>
+                      <div class="subRow-row" *ngFor="let list of drilldownvalue; let i = index">
+                        <div class="subRow-cell">{{list.SourceCategory}}</div>
+                        <div class="subRow-cell">{{list.Sourcing}}</div>
+                        <div class="subRow-cell">{{list.Screening}}</div>
+                        <div class="subRow-cell">{{list.Assessment}}</div>
+                        <div class="subRow-cell">{{list.HRRound}}</div>
+                        <div class="subRow-cell">{{list.Offered}}</div>
+                        <div class="subRow-cell">{{list.Joined}}</div>
+                        <div class="subRow-cell">{{list.CR}}</div>
+                        <div class="subRow-cell">{{list.IR}}</div>
+                      </div> 
+
+                    </div>-->
+              </td>   
+              <td class="dateellipes">
+                <ejs-tooltip  id='tooltip_1' >
+                  <ng-template #content>
+                    
+                      <table>
+                        <tr><td >{{item.ReqTitle}}</td></tr>                
+                      </table>
+                  </ng-template>
+                  {{item.ReqTitle}}
+                </ejs-tooltip>
+              </td>          
+              <td class="aligndata">{{item.EACManager}}</td>
+              <td class="aligndata">{{item.DeliveryManager}}</td>
+              <td class="aligndata"> <ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>                   
+                      <tr><td> {{item.PublishStatusString}}</td></tr>
+                    </table>
                 </ng-template>
-                <ng-template #nuetral>
-                  <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'N'">more_horiz</mat-icon>
-                </ng-template>-->
-                <!--<mat-icon id="changeIcon{{i}}">{{icon}}</mat-icon>--> 
-                <mat-icon style="font-size: 18px;font-weight: 600;" id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'">arrow_upwards</mat-icon>
-                <mat-icon style="font-size: 18px;font-weight: 600;" id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'L'">arrow_downward</mat-icon>
-                <mat-icon style="font-size: 18px;font-weight: 600;" id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'N'">more_horiz</mat-icon>
-              </a> 
-             <!-- <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'H'; else lowmenu" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
-                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
-                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
-              </ul>
-              <ng-template #lowmenu>
-                <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'L'; else neutralmenu" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
-                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
-                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
-              </ul>
-              </ng-template>
-              <ng-template #neutralmenu>
-                <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'N'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
-                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
-                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
-              </ul>
-              </ng-template>--> <ul style="margin: -11px 0px 0px 10px;" *ngIf="item.Reqpriority == 'H'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
-                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
-                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
-                </ul>            
-                <ul style="margin: -11px 0px 0px 10px;" *ngIf="item.Reqpriority == 'L'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
-                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
-                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
-                </ul>             
-                <ul style="margin:  -11px 0px 0px 10px;" *ngIf="item.Reqpriority == 'N'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
-                  <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
-                  <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
-              </ul>              
-          </td>   
-          <td class="aligndata" style="text-align: center;">{{item.Username}}</td>
-          <td class="aligndata" style="text-align: center;">{{item.Ageing}}d</td>
-          <td class="aligndata" style="border-right:1px solid #000000;text-align: center;">{{item.Positions}}</td>
-          <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-              <ng-template #content>
-                  <table>
-                    <tr><td style="padding-bottom: 10px;">Sourcing :</td> <td style="padding-bottom: 10px;">{{item.Sourcing}} ({{item.sourcePerc}}%)</td></tr>
-                    <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                  </table>
-              </ng-template>
-              {{item.Sourcing}}
-              </ejs-tooltip> </a>
-              <ng-template #noTooltip>
-                <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus]">{{item.Sourcing}}</a>
-              </ng-template>  
-          </td>
+                {{item.PublishStatus}}
+                </ejs-tooltip></td>
+              <td class="clientellipes">
 
-          <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table>
-                  <tr><td style="padding-bottom: 10px;">Screening :</td> <td style="padding-bottom: 10px;">{{item.Screening}} ({{item.screeningPerc}}%)</td></tr>
-                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.Screening}}
-            </ejs-tooltip> </a>
-            <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus] ">{{item.Screening}}</a>
-            </ng-template>  
-          </td>
+                <ejs-tooltip  id='tooltip_1'>
+                  <ng-template #content>
+                      <table>                   
+                        <tr><td> {{item.Clientname}}</td></tr>
+                      </table>
+                  </ng-template>
+                  {{item.Clientname}}
+                  </ejs-tooltip>
+              </td>
+              
+            <!-- <td class="clientellipes">
 
-          <td class="sum"><a class="statuscolor aligndata" (mouseenter) ="getAssessmentCount(item.RequistionId)" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table *ngFor="let count of assessmentCount; let i = index">
-                  <tr *ngIf="count.AssesmentCount >= 0"><td style="padding-bottom: 10px;">CV Submitted :</td> <td style="padding-bottom: 10px;">{{count.AssesmentCount}} ({{item.assessmentPerc}}%)</td></tr>
-                  <tr *ngIf="count.Round1Count > 0"><td style="padding-bottom: 10px;">Round 1 :</td> <td style="padding-bottom: 10px;">{{count.Round1Count}}</td></tr>
-                  <tr *ngIf="count.Round2Count > 0"><td style="padding-bottom: 10px;">Round 2 :</td> <td style="padding-bottom: 10px;">{{count.Round2Count}}</td></tr>
-                  <tr *ngIf="count.Round3Count > 0"><td style="padding-bottom: 10px;">Round 3 :</td> <td style="padding-bottom: 10px;">{{count.Round3Count}}</td></tr>
-                  <tr *ngIf="count.Round4Count > 0"><td style="padding-bottom: 10px;">Round 4 :</td> <td style="padding-bottom: 10px;">{{count.Round4Count}}</td></tr>
-                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.Assessment}}
-            </ejs-tooltip> </a>
-            
-            <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] ">{{item.Assessment}}</a>
-            </ng-template>  
-          </td>
-          
-          <td class="sum"><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table>
-                  <tr><td style="padding-bottom: 10px;">HR Round :</td> <td style="padding-bottom: 10px;">{{item.HRRound}} ({{item.hrPerc}}%)</td></tr>
-                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.HRRound}}
-            </ejs-tooltip> </a>
-            <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] ">{{item.HRRound}}</a>
-            </ng-template>  
-          </td>
+                <ejs-tooltip  id='tooltip_1'>
+                  <ng-template #content>
+                      <table>                   
+                        <tr><td> {{item.PublishStatusString}}</td></tr>
+                      </table>
+                  </ng-template>
+                  {{item.PublishStatus}}
+                  </ejs-tooltip>
+              </td>-->
+              
+              <td class="dropdown aligndata" style="padding-left:24px;">
+                  <a style="color:rgb(190, 32, 32);cursor:pointer;" (click)="priorityMethod(i)">
+                  <!--<mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'; else low">arrow_upwards</mat-icon>
+                    <ng-template #low>
+                      <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'L';else nuetral">arrow_downward</mat-icon>
+                    </ng-template>
+                    <ng-template #nuetral>
+                      <mat-icon id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'N'">more_horiz</mat-icon>
+                    </ng-template>-->
+                    <!--<mat-icon id="changeIcon{{i}}">{{icon}}</mat-icon>--> 
+                    <mat-icon style="font-size: 18px;font-weight: 600;" id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'H'">arrow_upwards</mat-icon>
+                    <mat-icon style="font-size: 18px;font-weight: 600;" id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'L'">arrow_downward</mat-icon>
+                    <mat-icon style="font-size: 18px;font-weight: 600;" id="changeIcon{{i}}" *ngIf="item.Reqpriority == 'N'">more_horiz</mat-icon>
+                  </a> 
+                <!-- <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'H'; else lowmenu" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                      <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
+                      <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
+                  </ul>
+                  <ng-template #lowmenu>
+                    <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'L'; else neutralmenu" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                      <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
+                      <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
+                  </ul>
+                  </ng-template>
+                  <ng-template #neutralmenu>
+                    <ul style="margin: -7px 0px 0px 30px;" *ngIf="item.Reqpriority == 'N'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                      <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
+                      <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
+                  </ul>
+                  </ng-template>--> <ul style="margin: -11px 0px 0px 10px;" *ngIf="item.Reqpriority == 'H'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                      <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
+                      <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
+                    </ul>            
+                    <ul style="margin: -11px 0px 0px 10px;" *ngIf="item.Reqpriority == 'L'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                      <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
+                      <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('N',item.RequistionId,i)">Change to Neutral</a></li>
+                    </ul>             
+                    <ul style="margin:  -11px 0px 0px 10px;" *ngIf="item.Reqpriority == 'N'" class="dropdown-menu remove{{item.RequistionId}}" id="showprioritymenu{{i}}">
+                      <li style="cursor:pointer;"> <a id="Menu1{{i}}" (click)="updatePriority('H',item.RequistionId,i)">Change to High</a></li>
+                      <li style="cursor:pointer;"> <a id="Menu2{{i}}" (click)="updatePriority('L',item.RequistionId,i)">Change to Low</a></li>
+                  </ul>              
+              </td>   
+              <td class="aligndata" style="text-align: center;">{{item.Username}}</td>
+              <td class="aligndata" style="text-align: center;">{{item.Ageing}}d</td>
+              <td class="aligndata" style="border-right:1px solid #000000;text-align: center;">{{item.Positions}}</td>
+              <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                  <ng-template #content>
+                      <table>
+                        <tr><td style="padding-bottom: 10px;">Sourcing :</td> <td style="padding-bottom: 10px;">{{item.Sourcing}} ({{item.sourcePerc}}%)</td></tr>
+                        <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                      </table>
+                  </ng-template>
+                  {{item.Sourcing}}
+                  </ejs-tooltip> </a>
+                  <ng-template #noTooltip>
+                    <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus]">{{item.Sourcing}}</a>
+                  </ng-template>  
+              </td>
 
-             
-          <td class="sum"><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table>
-                  <tr><td style="padding-bottom: 10px;">Offered :</td> <td style="padding-bottom: 10px;">{{item.Offered}} ({{item.offeredPerc}}%)</td></tr>
-                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.Offered}}
-            </ejs-tooltip> </a>
-            <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] ">{{item.Offered}}</a>
-            </ng-template>  
-          </td>
+              <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>
+                      <tr><td style="padding-bottom: 10px;">Screening :</td> <td style="padding-bottom: 10px;">{{item.Screening}} ({{item.screeningPerc}}%)</td></tr>
+                      <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                    </table>
+                </ng-template>
+                {{item.Screening}}
+                </ejs-tooltip> </a>
+                <ng-template #noTooltip>
+                  <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'SC'] : ['/req-dashboard',item.Reqstatus] ">{{item.Screening}}</a>
+                </ng-template>  
+              </td>
 
-          <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'JO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table>
-                  <tr><td style="padding-bottom: 10px;">Joined :</td> <td style="padding-bottom: 10px;">{{item.Joined}} ({{item.joinedPerc}}%)</td></tr>
-                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.Joined}}
-            </ejs-tooltip> </a>
-            <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'JO'] : ['/req-dashboard',item.Reqstatus] ">{{item.Joined}}</a>
-            </ng-template>  
-          </td>
+              <td class="sum"><a class="statuscolor aligndata" (mouseenter) ="getAssessmentCount(item.RequistionId)" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table *ngFor="let count of assessmentCount; let i = index">
+                      <tr *ngIf="count.AssesmentCount >= 0"><td style="padding-bottom: 10px;">CV Submitted :</td> <td style="padding-bottom: 10px;">{{count.AssesmentCount}} ({{item.assessmentPerc}}%)</td></tr>
+                      <tr *ngIf="count.Round1Count > 0"><td style="padding-bottom: 10px;">Round 1 :</td> <td style="padding-bottom: 10px;">{{count.Round1Count}}</td></tr>
+                      <tr *ngIf="count.Round2Count > 0"><td style="padding-bottom: 10px;">Round 2 :</td> <td style="padding-bottom: 10px;">{{count.Round2Count}}</td></tr>
+                      <tr *ngIf="count.Round3Count > 0"><td style="padding-bottom: 10px;">Round 3 :</td> <td style="padding-bottom: 10px;">{{count.Round3Count}}</td></tr>
+                      <tr *ngIf="count.Round4Count > 0"><td style="padding-bottom: 10px;">Round 4 :</td> <td style="padding-bottom: 10px;">{{count.Round4Count}}</td></tr>
+                      <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                    </table>
+                </ng-template>
+                {{item.Assessment}}
+                </ejs-tooltip> </a>
+                
+                <ng-template #noTooltip>
+                  <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'AS'] : ['/req-dashboard',item.Reqstatus] ">{{item.Assessment}}</a>
+                </ng-template>  
+              </td>
+              
+              <td class="sum"><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>
+                      <tr><td style="padding-bottom: 10px;">HR Round :</td> <td style="padding-bottom: 10px;">{{item.HRRound}} ({{item.hrPerc}}%)</td></tr>
+                      <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                    </table>
+                </ng-template>
+                {{item.HRRound}}
+                </ejs-tooltip> </a>
+                <ng-template #noTooltip>
+                  <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'HR'] : ['/req-dashboard',item.Reqstatus] ">{{item.HRRound}}</a>
+                </ng-template>  
+              </td>
 
-          <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'CR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table>
-                  <tr><td style="padding-bottom: 10px;">Client Reject:</td> <td style="padding-bottom: 10px;">{{item.CR}} ({{item.CRPerc}}%)</td></tr>
-                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.CR}}
-            </ejs-tooltip> </a>
-            <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] ">{{item.CR}}</a>
-            </ng-template>  
-          </td>
+                
+              <td class="sum"><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>
+                      <tr><td style="padding-bottom: 10px;">Offered :</td> <td style="padding-bottom: 10px;">{{item.Offered}} ({{item.offeredPerc}}%)</td></tr>
+                      <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                    </table>
+                </ng-template>
+                {{item.Offered}}
+                </ejs-tooltip> </a>
+                <ng-template #noTooltip>
+                  <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'OF'] : ['/req-dashboard',item.Reqstatus] ">{{item.Offered}}</a>
+                </ng-template>  
+              </td>
 
-          <td ><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'IR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
-            <ng-template #content>
-                <table>
-                  <tr><td style="padding-bottom: 10px;">Internal Reject:</td> <td style="padding-bottom: 10px;">{{item.IR}} ({{item.IRPerc}}%)</td></tr>
-                  <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
-                </table>
-            </ng-template>
-            {{item.IR}}
-            </ejs-tooltip> </a>
-            <ng-template #noTooltip>
-              <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] ">{{item.IR}}</a>
-            </ng-template>  
-          </td>
-        </tr>      
-      
+              <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'JO'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>
+                      <tr><td style="padding-bottom: 10px;">Joined :</td> <td style="padding-bottom: 10px;">{{item.Joined}} ({{item.joinedPerc}}%)</td></tr>
+                      <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                    </table>
+                </ng-template>
+                {{item.Joined}}
+                </ejs-tooltip> </a>
+                <ng-template #noTooltip>
+                  <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'JO'] : ['/req-dashboard',item.Reqstatus] ">{{item.Joined}}</a>
+                </ng-template>  
+              </td>
+
+              <td><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'CR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>
+                      <tr><td style="padding-bottom: 10px;">Client Reject:</td> <td style="padding-bottom: 10px;">{{item.CR}} ({{item.CRPerc}}%)</td></tr>
+                      <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                    </table>
+                </ng-template>
+                {{item.CR}}
+                </ejs-tooltip> </a>
+                <ng-template #noTooltip>
+                  <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] ">{{item.CR}}</a>
+                </ng-template>  
+              </td>
+
+              <td ><a class="statuscolor aligndata" *ngIf="item.totalCount > 0; else noTooltip;" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'IR'] : ['/req-dashboard',item.Reqstatus] "><ejs-tooltip  id='tooltip_1'>
+                <ng-template #content>
+                    <table>
+                      <tr><td style="padding-bottom: 10px;">Internal Reject:</td> <td style="padding-bottom: 10px;">{{item.IR}} ({{item.IRPerc}}%)</td></tr>
+                      <tr><td style="border-top:1px dashed #ffffff;padding-top:10px;">Total:</td> <td style="padding-top:10px;text-align: center;"> {{item.totalCount}}</td></tr>
+                    </table>
+                </ng-template>
+                {{item.IR}}
+                </ejs-tooltip> </a>
+                <ng-template #noTooltip>
+                  <a class="statuscolor" [routerLink]="manageRedirect ? ['/manage',item.RequistionId,'NH'] : ['/req-dashboard',item.Reqstatus] ">{{item.IR}}</a>
+                </ng-template>  
+              </td>
+            </tr>    
+            <tr *ngFor="let list of item.SCCount; let j = index" id="resourcescount{{i}}" style="visibility:hidden;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="text-align: right;">{{list.SourceCategory}}</td>
+              <td>{{list.Sourcing}}</td>
+              <td>{{list.Screening}}</td>
+              <td>{{list.Assessment}}</td>
+              <td>{{list.HRRound}}</td>
+              <td>{{list.Offered}}</td>
+              <td>{{list.Joined}}</td>
+              <td>{{list.CR}}</td>
+              <td>{{list.IR}}</td>
+            </tr>
+          </ng-container>
         </tbody> 
         <tfoot *ngIf="reqList && reqList.length > 0">
           <tr>

@@ -137,18 +137,59 @@ export class CvuploadService {
       });
   }
 
-  public UpdateCV(candId, FormObj): Observable<any> {
+  public UpdateCV(ReqID, candId, FormObj,file, EduArray, EmpArray): Observable<any> {
 
     const url = AppComponent.urlPath + 'UpdateCV';
-    const params = new URLSearchParams();
+        //const fileValue: File = file[0];
+        const formData = new FormData();
+        const date = this.datePipe.transform(FormObj.DateofBirth, 'MM/dd/yyyy');
+
+        var RefId = sessionStorage.getItem("RefId");
+        var C_ID = sessionStorage.getItem("uniqueSessionId");
+    
+        if (file) {
+          var fileValue: File = file[0];
+        }
+        else {
+          var fileValue: File = null;
+        }
+    
+        formData.append('EntityID', RefId);
+        formData.append('RequisitionId', ReqID);
+        //formData.append('UserId', C_ID);
+        //formData.append('CV', fileValue);
+        formData.append('Candidate_FN', FormObj.Candidate_FN);
+        formData.append('Candidate_LN', FormObj.Candidate_LN);
+        formData.append('EMailId', FormObj.EMailId);
+        formData.append('MobileNo', FormObj.MobileNo);
+        formData.append('DateofBirth', date);
+        formData.append('Gender', FormObj.Gender);
+        //formData.append('MaritalStatus', FormObj.MaritalStatus);
+        formData.append('WorkAuthorization', FormObj.WorkAuthorization);
+        formData.append('PassportNo', FormObj.PassportNo);
+        formData.append('Nationality', FormObj.Nationality);
+        formData.append('Pr_AddressL1', FormObj.Pr_AddressL1);
+        formData.append('Pr_AddressL2', FormObj.Pr_AddressL2);
+        formData.append('Pr_AddressL3', FormObj.Pr_AddressL3);
+        formData.append('Pr_AddressL4', FormObj.Pr_AddressL4);
+        formData.append('Perm_AddressL1', FormObj.Perm_AddressL1);
+        formData.append('Perm_AddressL2', FormObj.Perm_AddressL2);
+        formData.append('Perm_AddressL3', FormObj.Perm_AddressL3);
+        formData.append('Perm_AddressL4', FormObj.Perm_AddressL4);
+        formData.append('C_ID', C_ID);
+        formData.append('EduDetails', EduArray);
+        formData.append('EmpDetails', EmpArray);
+        formData.append('CandidateId', candId);
+       // formData.append('sourcecategory', 'Selfsource');
+   /* const params = new URLSearchParams();
 
     params.set('CandidateId', candId);
     params.set('Candidate_FN', FormObj.Candidate_FN);
     params.set('Candidate_LN', FormObj.Candidate_LN);
     params.set('EMailId', FormObj.EMailId);
     params.set('MobileNo', FormObj.MobileNo);
-
-    return this.http.post(url, params)
+*/
+    return this.http.post(url, formData)
       .map(response => response.json()).map(data => {
         if (data != '')
           return data;

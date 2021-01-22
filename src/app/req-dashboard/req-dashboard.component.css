@@ -141,6 +141,15 @@ table.dataTable tbody th, table.dataTable tbody td {
  .subRow{
    display: none;
  }
+
+ .subRow-row{
+  display: table-row;
+ }
+
+ .subRow-cell{
+  display: table-cell;
+  padding: 5px;
+ }
  .aligndata{
   vertical-align: top;
   padding-top:7px;

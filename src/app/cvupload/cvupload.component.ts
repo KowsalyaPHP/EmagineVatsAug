@@ -101,7 +101,7 @@ export class CvuploadComponent implements OnInit {
             let getFileName = this.CvView['CVLink'].split("#$#");
             this.attachment = getFileName['1'];
 
-            $("#DateofBirth").prop('readonly', true);
+            /*$("#DateofBirth").prop('readonly', true);
             $("#Gender").prop('readonly', true);
             $("#WorkAuthorization").prop('readonly', true);
             $("#Nationality").prop('readonly', true);
@@ -113,14 +113,14 @@ export class CvuploadComponent implements OnInit {
             $("#Perm_AddressL1").prop('readonly', true);
             $("#Perm_AddressL2").prop('readonly', true);
             $("#Perm_AddressL3").prop('readonly', true);
-            $("#Perm_AddressL4").prop('readonly', true);
+            $("#Perm_AddressL4").prop('readonly', true);*/
 
             this.CVUploadForm.patchValue({
               Candidate_FN: this.CvView['Candidate_FN'],
               Candidate_LN: this.CvView['Candidate_LN'],
               EMailId: this.CvView['EMailId'],
               MobileNo: this.CvView['MobileNo'],
-              DateofBirth: this.CvView['DateofBirth'],
+              DateofBirth: new Date(this.CvView['DateofBirth']),
               Gender: this.CvView['Gender'],
               WorkAuthorization: this.CvView['WorkAuthorization'],
               Nationality: this.CvView['Nationality'],
@@ -136,6 +136,7 @@ export class CvuploadComponent implements OnInit {
             });
             this.EduArray = this.CvView['Edulist'];
             this.EmpArray = this.CvView['Emplist'];
+
           }
 
         } else {
@@ -481,7 +482,7 @@ export class CvuploadComponent implements OnInit {
       var confirm = window.confirm('Do you want to update the cv details?');
       if (confirm == true) {
 
-        this.CvuploadServices.UpdateCV(this.cid, formObj).subscribe(
+        this.CvuploadServices.UpdateCV(this.id,this.cid, formObj,this.fileList,this.passEdu,this.passEmp).subscribe(
           response => {
             if (response != "No data") {
               let getMessage = response['Message'].split(":");
@@ -493,7 +494,7 @@ export class CvuploadComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();
                 setTimeout(() => {
-                  this.routerObj.navigate(['manage/', this.id, 'SO']);
+                 // this.routerObj.navigate(['manage/', this.id, 'SO']);
                 }
                   , 3000);
               }

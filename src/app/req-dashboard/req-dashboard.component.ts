@@ -53,7 +53,17 @@ export class ReqDashboardComponent implements OnInit {
   funclist:any;
   subRowReqId;
   drilldownvalue:[];
-
+ 
+  sourcetotal = 0;
+  screeningtotal = 0;
+  assessmenttotal = 0;
+  hrtotal = 0;
+  offeredtotal = 0;
+  joinedtotal = 0;
+  CRtotal = 0;
+  IRtotal = 0;
+  showResource:boolean=false;
+  
   constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar, private dataService: DataService){
     this.route.params.subscribe(params => {
       this.status = params['status']; 
@@ -141,6 +151,20 @@ export class ReqDashboardComponent implements OnInit {
           this.getReqLists(this.status);
         }
       });
+
+      /*$(function() {
+        $("resourcescount").hide();
+        $("#showdrilldown").click(function(event) {
+            event.stopPropagation();
+            var $target = $(event.target);
+            if ( $target.closest("td").attr("colspan") > 1 ) {
+                $target.slideUp();
+            } else {
+                $target.closest("tr").next().find("p").slideToggle();
+            }                    
+        });
+    });*/
+
  /*   let time_out = 50;
 
     let reqDBPromise = (new Promise(function(resolve, reject) {
@@ -391,7 +415,7 @@ export class ReqDashboardComponent implements OnInit {
             });
 
             this.reqList = response['Data']['RequisitionDetail']; 
-            
+            console.log(this.reqList)
             this.summaryCount = response['Data']['SummeryCount'];
 
             this.reqDashboardDataTable();  
@@ -428,9 +452,9 @@ export class ReqDashboardComponent implements OnInit {
     );
    }
   
-  showSubRow(reqId){
-   
-    if(this.subRowReqId){
+  showSubRow(reqId,i){
+    $("#resourcescount"+i).show();
+    /*if(this.subRowReqId){
       if(reqId == this.subRowReqId){
         $('#subRow'+reqId).hide();
         this.subRowReqId = null;
@@ -451,7 +475,30 @@ export class ReqDashboardComponent implements OnInit {
         console.log(response)
         if (response != "No data") {  
           this.drilldownvalue = response['Data']; 
-          console.log(this.drilldownvalue)        
+         
+          this.sourcetotal = 0;
+          this.screeningtotal = 0;
+          this.assessmenttotal = 0;
+          this.hrtotal = 0;
+          this.offeredtotal = 0;
+          this.joinedtotal = 0;
+          this.CRtotal = 0;
+          this.IRtotal = 0;
+        
+          response['Data'].forEach(item => {
+            
+            item.totalCount = (item.Sourcing+item.Screening+item.Assessment+item.HRRound+item.Offered+item.Joined+item.CR+item.IR);    
+            this.sourcetotal +=  item.Sourcing;   
+            this.screeningtotal +=  item.Screening;   
+            this.assessmenttotal +=  item.Assessment;   
+            this.hrtotal +=  item.HRRound;   
+            this.offeredtotal +=  item.Offered;   
+            this.joinedtotal +=  item.Joined;   
+            this.CRtotal +=  item.CR;   
+            this.IRtotal +=  item.IR;   
+            
+           });    
+
          /* let getMessage =  response['Message'].split(":");
           if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
             this.message = getMessage['1'];
@@ -461,13 +508,13 @@ export class ReqDashboardComponent implements OnInit {
            this.drilldownvalue = response['Data']; 
            console.log(this.drilldownvalue)
           }    
-            */
+            
         } else {
          console.log("something is wrong with Service Execution"); 
         }
       },
       error => console.log(error)      
-    );
+    );*/
   }
 
   reqDashboardDataTable(){
@@ -477,6 +524,12 @@ export class ReqDashboardComponent implements OnInit {
         const table: any = $('#reqList');
         // table.DataTable().clear().destroy();
         this.dataTable = table.DataTable({
+          "createdRow": function ( row, data, index ) {
+            debugger;
+            if (row.id.indexOf("resourcescount") > -1) {
+              $(row).hide();
+            }
+          },
           "footerCallback": function (row, data, start, end, display) {
             var api = this.api(), data;
 
