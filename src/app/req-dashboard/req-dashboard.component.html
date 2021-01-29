@@ -1,3 +1,134 @@
+
+<!--<div class="card">
+
+    <p-table #dt1 [value]="reqList" dataKey="RequistionId" [expandedRowKeys]="expandedRows" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines" [globalFilterFields]="['RequistionId','ReqTitle','EACManager','DeliveryManager']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>,
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem"></th>
+                <th pSortableColumn="RequistionId">ID <p-sortIcon field="RequistionId"></p-sortIcon>
+                </th>
+                <th>Image</th>
+                <th pSortableColumn="ReqTitle">Title <p-sortIcon field="ReqTitle"></p-sortIcon>
+                </th>
+                <th pSortableColumn="EACManager">Account Manager <p-sortIcon field="EACManager"></p-sortIcon>
+                </th>
+                <th pSortableColumn="DeliveryManager">Delivery Manager <p-sortIcon field="DeliveryManager"></p-sortIcon>
+                </th>
+                <th pSortableColumn="Clientname">Publish Status <p-sortIcon field="Clientname"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-req let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="req"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <!--<td class="dropdown details-control">
+                    <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{req.RequistionId}}</a> 
+                    <ul class="dropdown-menu" id="showmenu{{i}}">
+                        <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',req.RequistionId]" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Edit Requisition</a></li>
+                        <li style="cursor:pointer;" *ngIf="req.Reqstatus == 'OP'" (click)="openDialogPublish(req.RequistionId,req.ReqTitle,req.PublishStatus)"> <a> <i class="fas fa-newspaper"></i>&nbsp;&nbsp;Publish Requisition</a></li>
+                        <li *ngIf="req.Reqstatus == 'OP' && functionList.includes('204')"> <a [routerLink]="['/manage',req.RequistionId,'SO']"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Manage Candidate</a></li>
+                        <li *ngIf="req.Reqstatus == 'OP' && functionList.includes('203')"> <a [routerLink]="['/cvupload',req.RequistionId,'0']"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;Upload CV</a></li>
+                        <li *ngIf="req.Reqstatus == 'OP'"> <a [routerLink]="['/clone',req.RequistionId]"><i class="fas fa-clone"></i>&nbsp;&nbsp;Clone Requisition</a></li>
+                        <li style="cursor:pointer;" (click)="openDialogViewJd(req.RequistionId)"><a><i class="fas fa-file"></i>&nbsp;&nbsp;View JD</a></li>
+                      </ul>
+                      <i class="fas fa-caret-square-down statuscolor" (mouseenter)="showSubRow(req.RequistionId,i)" style="margin-top: -13px;float: left;margin-left: 38px;"></i>
+  
+                </td>   
+                <td>{{req.RequistionId}}</td>
+                <td>{{req.DeliveryManager}}</td>
+                <td>{{req.ReqTitle}}</td>
+                <td>{{req.EACManager}}</td>
+                <td>
+                    <p-rating [ngModel]="req.DeliveryManager" [readonly]="true" [cancel]="false"></p-rating>
+                </td>
+                <td>{{req.DeliveryManager}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-req>
+        <tr>
+            <td colspan="7">
+                <div class="p-p-3">
+                    <p-table [value]="req.SCCount" dataKey="RequistionId">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th pSortableColumn="SourceCategory">SourceCategory <p-sortIcon field="SourceCategory"></p-sortIcon></th>
+                                <th pSortableColumn="Sourcing">Sourcing <p-sortIcon field="Sourcing"></p-sortIcon></th>
+                                <th pSortableColumn="Assessment">Assessment <p-sortIcon field="Assessment"></p-sortIcon></th>
+                                <th pSortableColumn="Joined">Joined <p-sortIcon field="Joined"></p-sortIcon></th>
+                                <th pSortableColumn="offered">offered <p-sortIcon field="offered"></p-sortIcon></th>
+                                <th style="width: 4rem"></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-order>
+                            <tr>
+                                <td>{{order.SourceCategory}}</td>
+                                <td>{{order.Sourcing}}</td>
+                                <td>{{order.Assessment}}</td>
+                                <td>{{order.Joined}}</td>
+                                <td>{{order.offered}}</td>
+                                <td><p-button type="button" icon="pi pi-search"></p-button></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="6">There are no order foro this product yet.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    </p-table>
+
+</div>-->
+<h3><a target="_blank" href="https://www.gyrocode.com/articles/jquery-datatables-how-to-expand-collapse-all-child-rows/">jQuery DataTables: How to expand/collapse all child rows</a> <small>Regular table</small></h3>
+
+<button id="btn-show-all-children" type="button">Expand All</button>
+<button id="btn-hide-all-children" type="button">Collapse All</button>
+<hr>
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+				    <th></th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+				    <th></th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Salary</th>
+        </tr>
+    </tfoot>
+</table>
+
 <div class="content whiteframe">
   <h3 style="text-align: center;">Requisitions Dashboard - 
     <select (change)="getReqListsOnChange($event.target.value)">
@@ -186,10 +317,24 @@
                 </ejs-tooltip></th>            
             </tr>       
         </thead>
+        <tfoot *ngIf="reqList && reqList.length > 0">
+          <tr>
+              <td style="text-align: center;" colspan="9"></td>
+              <td style="text-align: center;"></td>
+              <td ></td>
+              <td ></td>
+              <td></td>
+              <td ></td>
+              <td ></td>
+              <td ></td>
+              <td ></td>
+              <td ></td>
+          </tr>
+      </tfoot>  
         <tbody>  
-          <ng-container  *ngFor="let item of reqList; let i = index">              
-            <tr >  
-              <td class="dropdown">
+                
+            <tr  *ngFor="let item of reqList; let i = index">  
+              <td class="dropdown details-control">
                   <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.RequistionId}}</a> 
                   <ul class="dropdown-menu" id="showmenu{{i}}">
                       <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',item.RequistionId]" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Edit Requisition</a></li>
@@ -502,7 +647,8 @@
                 </ng-template>  
               </td>
             </tr>    
-            <tr *ngFor="let list of item.SCCount; let j = index" id="resourcescount{{i}}" style="visibility:hidden;">
+            
+          <!--<tr *ngFor="let list of item.SCCount; let j = index" id="resourcescount{{i}}">
               <td></td>
               <td></td>
               <td></td>
@@ -521,23 +667,10 @@
               <td>{{list.Joined}}</td>
               <td>{{list.CR}}</td>
               <td>{{list.IR}}</td>
-            </tr>
-          </ng-container>
+            </tr>-->
+          
         </tbody> 
-        <tfoot *ngIf="reqList && reqList.length > 0">
-          <tr>
-              <td style="text-align: center;" colspan="9"></td>
-              <td style="text-align: center;"></td>
-              <td ></td>
-              <td ></td>
-              <td></td>
-              <td ></td>
-              <td ></td>
-              <td ></td>
-              <td ></td>
-              <td ></td>
-          </tr>
-      </tfoot>      
+           
         <!-- <tr style="height:40px;">
           <td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="border-top:1px solid;"></td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Positions}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Sourcing}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Screening}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Assessment}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.HRRound}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Offered}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.Joined}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.CR}}</td><td style="text-align:center;border-top:1px solid;">{{summaryCount.IR}}</td>
         </tr> -->

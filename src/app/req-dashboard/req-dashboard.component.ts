@@ -134,7 +134,85 @@ export class ReqDashboardComponent implements OnInit {
   
 
   ngOnInit() {
-    
+    function format ( d ) {
+      // `d` is the original data object for the row
+      return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+          '<tr>'+
+              '<td>Full name:</td>'+
+              '<td>'+d.name+'</td>'+
+          '</tr>'+
+          '<tr>'+
+              '<td>Extension number:</td>'+
+              '<td>'+d.extn+'</td>'+
+          '</tr>'+
+          '<tr>'+
+              '<td>Extra info:</td>'+
+              '<td>And any further details here (images etc)...</td>'+
+          '</tr>'+
+      '</table>';
+  }
+  
+  $(document).ready(function() {
+      var table = $('#example').DataTable({
+          'ajax': 'https://gyrocode.github.io/files/jquery-datatables/objects.json',
+          'columns': [
+              {
+                  'className':      'details-control',
+                  'orderable':      false,
+                  'data':           null,
+                  'defaultContent': ''
+              },
+              { 'data': 'name' },
+              { 'data': 'position' },
+              { 'data': 'office' },
+              { 'data': 'salary' }
+          ],
+          'order': [[1, 'asc']]
+      } );
+  
+      // Add event listener for opening and closing details
+      $('#example tbody').on('click', 'td.details-control', function(){
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+  
+          if(row.child.isShown()){
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          } else {
+              // Open this row
+              row.child(format(row.data())).show();
+              alert(row.child);
+              tr.addClass('shown');
+          }
+      });
+  
+      // Handle click on "Expand All" button
+      $('#btn-show-all-children').on('click', function(){
+          // Enumerate all rows
+          table.rows().every(function(){
+              // If row has details collapsed
+              if(!this.child.isShown()){
+                  // Open this row
+                  this.child(format(this.data())).show();
+                  $(this.node()).addClass('shown');
+              }
+          });
+      });
+  
+      // Handle click on "Collapse All" button
+      $('#btn-hide-all-children').on('click', function(){
+          // Enumerate all rows
+          table.rows().every(function(){
+              // If row has details expanded
+              if(this.child.isShown()){
+                  // Collapse row details
+                  this.child.hide();
+                  $(this.node()).removeClass('shown');
+              }
+          });
+      });
+  });
     this.funclist = sessionStorage.getItem("FunctionList");      
     if(typeof(this.funclist) != 'object')
     this.functionList = this.funclist.split(',');
@@ -151,6 +229,137 @@ export class ReqDashboardComponent implements OnInit {
           this.getReqLists(this.status);
         }
       });
+      
+      $(document).ready(function() {
+        function format (d) {
+          // `d` is the original data object for the row
+          return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+              '<tr>'+
+                  '<td>Full name:</td>'+
+                  '<td>hello</td>'+
+              '</tr>'+
+              '<tr>'+
+                  '<td>Extension number:</td>'+
+                  '<td>hai</td>'+
+              '</tr>'+
+              '<tr>'+
+                  '<td>Extra info:</td>'+
+                  '<td>And any further details here (images etc)...</td>'+
+              '</tr>'+
+          '</table>';
+        }
+        
+        var table = $('#reqList').DataTable();
+        $('#reqList tbody').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+          var row = table.row(tr);
+        
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+              
+          }
+          else {
+              // Open this row
+              row.child(format(row.data())).show();
+              alert(row.child)
+              tr.addClass('shown');
+              
+          }
+          
+      } );
+
+   
+      });
+
+       /*var childEditors = {};  // Globally track created chid editors
+      $(document).ready(function() {
+        
+        // Return table with id generated from row's name field
+        function format(rowData) {
+          return '<table id="' + rowData.name.replace(' ', '-') + '" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+                 '</table>';  
+          }
+        
+        // Main table
+       var table = $('#reqList').DataTable( {
+          ajax: "/ajax/objects.txt",
+          pageLength: 5,
+          columns: [
+            {
+               className: 'details-control',
+               orderable: false,
+               data: null,
+               defaultContent: ''
+            },
+            { data: "name" },
+            { data: "position" },
+            { data: "office" },
+            { data: "salary" }
+          ],
+          order: [[1, 'asc']],
+        } );
+        */
+        
+        // Add event listener for opening and closing first level childdetails
+      /*  $('#reqList tbody').on('click', 'td.details-control', function () {
+           var tr = $(this).closest('tr');
+           var row = table.row( tr );
+           var rowData = row.data();
+            
+       
+           if ( row.child.isShown() ) {
+             // This row is already open - close it
+             row.child.hide();
+             tr.removeClass('shown');
+              
+             // Destroy the Child Datatable
+             $('#' + rowData.name.replace(' ', '-')).DataTable().destroy();
+           }
+           else {
+             // Open this row
+             row.child(format(rowData)).show();
+             var id = rowData.name.replace(' ', '-');
+                
+      
+              $('#' + id).DataTable({
+                dom: "t",
+                data: [rowData],
+                columns: [
+                  { data: "name", title: 'Name' },
+                  { data: "position", title: 'Position' },
+                  { data: "extn", title: 'Extension' },
+                ],
+                scrollY: '100px',
+                select: true,
+              });
+              
+              tr.addClass('shown');
+            }
+        } );
+                   
+      
+                
+      } );
+      var table = $('#reqList').DataTable();
+      $('#reqList tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        row.child.hide();
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;"><tr><td>Full name:</td><td>Ajay</td></tr></table>' ).show();
+            tr.addClass('shown');
+        }
+    } );
+  
+
 
       /*$(function() {
         $("resourcescount").hide();
@@ -453,8 +662,8 @@ export class ReqDashboardComponent implements OnInit {
    }
   
   showSubRow(reqId,i){
-    $("#resourcescount"+i).show();
-    /*if(this.subRowReqId){
+    //$("#resourcescount"+i).show();
+    if(this.subRowReqId){
       if(reqId == this.subRowReqId){
         $('#subRow'+reqId).hide();
         this.subRowReqId = null;
@@ -507,14 +716,14 @@ export class ReqDashboardComponent implements OnInit {
           else {                     
            this.drilldownvalue = response['Data']; 
            console.log(this.drilldownvalue)
-          }    
+          }   */ 
             
         } else {
          console.log("something is wrong with Service Execution"); 
         }
       },
       error => console.log(error)      
-    );*/
+    );
   }
 
   reqDashboardDataTable(){
@@ -524,12 +733,12 @@ export class ReqDashboardComponent implements OnInit {
         const table: any = $('#reqList');
         // table.DataTable().clear().destroy();
         this.dataTable = table.DataTable({
-          "createdRow": function ( row, data, index ) {
+          /*"createdRow": function ( row, data, index ) {
             debugger;
             if (row.id.indexOf("resourcescount") > -1) {
               $(row).hide();
             }
-          },
+          },*/
           "footerCallback": function (row, data, start, end, display) {
             var api = this.api(), data;
 
@@ -596,15 +805,19 @@ export class ReqDashboardComponent implements OnInit {
 
           }
         });
+
         // let dt = this.dataTable;
         // dt.on( 'search.dt', function (e) {
         //   console.log( $('.dataTables_filter input').val());
         // });
       });
+     
       $("#loader").hide();
     }, 100);
+  
+    
   }
-
+ 
   getReqListsOnChange(status) { 
     $("#loader").show();
     this.route.params.subscribe(params => {
