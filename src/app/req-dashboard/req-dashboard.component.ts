@@ -169,7 +169,8 @@ export class ReqDashboardComponent implements OnInit {
           ],
           'order': [[1, 'asc']]
       } );
-  
+console.log(table)
+      //var table = $('#reqList').DataTable();
       // Add event listener for opening and closing details
       $('#example tbody').on('click', 'td.details-control', function(){
           var tr = $(this).closest('tr');
@@ -182,7 +183,6 @@ export class ReqDashboardComponent implements OnInit {
           } else {
               // Open this row
               row.child(format(row.data())).show();
-              alert(row.child);
               tr.addClass('shown');
           }
       });
@@ -231,7 +231,7 @@ export class ReqDashboardComponent implements OnInit {
       });
       
       $(document).ready(function() {
-        function format (d) {
+        function format1 (d) {
           // `d` is the original data object for the row
           return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
               '<tr>'+
@@ -250,22 +250,21 @@ export class ReqDashboardComponent implements OnInit {
         }
         
         var table = $('#reqList').DataTable();
-        $('#reqList tbody').on('click', 'td.details-control', function () {
+        console.log(table);
+        $('#reqList tbody').on('click', 'td.details-control1', function () {
           var tr = $(this).closest('tr');
-          var row = table.row(tr);
+          var row = table.row( tr );
         
           if ( row.child.isShown() ) {
               // This row is already open - close it
               row.child.hide();
               tr.removeClass('shown');
-              
           }
           else {
               // Open this row
-              row.child(format(row.data())).show();
-              alert(row.child)
-              tr.addClass('shown');
               
+              row.child(format1(row.data())).show();
+              tr.addClass('shown');
           }
           
       } );

@@ -331,10 +331,10 @@
               <td ></td>
           </tr>
       </tfoot>  
-        <tbody>  
-                
-            <tr  *ngFor="let item of reqList; let i = index">  
-              <td class="dropdown details-control">
+        <tbody>                  
+          
+            <tr *ngFor="let item of reqList; let i = index">  
+              <td class="dropdown details-control1">
                   <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.RequistionId}}</a> 
                   <ul class="dropdown-menu" id="showmenu{{i}}">
                       <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',item.RequistionId]" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Edit Requisition</a></li>
