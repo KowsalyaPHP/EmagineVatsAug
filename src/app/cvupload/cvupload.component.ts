@@ -115,12 +115,19 @@ export class CvuploadComponent implements OnInit {
             $("#Perm_AddressL3").prop('readonly', true);
             $("#Perm_AddressL4").prop('readonly', true);*/
 
+            if(this.CvView['DateofBirth'] != ''){
+              var dateofbirth = new Date(this.CvView['DateofBirth']);
+            }
+            else{
+              var dateofbirth = this.CvView['DateofBirth'];
+            }
+            console.log('----'+dateofbirth);
             this.CVUploadForm.patchValue({
               Candidate_FN: this.CvView['Candidate_FN'],
               Candidate_LN: this.CvView['Candidate_LN'],
               EMailId: this.CvView['EMailId'],
               MobileNo: this.CvView['MobileNo'],
-              DateofBirth: new Date(this.CvView['DateofBirth']),
+              DateofBirth: dateofbirth,
               Gender: this.CvView['Gender'],
               WorkAuthorization: this.CvView['WorkAuthorization'],
               Nationality: this.CvView['Nationality'],

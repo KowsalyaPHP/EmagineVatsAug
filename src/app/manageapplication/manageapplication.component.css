@@ -71,7 +71,9 @@
   #loader{
     display:none;
   }
-  
+  #loaderwhite{
+    display:none;
+  }
 
 .statuscolor{
   color:#0670c4;
@@ -347,4 +349,53 @@ ul#submenu li {
 }
 table.dataTable tbody th, table.dataTable tbody td {
   height: 25px;
+}
+
+.btn {
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #3f88b8;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+
+.form-field-file label {
+  position: relative;
+ /* display: inline-block;
+  height: 50px;
+  padding: 50px 50px;
+  width: auto;
+  text-transform: uppercase;
+  font-size: rem(13);
+  line-height: 44px;
+  font-weight: 700;
+  letter-spacing: 2px;
+ */
+  color: #fff;
+  border-radius: 2px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;  
+  cursor: pointer;
+  transition: background 0.25s ease-in-out;
+}
+/*.form-field-file label:hover, .form-field-file label:active {
+  background: shade(#336699, 34%);
+}*/
+.form-field-file label:after {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  display: block;
+  font-family: 'FontAwesome';
+}
+.form-field-file input[type="file"] {
+  position: absolute;
+  z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
 }

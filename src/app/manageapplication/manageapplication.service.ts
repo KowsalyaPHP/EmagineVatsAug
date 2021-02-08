@@ -134,6 +134,32 @@ export class ManageapplicationService {
       });
   }
 
+  public replaceCVLink(ReqId,CandId,AppId,CVLink): Observable<any> {
+
+    const url = AppComponent.urlPath + 'CVReplace';
+
+    var RefId = sessionStorage.getItem("RefId");
+    var C_ID = sessionStorage.getItem("uniqueSessionId");
+
+    const formData = new FormData();
+    console.log(CVLink)
+    formData.append('EntityId', RefId);
+    formData.append('RequisitionId', ReqId);
+    formData.append('CandidateId', CandId);
+    formData.append('ApplicationId', AppId);
+    formData.append('CVLink', CVLink)
+ 
+    return this.http.post(url, formData)    
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
+  }
+  
+  
+
   public updateBulkBackwardStagetoStage(ReqId,tostage,fromstage,selectId): Observable<any> {
 
     const url = AppComponent.urlPath + 'BulkBackwardMovement';

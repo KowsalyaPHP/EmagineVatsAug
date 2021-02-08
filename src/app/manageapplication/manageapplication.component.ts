@@ -67,6 +67,7 @@ export class ManageapplicationComponent implements OnInit {
   selectedId:any;
   currentStageString =  false;
   currentString:any;
+  replaceFileName:any;
 
   constructor(private routerObj: Router,private ManageapplicationServices: ManageapplicationService,private route: ActivatedRoute,public dialog: MatDialog,private datePipe : DatePipe) { 
     
@@ -79,6 +80,25 @@ export class ManageapplicationComponent implements OnInit {
   }
 
   ngOnInit() {
+   
+
+   /* function($) {
+      $('input[type="file"]').change(function() {
+        alert($(this).val());
+        if ($(this).val()) {
+         // error = false;
+        
+          var cvname = $(this).val();
+          alert(cvname);
+          //$(this).closest('.file-upload').find('.file-name').html(cvname);
+    
+          /*if (error) {
+            parent.addClass('error').prepend.after('<div class="alert alert-error">' + error + '</div>');
+          }
+        }
+      });
+    };*/
+    
     setTimeout(function () {
       $(function () {
         $('#applicationDashboard').DataTable({
@@ -115,7 +135,9 @@ export class ManageapplicationComponent implements OnInit {
     }, 1500);  
 
   }
-
+  file(){
+    
+  }
   openSnackBar() { 
     var x = document.getElementById("snackbar")
     x.className = "show";
@@ -245,6 +267,31 @@ export class ManageapplicationComponent implements OnInit {
         }
         else {         
           console.log('something is wrong with Service  Execution');
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+    
+  }
+
+  
+  replaceCV(reqId,CandId,AppId,replaceFile) {
+
+    this.ManageapplicationServices.replaceCVLink(reqId,CandId,AppId,replaceFile).subscribe(
+      response => {
+        if (response != '') {         
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+            $("#loaderwhite").hide(); 
+          }
+          else{
+            this.message = getMessage['1'];
+            this.openSnackBar();          
+            $("#loaderwhite").hide();   
+            $(".dropdown-menu").fadeOut("fast");
+          }
         }
       },
       error => console.log("Error Occurd!")
@@ -528,11 +575,36 @@ export class ManageapplicationComponent implements OnInit {
 
   }
   
-  actionMethod(i) { 
+  actionMethod(i,reqId,candId,appId) { 
+   
     $(".dropdown-menu").fadeOut("fast");
    // $(".dropdown-menu").hide("fast");
     $("#showmenu"+i).show();
-    
+
+    const component = this;
+
+    $('.form-field-file').each(function(){      
+      var label = $('label', this);
+      var labelValue = $(label).html();
+      var fileInput = $('input[type="file"]', this);
+
+      $(fileInput).on('change', function(e){      
+        var fileName = $(this).val().split('\\').pop();
+        if (fileName) {      
+          
+          $("#loaderwhite").show();
+          component.replaceCV(reqId,candId,appId,this.files[0])
+          //$(label).html(fileName);
+        } 
+        else { 
+          $(label).html(labelValue);
+        }      
+      });
+
+    });
+
+   
+
     $(document).on("click", function(event){
       var $trigger = $(".dropdown");
       if($trigger !== event.target && !$trigger.has(event.target).length){
