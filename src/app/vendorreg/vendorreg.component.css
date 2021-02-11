@@ -20,3 +20,8 @@
     margin-right: 0;
     margin-bottom: 10px;
   }
+
+  .selected {
+    background: #6d7278;
+    color:#ffffff !important;
+}

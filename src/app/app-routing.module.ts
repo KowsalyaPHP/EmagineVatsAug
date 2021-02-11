@@ -80,7 +80,7 @@ const routes: Routes = [
   component: UnpublishComponent
 },
 {
-  path: "cvupload/:id/:cid",
+  path: "cvupload/:id/:cid/:aid",
   component: CvuploadComponent
 },
 {

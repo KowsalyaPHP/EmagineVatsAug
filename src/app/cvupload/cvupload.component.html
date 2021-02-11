@@ -18,9 +18,21 @@
               style=" width: 16px; vertical-align: bottom;" src="assets/img/loader.gif" /> Reading Resume...
           </div>
         </td>
-        <td *ngIf="cid != 0">
-          <p id="FileChange"><a style="color:rgb(49, 49, 209);cursor:pointer;"><img style="vertical-align: middle;"
-                src="assets/img/doc.png">&nbsp;&nbsp;&nbsp;{{attachment}}</a></p>
+        <td *ngIf="cid != 0" class="dropdown">         
+            <a style="color:rgb(49, 49, 209);cursor:pointer;" (click)="FileMethod()"><img style="vertical-align: middle;"
+              src="assets/img/doc.png" >&nbsp;&nbsp;&nbsp;{{attachment}}</a>
+           
+            <ul class="dropdown-menu" id="showmenu">
+              <li (click)="viewCVedit()"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>
+              <li> <a>
+                <div class="form-field form-field-file">
+                  <i class="fas fa-exchange-alt"></i>&nbsp;<label for="file-upload">Replace CV</label>
+                  <input type="file" name="file-upload" id="file-upload"/><img id="loaderwhite" style="vertical-align: bottom;margin-left: 10px;" src="assets/img/loaderwhite.gif"/>
+                </div>
+                </a>
+              </li>
+            </ul>
+         
         </td>
       </tr>
       <tr>
@@ -308,7 +320,7 @@
     </div>-->
     <table style="margin-top:10px;">
       <tr><button type="submit" mat-button cdkFocusInitial>Submit</button>&nbsp;&nbsp;
-        <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a>
+        <a [routerLink]="['/manage',id,CurrentStage]"><button mat-button>Cancel</button></a>
       </tr>
     </table>
 

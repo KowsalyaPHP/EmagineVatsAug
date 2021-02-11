@@ -14,6 +14,9 @@ import { CvuploadService } from './cvupload.service';
 import { saveAs } from 'file-saver';
 import { CVDet } from '../models/cvdet';
 import { environment } from 'src/environments/environment';
+import {DocviewComponent} from '../docview/docview.component'
+import { DataService } from '../services/data.service';
+declare var $: any
 
 @Component({
   selector: 'app-cvupload',
@@ -41,8 +44,10 @@ export class CvuploadComponent implements OnInit {
   cvDet: CVDet;
   callCount: number = 0;
   showCVLoader: boolean = false;
+  aid: any;
+  CurrentStage:any;
 
-  constructor(private CvuploadServices: CvuploadService, private SharedServices: SharedService, private formBuilderObj: FormBuilder, private routerObj: Router, private route: ActivatedRoute, private toastr: ToastrService) {
+  constructor(private CvuploadServices: CvuploadService, private dataService: DataService, private SharedServices: SharedService, private formBuilderObj: FormBuilder, private routerObj: Router, private route: ActivatedRoute, public dialog: MatDialog,private toastr: ToastrService) {
 
     this.CVUploadForm = this.formBuilderObj.group({
       CV: '',
@@ -80,14 +85,81 @@ export class CvuploadComponent implements OnInit {
     });
 
     if (this.cid != 0) {
-      this.ViewCV(this.cid);
+      this.ViewCV(this.id,this.cid);
     }
 
   }
 
-  ViewCV(cId) {
+  
 
-    this.CvuploadServices.viewCV(cId).subscribe(
+  replaceCV(replaceFile) {
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'],
+      this.cid = params['cid'],
+      this.aid = params['aid'];
+    });
+
+    this.CvuploadServices.replaceCVLink(this.id,this.cid,this.aid,replaceFile).subscribe(
+      response => {
+        if (response != '') {         
+          let getMessage =  response['Message'].split(":");
+          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+            this.message = getMessage['1'];
+            this.openSnackBar(); 
+            $("#loaderwhite").hide(); 
+          }
+          else{
+            this.message = getMessage['1'];
+            this.openSnackBar();          
+            $("#loaderwhite").hide();   
+            $(".dropdown-menu").fadeOut("fast");
+            this.dataService.changeReloadCVUpload(true);
+            
+          }
+        }
+      },
+      error => console.log("Error Occurd!")
+    );
+    
+  }
+
+  FileMethod() { 
+    $(".dropdown-menu").fadeOut("fast");
+    $("#showmenu").show();
+    const component = this;
+
+    $('.form-field-file').each(function(){      
+      var label = $('label', this);
+      var labelValue = $(label).html();
+      var fileInput = $('input[type="file"]', this);
+
+      $(fileInput).on('change', function(e){      
+        var fileName = $(this).val().split('\\').pop();
+        if (fileName) {      
+          
+          $("#loaderwhite").show();
+          component.replaceCV(this.files[0])
+          //$(label).html(fileName);
+        } 
+        else { 
+          $(label).html(labelValue);
+        }      
+      });
+
+    });
+
+    $(document).on("click", function(event){
+      var $trigger = $(".dropdown");
+      if($trigger !== event.target && !$trigger.has(event.target).length){
+        $(".dropdown-menu").fadeOut("fast");
+      }            
+   });
+  }
+
+  ViewCV(ReqId,cId) {
+
+    this.CvuploadServices.viewCV(ReqId,cId).subscribe(
       response => {
         if (response != "No data") {
           let getMessage = response['Message'].split(":");
@@ -121,7 +193,9 @@ export class CvuploadComponent implements OnInit {
             else{
               var dateofbirth = this.CvView['DateofBirth'];
             }
-            console.log('----'+dateofbirth);
+
+            this.CurrentStage = this.CvView['CurrentStage'];
+
             this.CVUploadForm.patchValue({
               Candidate_FN: this.CvView['Candidate_FN'],
               Candidate_LN: this.CvView['Candidate_LN'],
@@ -174,6 +248,12 @@ export class CvuploadComponent implements OnInit {
           $(this).css('color', 'transparent');
         }
       });
+    });
+
+    this.dataService.getReloadCVUploadFlag.subscribe(flag=>{
+      if(flag == true){
+        this.ViewCV(this.id,this.cid);
+      }
     });
 
     /*  $(function(){
@@ -336,6 +416,30 @@ export class CvuploadComponent implements OnInit {
     }
   }
 
+  viewCVedit() {
+    let RefId = sessionStorage.getItem("RefId");
+    this.route.params.subscribe(params => {
+      this.id = params['id'],
+      this.cid = params['cid'],
+      this.aid = params['aid'];
+    });
+    sessionStorage.setItem('Entityid', RefId);
+    sessionStorage.setItem('RequisitionId', this.id);
+    sessionStorage.setItem('CandidateId', this.cid);
+    sessionStorage.setItem('ApplicationId', this.aid);
+    this.openDialogCV();
+  }
+  
+  openDialogCV(): void {
+
+    const dialogRef = this.dialog.open(DocviewComponent, {
+      width: '900px',
+      // data: {fileName: fileName}      
+    });
+
+    
+  }
+
   getCVDetails(identifier) {
     this.callCount++;
     this.CvuploadServices.getCVDetail(identifier).subscribe(res => {
@@ -477,7 +581,8 @@ export class CvuploadComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = params['id'],
-        this.cid = params['cid'];
+      this.cid = params['cid'],
+      this.aid = params['aid'];
     });
 
     var userName = sessionStorage.getItem("userName");
@@ -501,7 +606,7 @@ export class CvuploadComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();
                 setTimeout(() => {
-                 // this.routerObj.navigate(['manage/', this.id, 'SO']);
+                  this.routerObj.navigate(['manage/', this.id, this.CurrentStage]);
                 }
                   , 3000);
               }

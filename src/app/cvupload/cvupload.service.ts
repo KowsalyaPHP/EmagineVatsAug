@@ -121,11 +121,12 @@ export class CvuploadService {
     // return;
   }
 
-  public viewCV(candId): Observable<any> {
+  public viewCV(ReqId,candId): Observable<any> {
 
     const url = AppComponent.urlPath + 'ViewCVUpload';
     const params = new URLSearchParams();
 
+    params.set('RequisitionId', ReqId);
     params.set('CandidateId', candId);
 
     return this.http.post(url, params)
@@ -225,5 +226,29 @@ export class CvuploadService {
 
     });
 
+  }
+
+  public replaceCVLink(ReqId,CandId,AppId,CVLink): Observable<any> {
+
+    const url = AppComponent.urlPath + 'CVReplace';
+
+    var RefId = sessionStorage.getItem("RefId");
+    var C_ID = sessionStorage.getItem("uniqueSessionId");
+
+    const formData = new FormData();
+    console.log(CVLink)
+    formData.append('EntityId', RefId);
+    formData.append('RequisitionId', ReqId);
+    formData.append('CandidateId', CandId);
+    formData.append('ApplicationId', AppId);
+    formData.append('CVLink', CVLink)
+ 
+    return this.http.post(url, formData)    
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return 'No Data';
+      });
   }
 }

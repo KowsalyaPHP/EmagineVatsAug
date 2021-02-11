@@ -7,11 +7,17 @@ import { BehaviorSubject } from 'rxjs';
 export class DataService {
 
   private isReloadReqDashboard = new BehaviorSubject<boolean>(false);
-  getReloadReqDashboardFlag = this.isReloadReqDashboard.asObservable();  
+  getReloadReqDashboardFlag = this.isReloadReqDashboard.asObservable(); 
 
+  private isReloadCVUpload = new BehaviorSubject<boolean>(false);
+  getReloadCVUploadFlag = this.isReloadCVUpload.asObservable(); 
   constructor() { }
 
   changeReloadReqDashboard(flag: boolean) {
     this.isReloadReqDashboard.next(flag);
+  }
+
+  changeReloadCVUpload(flag: boolean) {
+    this.isReloadCVUpload.next(flag);
   }
 }

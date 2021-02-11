@@ -340,7 +340,7 @@
                       <li *ngIf="functionList.includes('201')"> <a [routerLink]="['/requisitionadd',item.RequistionId]" > <i class="fas fa-edit"></i>&nbsp;&nbsp;Edit Requisition</a></li>
                       <li style="cursor:pointer;" *ngIf="item.Reqstatus == 'OP'" (click)="openDialogPublish(item.RequistionId,item.ReqTitle,item.PublishStatus)"> <a> <i class="fas fa-newspaper"></i>&nbsp;&nbsp;Publish Requisition</a></li>
                       <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('204')"> <a [routerLink]="['/manage',item.RequistionId,'SO']"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Manage Candidate</a></li>
-                      <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('203')"> <a [routerLink]="['/cvupload',item.RequistionId,'0']"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;Upload CV</a></li>
+                      <li *ngIf="item.Reqstatus == 'OP' && functionList.includes('203')"> <a [routerLink]="['/cvupload',item.RequistionId,'0','0']"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;Upload CV</a></li>
                       <li *ngIf="item.Reqstatus == 'OP'"> <a [routerLink]="['/clone',item.RequistionId]"><i class="fas fa-clone"></i>&nbsp;&nbsp;Clone Requisition</a></li>
                       <li style="cursor:pointer;" (click)="openDialogViewJd(item.RequistionId)"><a><i class="fas fa-file"></i>&nbsp;&nbsp;View JD</a></li>
                     </ul>

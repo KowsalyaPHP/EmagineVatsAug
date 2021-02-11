@@ -14,7 +14,7 @@
                 <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
                 <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
                 <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
-                <li class="textsize" *ngIf="functionList.includes('105')"><a (click)="openDialogaddNewCity()"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>City</a></li>
+                <li class="textsize" *ngIf="functionList.includes('105')"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
             </ul>			
 
           			
@@ -31,7 +31,7 @@
             <ul style="margin-top:-10px;">         
                 <li *ngFor="let item of clientList| filterchild:term : 'MName'"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId]" (mouseover)="childlist(item.MId)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
                     <ul *ngIf="item.MId == clientId && item.Sc != 0" class="childList">
-                        <li *ngFor="let item of childList | filtersubchild:term" style="padding-left: 25px;"> - <a [routerLink]="['/child',item.SId,1]" (click)="getChild(item.SId,1)">{{item.SName}}</a></li>
+                        <li *ngFor="let item of childList | filtersubchild:term" [ngClass]="{'selected': item.SId == id}"  style="padding-left: 25px;"> - <a [routerLink]="['/child',item.SId,1]" (click)="getChild(item.SId,1)">{{item.SName}}</a></li>
                     </ul>               
                 </li>               
             </ul>

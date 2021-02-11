@@ -15,9 +15,9 @@ export class AppComponent {
   userName='';
 
  //public static urlPath = "https://api.emaginerock.com/";
- public static urlPath = "https://devapi.emaginerock.com/";
+ public static urlPath = "http://devapi.emaginerock.com/";
  //public static urlPath = "http://bincrm.com/vatsdev/";
- //public static urlPath = "http://08688054bb42.ngrok.io/";
+ //public static urlPath = "http://3bee9d501323.ngrok.io/";
 
   functionList:any;
   funclist:any;

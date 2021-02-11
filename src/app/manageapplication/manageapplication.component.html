@@ -98,7 +98,7 @@
   <p style="margin:0;text-align:center;" *ngFor="let item of requisitionDetails; let i = index">
     <span style="font-weight: 500;">{{item.ClientName}}</span> - <b (click)="openDialogViewJd(item.RequisitionId)"><span style="color:#0670c4;font-weight: 500;text-decoration:underline;cursor:pointer;">#{{item.RequisitionId}}</span></b> {{item.Designation}} - <span style="color:#0670c4;">{{item.EmpLocation}}</span></p>
   <mat-card-content style="font-size: 12.5px;">  
-    <a class="newitem" [routerLink]="['/cvupload',id,0]">
+    <a class="newitem" [routerLink]="['/cvupload',id,0,0]">
       <ejs-tooltip  id='tooltip_1' style="font-weight: 600;">
       <ng-template #content>
           <table>
@@ -310,7 +310,7 @@
             </a> 
             <ul class="dropdown-menu" id="showmenu{{i}}" style="white-space: inherit;">
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>
-                <li><a [routerLink]="['/cvupload',id,item.CandidateId]" style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
+                <li><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
                 <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Screening Form</a></li>  
                 <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Offer Form</a></li> 
                 <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;"><i class="fas fa-share"></i> Movement to Substage</a></li>
@@ -325,7 +325,7 @@
                   </div>
                   </a>
                 </li>
-                <li *ngIf="item.Currentstage_CV == 'SO' && item.Source_category == 'Vendor' && item.Step_Owner == ''" (click)="source(item.RequisitionId,item.CandidateId,item.ApplicationId)" ><a style="cursor:pointer;">fas <i class="fa-user-check" aria-hidden="true"></i>Assign candidate to me</a></li>
+                <li *ngIf="item.Currentstage_CV == 'SO' && item.Source_category == 'Vendor' && item.Step_Owner == ''" (click)="source(item.RequisitionId,item.CandidateId,item.ApplicationId)" ><a style="cursor:pointer;"><i class="fa-user-check" aria-hidden="true"></i>Assign candidate to me</a></li>
                 <!--<li (click)="openDialogCvTransfer(id,item.CandidateId,item.ApplicationId)"><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" style="cursor:pointer;">CV Movement</a></li>-->
                <!-- <li (click)="viewJD(item.RequisitionId)"><a style="cursor:pointer;">View JD</a></li> -->
                <!--<li style="cursor:pointer;" (click)="openDialogViewJd(item.RequisitionId)"><a>View JD</a></li>-->

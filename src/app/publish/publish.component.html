@@ -94,8 +94,8 @@
                             (change)="changeCategory('Platinum',selectedPlatinum)" id="PlatinumAll">Platinum</li>
                 </ul>
                 <div style="float: right;">
-                    <span><a (click)="addPublish();">Publish</a></span> &nbsp;&nbsp;<span><a
-                            (click)="unPublish();" *ngIf="data.publishStatus == 'P'">UnPublish All</a></span> &nbsp;&nbsp;<span style="vertical-align: middle;">                       
+                    <span><a style="font-weight:600;" (click)="addPublish();"><i class="fas fa-newspaper"></i> Publish</a></span> &nbsp;&nbsp;<span><a style="font-weight:600;"
+                            (click)="unPublish();" *ngIf="data.publishStatus == 'P'"><i class="fas fa-eye-slash"></i> UnPublish All</a></span> &nbsp;&nbsp;<span style="vertical-align: middle;">                       
                     </span> 
                 </div>
                 <!--  <span></span><input type="checkbox" (click)="checkallBronzevendor();" id="BronzeAll">All<span><input type="checkbox" (click)="checkallBronzevendor();" id="BronzeAll">Bronze</span> <span><input type="checkbox" (click)="checkallSilvervendor();" id="SilverAll">Silver</span><span><input type="checkbox" (click)="checkallGoldvendor();" id="GoldAll">Gold</span><span><input type="checkbox" (click)="checkallPlatinumvendor();" id="PlatinumAll">Platinum</span> -->

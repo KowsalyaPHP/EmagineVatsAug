@@ -67,7 +67,7 @@ export class DownloadComponent implements OnInit {
    
     this.viewTemplateDetails();
     this.getCandidateValue();
-
+    this.viewSingleTemplate(10,0);
    }
 
    onNoClick(): void {

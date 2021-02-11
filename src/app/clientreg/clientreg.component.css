@@ -24,3 +24,8 @@
   .childList{
     margin-top:5px;
   }
+
+  .selected {
+    background: #6d7278;
+    color:#ffffff !important;
+}

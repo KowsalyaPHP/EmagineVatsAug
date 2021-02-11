@@ -113,3 +113,8 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+.selected {
+  background: #6d7278;
+  color:#ffffff !important;
+}
