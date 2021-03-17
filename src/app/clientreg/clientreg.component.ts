@@ -129,7 +129,7 @@ export class ClientregComponent implements OnInit {
 
   goToMainmenu(){
     this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
-    //this.routerObj.navigate(['clientreg/0']);
+    //this.routerObj.navigate(['clientreg/0'], { skipLocationChange: true });
   }
 
   getId(clientid){  
@@ -341,7 +341,7 @@ export class ClientregComponent implements OnInit {
                 this.openSnackBar();               
                 this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
                 setTimeout(() => {
-                  this.routerObj.navigate(['clientreg/'+this.id]);
+                  this.routerObj.navigate(['clientreg/'+this.id], { skipLocationChange: true });
                   }
                   , 3000);
               }            
@@ -374,7 +374,7 @@ export class ClientregComponent implements OnInit {
                
                this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
                setTimeout(() => {
-                this.routerObj.navigate(['clientreg/'+response['Data']]);
+                this.routerObj.navigate(['clientreg/'+response['Data']], { skipLocationChange: true });
                 }
                 , 3000);
                
@@ -402,7 +402,7 @@ export class ClientregComponent implements OnInit {
           }          
           else{
             this.childList = response['Data'];
-            //this.routerObj.navigate(['manage/',this.id,'SO']);
+            //this.routerObj.navigate(['manage/',this.id,'SO'], { skipLocationChange: true });
           }            
         }
         else {         
@@ -424,7 +424,7 @@ export class ClientregComponent implements OnInit {
           }          
           else{
             this.clientList = response['Data'];
-            //this.routerObj.navigate(['manage/',this.id,'SO']);
+            //this.routerObj.navigate(['manage/',this.id,'SO'], { skipLocationChange: true });
           }            
         }
         else {         

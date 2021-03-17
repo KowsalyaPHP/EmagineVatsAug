@@ -9,11 +9,11 @@
 			<mat-nav-list>
                    			
             <ul>
-                <li class="activeMenu textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
-                <li class="textsize" *ngIf="functionList.includes('101')"><a [routerLink]="['/vendorreg','0']"><i class="fa fa-industry fa-2x" aria-hidden="true"></i><br>Vendor</a></li>
-                <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
-                <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
-                <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
+                <li class="activeMenu textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"  skipLocationChange=true><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
+                <li class="textsize" *ngIf="userCategory == 'E' || userCategory == 'C' && functionList.includes('101')"><a [routerLink]="['/vendorreg','0']"  skipLocationChange=true><i class="fa fa-industry fa-2x" aria-hidden="true"></i><br>Vendor</a></li>
+                <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']"  skipLocationChange=true><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']" skipLocationChange=true><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']" skipLocationChange=true><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
                 <li class="textsize" *ngIf="functionList.includes('105')"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
             </ul>			
 
@@ -30,9 +30,9 @@
                 <input matInput type="search" placeholder="Search Client" [(ngModel)]="term" class="search-input">
             </mat-form-field>
             <ul style="margin-top:-10px;">         
-                <li [ngClass]="{'selected': item.MId == id}" *ngFor="let item of clientList| filterclient:term ;"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId]" (click)=getId(item.MId) (mouseover)="childlist(item.MId)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
+                <li [ngClass]="{'selected': item.MId == id}" *ngFor="let item of clientList| filterclient:term ;"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/clientreg',item.MId]"  skipLocationChange=true (click)=getId(item.MId) (mouseover)="childlist(item.MId)">{{item.MName}}<span *ngIf="item.Sc != 0">({{item.Sc}})</span></a>
                     <ul *ngIf="item.MId == clientId && item.Sc != 0" class="childList">
-                        <li *ngFor="let item of childList" style="padding-left: 25px;"> - <a [routerLink]="['/child',item.SId,1]">{{item.SName}}</a></li>
+                        <li *ngFor="let item of childList" style="padding-left: 25px;"> - <a [routerLink]="['/child',item.SId,1]"  skipLocationChange=true>{{item.SName}}</a></li>
                     </ul>               
                 </li>               
             </ul>
@@ -43,7 +43,7 @@
 [formGroup]="addClientForm" (submit)='addClient(addClientForm.getRawValue())'>
 
 <div class="whiteframe" style="width: 93%;">
-    <h3 *ngIf="id != 0 else title">Update Client  <span *ngIf="id != 0"> for #{{id}} - {{clientname}}</span> <span style="font-size: 13px;font-weight: normal;color: #0670c4 !important;float: right;text-decoration: underline;cursor:pointer;"><table style="padding:0px !important;"><tr style="padding:0px !important;"><td style="padding:0px !important;" [routerLink]="['/child',id,0]" (click)="getMasterId(id);">Add Child Client</td></tr></table></span></h3>
+    <h3 *ngIf="id != 0 else title">Update Client  <span *ngIf="id != 0"> for #{{id}} - {{clientname}}</span> <span style="font-size: 13px;font-weight: normal;color: #0670c4 !important;float: right;text-decoration: underline;cursor:pointer;"><table style="padding:0px !important;"><tr style="padding:0px !important;"><td style="padding:0px !important;" [routerLink]="['/child',id,0]"  skipLocationChange=true (click)="getMasterId(id);">Add Child Client</td></tr></table></span></h3>
     <ng-template #title>
         <h3 *ngIf="id == 0">Add New Client</h3>
     </ng-template> 
@@ -282,7 +282,7 @@
     </tr>
     <tr>        
         <td><button *ngIf="id != 0 else add" type="submit" mat-button cdkFocusInitial>Update Client</button>
-            <a *ngIf="id != 0" [routerLink]="['/clientreg/0']" (click)="goToMainmenu()" style="margin-left:15px;"><button mat-button>Go to Main Menu</button></a>
+            <a *ngIf="id != 0" [routerLink]="['/clientreg/0']"  skipLocationChange=true (click)="goToMainmenu()" style="margin-left:15px;"><button mat-button>Go to Main Menu</button></a>
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Client</button>
             </ng-template> 

@@ -19,10 +19,12 @@ export class UserdashboardService {
 
     var UserCategory = sessionStorage.getItem("USERCATEGORY");
     var RefId = sessionStorage.getItem("RefId");
-    
+    var C_ID = sessionStorage.getItem("uniqueSessionId");
+
     params.set('UserCategory', UserCategory);
     params.set('EntityId',RefId);
-    console.log(params)    
+    params.set('UserId',C_ID);
+        
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
         if (data != '')

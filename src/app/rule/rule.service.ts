@@ -29,6 +29,25 @@ export class RuleService {
         });
   }
 
+  public ClientListByRuleId(ruleId): Observable<any> {
+   
+    const url = AppComponent.urlPath + 'ClientListByRuleId';
+   // const url ='http://461e06b1db5d.ngrok.io/RuleList';
+    const params = new URLSearchParams(); 
+    var RefId = sessionStorage.getItem("RefId");
+    params.set('RuleId', ruleId);
+    params.set('RefId', RefId);
+          
+    return this.http.post(url, params)
+        .map(response => response.json()).map(data => {
+          if (data != '')
+            return data;
+          else
+            return '';
+        });
+  }
+
+
   public updateClientList(ClientId,RuleId): Observable<any> {
    
     const url = AppComponent.urlPath + 'RuleEdit';

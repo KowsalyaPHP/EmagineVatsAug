@@ -10,6 +10,7 @@ import {
 } from "@angular/forms";
 import { LoginService } from './login.service';
 import { MatDialog } from '@angular/material';
+import { browserRefresh } from '../app.component';
 declare var $: any
 
 @Component({
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
   signdisplay='none';
   sessionID:any;
   message:any;
-
+  public browserRefresh: boolean;
+  
   @ViewChild('callAPIDialog',{static:true}) callAPIDialog: TemplateRef<any>;
 
   constructor(private LoginServices: LoginService,private formBuilderObj: FormBuilder,private routerObj: Router,private dialog: MatDialog) { 
@@ -46,14 +48,15 @@ export class LoginComponent implements OnInit {
 
     if (typeof userName !== "undefined" && userName !== null) {         
       sessionStorage.clear();   
-      this.routerObj.navigate(['/login']);
+      this.routerObj.navigate(['/login'], { skipLocationChange: true });
     }
   }
  
   @ViewChild(FormGroupDirective,{static:true}) formGroupDirective: FormGroupDirective;
 
   ngOnInit() {
-
+    this.browserRefresh = browserRefresh;
+    console.log('refreshed?:', browserRefresh);
   }
   
   callAPI() {
@@ -126,7 +129,7 @@ forgotPasswordFormSubmit(formObj) {
             this.resetErrorForm();
             $("#loader").css("display", "none");
             if(response['Data'] == -1){
-              this.routerObj.navigate(["/ForgotPassword/",formObj.password]);
+              this.routerObj.navigate(["/ForgotPassword/",formObj.password], { skipLocationChange: true });
             }
           }         
           else {                     
@@ -146,8 +149,8 @@ forgotPasswordFormSubmit(formObj) {
             //sessionStorage.setItem("Menudetails", JSON.stringify(response['Data']["Menudetails"]));
            // sessionStorage.setItem("Roles", response['Data']["Roles"]);       
             
-           //this.routerObj.navigate(["/req-dashboard/OP"]);
-           this.routerObj.navigate(["/landingpage"]);
+           //this.routerObj.navigate(["/req-dashboard/OP"], { skipLocationChange: true });
+           this.routerObj.navigate(["/landingpage"], { skipLocationChange: true });
           }
         } else {
             console.log("something is wrong with Service Execution");

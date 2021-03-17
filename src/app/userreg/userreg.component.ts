@@ -340,7 +340,7 @@ export class UserregComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();
-                this.routerObj.navigate(['user']);
+                this.routerObj.navigate(['user'], { skipLocationChange: true });
               }            
             }            
             else{
@@ -368,7 +368,7 @@ export class UserregComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();                              
-                this.routerObj.navigate(['user']);
+                this.routerObj.navigate(['user'], { skipLocationChange: true });
               }            
             }
             else {         

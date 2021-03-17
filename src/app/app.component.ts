@@ -4,6 +4,9 @@ import { Router,ActivatedRoute, NavigationStart, NavigationEnd, Event as Navigat
 import { AboutreleaseComponent } from './aboutrelease/aboutrelease.component';
 import { SearchComponent } from './search/search.component';
 import { MatDialog } from '@angular/material';
+import { Subscription } from 'rxjs';
+export let browserRefresh = false;
+import { filter } from 'rxjs/operators'
 
 @Component({
   selector: 'app-root',
@@ -15,12 +18,12 @@ export class AppComponent {
   userName='';
 
  //public static urlPath = "https://api.emaginerock.com/";
- public static urlPath = "http://devapi.emaginerock.com/";
- //public static urlPath = "http://bincrm.com/vatsdev/";
- //public static urlPath = "http://3bee9d501323.ngrok.io/";
-
+ //public static urlPath = "https://devapi.emaginerock.com/";
+ public static urlPath = "http://bincrm.com/vatsdev/";
+ //public static urlPath = "http://14e396fc81ae.ngrok.io/";
   functionList:any;
   funclist:any;
+  subscription: Subscription;
 
   constructor(private router: Router,private route: ActivatedRoute,private dialog: MatDialog) {
 
@@ -34,6 +37,27 @@ export class AppComponent {
       }
 
     });
+
+    this.subscription = router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        browserRefresh = !router.navigated;
+      }
+    });
+
+    this.router.events
+    .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+    .subscribe(event => {
+      if (
+        event.id === 1 &&
+        event.url === event.urlAfterRedirects 
+      ) {
+       console.log('ddd')
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   openDialogAboutReleasePage(): void { 

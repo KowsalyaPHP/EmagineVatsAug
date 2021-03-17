@@ -394,7 +394,7 @@ export class CvuploadvatsComponent implements OnInit {
             this.message = getMessage['1'];
             this.openSnackBar();
             setTimeout(() => {
-              this.routerObj.navigate(['jobdescription/', this.id, this.vendorId]);
+              this.routerObj.navigate(['jobdescription/', this.id, this.vendorId], { skipLocationChange: true });
             }
               , 3000);
 

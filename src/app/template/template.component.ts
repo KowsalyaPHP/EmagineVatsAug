@@ -216,7 +216,7 @@ export class TemplateComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();
                 this.viewTemplateDetails();
-                //this.routerObj.navigate(["/req-dashboard/DR"]);
+                //this.routerObj.navigate(["/req-dashboard/DR"], { skipLocationChange: true });
               }            
             }
             else {         

@@ -46,7 +46,8 @@
                         <a *ngIf="option.OptionsId == 2" (click)="closeMenu()"
                             href="{{getOpenLink(option.ResourceName, option.ResourceId)}}" target="_blank"
                             style="cursor:pointer;">{{option.OptionsName}}</a>
-                        <!-- <a *ngIf="option.OptionsId == 3" style="cursor:pointer;" >{{option.OptionsName}}</a> -->
+                        <a *ngIf="option.OptionsId == 3" style="cursor:pointer;" >{{option.OptionsName}}</a>
+                        <a *ngIf="option.OptionsId == 4" style="cursor:pointer;" >{{option.OptionsName}}</a>
                     </li>
                 </ul>
             </li>

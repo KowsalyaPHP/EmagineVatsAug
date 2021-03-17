@@ -83,7 +83,7 @@ export class ForgotpasswordComponent implements OnInit {
             //$("#Forgotloader").css("display", "none"); 
             //this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
             setTimeout(() => {
-              this.routerObj.navigate(["/"]);
+              this.routerObj.navigate(["/"], { skipLocationChange: true });
             } 
               , 3000);  
           }

@@ -9,11 +9,11 @@
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>   
                 <ul>
-                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"><i class="fa fa-users fa-2x" aria-hidden="true"></i>Client</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('101')"><a [routerLink]="['/vendorreg','0']"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;Vendor</a></li>
-                    <li class="activeMenu textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']" skipLocationChange=true><i class="fa fa-users fa-2x" aria-hidden="true"></i>Client</a></li>
+                    <li class="textsize" *ngIf="userCategory == 'E' || userCategory == 'C' && functionList.includes('101')"><a [routerLink]="['/vendorreg','0']" skipLocationChange=true><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;Vendor</a></li>
+                    <li class="activeMenu textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']" skipLocationChange=true><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']" skipLocationChange=true><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']" skipLocationChange=true><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
                     <li class="textsize" *ngIf="functionList.includes('105')"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
                 </ul>        			
 			</mat-nav-list>
@@ -219,7 +219,7 @@
                 <ng-template #add>
                     <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add User</button>&nbsp;&nbsp;
                 </ng-template>
-                <a [routerLink]="['/user']"><button mat-button>Cancel</button></a>
+                <a [routerLink]="['/user']" skipLocationChange=true><button mat-button>Cancel</button></a>
             </td>
         </tr>
     </table>

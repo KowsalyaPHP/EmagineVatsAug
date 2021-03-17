@@ -9,11 +9,11 @@
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
                 <ul>
-                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
-                    <li *ngIf="functionList.includes('101')" class="textsize"><a [routerLink]="['/vendorreg','0']"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
-                    <li class="activeMenu textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']" skipLocationChange=true><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
+                    <li *ngIf="userCategory == 'E' || userCategory == 'C' && functionList.includes('101')" class="textsize"><a [routerLink]="['/vendorreg','0']" skipLocationChange=true><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']" skipLocationChange=true><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']" skipLocationChange=true><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                    <li class="activeMenu textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']" skipLocationChange=true><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
                     <li class="textsize" *ngIf="functionList.includes('105')"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
                 </ul>          			
 			</mat-nav-list>
@@ -27,16 +27,18 @@
             <!--<h3 class="headerRole">{{userName}}</h3>-->
             <h3 style="margin-left: 10px;">Rule List</h3>
             <ul>
-                <li class="rule" *ngFor="let item of RuleList; let i = index" id="ruleList{{i}}"><a style="color:#000000;cursor:pointer;" (click)="viewSingleRuleList(item.DataAccessRuleId,i)">{{item.DataAccessRuleName}}</a></li>
+                <li class="rule" *ngFor="let item of RuleList; let i = index" class="ruleList" id="ruleList{{i}}"><a style="color:#000000;cursor:pointer;" (click)="ClientListByRuleId(item.DataAccessRuleId,i)">{{item.DataAccessRuleName}}</a></li>
             </ul>
+
             <!--<p *ngIf="RuleList == null" style="margin-left: 5%;">No data Available</p>-->
         </div>       
         <div class="clientList">
             <h3 style="margin-left: 10px;">Client List</h3>
-                <ul>
-                    <li *ngFor="let item of ClientList; let i = index" style="float:left;padding:8px;margin-right: 20px;"> <input type="checkbox" [ngModelOptions]="{standalone: true}" name="clientList{{item.ClientId}}" [(ngModel)]="item.checked" value="{{item.ClientId}}" />{{item.ClientName}}</li>                    
-                </ul>
-                <p *ngIf="ClientList == null" style="margin-left: 1.5%;">No data Available</p>
+            <ul style="display:inline-block;" class="clientlistbyid">
+                <li *ngFor="let item of ClientList; index as i" class="ruleClientList"> <input type="checkbox"
+                        name="ClientList{{item.ClientId}}" [(ngModel)]="item.Status"
+                        value="{{item.ClientId}}"/>{{item.ClientName}}</li>
+            </ul>            
         </div>
         <button mat-button (click)="checkedClientUpdate()" cdkFocusInitial style="margin-left: 24.5%; margin-top: 3%;" >Update</button>
     </div>

@@ -9,11 +9,11 @@
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
                 <ul>
-                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('101')"><a [routerLink]="['/vendorreg','0']"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
-                    <li class="activeMenu textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"  skipLocationChange=true><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
+                    <li class="textsize" *ngIf="userCategory == 'E' || userCategory == 'C' && functionList.includes('101')"><a [routerLink]="['/vendorreg','0']" skipLocationChange=true><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']" skipLocationChange=true><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                    <li class="activeMenu textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']" skipLocationChange=true><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']" skipLocationChange=true><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
                     <li class="textsize" *ngIf="functionList.includes('105')"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
                 </ul>          			
 			</mat-nav-list>
@@ -23,29 +23,29 @@
     <div class="whiteframe" style="width: 93%;float:left;">
         <div style="float: left;width: 100%;">
         <div style="float: left;width: 20%;">           
-            <h3 class="headerRole">Role <span style="margin-left: 80%;" ><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Role',0,'add')"></i></span></h3>
+            <h3 class="headerRole">Role <!--<span style="margin-left: 80%;" ><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Role',0,'add')"></i></span>--></h3>
             <ul style="margin-left: 6%;">
                 <li *ngFor="let item of RoleList; index as i">
-                    <input type="radio" [(ngModel)]="item.roleSelected" id="roleseleted{{i}}" name="role_name" value="{{item.RoleId}}" (change)="getRoleId(item.RoleId)" checked/>{{item.RoleId}}.{{item.RoleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Role',item.RoleId,item.RoleName)"></i>
+                    <input type="radio" [(ngModel)]="item.roleSelected" id="roleseleted{{i}}" name="role_name" value="{{item.RoleId}}" (change)="getRoleId(item.RoleId)" checked/>{{item.RoleId}}.{{item.RoleName}}&nbsp;<!--<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Role',item.RoleId,item.RoleName)"></i>-->
                 </li>
             </ul>
             <p *ngIf="RoleList == null" style="margin-left: 12%;">No data Available</p>
         </div>
         <div style="float: left;width: 20%;">
-            <h3 class="headerRole">Module <span style="margin-left: 70%;"><i class="fa fa-plus" aria-hidden="true"  (click)="opendialogaddrole('Module',0,'add')"></i></span></h3>
+            <h3 class="headerRole">Module <!--<span style="margin-left: 70%;"><i class="fa fa-plus" aria-hidden="true"  (click)="opendialogaddrole('Module',0,'add')"></i></span>--></h3>
             <ul style="margin-left: 6%;">
-                <li *ngFor="let item of ModuleList"> <input type="checkbox" name="ModuleList{{item.ModuleId}}" [(ngModel)]="item.ModuleSelected" value="{{item.ModuleId}}" (ngModelChange)="selectAll(item.ModuleId,item.ModuleSelected)"/>{{item.ModuleId}}.{{item.ModuleName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Module',item.ModuleId,item.ModuleName)"></i></li>
+                <li *ngFor="let item of ModuleList"> <input type="checkbox" name="ModuleList{{item.ModuleId}}" [(ngModel)]="item.ModuleSelected" value="{{item.ModuleId}}" (ngModelChange)="selectAll(item.ModuleId,item.ModuleSelected)"/>{{item.ModuleId}}.{{item.ModuleName}}&nbsp;<!--<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Module',item.ModuleId,item.ModuleName)"></i></li>-->
             </ul>
             <p *ngIf="ModuleList == null" style="margin-left: 12%;">No data Available</p>
         </div>
         <div style="float: left;width: 26%;">
-            <h3 class="headerRole" style="width:77%;margin-top: 11.5%;margin-left: 10%;">Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Function',0,'add')"></i></span></h3>
+            <h3 class="headerRole" style="width:77%;margin-top: 11.5%;margin-left: 10%;">Functionality <!--<span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Function',0,'add')"></i></span>--></h3>
             <ul style="margin-left: 6%;">
                 <li *ngFor="let item of FunctionList;index as i">
                     <b>{{item.moduleid}}.{{item.moduleName}}</b>
                     <ul>
                         <li *ngFor="let list of item['functionGroupList']">
-                            <input type="checkbox" name="FunctionList{{list.FunctionId}}" [(ngModel)]="list.FunctionSelected" value="{{list.FunctionId}}"/>{{list.FunctionId}}.{{list.FunctionName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Function',list.FunctionId,list.FunctionName)"></i>
+                            <input type="checkbox" name="FunctionList{{list.FunctionId}}" [(ngModel)]="list.FunctionSelected" value="{{list.FunctionId}}" (ngModelChange)="selectAllSubFunction(list.FunctionId,list.FunctionSelected)"/>{{list.FunctionId}}.{{list.FunctionName}}&nbsp;<!--<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Function',list.FunctionId,list.FunctionName)"></i>-->
                         </li>
                     </ul>
                 </li>
@@ -53,13 +53,13 @@
             <p *ngIf="FunctionList == null" style="margin-left: 12%;">No data Available</p> 
         </div>
         <div style="float: left;width: 30%;">
-            <h3 class="headerRole" style="width: 88%;margin-top: 10%;margin-left: 7%;">Sub Functionality <span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Subfunction',0,'add')"></i></span></h3>
+            <h3 class="headerRole" style="width: 88%;margin-top: 10%;margin-left: 7%;">Sub Functionality <!--<span style="margin-left: 63%;"><i class="fa fa-plus" aria-hidden="true" (click)="opendialogaddrole('Subfunction',0,'add')"></i></span>--></h3>
             <ul style="margin-left:3%">
                 <li *ngFor="let item of SubfunctionList">
                     <b>{{item.functionid}}.{{item.SubFunctionName}}</b>
                     <ul>
                         <li *ngFor="let list of item['subfunctionGroupList']">
-                            <input type="checkbox" disabled name="SubFunctionList{{list.SubFunctionId}}" [(ngModel)]="list.SubFunctionSelected" value="{{list.SubFunctionId}}" />{{list.SubFunctionId}}.{{list.SubFunctionName}}&nbsp;<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Subfunction',list.SubFunctionId,list.SubFunctionName)"></i>
+                            <input type="checkbox" name="SubFunctionList{{list.SubFunctionId}}" [(ngModel)]="list.SubFunctionSelected" value="{{list.SubFunctionId}}" />{{list.SubFunctionId}}.{{list.SubFunctionName}}&nbsp;<!--<i class="fas fa-edit" style="font-size: 9px;color: #0670c4;" (click)="opendialogaddrole('Subfunction',list.SubFunctionId,list.SubFunctionName)"></i>-->
                         </li>
                     </ul>
                 </li>              

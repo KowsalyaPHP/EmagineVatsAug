@@ -8,14 +8,14 @@
         <mat-icon>card_travel</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <a style="color:rgb(65, 64, 63);" [routerLink]="['/req-dashboard/OP']">
+        <a style="color:rgb(65, 64, 63);" [routerLink]="['/req-dashboard/OP']"  skipLocationChange=true>
           <button mat-menu-item>
             <!-- <mat-icon>dialpad</mat-icon>-->
             <span>Open Requisition dashboard</span>
             
           </button>
         </a>
-        <a style="color:rgb(65, 64, 63);" [routerLink]="['/clientreg/0/0']">
+        <a style="color:rgb(65, 64, 63);" [routerLink]="['/clientreg/0/0']"  skipLocationChange=true>
           <button mat-menu-item>
             <!-- <mat-icon>dialpad</mat-icon>-->
             <span>Admin Settings</span>
@@ -46,9 +46,9 @@
       </mat-menu>
     </span>
     <span class="fill-remaining-space">{{userName}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <span class="fill-remaining-space" *ngIf="isLoggedIn(); else showLogin;"><img src="assets/img/logoutwht.png" style="vertical-align: middle;">&nbsp;&nbsp;<a [routerLink]="['/logout']"><span>Logout</span></a>&nbsp;</span>
+    <span class="fill-remaining-space" *ngIf="isLoggedIn(); else showLogin;"><img src="assets/img/logoutwht.png" style="vertical-align: middle;">&nbsp;&nbsp;<a [routerLink]="['/logout']"  skipLocationChange=true><span>Logout</span></a>&nbsp;</span>
     <ng-template #showLogin>
-      <span class="fill-remaining-space"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>&nbsp;&nbsp;<a [routerLink]="['/']"><span>Login</span></a></span>
+      <span class="fill-remaining-space"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>&nbsp;&nbsp;<a [routerLink]="['/']"  skipLocationChange=true><span>Login</span></a></span>
     </ng-template>  
 
   </div>

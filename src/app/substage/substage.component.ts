@@ -92,7 +92,7 @@ export class SubstageComponent implements OnInit {
            // this.message = getMessage['1'];
            // this.openSnackBar();
            
-           // this.routerObj.navigate(['manage/',this.data['requisitionId'],this.data['currentStage']]);
+           // this.routerObj.navigate(['manage/',this.data['requisitionId'],this.data['currentStage']], { skipLocationChange: true });
            this.getUpdateValues = response['Data'];            
            this.dialogRef.close({action:1,values: this.getUpdateValues});  
              
@@ -113,7 +113,7 @@ export class SubstageComponent implements OnInit {
         if (response != "No data") {
           if (response == "Login Failed") {           
             alert ("Your given details are not existed.");
-            this.routerObj.navigate(["/login"]);           
+            this.routerObj.navigate(["/login"], { skipLocationChange: true });           
           }
           else {                     
             this.assessmentDetails = response; 

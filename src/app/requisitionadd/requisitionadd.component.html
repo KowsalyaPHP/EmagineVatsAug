@@ -8,8 +8,8 @@
 		<mat-drawer *ngIf="showsideNav" #snav class="sideNav" style="position: relative;" opened [mode]="'side'">
 			<mat-nav-list>
          <ul>
-             <li><a [routerLink]="['/position',id]">Position</a></li>				
-             <li><a [routerLink]="['/reqcvlog',id]">Req Status Logs</a></li>
+             <li><a [routerLink]="['/position',id]"  *ngIf="functionList.includes('202')" skipLocationChange=true>Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',id]" skipLocationChange=true>Req Status Logs</a></li>
           </ul>				
 			</mat-nav-list>
 		</mat-drawer>
@@ -326,7 +326,7 @@
                         <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Requisition</button>&nbsp;&nbsp;
                       </ng-template>
                    
-                      <a [routerLink]="['/req-dashboard/OP']"><button mat-button>Cancel</button></a></td>
+                      <a [routerLink]="['/req-dashboard/OP']" skipLocationChange=true><button mat-button>Cancel</button></a></td>
             </tr>
         </table>
     </div>

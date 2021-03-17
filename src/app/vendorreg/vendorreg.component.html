@@ -9,11 +9,11 @@
 		<mat-drawer  #snav class="adminMenu" style="position: relative;"  opened [mode]="'side'">
 			<mat-nav-list>
                 <ul>
-                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
-                    <li class="activeMenu textsize" *ngIf="functionList.includes('101')"><a [routerLink]="['/vendorreg','0']"><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
-                    <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']" skipLocationChange=true><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
+                    <li class="activeMenu textsize" *ngIf="functionList.includes('101')"><a [routerLink]="['/vendorreg','0']" skipLocationChange=true><i class="fa fa-industry fa-2x" aria-hidden="true"></i>&nbsp;<br>Vendor</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('102')"><a [routerLink]="['/user']" skipLocationChange=true><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('103')"><a [routerLink]="['/role']" skipLocationChange=true><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('104')"><a [routerLink]="['/rule']" skipLocationChange=true><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
                     <li class="textsize" *ngIf="functionList.includes('105')"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
                 </ul>          			
 			</mat-nav-list>
@@ -27,7 +27,7 @@
                 <input matInput type="search" placeholder="Search Vendor" [(ngModel)]="term" class="search-input">
             </mat-form-field>   
             <ul style="margin-top:-10px;">         
-                <li *ngFor="let item of vendorList| filtervendor:term ;" [ngClass]="{'selected':  item.MId== id}"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg',item.MId]" (click)="getId(item.MId)">{{item.MName}}</a></li>              
+                <li *ngFor="let item of vendorList| filtervendor:term ;" [ngClass]="{'selected':  item.MId== id}"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;<a [routerLink]="['/vendorreg',item.MId]" skipLocationChange=true (click)="getId(item.MId)">{{item.MName}}</a></li>              
             </ul>
         </div>
 <div style="float: left;width: 81%;">
@@ -311,7 +311,7 @@
     <tr>
         <td> 
             <button *ngIf="id != 0; else add" type="submit" mat-button cdkFocusInitial>Update Vendor</button>&nbsp;&nbsp;
-            <a *ngIf="id != 0" [routerLink]="['/vendorreg/0']" (click)="goToMainmenu()" style="margin-left:15px;"><button mat-button>Go to Main Menu</button></a>
+            <a *ngIf="id != 0" [routerLink]="['/vendorreg/0']" skipLocationChange=true (click)="goToMainmenu()" style="margin-left:15px;"><button mat-button>Go to Main Menu</button></a>
             <ng-template #add>
                 <button *ngIf="id == 0" type="submit" mat-button cdkFocusInitial>Add Vendor</button>&nbsp;&nbsp;
                 </ng-template>

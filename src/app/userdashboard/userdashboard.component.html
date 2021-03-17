@@ -11,12 +11,12 @@
                 <p class="textsize"><a [routerLink]="['/userreg']"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></p>-->
 
                 <ul style="margin-top:14px;">
-                    <li class="textsize"><a [routerLink]="['/clientreg','0']" style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
-                    <li *ngIf="userCategory == 'E' || userCategory == 'C'" class="textsize"><a [routerLink]="['/vendorreg','0']" style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-industry fa-2x" aria-hidden="true"></i><br>Vendor</a></li>
-                    <li class="activeMenu textsize"><a [routerLink]="['/user']" style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
-                    <li class="textsize"><a [routerLink]="['/role']" style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
-                    <li class="textsize"><a [routerLink]="['/rule']" style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
-                    <li class="textsize"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
+                    <li class="textsize" *ngIf="functionList.includes('100')"><a [routerLink]="['/clientreg','0']"  skipLocationChange=true style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-users fa-2x" aria-hidden="true"></i><br>Client</a></li>
+                    <li *ngIf="userCategory == 'E' || userCategory == 'C' && functionList.includes('101')" class="textsize"><a [routerLink]="['/vendorreg','0']"  skipLocationChange=true style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-industry fa-2x" aria-hidden="true"></i><br>Vendor</a></li>
+                    <li *ngIf="functionList.includes('102')" class="activeMenu textsize"><a [routerLink]="['/user']" skipLocationChange=true style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i><br>User</a></li>
+                    <li *ngIf="functionList.includes('103')" class="textsize"><a [routerLink]="['/role']" skipLocationChange=true style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-star fa-2x" aria-hidden="true"></i><br>Role</a></li>
+                    <li *ngIf="functionList.includes('104')" class="textsize"><a [routerLink]="['/rule']" skipLocationChange=true style="font-size:13px;text-align:center;padding: 3px;"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i><br>Rule</a></li>
+                    <li *ngIf="functionList.includes('105')" class="textsize"><a style="cursor:pointer;" (click)="openDialogaddNewCity()"><i class="fas fa-city  fa-2x"></i><br>City</a></li>
                 </ul>   
 			</mat-nav-list>
 		</mat-drawer>
@@ -28,7 +28,7 @@
                 <div style="margin: 0;">
                     <div id="snackbar">{{message}}</div>
                 </div>
-                <a class="newitem" [routerLink]="['/userreg/0']">+Add User</a>  
+                <a class="newitem" [routerLink]="['/userreg/0']" skipLocationChange=true>+Add User</a>  
                     <table #dataTable  id="userDashboard"  class="display table table-borderless table-hover" style="width:100%;">        
                     <thead>
                         <tr>                  
@@ -49,7 +49,7 @@
                             <td class="dropdown">
                                 <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.UserId}}</a> 
                                 <ul class="dropdown-menu" id="showmenu{{i}}">
-                                    <li><a [routerLink]="['/userreg',item.UserId]">Edit User</a></li>
+                                    <li><a [routerLink]="['/userreg',item.UserId]" skipLocationChange=true>Edit User</a></li>
                                 </ul>
                             </td>     
                             <td>{{item.UserCategoryName}}</td>

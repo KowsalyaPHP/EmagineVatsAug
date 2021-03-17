@@ -13,6 +13,7 @@ import { ViewrequisitionComponent } from '../viewrequisition/viewrequisition.com
 import { PublishresourceComponent } from '../publishresource/publishresource.component';
 import { saveAs } from 'file-saver';
 import { DataService } from '../services/data.service';
+import { browserRefresh } from '../app.component';
 
 @Component({
   selector: 'app-req-dashboard',
@@ -63,7 +64,8 @@ export class ReqDashboardComponent implements OnInit {
   CRtotal = 0;
   IRtotal = 0;
   showResource:boolean=false;
-  
+  public browserRefresh: boolean;
+
   constructor(private route: ActivatedRoute,private routerObj: Router,private SharedServices: SharedService,private ReqDashboardServices: ReqDashboardService,public dialog: MatDialog,private _snackBar: MatSnackBar, private dataService: DataService){
     this.route.params.subscribe(params => {
       this.status = params['status']; 
@@ -134,7 +136,22 @@ export class ReqDashboardComponent implements OnInit {
   
 
   ngOnInit() {
-    function format ( d ) {
+    window.addEventListener('beforeunload', (event) => {
+      //alert(this.routerObj.url);
+      console.log('href'+ window.location.href);
+      console.log('angular'+ this.routerObj.url);
+      //event.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+      // Chrome requires returnValue to be set
+     // event.returnValue = '';
+      //event.returnValue = this.routerObj.navigate([this.routerObj.url],{skipLocationChange : true});
+      var url = this.routerObj.url;
+      location.href = "'"+this.routerObj.url+"'";
+     // window.location.href = url;
+     // this.routerObj.navigate([url],{skipLocationChange : true});
+      
+    });
+    
+     function format ( d ) {
       // `d` is the original data object for the row
       return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
@@ -169,7 +186,7 @@ export class ReqDashboardComponent implements OnInit {
           ],
           'order': [[1, 'asc']]
       } );
-console.log(table)
+
       //var table = $('#reqList').DataTable();
       // Add event listener for opening and closing details
       $('#example tbody').on('click', 'td.details-control', function(){
@@ -572,7 +589,8 @@ console.log(table)
     this.manageRedirect=false;
 
     //$('select option[value="'+status+'"]').attr("selected",true);
-    this.routerObj.navigate(['req-dashboard/',status]);
+    this.routerObj.navigate(['req-dashboard/',status],{skipLocationChange : true});
+    
    // const myNumber = Observable.interval(1000);
  
     this.ReqDashboardServices.getReqList(status).subscribe(
@@ -829,7 +847,7 @@ console.log(table)
     this.manageRedirect=false;
     
     $('select option[value="'+status+'"]').attr("selected",true);
-    this.routerObj.navigate(['req-dashboard/',status]);
+    this.routerObj.navigate(['req-dashboard/',status],{skipLocationChange : true});
     this.ReqDashboardServices.getReqList(status).subscribe(
       response => {
         // $('#reqList').DataTable().clear().destroy();

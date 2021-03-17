@@ -158,7 +158,7 @@ export class CloneComponent implements OnInit {
           if (response != "No data") {
             if (response == "Login Failed") {           
               alert ("Your given details are not existed.");
-              this.routerObj.navigate(["/login"]);           
+              this.routerObj.navigate(["/login"], { skipLocationChange: true });           
             }
             else {                     
               this.requisitionDetails = response;   
@@ -597,7 +597,7 @@ export class CloneComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();
-                this.routerObj.navigate(["/req-dashboard/DR"]);
+                this.routerObj.navigate(["/req-dashboard/DR"], { skipLocationChange: true });
               }            
             }
             else {         

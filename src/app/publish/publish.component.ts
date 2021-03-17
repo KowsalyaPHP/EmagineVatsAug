@@ -353,7 +353,7 @@ export class PublishComponent implements OnInit {
     this.manageRedirect=false;
 
     //$('select option[value="'+status+'"]').attr("selected",true);
-   // this.routerObj.navigate(['req-dashboard/',status]);
+   // this.routerObj.navigate(['req-dashboard/',status], { skipLocationChange: true });
    // const myNumber = Observable.interval(1000);
  
     this.ReqDashboardServices.getReqList(status).subscribe(
@@ -544,7 +544,7 @@ export class PublishComponent implements OnInit {
             this.message1 = getMessage['1'];
             this.openSnackBar();
           
-            //this.routerObj.navigate(["/req-dashboard"]);
+            //this.routerObj.navigate(["/req-dashboard"], { skipLocationChange: true });
           }
           // this.allVendorList = response['Data'];
         }
@@ -567,7 +567,7 @@ export class PublishComponent implements OnInit {
           else {
             this.message1 = getMessage['1'];
             this.openSnackBar();
-            //this.routerObj.navigate(["/req-dashboard"]);           
+            //this.routerObj.navigate(["/req-dashboard"], { skipLocationChange: true });           
           }
           // this.allVendorList = response['Data'];
         }

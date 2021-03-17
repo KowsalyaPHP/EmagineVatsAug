@@ -74,6 +74,8 @@ import { PublishresourceComponent } from './publishresource/publishresource.comp
 import { SearchComponent } from './search/search.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { FilterpublishPipe } from './publish/filterpublish.pipe';
+import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +136,7 @@ import { FilterpublishPipe } from './publish/filterpublish.pipe';
     PublishresourceComponent,
     SearchComponent,
     FilterpublishPipe,
+    ReportComponent,
     
   ],
   imports: [
@@ -152,7 +155,8 @@ import { FilterpublishPipe } from './publish/filterpublish.pipe';
     FlexLayoutModule,
     NgxDocViewerModule,
     TooltipModule, 
-    ClipboardModule
+    ClipboardModule,
+    ReportViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [LoginService,DatePipe,StyleUtils,StylesheetMap,MediaMarshaller,ɵMatchMedia,BreakPointRegistry,PrintHook,LayoutStyleBuilder,FlexStyleBuilder,ShowHideStyleBuilder,FlexOrderStyleBuilder,LayoutAlignStyleBuilder,LayoutGapStyleBuilder],

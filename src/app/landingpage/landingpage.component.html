@@ -13,9 +13,9 @@
         <!--<mat-card-title>Modules</mat-card-title>-->
         </mat-card-header>
         <mat-card-content>
-        <a style="color:rgb(248 246 245);" [routerLink]="['/req-dashboard/OP']" *ngIf="functionList.includes('2')"><div id="listModule"><i class="fa fa-briefcase fa-4x" aria-hidden="true"></i><br><br>Requisition</div></a>     
-        <a style="color:rgb(248 246 245);" [routerLink]="['/clientreg/0']" *ngIf="functionList.includes('1')"><div id="listModule" style="text-align: unset;"><mat-icon style="font-size: 74px;margin-left: 42px;margin-top:-5px;">admin_panel_settings</mat-icon><br><span style="margin-left: 56px">Admin</span></div></a>   
-        <a style="color:rgb(248 246 245);"><div id="listModule"><i class="fas fa-chart-bar fa-4x" style="padding-top: 2px;"></i><br><br>Reports</div></a>       
+        <a style="color:rgb(248 246 245);" [routerLink]="['/req-dashboard/'+reqstatus]" skipLocationChange=true *ngIf="functionList.includes('2')"><div id="listModule"><i class="fa fa-briefcase fa-4x" aria-hidden="true"></i><br><br>Requisition</div></a>     
+        <a style="color:rgb(248 246 245);" [routerLink]="['/clientreg/0']" skipLocationChange=true *ngIf="functionList.includes('1')"><div id="listModule" style="text-align: unset;"><mat-icon style="font-size: 74px;margin-left: 42px;margin-top:-5px;">admin_panel_settings</mat-icon><br><span style="margin-left: 56px">Admin</span></div></a>   
+        <a style="color:rgb(248 246 245);" [routerLink]="['/report']" *ngIf="functionList.includes('3')"><div id="listModule"><i class="fas fa-chart-bar fa-4x" style="padding-top: 2px;"></i><br><br>Reports</div></a>       
        <!-- <div id="listModule">Report</div>-->
         </mat-card-content>    
     </mat-card>

@@ -110,7 +110,7 @@ export class ClientchildComponent implements OnInit {
   
   goToMainmenu(){
     this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
-    //this.routerObj.navigate(['clientreg/0']);
+    //this.routerObj.navigate(['clientreg/0'], { skipLocationChange: true });
   }
 
   
@@ -118,7 +118,7 @@ export class ClientchildComponent implements OnInit {
     this.getChildType = getChild;
     this.viewSingleClient(clientid);
     //this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
-   // this.routerObj.navigate(['clientreg/'+clientid+'/1']);
+   // this.routerObj.navigate(['clientreg/'+clientid+'/1'], { skipLocationChange: true });
   }
 
   openDialogaddNewCity(): void {
@@ -340,7 +340,7 @@ export class ClientchildComponent implements OnInit {
                 this.openSnackBar();               
                 this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
                 setTimeout(() => {
-                  this.routerObj.navigate(['child/'+this.id+'/1']);
+                  this.routerObj.navigate(['child/'+this.id+'/1'], { skipLocationChange: true });
                   }
                   , 3000);
               }            
@@ -373,7 +373,7 @@ export class ClientchildComponent implements OnInit {
                
                this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
                setTimeout(() => {
-                this.routerObj.navigate(['child/'+response['Data']+'/1']);
+                this.routerObj.navigate(['child/'+response['Data']+'/1'], { skipLocationChange: true });
                 }
                 , 3000);
                
@@ -401,7 +401,7 @@ export class ClientchildComponent implements OnInit {
           }          
           else{
             this.childList = response['Data'];
-            //this.routerObj.navigate(['manage/',this.id,'SO']);
+            //this.routerObj.navigate(['manage/',this.id,'SO'], { skipLocationChange: true });
           }            
         }
         else {         
@@ -423,7 +423,7 @@ export class ClientchildComponent implements OnInit {
           }          
           else{
             this.clientList = response['Data'];
-            //this.routerObj.navigate(['manage/',this.id,'SO']);
+            //this.routerObj.navigate(['manage/',this.id,'SO'], { skipLocationChange: true });
           }            
         }
         else {         

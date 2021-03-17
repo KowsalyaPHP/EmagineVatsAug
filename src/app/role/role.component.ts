@@ -155,7 +155,7 @@ export class RoleComponent implements OnInit {
         if (response != "No data") {
           if (response == "Login Failed") {           
             alert ("Your given details are not existed.");
-            this.routerObj.navigate(["/login"]);           
+            this.routerObj.navigate(["/login"], { skipLocationChange: true });           
           }
           else {                     
           
@@ -181,8 +181,7 @@ export class RoleComponent implements OnInit {
     }
 
     selectAll(moduleId,SelectedorNot){
-      console.log(SelectedorNot)
-      console.log(moduleId);
+      
       if(SelectedorNot == true){
         for (let i = 0; i < this.FunctionList.length; i++) {                
             for(let j=0; j< this.FunctionList[i]['functionGroupList'].length;j++){
@@ -214,6 +213,28 @@ export class RoleComponent implements OnInit {
         for (let i = 0; i < this.SubfunctionList.length; i++) {                
           for(let j=0; j< this.SubfunctionList[i]['subfunctionGroupList'].length;j++){
             if(this.SubfunctionList[i]['subfunctionGroupList'][j]['ModuleId'] == moduleId){
+              this.SubfunctionList[i]['subfunctionGroupList'][j]['SubFunctionSelected'] = false;
+            }
+          }       
+        }
+      }
+    }
+
+    selectAllSubFunction(functionId,SelectedorNot){      
+      
+      if(SelectedorNot == true){
+        for (let i = 0; i < this.SubfunctionList.length; i++) {                
+          for(let j=0; j< this.SubfunctionList[i]['subfunctionGroupList'].length;j++){
+            if(this.SubfunctionList[i]['subfunctionGroupList'][j]['FunctionId'] == functionId){
+              this.SubfunctionList[i]['subfunctionGroupList'][j]['SubFunctionSelected'] = true;
+            }
+          }       
+        }
+      }
+      else{
+        for (let i = 0; i < this.SubfunctionList.length; i++) {                
+          for(let j=0; j< this.SubfunctionList[i]['subfunctionGroupList'].length;j++){
+            if(this.SubfunctionList[i]['subfunctionGroupList'][j]['FunctionId'] == functionId){
               this.SubfunctionList[i]['subfunctionGroupList'][j]['SubFunctionSelected'] = false;
             }
           }       

@@ -98,10 +98,9 @@ export class ChangepasswordComponent implements OnInit {
             this.openSnackBar();
             //this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
             setTimeout(() => {
-              this.routerObj.navigate(["/req-dashboard/OP"]);
+              this.routerObj.navigate(["/req-dashboard/OP"], { skipLocationChange: true });
             }
-            , 3000);
-            //this.routerObj.navigate(["/req-dashboard/OP"]);
+            , 3000);           
           }
         } else {
             console.log("something is wrong with Service Execution");

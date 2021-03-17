@@ -10,16 +10,22 @@
           <i class="fa fa-bars"></i>
         </button>
         <mat-menu #menu="matMenu">
-          <a style="color:rgb(65, 64, 63);" *ngIf="functionList.includes('2')"  [routerLink]="['/req-dashboard/OP']">
+          <a style="color:rgb(65, 64, 63);" *ngIf="functionList.includes('2')"  [routerLink]="['/req-dashboard/OP']" skipLocationChange=true>
             <button mat-menu-item>
               <!-- <mat-icon>dialpad *ngIf="myArray.includes('2')"</mat-icon>-->
               <span>Requisition dashboard</span>
             </button>
           </a>
-          <a style="color:rgb(65, 64, 63);" *ngIf="functionList.includes('1')" [routerLink]="['/clientreg/0']">
+          <a style="color:rgb(65, 64, 63);" *ngIf="functionList.includes('1')" [routerLink]="['/clientreg/0']"  skipLocationChange=true>
             <button mat-menu-item>
               <!-- <mat-icon>dialpad</mat-icon>-->
               <span>Admin Settings</span>
+            </button>
+          </a>
+          <a style="color:rgb(65, 64, 63);" *ngIf="functionList.includes('3')" [routerLink]="['/report']"  skipLocationChange=true>
+            <button mat-menu-item>
+              <!-- <mat-icon>dialpad</mat-icon>-->
+              <span>Report</span>
             </button>
           </a>
           <a style="color:rgb(65, 64, 63);" (click)="openDialogAboutReleasePage()">
@@ -33,7 +39,7 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu1="matMenu">
-          <a style="color:rgb(65, 64, 63);" [routerLink]="['/changepassword']">
+          <a style="color:rgb(65, 64, 63);" [routerLink]="['/changepassword']" skipLocationChange=true>
             <button mat-menu-item>
               <i class="fa fa-key" aria-hidden="true"></i>
               <span>Change Password</span>
@@ -59,9 +65,9 @@
       <button mat-icon-button style="font-size: 18px;" (click)="openDialogSearch();"  *ngIf="isLoggedIn();">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
-      <span class="fill-remaining-space" *ngIf="isLoggedIn(); else showLogin;"><img src="assets/img/logoutwht.png" style="vertical-align: middle;">&nbsp;&nbsp;<a [routerLink]="['/logout']"><span>Logout</span></a>&nbsp;</span>
+      <span class="fill-remaining-space" *ngIf="isLoggedIn(); else showLogin;"><img src="assets/img/logoutwht.png" style="vertical-align: middle;">&nbsp;&nbsp;<a [routerLink]="['/logout']"  skipLocationChange=true><span>Logout</span></a>&nbsp;</span>
       <ng-template #showLogin>
-        <span class="fill-remaining-space"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>&nbsp;&nbsp;<a [routerLink]="['/']"><span>Login</span></a></span>
+        <span class="fill-remaining-space"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>&nbsp;&nbsp;<a [routerLink]="['/']"  skipLocationChange=true><span>Login</span></a></span>
       </ng-template>  
   
     </div>
@@ -75,8 +81,8 @@
 		<mat-drawer *ngIf="show_menu=='true'"  #snav style="width: 16%;height:92.5%;background: #434a54;color: #fff;margin-top:3.6%;"  opened [mode]="'side'">
 			<mat-nav-list>
          <ul>
-             <li><a [routerLink]="['/position',ReqID]">Position</a></li>				
-             <li><a [routerLink]="['/reqcvlog',ReqID]">Req Status Logs</a></li>
+             <li><a [routerLink]="['/position',ReqID]"  skipLocationChange=true>Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',ReqID]"  skipLocationChange=true>Req Status Logs</a></li>
           </ul>				
 			</mat-nav-list>
 		</mat-drawer>

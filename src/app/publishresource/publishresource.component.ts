@@ -83,7 +83,7 @@ export class PublishresourceComponent implements OnInit {
     this.manageRedirect=false;
 
     //$('select option[value="'+status+'"]').attr("selected",true);
-   // this.routerObj.navigate(['req-dashboard/',status]);
+   // this.routerObj.navigate(['req-dashboard/',status], { skipLocationChange: true });
    // const myNumber = Observable.interval(1000);
  
     this.ReqDashboardServices.getReqList(status).subscribe(

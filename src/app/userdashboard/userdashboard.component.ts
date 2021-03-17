@@ -100,7 +100,7 @@ export class UserdashboardComponent implements OnInit {
             });
           
             this.userList = response['Data'];
-            //this.routerObj.navigate(['manage/',this.id,'SO']);
+            //this.routerObj.navigate(['manage/',this.id,'SO'], { skipLocationChange: true });
           }            
         }
         else {         

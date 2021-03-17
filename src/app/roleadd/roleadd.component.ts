@@ -254,7 +254,7 @@ export class RoleaddComponent implements OnInit {
         if (response != "No data") {
           if (response == "Login Failed") {           
             alert ("Your given details are not existed.");
-            this.routerObj.navigate(["/login"]);           
+            this.routerObj.navigate(["/login"], { skipLocationChange: true });           
           }
           else {                     
             this.FunctionList = response['Data']; 

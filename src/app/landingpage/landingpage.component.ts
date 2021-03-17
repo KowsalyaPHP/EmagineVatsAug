@@ -19,6 +19,7 @@ declare var $: any
 })
 export class LandingpageComponent implements OnInit {
  functionList:any;
+ reqstatus:any;
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private dialog: MatDialog) { 
     var userName = sessionStorage.getItem("FunctionList");
     this.functionList = userName.split(',');
@@ -27,11 +28,13 @@ export class LandingpageComponent implements OnInit {
 
 
   ngOnInit() {
+    this.reqstatus = encodeURIComponent('OP');
   }
+  
   reload(){
     this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
     this.routerObj.onSameUrlNavigation = 'reload';
-    this.routerObj.navigate(['/landingpage']);
+    this.routerObj.navigate(['/landingpage'], { skipLocationChange: true });
   }
   
 }

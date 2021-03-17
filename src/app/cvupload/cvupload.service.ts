@@ -241,7 +241,8 @@ export class CvuploadService {
     formData.append('RequisitionId', ReqId);
     formData.append('CandidateId', CandId);
     formData.append('ApplicationId', AppId);
-    formData.append('CVLink', CVLink)
+    formData.append('CVLink', CVLink);
+    formData.append('C_ID', C_ID);
  
     return this.http.post(url, formData)    
       .map(response => response.json()).map(data => {

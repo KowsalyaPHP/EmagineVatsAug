@@ -11,7 +11,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit() {
     sessionStorage.clear();   
-    this.routerObj.navigate(['/']);
+    this.routerObj.navigate(['/'], { skipLocationChange: true });
   }
 
 }

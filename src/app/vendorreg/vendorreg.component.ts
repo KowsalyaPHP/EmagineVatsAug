@@ -291,7 +291,7 @@ export class VendorregComponent implements OnInit {
                 this.openSnackBar();
                 this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false;
                 setTimeout(() => {
-                  this.routerObj.navigate(['vendorreg/'+this.id]);
+                  this.routerObj.navigate(['vendorreg/'+this.id], { skipLocationChange: true });
                 }
                 , 4000);
                // this.routerObj.navigate(['vendorreg/0']);
@@ -325,7 +325,7 @@ export class VendorregComponent implements OnInit {
 
                 this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
                 setTimeout(() => {
-                  this.routerObj.navigate(['vendorreg/'+response['Data']]);
+                  this.routerObj.navigate(['vendorreg/'+response['Data']], { skipLocationChange: true });
                 }
                 , 4000);
                 
@@ -356,7 +356,7 @@ export class VendorregComponent implements OnInit {
           }          
           else{
             this.vendorList = response['Data'];
-            //this.routerObj.navigate(['manage/',this.id,'SO']);
+            //this.routerObj.navigate(['manage/',this.id,'SO'], { skipLocationChange: true });
           }            
         }
         else {         

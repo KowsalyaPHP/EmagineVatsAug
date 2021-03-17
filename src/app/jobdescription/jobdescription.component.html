@@ -7,7 +7,7 @@
         <!-- <div id="description">{{item.JobDescription}}</div> -->
         <div id="descriptionshow" [innerHtml]="item.JobDescription"></div>
     </div>
-    <a [routerLink]="['/cvuploadvats/',id,vendorId]"><button mat-button>Submit</button></a>
+    <a [routerLink]="['/cvuploadvats/',id,vendorId]" skipLocationChange=true><button mat-button>Submit</button></a>
 </mat-card>
 
 <mat-card style="padding: 40px 20px 250px 25px;font-size: 14px;font-weight: 600;" *ngIf="show">

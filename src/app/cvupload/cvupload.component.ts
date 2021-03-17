@@ -606,7 +606,7 @@ export class CvuploadComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();
                 setTimeout(() => {
-                  this.routerObj.navigate(['manage/', this.id, this.CurrentStage]);
+                  this.routerObj.navigate(['manage/', this.id, this.CurrentStage], { skipLocationChange: true });
                 }
                   , 3000);
               }
@@ -635,7 +635,7 @@ export class CvuploadComponent implements OnInit {
                 this.message = getMessage['1'];
                 this.openSnackBar();
                 setTimeout(() => {
-                  this.routerObj.navigate(['manage/', this.id, 'SO']);
+                  this.routerObj.navigate(['manage/', this.id, 'SO'], { skipLocationChange: true });
                 }
                   , 3000);
               }

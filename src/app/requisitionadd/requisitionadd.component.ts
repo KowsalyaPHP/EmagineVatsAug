@@ -121,6 +121,8 @@ export class RequisitionaddComponent implements OnInit {
   openedOn:any;
   attachment:any;
   attachmentShow:any;
+  functionList:any;
+  funclist:any;
   /*Chip */
  
   constructor(private SharedServices: SharedService,private RequisitionaddServices: RequisitionaddService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,public dialog: MatDialog) {
@@ -163,6 +165,10 @@ export class RequisitionaddComponent implements OnInit {
     // Minexperience:['', [Validators.pattern("\d{1,2}(\.\d{0,4})?")]],
    //Maxexperience:['', [Validators.pattern("\\d+([.]\\d+)?")]],
 
+   this.funclist = sessionStorage.getItem("FunctionList");      
+   if(typeof(this.funclist) != 'object')
+   this.functionList = this.funclist.split(',');  
+
     var userId = sessionStorage.getItem("uniqueSessionId");    
     var userName = sessionStorage.getItem("userName");  
               
@@ -174,7 +180,7 @@ export class RequisitionaddComponent implements OnInit {
           if (response != "No data") {
             if (response == "Login Failed") {           
               alert ("Your given details are not existed.");
-              this.routerObj.navigate(["/login"]);           
+              this.routerObj.navigate(["/login"], { skipLocationChange: true });           
             }
             else {                     
               this.requisitionDetails = response;   
@@ -711,7 +717,7 @@ export class RequisitionaddComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();
-                this.routerObj.navigate(['req-dashboard/',formObj['ReqStatus']]);
+                this.routerObj.navigate(['req-dashboard/',formObj['ReqStatus']], { skipLocationChange: true });
               }            
             }            
             else{
@@ -767,7 +773,7 @@ export class RequisitionaddComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();
-                this.routerObj.navigate(["/req-dashboard/DR"]);
+                this.routerObj.navigate(["/req-dashboard/DR"], { skipLocationChange: true });
               }            
             }
             else {         

@@ -37,6 +37,7 @@ import { RuleComponent } from './rule/rule.component';
 import { CvuploadvatsComponent } from './cvuploadvats/cvuploadvats.component';
 import { JobdescriptionComponent } from './jobdescription/jobdescription.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
+import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
 {
@@ -182,6 +183,10 @@ const routes: Routes = [
 {
   path: "landingpage",
   component: LandingpageComponent
+},
+{
+  path: "report",
+  component: ReportComponent
 }
 ];
 

@@ -158,7 +158,7 @@ export class UnpublishComponent implements OnInit {
               else{
                 this.message = getMessage['1'];
                 this.openSnackBar();      
-                this.routerObj.navigate(["/req-dashboard"]);           
+                this.routerObj.navigate(["/req-dashboard"], { skipLocationChange: true });           
               }
         }
         else {         

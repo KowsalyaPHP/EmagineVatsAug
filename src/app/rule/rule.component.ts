@@ -8,9 +8,10 @@ import { AddcityComponent } from '../addcity/addcity.component';
 declare var $: any
 
 interface ClientList {
-  ClientId: any;
-  ClientName: string;
-  checked?: boolean;
+  RuleId: any;
+  ClientId: string;
+  ClientName: any;
+  Status?: boolean;
 }
 
 @Component({
@@ -31,12 +32,14 @@ export class RuleComponent implements OnInit {
   singleruleId:any;
   functionList:any;
   funclist:any;
+  clientListById:[];
 
   constructor(private routerObj: Router,private RuleServices: RuleService,private route: ActivatedRoute,public dialog: MatDialog,private SharedServices: SharedService) { 
      this.userName = sessionStorage.getItem("userName");
      this.userCategory = sessionStorage.getItem("USERCATEGORY");
      this.viewRuleList();
-     this.getClientList();
+     //this.getClientList();
+     
   }
 
   ngOnInit() {
@@ -81,7 +84,7 @@ export class RuleComponent implements OnInit {
   }
 
   checkedClientUpdate(){
-      this.clientSelect = this.ClientList.filter( (ClientList) => ClientList.checked );
+      this.clientSelect = this.ClientList.filter( (ClientList) => ClientList.Status );
       const ClientId= this.clientSelect.map(element => element.ClientId);
       this.clientCode = ClientId.join(',');  
 
@@ -111,7 +114,7 @@ export class RuleComponent implements OnInit {
                 this.ClientList = response['Data'];
               }
               
-              //this.routerObj.navigate(['vendorreg/0']);
+              //this.routerObj.navigate(['vendorreg/0'], { skipLocationChange: true });
                            
           
            // this.ClientList = response;
@@ -152,7 +155,7 @@ export class RuleComponent implements OnInit {
               this.ClientList = response['Data'];
             }
             
-            //this.routerObj.navigate(['vendorreg/0']);
+            //this.routerObj.navigate(['vendorreg/0'], { skipLocationChange: true });
           }               
         
          // this.ClientList = response;
@@ -182,7 +185,7 @@ export class RuleComponent implements OnInit {
               this.clientSingleList = response['Data'][0]['ClientId'].split(",");
              
               this.getClientList();
-              this.viewRuleList();
+              //this.viewRuleList();
               setTimeout(() => {               
                 
                 $('#ruleList'+index).addClass('selected');
@@ -202,12 +205,65 @@ export class RuleComponent implements OnInit {
     this.RuleServices.getRuleList().subscribe(
       response => {
         if (response != "No data") {
-            this.RuleList = response['Data'];
+            this.RuleList = response['Data'];            
+            this.ClientListByRuleId(response['Data'][0]['DataAccessRuleId'],0)
         } else {
             console.log("something is wrong with Service Execution");
         }
       });
     }
 
+    ClientListByRuleId(ruleId,index){
+     
+      this.singleruleId = ruleId;
+  
+      this.RuleServices.ClientListByRuleId(ruleId).subscribe(
+        response =>  { 
+            if (response != "No data") {          
+              let getMessage =  response['Message'].split(":");
+              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                this.message = getMessage['1'];
+                this.openSnackBar(); 
+              }
+              else {                  
+                this.ClientList = response['Data'];
+                this.ClientList.forEach(v => {
+                  if (v.Status == <any>"False") {
+                    v.Status = false;
+                  }
+                  else if (v.Status == <any>"True") {
+                    v.Status = true;
+                  }
+                });
+                
+                //this.clientSingleList = response['Data'][0]['ClientId'].split(",");
+                //this.getClientList();
+                //this.viewRuleList();
+                setTimeout(() => {               
+                  $('.ruleList').removeClass('selected');
+                  $('#ruleList'+index).addClass('selected');
+                  }
+                  , 500);                        
+                }    
+                
+            } else {
+            console.log("something is wrong with Service Execution"); 
+            }
+          },
+          error => console.log(error)      
+        );
+    }
+  
+   /* viewsRuleList(){
+      this.RuleServices.ClientListByRuleId().subscribe(
+        response => {
+          if (response != "No data") {
+              this.RuleList = response['Data'];
+          } else {
+              console.log("something is wrong with Service Execution");
+          }
+        });
+      }
+*/
 
 }

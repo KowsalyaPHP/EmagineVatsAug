@@ -5,7 +5,7 @@
     <h3 style="text-align: center;">UnPublish Requisition</h3>
     
     <div style="margin-left: 62.5%;">
-        <span style="vertical-align: middle;"><mat-icon>volume_up</mat-icon></span> <span><a style="color: #0670c4;cursor: pointer;" (click)="UnPublish();">Unpublish</a></span> &nbsp;&nbsp;<span style="vertical-align: middle;"><mat-icon>clear</mat-icon></span> <span><a [routerLink]="['/req-dashboard']">Cancel</a></span></div>
+        <span style="vertical-align: middle;"><mat-icon>volume_up</mat-icon></span> <span><a style="color: #0670c4;cursor: pointer;" (click)="UnPublish();">Unpublish</a></span> &nbsp;&nbsp;<span style="vertical-align: middle;"><mat-icon>clear</mat-icon></span> <span><a [routerLink]="['/req-dashboard']" skipLocationChange=true>Cancel</a></span></div>
     <table class="publishTableOne">
         <tr><th>Category</th><th>Select Sources and Publish!</th></tr>
         <tr><td>Default</td><td><input disabled type="checkbox">Direct Upload</td></tr>

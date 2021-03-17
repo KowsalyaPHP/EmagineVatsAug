@@ -8,8 +8,8 @@
 		<mat-drawer  #snav class="sideNav" style="position: relative;" opened [mode]="'side'">
 			<mat-nav-list>
          <ul>
-             <li><a [routerLink]="['/position',id]">Position</a></li>				
-             <li><a [routerLink]="['/reqcvlog',id]">Req Status Logs</a></li>
+             <li><a [routerLink]="['/position',id]"  skipLocationChange=true>Position</a></li>				
+             <li><a [routerLink]="['/reqcvlog',id]"  skipLocationChange=true>Req Status Logs</a></li>
           </ul>				
 			</mat-nav-list>
 		</mat-drawer>
@@ -18,7 +18,7 @@
 			<div class="content whiteframe">
 
         <div id="positioninfo">
-        <p><b>Positions:</b> #<a style="color: #0670c4;text-decoration: underline;" [routerLink]="['/requisitionadd',id]"> {{id}} - {{reqTitle}}</a> <span style="float:right"><a style="color: #000000;" [routerLink]="['/requisitionadd',id]"><i class="material-icons" style="border: 1px solid;border-radius: 50%;margin: 10px 11px;">
+        <p><b>Positions:</b> #<a style="color: #0670c4;text-decoration: underline;" [routerLink]="['/requisitionadd',id]"  skipLocationChange=true> {{id}} - {{reqTitle}}</a> <span style="float:right"><a style="color: #000000;" [routerLink]="['/requisitionadd',id]"  skipLocationChange=true><i class="material-icons" style="border: 1px solid;border-radius: 50%;margin: 10px 11px;">
     chevron_left
   </i></a></span> </p>
             <mat-tab-group dynamicHeight>

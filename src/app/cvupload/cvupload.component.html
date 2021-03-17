@@ -320,7 +320,7 @@
     </div>-->
     <table style="margin-top:10px;">
       <tr><button type="submit" mat-button cdkFocusInitial>Submit</button>&nbsp;&nbsp;
-        <a [routerLink]="['/manage',id,CurrentStage]"><button mat-button>Cancel</button></a>
+        <a [routerLink]="['/manage',id,CurrentStage]"  skipLocationChange=true><button mat-button>Cancel</button></a>
       </tr>
     </table>
 

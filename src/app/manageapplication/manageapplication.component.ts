@@ -68,6 +68,7 @@ export class ManageapplicationComponent implements OnInit {
   currentStageString =  false;
   currentString:any;
   replaceFileName:any;
+  functionList:any;
 
   constructor(private routerObj: Router,private ManageapplicationServices: ManageapplicationService,private route: ActivatedRoute,public dialog: MatDialog,private datePipe : DatePipe) { 
     
@@ -883,6 +884,7 @@ export class ManageapplicationComponent implements OnInit {
             this.StageValueCount = response['Data']['StageCount'];  
             this.SubStageValueCount =  response['Data']['SubStageCount'];
             this.requisitionDetails = response['Data']['RequisitionDetail'];  
+            console.log(this.StageValueList)
           }
         }
       );
@@ -907,7 +909,7 @@ export class ManageapplicationComponent implements OnInit {
       this.currentStageString = false;
     }
 
-    this.routerObj.navigate(['manage/',this.id,stage]);
+    this.routerObj.navigate(['manage/',this.id,stage], { skipLocationChange: true });
 
     $(document).ready(function() { 
       $('select option[value="'+stage+'"]').prop("selected",true);
@@ -1279,7 +1281,7 @@ export class ManageapplicationComponent implements OnInit {
               this.moveCandidate(updatestage);  
               /*this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
               setTimeout(() => {
-                this.routerObj.navigate(['manage/'+this.id+'/'+response['Data']]);
+                this.routerObj.navigate(['manage/'+this.id+'/'+response['Data']], { skipLocationChange: true });
               }
               , 2000);  */
             //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
@@ -1304,12 +1306,96 @@ export class ManageapplicationComponent implements OnInit {
     }
   }
 
+  checkPermission(updatestage,updatestagestring){
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];  
+      this.currentstage = params['stage'];    
+    });
+
+    var userName = sessionStorage.getItem("FunctionList");
+    this.functionList = userName.split(',')
+
+      if(this.currentstage == 'SO' && updatestage =='SC')
+      {
+        if(this.functionList.includes('2040'))
+        {
+          this.updateStage(updatestage,updatestagestring);
+        }
+        else{
+          this.message = "You dont have a permission to move CV's from sourcing to screening";
+          this.openSnackBar();
+          return;   
+        }        
+      }
+      else if(this.currentstage == 'SC' && updatestage =='AS')
+      {
+        if(this.functionList.includes('2041'))
+        {
+          this.updateStage(updatestage,updatestagestring);
+        }
+        else{
+          this.message = "You dont have a permission to move CV's from screening to assessment";
+          this.openSnackBar();
+          return;   
+        }        
+      }
+      else if(this.currentstage == 'AS' && updatestage =='HR')
+      {
+        if(this.functionList.includes('2042'))
+        {
+          this.updateStage(updatestage,updatestagestring);
+        }
+        else{
+          this.message = "You dont have a permission to move CV's from assessment to hrround";
+          this.openSnackBar();
+          return;   
+        }        
+      }      
+      else if(this.currentstage == 'HR' && updatestage =='OF')
+      {
+        if(this.functionList.includes('2043'))
+        {
+          this.updateStage(updatestage,updatestagestring);
+        }
+        else{
+          this.message = "You dont have a permission to move CV's from hrround to offered";
+          this.openSnackBar();
+          return;   
+        }
+      }
+      else if(this.currentstage == 'OF' && updatestage =='JO')
+      {
+        if(this.functionList.includes('2044'))
+        {
+          this.updateStage(updatestage,updatestagestring);
+        }
+        else{
+          this.message = "You dont have a permission to move CV's from offered to joined";
+          this.openSnackBar();
+          return;   
+        }
+      }
+      else if(updatestage =='CR')
+      {
+        if(this.functionList.includes('2044'))
+        {
+          this.updateStage(updatestage,updatestagestring);
+        }
+        else{
+          this.message = "You dont have a permission to move CV's to client reject";
+          this.openSnackBar();
+          return;   
+        }
+      }     
+  }
+
   updateStage(updatestage,updatestagestring){
 
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
     this.selectedApplicationId = this.selectedApplication.map(element => element.ApplicationId);
     this.selectedCandidateId = this.selectedApplication.map(element => element.CandidateId);
-   
+
     this.route.params.subscribe(params => {
       this.id = params['id'];  
       this.currentstage = params['stage'];    
@@ -1381,7 +1467,7 @@ export class ManageapplicationComponent implements OnInit {
       }
       else if(this.currentstage == 'IR')
       {
-        this.currentString = 'Internal reject';
+      this.currentString = 'Internal reject';
       }
     if(this.movement == 'forward')
     {
@@ -1440,33 +1526,102 @@ export class ManageapplicationComponent implements OnInit {
         return;
       }
 
+      /*if(this.currentstage == 'SO' && updatestage =='SC')
+      {
+        if(this.functionList.includes('2040'))
+        {
+          this.message = "You dont have a permission to move CV's from sourcing to screening";
+          this.openSnackBar();
+          return;   
+        }
+        
+      }
+      else if(this.currentstage == 'SC' && updatestage =='AS')
+      {
+        if(this.functionList.includes('2041'))
+        {
+          this.message = "You dont have a permission to move CV's from screening to assessment";
+          this.openSnackBar();
+          return;   
+        }        
+      }
+      else if(this.currentstage == 'AS' && updatestage =='HR')
+      {
+        if(this.functionList.includes('2042'))
+        {
+          this.message = "You dont have a permission to move CV's from assessment to hrround";
+          this.openSnackBar();
+          return;   
+        }        
+      }      
+      else if(this.currentstage == 'HR' && updatestage =='OF')
+      {
+        if(this.functionList.includes('2043'))
+        {
+          this.message = "You dont have a permission to move CV's from hrround to offered";
+          this.openSnackBar();
+          return;   
+        }
+      }
+      else if(this.currentstage == 'OF' && updatestage =='JO')
+      {
+        if(this.functionList.includes('2044'))
+        {
+          this.message = "You dont have a permission to move CV's from offered to joined";
+          this.openSnackBar();
+          return;   
+        }
+      }
+      else if(updatestage =='CR')
+      {
+        if(this.functionList.includes('2044'))
+        {
+          this.message = "You dont have a permission to move CV's to client reject";
+          this.openSnackBar();
+          return;   
+        }
+      }
+
+      if(this.currentstage == 'SO' && updatestage =='SC')
+      {
+        if(this.functionList.includes('2040'))
+        {
+          this.message = "You dont have a permission to move CV's from sourcing to screening";
+          this.openSnackBar();
+          return;   
+        }
+        
+      }*/
+      
       
    if(updatestage != 'OF')
    {
-    var confirm = window.confirm("Do you want to move CV's from "+this.currentString+" to "+updatestagestring+"?");
-    if (confirm == true) {    
-
-      this.ManageapplicationServices.updateStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
-          response => {
-            if (response != "No data") {  
-              let getMessage =  response['Message'].split(":");
-              if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-                this.message = getMessage['1'];
-                this.openSnackBar(); 
+    
+        var confirm = window.confirm("Do you want to move CV's from "+this.currentString+" to "+updatestagestring+"?");
+        if (confirm == true) {    
+    
+          this.ManageapplicationServices.updateStagetoStage(this.id,this.selectedApplicationId,updatestage,this.currentstage,this.selectedCandidateId).subscribe(
+              response => {
+                if (response != "No data") {  
+                  let getMessage =  response['Message'].split(":");
+                  if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                    this.message = getMessage['1'];
+                    this.openSnackBar(); 
+                  }
+                  else {             
+                    if (getMessage['0'] == "200") {  
+                      this.message = getMessage['1'];
+                      this.openSnackBar();        
+                    //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
+                      this.moveCandidate(updatestage);
+                    // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
+                    }   
+                  }             
+                }
               }
-              else {             
-                if (getMessage['0'] == "200") {  
-                  this.message = getMessage['1'];
-                  this.openSnackBar();        
-                //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
-                  this.moveCandidate(updatestage);
-                // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
-                }   
-              }             
-            }
+            ); 
           }
-        ); 
-      }
+    
     }
     else if(updatestage == 'OF'){
       var confirm = window.confirm("Do you want to move CV's from "+this.currentString+" to "+updatestagestring+"?");
