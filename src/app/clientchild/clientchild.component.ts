@@ -42,7 +42,8 @@ export class ClientchildComponent implements OnInit {
   term: any;
   functionList:any;
   funclist:any;
-
+  userCategory:any;
+  
  constructor(private ClientchildServices: ClientchildService,private SharedServices: SharedService,private formBuilderObj: FormBuilder,private routerObj: Router,private route: ActivatedRoute,private dialog: MatDialog) {
     
     this.route.params.subscribe(params => {
@@ -89,6 +90,7 @@ export class ClientchildComponent implements OnInit {
     this.getLkupClientStatus();
     this.viewClientDetails();
     this.clientname = sessionStorage.getItem("clientname");
+    this.userCategory = sessionStorage.getItem("USERCATEGORY");
 
    var userName = sessionStorage.getItem("userName");  
  

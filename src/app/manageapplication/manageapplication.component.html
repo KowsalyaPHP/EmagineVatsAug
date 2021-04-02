@@ -416,7 +416,7 @@
                     <tr><td>{{item.Candidate_FN}}</td></tr>                
                   </table>
               </ng-template>
-              {{item.Candidate_FN}}
+              {{item.Candidate_FN}}&nbsp;<span style="color: #f53105;" *ngIf="item.Ismapped == 'MoreMapped'"><i class="fas fa-dollar-sign"></i></span>
             </ejs-tooltip></a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
                <!-- <li> <a [routerLink]="['/requisitionadd',item.RequistionId]">Candidate Summary</a></li>     -->
@@ -444,7 +444,7 @@
           <td id="changeBillvalue{{i}}">{{item.BillableCTC}}</td>
           <td id="changeFeevalue{{i}}">{{item.AgencyFees}}</td>
           <td id="changeGstvalue{{i}}">{{item.GSTYesNo}}</td>            
-          <td id="changeRemvalue{{i}}" class="emailoverflow">
+          <td id="changeRemvalue{{i}}" class="commentflow">
             <ejs-tooltip  id='tooltip_1'>
             <ng-template #content>
                 <table>
@@ -632,7 +632,7 @@
                     <tr><td>{{item.Candidate_FN}}</td></tr>                
                   </table>
               </ng-template>
-              {{item.Candidate_FN}}
+              {{item.Candidate_FN}}&nbsp;<span style="color: #f53105;" *ngIf="item.Ismapped == 'MoreMapped'"><i class="fas fa-dollar-sign"></i></span>
             </ejs-tooltip></a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
               <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>
@@ -919,7 +919,7 @@
                     <tr><td>{{item.Candidate_FN}}</td></tr>                
                   </table>
               </ng-template>
-              {{item.Candidate_FN}}
+              {{item.Candidate_FN}}&nbsp;<span style="color: #f53105;" *ngIf="item.Ismapped == 'MoreMapped'"><i class="fas fa-dollar-sign"></i></span>
             </ejs-tooltip></a> 
               <ul class="dropdown-menu" id="showmenu{{i}}">
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>

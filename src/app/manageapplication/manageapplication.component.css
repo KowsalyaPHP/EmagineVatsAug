@@ -323,15 +323,23 @@ ul#submenu li {
 }
 .dateellipes{
   display: inline-block;
-  width: 50px;
+  width: 108px;
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis; 
-  padding-top: 10px;
+  padding-top: 10px;  
 }
 .emailoverflow {
   display: inline-block;
-  width: 80px;
+  width: 109px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  padding-top: 10px;
+}
+.commentflow {
+  display: inline-block;
+  width: 216px;
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;

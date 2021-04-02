@@ -1260,39 +1260,49 @@ export class ManageapplicationComponent implements OnInit {
   }*/
 
   updateNothiredBackwardMovement(updatestage,candidateId,ApplicationId){
-
+console.log(updatestage);
     this.route.params.subscribe(params => {
       this.id = params['id'];  
       this.currentstage = params['stage'];    
     });
-
-    this.ManageapplicationServices.updateBackwardStagetoStage(this.id,ApplicationId,updatestage,this.currentstage,candidateId).subscribe(
+    this.ManageapplicationServices.checkOfferPosition(this.id).subscribe(
       response => {
         if (response != "No data") {  
-          let getMessage =  response['Message'].split(":");
-          if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
-            this.message = getMessage['1'];
-            this.openSnackBar(); 
+          this.positionLength = response['Data'];          
+          if(this.positionLength  == 0){
+            this.message = "There are no open positions available for this candidate.Please add additional position(s) to upload CV ";
+            this.openSnackBar();
+            return;
           }
-          else {             
-            if (getMessage['0'] == "200") {  
-              this.message = getMessage['1'];
-              this.openSnackBar();    
-              this.moveCandidate(updatestage);  
-              /*this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
-              setTimeout(() => {
-                this.routerObj.navigate(['manage/'+this.id+'/'+response['Data']], { skipLocationChange: true });
-              }
-              , 2000);  */
-            //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
-             // this.getStageValuesOnChange(updatestage);
-             // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
-            }   
-          }             
-        }
-      }
+          else{ 
+            this.ManageapplicationServices.updateBackwardStagetoStage(this.id,ApplicationId,updatestage,this.currentstage,candidateId).subscribe(
+              response => {
+                if (response != "No data") {  
+                  let getMessage =  response['Message'].split(":");
+                  if (getMessage['0'] == "400" || getMessage['0'] == "500") {  
+                    this.message = getMessage['1'];
+                    this.openSnackBar(); 
+                  }
+                  else {             
+                    if (getMessage['0'] == "200") {  
+                      this.message = getMessage['1'];
+                      this.openSnackBar();    
+                      this.moveCandidate(updatestage);  
+                      /*this.routerObj.routeReuseStrategy.shouldReuseRoute = () => false; 
+                      setTimeout(() => {
+                        this.routerObj.navigate(['manage/'+this.id+'/'+response['Data']], { skipLocationChange: true });
+                      }
+                      , 2000);  */
+                    //  $('select option[value="'+updatestage+'"]').prop("selected",true);         
+                    // this.getStageValuesOnChange(updatestage);
+                    // $('select option[value="'+updatestage+'"]').attr("selected",true);                             
+                    }   
+                  }             
+                }
+          }
     ); 
-  }
+   }
+  }});}
 
   downloadTracker(){
     this.selectedApplication = this.StageValueList.filter( (application) => application.checked ); 
@@ -1388,6 +1398,9 @@ export class ManageapplicationComponent implements OnInit {
           return;   
         }
       }     
+      else{
+        this.updateStage(updatestage,updatestagestring);
+      }
   }
 
   updateStage(updatestage,updatestagestring){
