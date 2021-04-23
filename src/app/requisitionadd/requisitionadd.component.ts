@@ -157,6 +157,8 @@ export class RequisitionaddComponent implements OnInit {
       ReqStatusRemarks:'',
       DeliveryManager:'',
       BusinessFunction:'',
+      ReqCVCapCount:['', [Validators.max(99.9), Validators.min(0)]],
+      ReqVendorCVCapCount:['', [Validators.max(99.9), Validators.min(0)]],
       JDVideoLink: ''
      }, { 
       validator: BudgetValidator('Budgetminamt', 'Budgetmaxamt','Minexperience', 'Maxexperience')
@@ -232,8 +234,10 @@ export class RequisitionaddComponent implements OnInit {
                 ReqStatusRemarks:this.requisitionDetails['Data'][0]['ReqStatusRemarks'],
                 DeliveryManager:this.requisitionDetails['Data'][0]['DeliveryManagerCode'],
                 BusinessFunction:this.requisitionDetails['Data'][0]['BusinessFunctionCode'],
-                JDVideoLink:this.requisitionDetails['Data'][0]['JDVideoLink']
-              });
+                JDVideoLink:this.requisitionDetails['Data'][0]['JDVideoLink'],
+                ReqCVCapCount:this.requisitionDetails['Data'][0]['ReqCVCapCount'],
+                ReqVendorCVCapCount:this.requisitionDetails['Data'][0]['ReqVendorCVCapCount']
+              }); 
              
               if(!this.requisitionDetails['Data'][0]['JDAttachment']){
                 this.attachmentShow = 0;
@@ -832,6 +836,12 @@ export class RequisitionaddComponent implements OnInit {
     ],
     'ReqStatusRemarks': [
       { type: 'required', message: 'Please enter remarks' }
+    ],
+    'ReqCVCapCount':  [
+      { type: 'min', message: 'Please enter valid minimum count' }
+    ],
+    'ReqVendorCVCapCount':  [
+      { type: 'min', message: 'Please enter valid minimum count' }
     ]
   }
 }

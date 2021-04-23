@@ -214,14 +214,10 @@
 <h3>Other Details</h3>
 <table  style="width:100%">
     <tr>
-       <!-- <td>            
-            <mat-form-field>
-                <input maxlength="40" matInput placeholder="Client Status" formControlName="ClientStatus" class="form-control"/>
-            </mat-form-field>
-        </td>        -->
+       
         <td>            
             <mat-form-field>
-                <select matNativeControl maxlength="40" placeholder="Client Category" formControlName="ClientCategory"> 
+                <select matNativeControl maxlength="40" placeholder="Client Industry" formControlName="ClientCategory"> 
                     <option *ngFor="let item of LookupCategory" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>  
                 <!--<mat-error *ngFor="let validation of validation_messages.ClientCategory">
@@ -272,11 +268,16 @@
                 <input maxlength="40" readonly id="MasterClientId" matInput placeholder="Master Client Id" formControlName="MasterClientID" class="form-control"/>
             </mat-form-field>
         </td> -->
-        <td *ngIf="id != 0 && child == 0">            
+        <td *ngIf="id != 0">            
             <mat-form-field>
                 <select matNativeControl placeholder="Client Status" formControlName="clientstatus"> 
                     <option *ngFor="let item of LkupClientStatus" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>
+            </mat-form-field>
+        </td> 
+        <td *ngIf="id != 0">            
+            <mat-form-field>
+               <input maxlength="40" matInput placeholder="Remarks" formControlName="ClientStatusRemarks" class="form-control"/>
             </mat-form-field>
         </td> 
     </tr>

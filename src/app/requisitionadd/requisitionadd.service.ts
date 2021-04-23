@@ -95,6 +95,8 @@ export class RequisitionaddService {
     formData.append('DeliveryManager', FormObj.DeliveryManager);
     formData.append('BusinessFunction', FormObj.BusinessFunction);
     formData.append('JDVideoLink', FormObj.JDVideoLink);    
+    formData.append('ReqCVCapCount', FormObj.ReqCVCapCount);    
+    formData.append('ReqVendorCVCapCount', FormObj.ReqVendorCVCapCount);    
     formData.append('C_ID', C_ID);
 
     console.log("Usercategory => "+ formData.get('Usercategory'));
@@ -191,6 +193,8 @@ export class RequisitionaddService {
     formData.append('DeliveryManager', FormObj.DeliveryManager);
     formData.append('BusinessFunction', FormObj.BusinessFunction);
     formData.append('JDVideoLink', FormObj.JDVideoLink);    
+    formData.append('ReqCVCapCount', FormObj.ReqCVCapCount);    
+    formData.append('ReqVendorCVCapCount', FormObj.ReqVendorCVCapCount); 
     
     console.log("RequisitionId => "+ formData.get('RequisitionId'));
     console.log("EntityID => "+ formData.get('EntityID'));

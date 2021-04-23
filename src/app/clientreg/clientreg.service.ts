@@ -135,6 +135,8 @@ export class ClientregService {
     params.set('ClientGLCode', FormObj.ClientGLCode);    
     params.set('ACCOUNTMANAGER', FormObj.AccountManager);
     params.set('COORDINATOR', FormObj.Coordinator);
+    params.set('ClientStatusRemarks', FormObj.ClientStatusRemarks);
+    
 
     console.log(params);
 

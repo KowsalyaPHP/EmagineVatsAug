@@ -76,7 +76,8 @@ export class ClientregComponent implements OnInit {
       ClientGLCode:'',     
       AccountManager:'',
       Coordinator:'',
-      clientstatus:''
+      clientstatus:'',
+      ClientStatusRemarks:''
     });    
 
     this.cityLookup();
@@ -189,6 +190,7 @@ export class ClientregComponent implements OnInit {
                 ClientGLCode:this.clientSingle['Data'][0]['CLIENTGLCODE'],
                 AccountManager:this.clientSingle['Data'][0]['AccountManagerCode'],
                 Coordinator:this.clientSingle['Data'][0]['CoordinatorCode'],
+                ClientStatusRemarks:this.clientSingle['Data'][0]['ClientStatusRemarks']
               }); 
             }    
               

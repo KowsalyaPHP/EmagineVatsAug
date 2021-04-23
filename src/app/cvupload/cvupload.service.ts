@@ -252,4 +252,62 @@ export class CvuploadService {
           return 'No Data';
       });
   }
+
+  public CVResumeParser(file,baseCode64): Observable<any> {
+
+    const url = environment.skillateUrl;
+
+    if (file) {
+      var fileValue: File = file[0];
+    }
+    else {
+      var fileValue: File = null;
+    }
+
+    /*let headers = new Headers();   
+    headers.append('skillate-access-key',environment.skillateaccesskey)
+    headers.append('Content-Type', 'application/json')
+    let options = new RequestOptions({ headers: headers })*/;
+
+   /* let headers = new HttpHeaders()
+    .set('skillate-access-key',environment.skillateaccesskey)
+    .set('Content-Type', 'application/json');*/
+    
+     
+   /* var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': environment.skillateaccesskey
+    })*/
+
+    
+    //let headers = {
+      //skillate-access-key : environment.skillateaccesskey,
+      //Content-Type : contentType.set('Content-Type', 'application/json; charset=utf-8')
+    //};
+    // return;
+
+    const headers = new HttpHeaders({
+     'skillate-access-key': environment.skillateaccesskey,
+     'Content-Type': 'application/json'
+    });
+
+    let option = {headers:headers};
+
+    const formData = new FormData();
+   
+    formData.append('candidateId', '1');
+    formData.append('resumeFilename', fileValue.name);
+    formData.append('resumeContent', baseCode64);   
+
+    return this.http.post(url, formData, { headers: <any>headers })
+      .map(response => response.json()).map(data => {
+        if (data != '')
+          return data;
+        else
+          return '';
+      },
+        error => {
+        });
+        
+  }
 }

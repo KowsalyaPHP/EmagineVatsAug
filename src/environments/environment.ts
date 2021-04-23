@@ -8,7 +8,9 @@ export const environment = {
   encryptKey: "RoCk_Vats",
   affindaUrl: "https://resume-parser.affinda.com/public/api/",
   affindaToken: "Token 94885f58ce1bd9049c59e185d2fec34f9249e934",
-  isAffindaEnable: false
+  isAffindaEnable: false,
+  skillateUrl: "https://api-sg.skillate.com/api/resume-parser/v1/",
+  skillateaccesskey: "22a78a60-d855-4d3b-9351-1cf36a8067e3"
 };
 
 /*

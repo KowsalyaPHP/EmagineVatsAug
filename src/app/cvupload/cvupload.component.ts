@@ -393,7 +393,42 @@ export class CvuploadComponent implements OnInit {
 
   fileChange(event) {
     this.fileList = event.target.files;
-    if (environment.isAffindaEnable == true) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      //  console.log(reader.result);
+    };
+    console.log(this.fileList)
+      this.CvuploadServices.CVResumeParser(this.fileList,reader.result).subscribe(
+        response => {
+          if (response != "No data") {
+            let getMessage = response['Message'].split(":");
+            if (getMessage['0'] == "400" || getMessage['0'] == "500") {
+              this.message = getMessage['1'];
+              this.openSnackBar();
+            }
+            else {
+              this.message = getMessage['1'];
+              this.openSnackBar();
+              /*setTimeout(() => {
+                this.routerObj.navigate(['manage/', this.id, 'SO'], { skipLocationChange: true });
+              }
+                , 3000);*/
+            }
+          }
+          else {
+            console.log('something is wrong with Service Execution');
+          }
+        },
+        error => console.log("Error Occurd!")
+      );
+    }
+  
+  
+  
+    
+    /*if (environment.isAffindaEnable == true) {
       this.showCVLoader = true;
       this.CvuploadServices.CVParser(this.fileList).subscribe(res => {
         if (res && res["identifier"]) {
@@ -413,8 +448,8 @@ export class CvuploadComponent implements OnInit {
           console.log(error);
           this.showCVLoader = false;
         });
-    }
-  }
+    }*/
+  
 
   viewCVedit() {
     let RefId = sessionStorage.getItem("RefId");

@@ -222,7 +222,7 @@
         </td>        -->
         <td>            
             <mat-form-field>
-                <select matNativeControl maxlength="40" placeholder="Client Category" formControlName="ClientCategory"> 
+                <select matNativeControl maxlength="40" placeholder="Client Industry" formControlName="ClientCategory"> 
                     <option *ngFor="let item of LookupCategory" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select>  
                 <!--<mat-error *ngFor="let validation of validation_messages.ClientCategory">
