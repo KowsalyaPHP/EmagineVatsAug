@@ -542,6 +542,22 @@ export class ManageapplicationComponent implements OnInit {
       }
     }
 
+    var userName = sessionStorage.getItem("FunctionList");
+    this.functionList = userName.split(',')
+
+    if(this.currentstage == 'IR' && stage =='CR')
+      {
+        if(this.functionList.includes('2046'))
+        {
+          this.updateStage(stage,'Client Reject');
+        }
+        else{
+          this.message = "You dont have a permission to move CV's to client reject";
+          this.openSnackBar();
+          return;   
+        }
+      } 
+
     const dialogRef = this.dialog.open(NothiredComponent, {
       width: '900px',
       height: '900px',
@@ -1386,18 +1402,7 @@ console.log(updatestage);
           return;   
         }
       }
-      else if(updatestage =='CR')
-      {
-        if(this.functionList.includes('2044'))
-        {
-          this.updateStage(updatestage,updatestagestring);
-        }
-        else{
-          this.message = "You dont have a permission to move CV's to client reject";
-          this.openSnackBar();
-          return;   
-        }
-      }     
+          
       else{
         this.updateStage(updatestage,updatestagestring);
       }

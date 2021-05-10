@@ -331,7 +331,7 @@ ul#submenu li {
 }
 .emailoverflow {
   display: inline-block;
-  width: 109px;
+  width: 124px;
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;
@@ -339,7 +339,7 @@ ul#submenu li {
 }
 .commentflow {
   display: inline-block;
-  width: 216px;
+  width: 280px;
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;

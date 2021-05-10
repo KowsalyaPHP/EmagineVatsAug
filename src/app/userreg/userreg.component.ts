@@ -26,7 +26,7 @@ export class UserregComponent implements OnInit {
   VLookupStatus:[];
   RoleList:[];
   RuleList:[];
-  RuleList1:[];
+  public RuleList1:[];
   userName:any;
   ClientList:[];
   VendorList:[];
@@ -38,11 +38,13 @@ export class UserregComponent implements OnInit {
   show=false;
   functionList:any;
   funclist:any;
-  
+  category:any;
+
   constructor(private formBuilderObj: FormBuilder,private routerObj: Router,private UserregServices: UserregService,private SharedServices: SharedService,private route: ActivatedRoute,private dialog: MatDialog) {
 
     this.route.params.subscribe(params => {
-      this.id = params['id'];     
+      this.id = params['id'],
+      this.category = params['cat']
     }); 
 
     this.addUserForm = this.formBuilderObj.group({     
@@ -94,7 +96,7 @@ export class UserregComponent implements OnInit {
     }
 
     if (this.sessionTypeName && this.id != 0){           
-      this.viewSingleUser(this.id);
+      this.viewSingleUser(this.id,this.category);
     }
    }
 
@@ -113,7 +115,7 @@ export class UserregComponent implements OnInit {
   get f() { return this.addUserForm.controls; }
 
   getRulebyId(EntityId){
-    this.show=true;
+    
     this.UserregServices.getRuleListbyId(EntityId).subscribe(
       response => {
         if (response != '') {         
@@ -127,31 +129,13 @@ export class UserregComponent implements OnInit {
     );
   }
 
- /* getRulebyId1(EntityId){
-    this.show = false;
-    this.UserregServices.getRuleListbyId(EntityId).subscribe(
-      response => {
-        if (response != '') {         
-          this.RuleList = response['Data'];
-        }
-        else {         
-          console.log('something is wrong with Service  Execution');
-        }
-      },
-      error => console.log("Error Occurd!")
-    );
-  }*/
+
 
   userType(userType){
     
     if(userType == 'C')
     {
-     /* if(this.addUserForm.get('AgencyFees_percent').value != '')
-      { 
-        const variable = this.addUserForm.get('AgencyFees_percent');  
-        this.addUserForm.get('AgencyFees_percent').setValidators([Validators.required]);      
-        variable.updateValueAndValidity();
-      }*/
+  
       $("#vendorlist").hide();
       $("#clientlist").show(); 
       $("#designationlist").hide();         
@@ -168,10 +152,11 @@ export class UserregComponent implements OnInit {
       $("#designationlist").show();
       
     }
-  }
-  viewSingleUser(userId){
+  }  
 
-    this.UserregServices.viewUserSingleProfile(userId).subscribe(
+  viewSingleUser(userId,category){
+
+    this.UserregServices.viewUserSingleProfile(userId,category).subscribe(
       response =>  { 
           if (response != "No data") {          
             let getMessage =  response['Message'].split(":");
@@ -195,10 +180,16 @@ export class UserregComponent implements OnInit {
                 this.categoryName = this.userSingle['Data'][0]['USERCATEGORY'];
                 $("#designationlist").show();
               }
+            
+             
+              /*const toSelect = this.RuleList['Data'].find(c => c.DataAccessRuleId == this.userSingle['Data'][0]['UserDataRule']);
+              
+              */
 
-              //const toSelect = this.RuleList1['Data'].find(c => c.DataAccessRuleId == this.userSingle['Data'][0]['UserDataRule']);
-              this.addUserForm.get('userRule').setValue(this.userSingle['Data'][0]['UserDataRule']);
-
+              console.log(this.RuleList1)
+              if(typeof this.userSingle['Data'][0]['UserDataRule'] == 'string'){
+                this.userSingle['Data'][0]['UserDataRule'] = Number(this.userSingle['Data'][0]['UserDataRule']);
+              }
               this.addUserForm.patchValue({           
                 usercategory: this.categoryName,
                 UserMrMs:this.userSingle['Data'][0]['USERMRMS'],
@@ -208,10 +199,12 @@ export class UserregComponent implements OnInit {
                 UserEmail:this.userSingle['Data'][0]['USEREMAIL'],
                 UserContactNo:this.userSingle['Data'][0]['USERCONTACTNO'],
                 userRole:this.userSingle['Data'][0]['UserRoles'],
-                userRule:this.userSingle['Data'][0]['DataRuleName'],
+                userRule:this.userSingle['Data'][0]['UserDataRule'],
                 UserStatus:this.userSingle['Data'][0]['STATUSCODE'],
                 Designation:this.userSingle['Data'][0]['DesignationCode']
               }); 
+
+              //this.addUserForm.controls['userRule'].setValue(this.userSingle['Data'][0]['UserDataRule']);
             }    
               
           } else {

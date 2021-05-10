@@ -320,7 +320,7 @@
                     </mat-form-field>                    
                 </td>
                
-                <td>
+                <!--<td>
                     <mat-form-field>                      
                         <input matInput id="ReqCVCapCount" onKeyPress="if(this.value.length == 4) return false;" type="number" min="0" max="99.9" placeholder="Requisition Cap" formControlName="ReqCVCapCount">                       
                         <mat-error *ngFor="let validation of requisition_validation_messages.ReqCVCapCount">
@@ -335,7 +335,7 @@
                             <mat-error class="error-message" *ngIf="addRequisitionForm.invalid || addRequisitionForm.get('ReqVendorCVCapCount').hasError(validation.type) && (addRequisitionForm.get('ReqVendorCVCapCount').dirty || addRequisitionForm.get('ReqVendorCVCapCount').touched)">{{validation.message}}</mat-error>
                         </mat-error>
                     </mat-form-field> 
-                </td>
+                </td>-->
             </tr>
             <tr>
                 <td > <button *ngIf="id > 0; else add" type="submit" mat-button cdkFocusInitial>Update Requisition</button>&nbsp;&nbsp;

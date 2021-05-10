@@ -20,7 +20,8 @@ export class AppComponent {
  //public static urlPath = "https://api.emaginerock.com/";
  public static urlPath = "https://devapi.emaginerock.com/";
  //public static urlPath = "http://bincrm.com/vatsdev/";
- //public static urlPath = "http://af8575b086cb.ngrok.io/";
+ //public static urlPath = "http://9d877881a621.ngrok.io/";
+
   functionList:any;
   funclist:any;
   subscription: Subscription;
@@ -38,7 +39,7 @@ export class AppComponent {
 
     });
 
-    this.subscription = router.events.subscribe((event) => {
+   /* this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
       }
@@ -53,7 +54,7 @@ export class AppComponent {
       ) {
        console.log('ddd')
       }
-    })
+    })*/
   }
 
   ngOnDestroy() {

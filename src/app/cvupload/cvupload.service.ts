@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CvuploadService {
 
-  constructor(private http: Http, private datePipe: DatePipe) { }
+  constructor(private http: Http, private httpClient: HttpClient, private datePipe: DatePipe) { }
 
   public CVUpload(FormObj, file, ReqID, EmpArray, EduArray): Observable<any> {
 
@@ -59,7 +59,11 @@ export class CvuploadService {
     formData.append('EduDetails', EduArray);
     formData.append('EmpDetails', EmpArray);
     formData.append('sourcecategory', 'Selfsource');
-    console.log(formData);
+    formData.append('Experience',  sessionStorage.getItem("yearsOfExperience"));
+    formData.append('NoticePeriod', sessionStorage.getItem("noticePeriod"));
+    formData.append('PrefLocation', sessionStorage.getItem("preferredLocations"));
+    formData.append('PresentLocation', sessionStorage.getItem("currentLocation"));
+    
     return this.http.post(url, formData)
       .map(response => response.json()).map(data => {
         if (data != '')
@@ -121,13 +125,14 @@ export class CvuploadService {
     // return;
   }
 
-  public viewCV(ReqId,candId): Observable<any> {
+  public viewCV(ReqId, candId, appId): Observable<any> {
 
     const url = AppComponent.urlPath + 'ViewCVUpload';
     const params = new URLSearchParams();
 
     params.set('RequisitionId', ReqId);
     params.set('CandidateId', candId);
+    params.set('ApplicationId', appId);
 
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {
@@ -138,58 +143,94 @@ export class CvuploadService {
       });
   }
 
-  public UpdateCV(ReqID, candId, FormObj,file, EduArray, EmpArray): Observable<any> {
+  public UpdateCV(ReqID, candId,appId, FormObj, file, EduArray, EmpArray): Observable<any> {
 
     const url = AppComponent.urlPath + 'UpdateCV';
-        //const fileValue: File = file[0];
-        const formData = new FormData();
-        const date = this.datePipe.transform(FormObj.DateofBirth, 'MM/dd/yyyy');
+    //const fileValue: File = file[0];
+    const formData = new FormData();
+    const date = this.datePipe.transform(FormObj.DateofBirth, 'MM/dd/yyyy');
 
-        var RefId = sessionStorage.getItem("RefId");
-        var C_ID = sessionStorage.getItem("uniqueSessionId");
-    
-        if (file) {
-          var fileValue: File = file[0];
-        }
-        else {
-          var fileValue: File = null;
-        }
-    
-        formData.append('EntityID', RefId);
-        formData.append('RequisitionId', ReqID);
-        //formData.append('UserId', C_ID);
-        //formData.append('CV', fileValue);
-        formData.append('Candidate_FN', FormObj.Candidate_FN);
-        formData.append('Candidate_LN', FormObj.Candidate_LN);
-        formData.append('EMailId', FormObj.EMailId);
-        formData.append('MobileNo', FormObj.MobileNo);
-        formData.append('DateofBirth', date);
-        formData.append('Gender', FormObj.Gender);
-        //formData.append('MaritalStatus', FormObj.MaritalStatus);
-        formData.append('WorkAuthorization', FormObj.WorkAuthorization);
-        formData.append('PassportNo', FormObj.PassportNo);
-        formData.append('Nationality', FormObj.Nationality);
-        formData.append('Pr_AddressL1', FormObj.Pr_AddressL1);
-        formData.append('Pr_AddressL2', FormObj.Pr_AddressL2);
-        formData.append('Pr_AddressL3', FormObj.Pr_AddressL3);
-        formData.append('Pr_AddressL4', FormObj.Pr_AddressL4);
-        formData.append('Perm_AddressL1', FormObj.Perm_AddressL1);
-        formData.append('Perm_AddressL2', FormObj.Perm_AddressL2);
-        formData.append('Perm_AddressL3', FormObj.Perm_AddressL3);
-        formData.append('Perm_AddressL4', FormObj.Perm_AddressL4);
-        formData.append('C_ID', C_ID);
-        formData.append('EduDetails', EduArray);
-        formData.append('EmpDetails', EmpArray);
-        formData.append('CandidateId', candId);
-       // formData.append('sourcecategory', 'Selfsource');
-   /* const params = new URLSearchParams();
+    var RefId = sessionStorage.getItem("RefId");
+    var C_ID = sessionStorage.getItem("uniqueSessionId");
 
-    params.set('CandidateId', candId);
-    params.set('Candidate_FN', FormObj.Candidate_FN);
-    params.set('Candidate_LN', FormObj.Candidate_LN);
-    params.set('EMailId', FormObj.EMailId);
-    params.set('MobileNo', FormObj.MobileNo);
-*/
+    if (file) {
+      var fileValue: File = file[0];
+    }
+    else {
+      var fileValue: File = null;
+    }
+
+    if(sessionStorage.getItem("yearsOfExperience")==null)
+    {
+      var yearsOfExperience = '';
+    }
+    else{
+      var yearsOfExperience = sessionStorage.getItem("yearsOfExperience");
+    }
+    if(sessionStorage.getItem("noticePeriod")==null)
+    {
+      var noticePeriod = '';
+    }
+    else{
+      var noticePeriod = sessionStorage.getItem("noticePeriod");
+    }
+
+    if(sessionStorage.getItem("preferredLocations")==null)
+    {
+      var preferredLocations = '';
+    }
+    else{
+      var preferredLocations = sessionStorage.getItem("preferredLocations");
+    }
+
+    if(sessionStorage.getItem("currentLocation")==null)
+    {
+      var currentLocation = '';
+    }
+    else{
+      var currentLocation = sessionStorage.getItem("currentLocation");
+    }
+
+    formData.append('EntityID', RefId);
+    formData.append('RequisitionId', ReqID);
+    //formData.append('UserId', C_ID);
+    //formData.append('CV', fileValue);
+    formData.append('Candidate_FN', FormObj.Candidate_FN);
+    formData.append('Candidate_LN', FormObj.Candidate_LN);
+    formData.append('EMailId', FormObj.EMailId);
+    formData.append('MobileNo', FormObj.MobileNo);
+    formData.append('DateofBirth', date);
+    formData.append('Gender', FormObj.Gender);
+    //formData.append('MaritalStatus', FormObj.MaritalStatus);
+    formData.append('WorkAuthorization', FormObj.WorkAuthorization);
+    formData.append('PassportNo', FormObj.PassportNo);
+    formData.append('Nationality', FormObj.Nationality);
+    formData.append('Pr_AddressL1', FormObj.Pr_AddressL1);
+    formData.append('Pr_AddressL2', FormObj.Pr_AddressL2);
+    formData.append('Pr_AddressL3', FormObj.Pr_AddressL3);
+    formData.append('Pr_AddressL4', FormObj.Pr_AddressL4);
+    formData.append('Perm_AddressL1', FormObj.Perm_AddressL1);
+    formData.append('Perm_AddressL2', FormObj.Perm_AddressL2);
+    formData.append('Perm_AddressL3', FormObj.Perm_AddressL3);
+    formData.append('Perm_AddressL4', FormObj.Perm_AddressL4);
+    formData.append('C_ID', C_ID);
+    formData.append('EduDetails', EduArray);
+    formData.append('EmpDetails', EmpArray);
+    formData.append('CandidateId', candId);
+    formData.append('ApplicationId', appId);
+    formData.append('Experience',  sessionStorage.getItem("yearsOfExperience"));
+    formData.append('NoticePeriod',sessionStorage.getItem("noticePeriod"));
+    formData.append('PrefLocation', sessionStorage.getItem("preferredLocations"));
+    formData.append('PresentLocation', sessionStorage.getItem("currentLocation"));
+    
+    /* const params = new URLSearchParams();
+ 
+     params.set('CandidateId', candId);
+     params.set('Candidate_FN', FormObj.Candidate_FN);
+     params.set('Candidate_LN', FormObj.Candidate_LN);
+     params.set('EMailId', FormObj.EMailId);
+     params.set('MobileNo', FormObj.MobileNo);
+ */
     return this.http.post(url, formData)
       .map(response => response.json()).map(data => {
         if (data != '')
@@ -228,7 +269,7 @@ export class CvuploadService {
 
   }
 
-  public replaceCVLink(ReqId,CandId,AppId,CVLink): Observable<any> {
+  public replaceCVLink(ReqId, CandId, AppId, CVLink): Observable<any> {
 
     const url = AppComponent.urlPath + 'CVReplace';
 
@@ -243,8 +284,8 @@ export class CvuploadService {
     formData.append('ApplicationId', AppId);
     formData.append('CVLink', CVLink);
     formData.append('C_ID', C_ID);
- 
-    return this.http.post(url, formData)    
+
+    return this.http.post(url, formData)
       .map(response => response.json()).map(data => {
         if (data != '')
           return data;
@@ -253,7 +294,7 @@ export class CvuploadService {
       });
   }
 
-  public CVResumeParser(file,baseCode64): Observable<any> {
+  public CVResumeParser(file, baseCode64: string): Observable<any> {
 
     const url = environment.skillateUrl;
 
@@ -263,51 +304,30 @@ export class CvuploadService {
     else {
       var fileValue: File = null;
     }
-
-    /*let headers = new Headers();   
-    headers.append('skillate-access-key',environment.skillateaccesskey)
-    headers.append('Content-Type', 'application/json')
-    let options = new RequestOptions({ headers: headers })*/;
-
-   /* let headers = new HttpHeaders()
-    .set('skillate-access-key',environment.skillateaccesskey)
-    .set('Content-Type', 'application/json');*/
     
-     
-   /* var headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': environment.skillateaccesskey
-    })*/
-
-    
-    //let headers = {
-      //skillate-access-key : environment.skillateaccesskey,
-      //Content-Type : contentType.set('Content-Type', 'application/json; charset=utf-8')
-    //};
-    // return;
-
-    const headers = new HttpHeaders({
-     'skillate-access-key': environment.skillateaccesskey,
-     'Content-Type': 'application/json'
-    });
-
-    let option = {headers:headers};
-
-    const formData = new FormData();
+    const headers1 = {
+      'skillate-access-key': environment.skillateaccesskey,
+      'Content-Type': 'application/json'
+    };
    
-    formData.append('candidateId', '1');
-    formData.append('resumeFilename', fileValue.name);
-    formData.append('resumeContent', baseCode64);   
+    let idx = baseCode64.indexOf(";base64,");
+    baseCode64 = baseCode64.substring(idx + 8);
 
-    return this.http.post(url, formData, { headers: <any>headers })
-      .map(response => response.json()).map(data => {
+    let obj = {
+      candidateId: "1",
+      resumeFilename: fileValue.name,
+      resumeContent: baseCode64
+    };
+
+    return this.httpClient.post(url, obj, { 'headers': headers1 })
+      .map(data => {
         if (data != '')
           return data;
         else
-          return '';
+          return 'No Data';
       },
         error => {
         });
-        
+
   }
 }

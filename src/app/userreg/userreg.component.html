@@ -162,7 +162,7 @@
                     </mat-error>
                 </mat-form-field>        
             </td> 
-            <td *ngIf="!show">
+           <!-- <td *ngIf="!show">
                 <mat-form-field >                    
                     <select matNativeControl required maxlength="40"  placeholder="Rule" formControlName="userRule"> 
                         <option *ngFor="let item of RuleList"  [value]="item.DataAccessRuleId" selected>{{item.DataAccessRuleName}}</option>                       
@@ -184,7 +184,7 @@
                         <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
                     </mat-error>
                   </mat-form-field>
-            </td>
+            </td>-->
             <!--<td *ngIf="show">
                 <mat-form-field>                    
                     <select matNativeControl required maxlength="40" [(ngModel)]="select" placeholder="Rule" formControlName="userRule"> 
@@ -195,6 +195,21 @@
                     </mat-error>
                 </mat-form-field>    
             </td>-->
+
+            <td>
+                <mat-form-field class="field-full-width">
+                    <mat-label>Rule</mat-label>
+                    <mat-select required formControlName="userRule">
+                      <mat-option *ngFor="let item of RuleList1" [value]="item.DataAccessRuleId">
+                        {{item.DataAccessRuleName}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngFor="let validation of validation_messages.userRule">
+                        <mat-error class="error-message" *ngIf="addUserForm.invalid || addUserForm.get('userRule').hasError(validation.type) && (addUserForm.get('userRule').dirty || addUserForm.get('userRule').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>                  
+            </td>
+
         </tr>
         <tr>
             <td>

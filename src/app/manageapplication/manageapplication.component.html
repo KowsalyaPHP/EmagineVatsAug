@@ -310,7 +310,7 @@
             </a> 
             <ul class="dropdown-menu" id="showmenu{{i}}" style="white-space: inherit;">
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>
-                <li><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]"  skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
+                <li><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
                 <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Screening Form</a></li>  
                 <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Offer Form</a></li> 
                 <li *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'HR'" (click)="openDialogAssessment(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;"><i class="fas fa-share"></i> Movement to Substage</a></li>
@@ -421,7 +421,7 @@
             <ul class="dropdown-menu" id="showmenu{{i}}">
                <!-- <li> <a [routerLink]="['/requisitionadd',item.RequistionId]">Candidate Summary</a></li>     -->
                <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>
-               <li><a [routerLink]="['/cvupload',id,item.CandidateId]" skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
+               <li><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
                <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="far fa-address-book" aria-hidden="true"></i> Candidate Summary</a></li>       
                <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Screening Form</a></li>    
                <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Offer Form</a></li>   
@@ -636,7 +636,7 @@
             </ejs-tooltip></a> 
             <ul class="dropdown-menu" id="showmenu{{i}}">
               <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>
-              <li><a [routerLink]="['/cvupload',id,item.CandidateId]"  skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
+              <li><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>
               <li (click)="openDialogScreening(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)"><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Screening Form</a></li>    
               <li (click)="openDialogoffer(item.ApplicationId,item.CandidateId,item.Candidate_FN,i)" *ngIf="item.Currentstage_CV != 'SO' && item.Currentstage_CV != 'SC' && item.Currentstage_CV != 'AS'" ><a style="cursor:pointer;"><i class="fas fa-file-alt"></i> Offer Form</a></li>  
               <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="far fa-address-book" aria-hidden="true"></i> Candidate Summary</a></li>                
@@ -923,7 +923,7 @@
             </ejs-tooltip></a> 
               <ul class="dropdown-menu" id="showmenu{{i}}">
                 <li (click)="viewCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fas fa-file"></i> View CV</a></li>
-                <li><a [routerLink]="['/cvupload',id,item.CandidateId]"  skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>                
+                <li><a [routerLink]="['/cvupload',id,item.CandidateId,item.ApplicationId]" skipLocationChange=true style="cursor:pointer;"><i class="fas fa-edit" aria-hidden="true"></i> Edit CV</a></li>                
                 <li (click)="getApplicationInfos(id,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="far fa-address-book" aria-hidden="true"></i> Candidate Summary</a></li>                
                 <li (click)="downloadCV(item.RequisitionId,item.CandidateId,item.ApplicationId)"><a style="cursor:pointer;"><i class="fa fa-download" aria-hidden="true"></i> Download CV</a></li>                 
                 <li>

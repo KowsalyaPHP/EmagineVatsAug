@@ -28,7 +28,7 @@
                 <div style="margin: 0;">
                     <div id="snackbar">{{message}}</div>
                 </div>
-                <a class="newitem" [routerLink]="['/userreg/0']" skipLocationChange=true>+Add User</a>  
+                <a class="newitem" [routerLink]="['/userreg/0/0']" skipLocationChange=true>+Add User</a>  
                     <table #dataTable  id="userDashboard"  class="display table table-borderless table-hover" style="width:100%;">        
                     <thead>
                         <tr>                  
@@ -49,7 +49,7 @@
                             <td class="dropdown">
                                 <a style="text-decoration: underline;color: rgb(72, 72, 236);cursor:pointer;" (click)="actionMethod(i)">{{item.UserId}}</a> 
                                 <ul class="dropdown-menu" id="showmenu{{i}}">
-                                    <li><a [routerLink]="['/userreg',item.UserId]" skipLocationChange=true>Edit User</a></li>
+                                    <li><a [routerLink]="['/userreg',item.UserId,item.UserCategory]" skipLocationChange=true>Edit User</a></li>
                                 </ul>
                             </td>     
                             <td>{{item.UserCategoryName}}</td>

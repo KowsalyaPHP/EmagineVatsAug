@@ -145,7 +145,7 @@ const routes: Routes = [
   component: AdminComponent
 },
 {
-  path: "userreg/:id",
+  path: "userreg/:id/:cat",
   component: UserregComponent
 },
 {

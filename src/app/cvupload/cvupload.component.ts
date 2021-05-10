@@ -46,6 +46,9 @@ export class CvuploadComponent implements OnInit {
   showCVLoader: boolean = false;
   aid: any;
   CurrentStage:any;
+  baseCode:any;
+  skillateFields:[];
+  skillateEduList:any;
 
   constructor(private CvuploadServices: CvuploadService, private dataService: DataService, private SharedServices: SharedService, private formBuilderObj: FormBuilder, private routerObj: Router, private route: ActivatedRoute, public dialog: MatDialog,private toastr: ToastrService) {
 
@@ -81,11 +84,12 @@ export class CvuploadComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = params['id'],
-        this.cid = params['cid'];
+        this.cid = params['cid'],
+        this.aid = params['aid']
     });
 
     if (this.cid != 0) {
-      this.ViewCV(this.id,this.cid);
+      this.ViewCV(this.id,this.cid,this.aid);
     }
 
   }
@@ -99,6 +103,8 @@ export class CvuploadComponent implements OnInit {
       this.cid = params['cid'],
       this.aid = params['aid'];
     });
+     
+ 
 
     this.CvuploadServices.replaceCVLink(this.id,this.cid,this.aid,replaceFile).subscribe(
       response => {
@@ -115,7 +121,8 @@ export class CvuploadComponent implements OnInit {
             $("#loaderwhite").hide();   
             $(".dropdown-menu").fadeOut("fast");
             this.dataService.changeReloadCVUpload(true);
-            
+           
+
           }
         }
       },
@@ -139,7 +146,21 @@ export class CvuploadComponent implements OnInit {
         if (fileName) {      
           
           $("#loaderwhite").show();
+          this.showCVLoader = true;
+
+          this.fileList = this.files[0];
+          const file = this.files[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          console.log(this.files[0])
+      
+          reader.onload = () => {
+            this.baseCode = reader.result;
+            component.skillateresumeParsing(this.files,this.baseCode)               
+          }
+          
           component.replaceCV(this.files[0])
+         
           //$(label).html(fileName);
         } 
         else { 
@@ -157,9 +178,9 @@ export class CvuploadComponent implements OnInit {
    });
   }
 
-  ViewCV(ReqId,cId) {
+  ViewCV(ReqId,cId,aId) {
 
-    this.CvuploadServices.viewCV(ReqId,cId).subscribe(
+    this.CvuploadServices.viewCV(ReqId,cId,aId).subscribe(
       response => {
         if (response != "No data") {
           let getMessage = response['Message'].split(":");
@@ -218,6 +239,11 @@ export class CvuploadComponent implements OnInit {
             this.EduArray = this.CvView['Edulist'];
             this.EmpArray = this.CvView['Emplist'];
 
+            sessionStorage.setItem("yearsOfExperience", this.CvView['Screening']['0']['Experience']); 
+            sessionStorage.setItem("noticePeriod", this.CvView['Screening']['0']['NoticePeriod']); 
+            sessionStorage.setItem("preferredLocations", this.CvView['Screening']['0']['PresentLocation']); 
+            sessionStorage.setItem("currentLocation", this.CvView['Screening']['0']['PrefLocation']); 
+
           }
 
         } else {
@@ -252,7 +278,7 @@ export class CvuploadComponent implements OnInit {
 
     this.dataService.getReloadCVUploadFlag.subscribe(flag=>{
       if(flag == true){
-        this.ViewCV(this.id,this.cid);
+        this.ViewCV(this.id,this.cid,this.aid);
       }
     });
 
@@ -392,40 +418,135 @@ export class CvuploadComponent implements OnInit {
 
 
   fileChange(event) {
+
+    this.showCVLoader = true;
+
+    
     this.fileList = event.target.files;
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
+   
+
     reader.onload = () => {
-      //  console.log(reader.result);
-    };
-    console.log(this.fileList)
-      this.CvuploadServices.CVResumeParser(this.fileList,reader.result).subscribe(
+      this.baseCode = reader.result;
+      this.skillateresumeParsing(this.fileList,this.baseCode)
+       
+    }
+
+  
+}
+  
+skillateresumeParsing(fileList,basecode)
+  {
+
+      sessionStorage.removeItem("yearsOfExperience"); 
+      sessionStorage.removeItem("noticePeriod"); 
+      sessionStorage.removeItem("preferredLocations"); 
+      sessionStorage.removeItem("currentLocation"); 
+
+      
+
+      this.CvuploadServices.CVResumeParser(fileList,basecode).subscribe(
         response => {
-          if (response != "No data") {
-            let getMessage = response['Message'].split(":");
-            if (getMessage['0'] == "400" || getMessage['0'] == "500") {
-              this.message = getMessage['1'];
-              this.openSnackBar();
+         
+          this.CVUploadForm.controls['Candidate_FN'].reset();
+          this.CVUploadForm.controls['Candidate_LN'].reset();
+          this.CVUploadForm.controls['EMailId'].reset();
+          this.CVUploadForm.controls['MobileNo'].reset();
+          this.CVUploadForm.controls['DateofBirth'].reset();
+          this.CVUploadForm.controls['Gender'].reset();
+          this.CVUploadForm.controls['WorkAuthorization'].reset();
+          this.CVUploadForm.controls['Nationality'].reset();
+          this.CVUploadForm.controls['PassportNo'].reset();
+          this.CVUploadForm.controls['Pr_AddressL1'].reset();
+          this.CVUploadForm.controls['Pr_AddressL2'].reset();
+          this.CVUploadForm.controls['Pr_AddressL3'].reset();
+          this.CVUploadForm.controls['Pr_AddressL4'].reset();
+          this.CVUploadForm.controls['Perm_AddressL1'].reset();
+          this.CVUploadForm.controls['Perm_AddressL2'].reset();
+          this.CVUploadForm.controls['Perm_AddressL3'].reset();
+          this.CVUploadForm.controls['Perm_AddressL4'].reset();
+    
+         
+          this.EmpArray = [];
+          let empVal = { From_Date: "", Until_Date: "", Employer: "", Role: "" };
+          this.EmpArray.push(empVal);
+          this.EduArray = [];
+          let eduVal = { Passing_Year: "", Marks_Obtained: "", Degree_Awarded: "", Institution: "" }
+          this.EduArray.push(eduVal);
+          
+          this.skillateFields = response['resume'];
+          this.CVUploadForm.patchValue({
+            Candidate_FN: this.skillateFields['firstName'],
+            Candidate_LN: this.skillateFields['lastName'],
+            EMailId : this.skillateFields['emails'],
+            MobileNo: this.skillateFields['phones']
+          });
+  
+          if (this.skillateFields['educations'] && this.skillateFields['educations'].length > 0) {
+            while (this.EduArray.length < this.skillateFields['educations'].length) {
+              let eduVal = { Passing_Year: "", Marks_Obtained: "", Degree_Awarded: "", Institution: "" };
+              this.EduArray.push(eduVal);
             }
-            else {
-              this.message = getMessage['1'];
-              this.openSnackBar();
-              /*setTimeout(() => {
-                this.routerObj.navigate(['manage/', this.id, 'SO'], { skipLocationChange: true });
+            
+            for (let i = this.skillateFields['educations'].length - 1, j = 0; i >= 0 && j < this.skillateFields['educations'].length; i--, j++) {
+  
+              this.EduArray[i].Institution = this.skillateFields['educations'][j].educationOrg;
+              this.EduArray[i].Marks_Obtained = this.skillateFields['educations'][j].grade;             
+              
+              if (this.skillateFields['educations'][j].endYear == -1) {                 
+                this.EduArray[i].Passing_Year = '';
               }
-                , 3000);*/
+             else{
+              this.EduArray[i].Passing_Year = this.skillateFields['educations'][j].endYear;
+              }
+  
+              this.EduArray[i].Degree_Awarded = this.skillateFields['educations'][j].degree;
+  
             }
           }
-          else {
-            console.log('something is wrong with Service Execution');
+  
+          if (this.skillateFields['experiences'] && this.skillateFields['experiences'].length > 0) {
+            while (this.EmpArray.length < this.skillateFields['experiences'].length) {
+              let empVal = { From_Date: "", Until_Date: "", Employer: "", Role: "" };
+              this.EmpArray.push(empVal);
+            }
+            
+            for (let i = this.skillateFields['experiences'].length - 1, j = 0; i >= 0 && j < this.skillateFields['experiences'].length; i--, j++) {
+              
+              if (this.skillateFields['experiences'][j].startYear == -1) {
+                this.EmpArray[i].From_Date = '';
+              }
+              else{
+                this.EmpArray[i].From_Date = this.skillateFields['experiences'][j].startYear;
+              }
+              if (this.skillateFields['experiences'][j].endYear == -1) {
+                this.EmpArray[i].Until_Date = '';
+              }
+              else{
+                this.EmpArray[i].Until_Date = this.skillateFields['experiences'][j].endYear;
+              }
+  
+              this.EmpArray[i].Employer = this.skillateFields['experiences'][j].experienceOrg;
+              this.EmpArray[i].Role = this.skillateFields['experiences'][j].title;
+            }
+  
           }
+  
+          sessionStorage.setItem("yearsOfExperience", this.skillateFields['yearsOfExperience']); 
+          sessionStorage.setItem("noticePeriod", this.skillateFields['noticePeriod']); 
+          sessionStorage.setItem("preferredLocations", this.skillateFields['preferredLocations']); 
+          sessionStorage.setItem("currentLocation", this.skillateFields['currentLocation']); 
+  
+          this.showCVLoader = false;
         },
         error => console.log("Error Occurd!")
       );
-    }
   
-  
+    
+  }
   
     
     /*if (environment.isAffindaEnable == true) {
@@ -629,7 +750,7 @@ export class CvuploadComponent implements OnInit {
       var confirm = window.confirm('Do you want to update the cv details?');
       if (confirm == true) {
 
-        this.CvuploadServices.UpdateCV(this.id,this.cid, formObj,this.fileList,this.passEdu,this.passEmp).subscribe(
+        this.CvuploadServices.UpdateCV(this.id,this.cid,this.aid, formObj,this.fileList,this.passEdu,this.passEmp).subscribe(
           response => {
             if (response != "No data") {
               let getMessage = response['Message'].split(":");

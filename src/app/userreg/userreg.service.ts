@@ -72,7 +72,26 @@ export class UserregService {
     const url_user = AppComponent.urlPath + 'UserProfileEdit';
     const params = new URLSearchParams();
     var M_ID = sessionStorage.getItem("uniqueSessionId");
+    var usercategory =  sessionStorage.getItem("USERCATEGORY");
 
+    if(usercategory == 'E'){
+      if(FormObj['clientName'] != '' && FormObj['usercategory'] == 'C'){
+        this.RefId = FormObj['clientName'];
+      }
+      else if(FormObj['vendorName'] != '' && FormObj['usercategory'] == 'V'){
+        this.RefId = FormObj['vendorName'];
+      }
+      else{
+        this.RefId = sessionStorage.getItem("RefId");
+      }
+    }
+    else{
+      this.RefId = sessionStorage.getItem("RefId");
+      FormObj.usercategory = sessionStorage.getItem("USERCATEGORY");
+    }
+
+    params.set('usercategory', FormObj.usercategory);
+    params.set('ReffId', this.RefId);
     params.set('USERID', userId);
     params.set('USERROLES', FormObj.userRole);    
     params.set('USERDATARULE', FormObj.userRule);
@@ -97,15 +116,16 @@ export class UserregService {
       });
   } 
   
-  public viewUserSingleProfile(userId): Observable<any> {
+  public viewUserSingleProfile(userId,category): Observable<any> {
 
     const url = AppComponent.urlPath + 'userprofile';
     const params = new URLSearchParams();   
 
     var C_ID = sessionStorage.getItem("uniqueSessionId");
-    
-    //params.set('usercategory', 'V');
+
     params.set('userid', userId);
+    params.set('usercategory', category);
+    
     
     return this.http.post(url, params)
       .map(response => response.json()).map(data => {

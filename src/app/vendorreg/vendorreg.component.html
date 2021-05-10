@@ -224,7 +224,7 @@
         </td>      
         <td>            
             <mat-form-field>
-                <select matNativeControl maxlength="80" placeholder="Expertise" formControlName="VendorExpertise"> 
+                <select matNativeControl maxlength="80" placeholder="Industry Expertise" formControlName="VendorExpertise"> 
                     <option *ngFor="let item of LookupExpertise" value="{{item.Code}}" selected>{{item.Description}}</option>                       
                 </select> 
                 <!--<mat-error *ngFor="let validation of validation_messages.VendorExpertise">
