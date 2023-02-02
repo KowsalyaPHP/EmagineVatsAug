@@ -26,7 +26,7 @@
     "@syncfusion/ej2-angular-inputs": "^17.4.39",
     "@syncfusion/ej2-angular-popups": "^17.4.51",
     "@syncfusion/ej2-angular-richtexteditor": "^17.4.40",
-    "angular-datatables": "^8.0.0",
+    "angular-datatables": "^15.0.0",
     "angular-material": "^1.1.21",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",
-    "@angular/cli": "^8.3.21",
+    "@angular/cli": "^15.1.4",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
     "@types/datatables.net": "^1.10.18",
